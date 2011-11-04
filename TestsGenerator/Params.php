@@ -17,7 +17,7 @@ class Params
 	/**
 	 * Driver for work witch params file.
 	 *
-	 * @var IParams
+	 * @var IParamsDriver
 	 */
 	private $driver;
 
@@ -60,6 +60,17 @@ class Params
 	public function getTemplatePath()
 	{
 		return $this->driver->getTemplatePath();
+	}
+
+
+	/**
+	 * Return the type of templating
+	 *
+	 * @return string
+	 */
+	public function getTemplatingType()
+	{
+		return $this->driver->getTemplatingType();
 	}
 
 

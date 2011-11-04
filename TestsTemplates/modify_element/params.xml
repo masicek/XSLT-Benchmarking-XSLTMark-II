@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tests name="Modify element" template="test.tpl.xslt">
+<tests name="Modify element" template="test.tpl.xslt" templatingType="smarty">
 	<xml>
 		<file>oneElement.xml</file>
 		<file>twoElements.xml</file>
@@ -8,10 +8,10 @@
 		</generator>
 	</xml>
 	<test name="Rename">
-		<variable name="action">rename</variable>
-		<variable name="newName">newTestName</variable>
+		<setting name="action">rename</setting>
+		<setting name="newName">newTestName</setting>
 	</test>
 	<test name="Remove">
-		<variable name="action">remove</variable>
+		<setting name="action">remove</setting>
 	</test>
 </tests>

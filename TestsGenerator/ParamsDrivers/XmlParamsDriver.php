@@ -66,6 +66,17 @@ class XmlParamsDriver implements IParamsDriver
 
 
 	/**
+	 * Return the type of templating
+	 *
+	 * @return string
+	 */
+	public function getTemplatingType()
+	{
+		return $this->params->getElementsByTagName('tests')->item(0)->getAttribute('templatingType');
+	}
+
+
+	/**
 	 * Return the list of paths to xml files for testing
 	 *
 	 * @param string $tmpDir Temporary directory for generating xml files
@@ -114,7 +125,7 @@ class XmlParamsDriver implements IParamsDriver
 
 
 	/**
-	 * Return the list of tests with their variables
+	 * Return the list of tests with their settings
 	 *
 	 * @return array
 	 */
@@ -129,15 +140,15 @@ class XmlParamsDriver implements IParamsDriver
 			$testName = $testDefinition->getAttribute('name');
 			$tests[$testName] = array();
 
-			// all variable in test
-			$variablesDefinitions = $testDefinition->getElementsByTagName('variable');
-			$variableIdx = 0;
-			while ($variableDefinition = $variablesDefinitions->item($variableIdx))
+			// all settings in test
+			$settingsDefinitions = $testDefinition->getElementsByTagName('setting');
+			$settingIdx = 0;
+			while ($settingDefinition = $settingsDefinitions->item($settingIdx))
 			{
-				$name = $variableDefinition->getAttribute('name');
-				$value = $variableDefinition->nodeValue;
+				$name = $settingDefinition->getAttribute('name');
+				$value = $settingDefinition->nodeValue;
 				$tests[$testName][$name] = $value;
-				$variableIdx++;
+				$settingIdx++;
 			}
 			$testIdx++;
 		}

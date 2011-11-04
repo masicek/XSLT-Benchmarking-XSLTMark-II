@@ -29,6 +29,13 @@ class Test
 	private $templatePath;
 
 	/**
+	 * Type of templating for generating test from template
+	 *
+	 * @var string
+	 */
+	private $templatingType;
+
+	/**
 	 * The path of the test directory for generating
 	 *
 	 * @var string
@@ -36,11 +43,11 @@ class Test
 	private $path;
 
 	/**
-	 * The array of variables for setting the test teamplte
+	 * The array of settings for the test teamplte
 	 *
 	 * @var array
 	 */
-	private $variables = array();
+	private $settings = array();
 
 	/**
 	 * The list of paths of input xml file for testing
@@ -65,6 +72,8 @@ class Test
 	 * Set the path of the test template
 	 *
 	 * @param string $templatePath The path of the test template
+	 *
+	 * @return void
 	 */
 	public function setTemplatePath($templatePath)
 	{
@@ -84,9 +93,35 @@ class Test
 
 
 	/**
+	 * Set the type of templating
+	 *
+	 * @param string $templatingType The type of templating
+	 *
+	 * @return void
+	 */
+	public function setTemplatingType($templatingType)
+	{
+		$this->templatingType = $templatingType;
+	}
+
+
+	/**
+	 * Return the type of templating
+	 *
+	 * @return string
+	 */
+	public function getTemplatingType()
+	{
+		return $this->templatingType;
+	}
+
+
+	/**
 	 * Set the path to the test
 	 *
 	 * @param string $rootPath The root directory of all tests
+	 *
+	 * @return void
 	 */
 	public function setPath($rootPath)
 	{
@@ -125,36 +160,40 @@ class Test
 
 
 	/**
-	 * Add the variable of the test template for generating
+	 * Add the setting of the test template for generating
 	 *
-	 * @param string $name The name of the variable
-	 * @param string $value The value of the variable
+	 * @param string $name The name of the setting
+	 * @param string $value The value of the setting
+	 *
+	 * @return void
 	 */
-	public function addVariable($name, $value)
+	public function addSetting($name, $value)
 	{
-		$this->variables[$name] = $value;
+		$this->settings[$name] = $value;
 	}
 
 
 	/**
-	 * Add variables of the test for generating
+	 * Add settins of the test for generating
 	 *
-	 * @param array $variables ([name] => [value], ...)
+	 * @param array $settings ([name] => [value], ...)
+	 *
+	 * @return void
 	 */
-	public function addVariables(array $variables)
+	public function addSettings(array $settings)
 	{
-		$this->variables = array_merge($this->variables, $variables);
+		$this->settings = array_merge($this->settings, $settings);
 	}
 
 
 	/**
-	 * Return all variables of test for generating
+	 * Return all settings of test for generating
 	 *
 	 * @return array
 	 */
-	public function getVariables()
+	public function getSettings()
 	{
-		return $this->variables;
+		return $this->settings;
 	}
 
 
@@ -162,6 +201,8 @@ class Test
 	 * Add the path of xml file for testing
 	 *
 	 * @param string $filePath The path of file
+	 *
+	 * @return void
 	 */
 	public function addXmlFilePath($filePath)
 	{
@@ -173,6 +214,8 @@ class Test
 	 * Add paths of xml files for testing
 	 *
 	 * @param array $filePaths ([file], ...)
+	 *
+	 * @return void
 	 */
 	public function addXmlFilesPaths(array $filesPaths)
 	{

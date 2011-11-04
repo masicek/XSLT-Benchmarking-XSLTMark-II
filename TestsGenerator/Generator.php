@@ -14,7 +14,7 @@ require_once __DIR__ . '/Directory.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class Generator extends Templating
+class Generator
 {
 
 	/**
@@ -60,8 +60,6 @@ class Generator extends Templating
 		Directory::check($testsDir);
 		Directory::check($tmpDir);
 
-		parent::__construct($tmpDir);
-
 		$this->templatesDir = $templatesDir;
 		$this->testsDir = $testsDir;
 		$this->tmpDir = $tmpDir;
@@ -82,21 +80,27 @@ class Generator extends Templating
 	/**
 	 * Register defined tests for generating
 	 *
+	 * @param string $templateDir The subdirectory of the root directory of templates
+	 * containing template of generated tests
 	 * @param string $paramsFiles File defined tests
+	 *
+	 * @return void
 	 */
 	public function addTests($templateDir, $testParamsFile = 'params.xml')
 	{
 		$params = new Params(Directory::make($this->templatesDir, $templateDir), $testParamsFile);
 		$templateName = $params->getTemplateName();
 		$templatePath = $params->getTemplatePath();
+		$templatingType = $params->getTemplatingType();
 		$xmlFilesPaths = $params->getXmlFilesPaths($this->tmpDir);
-		foreach ($params->getTests() as $testName => $variables)
+		foreach ($params->getTests() as $testName => $settings)
 		{
 			$test = new Test($templateName . ' - ' . $testName);
 			$test->setTemplatePath($templatePath);
+			$test->setTemplatingType($templatingType);
 			$test->setPath($this->testsDir);
 			$test->addXmlFilesPaths($xmlFilesPaths);
-			$test->addVariables($variables);
+			$test->addSettings($settings);
 			$this->templates[] = $test;
 		}
 	}
@@ -104,6 +108,8 @@ class Generator extends Templating
 
 	/**
 	 * Generate all registered tests
+	 *
+	 * @return void
 	 */
 	public function generateAll()
 	{
@@ -118,6 +124,8 @@ class Generator extends Templating
 	 * Generate input test
 	 *
 	 * @param Test $test Generated test
+	 *
+	 * @return void
 	 */
 	private function generateTest(Test $test)
 	{
@@ -135,7 +143,9 @@ class Generator extends Templating
 			copy($source, $destination);
 		}
 
-		$this->generate($test->getTemplatePath(), $test->getVariables(), $test->getXsltPath());
+		// generate template
+		$templating = new Templating($test->getTemplatingType(), $this->tmpDir);
+		$templating->generate($test->getTemplatePath(), $test->getXsltPath(), $test->getSettings());
 	}
 
 

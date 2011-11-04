@@ -17,7 +17,8 @@ class Directory
 	 *
 	 * @param string $directory
 	 *
-	 * @throw Exception Directory not exists
+	 * @throws Exception Directory not exists
+	 * @return void
 	 */
 	static public function check($directory)
 	{

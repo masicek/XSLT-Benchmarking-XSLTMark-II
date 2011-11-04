@@ -34,6 +34,14 @@ interface IParamsDriver
 
 
 	/**
+	 * Return the type of templating
+	 *
+	 * @return string
+	 */
+	public function getTemplatingType();
+
+
+	/**
 	 * Return the list of paths to files for testing
 	 *
 	 * @param string $tmpDir Temporary directory for generating xml files

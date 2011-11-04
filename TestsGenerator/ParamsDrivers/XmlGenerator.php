@@ -22,6 +22,8 @@ class XmlGenerator
 	 * @param string $type Selected xml generator
 	 * @param string $outputPath The path of the output xml file
 	 * @param array $settings The list of settings specific by selected xml generator
+	 *
+	 * @return void
 	 */
 	public function generate($type, $outputPath, array $settings)
 	{

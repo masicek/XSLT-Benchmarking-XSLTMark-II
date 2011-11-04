@@ -3,29 +3,48 @@
 namespace XSLTBenchmark\TestsGenerator;
 
 
-require_once __DIR__ . '/../Libs/Smarty/Smarty.class.php';
+require_once __DIR__ . '/TemplatingDrivers/SimpleTemplatingDriver.php';
+require_once __DIR__ . '/TemplatingDrivers/SmartyTemplatingDriver.php';
 
 
 /**
- * Extend of Smarty for better work with them
+ * Class for generating XSLT file from template.
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class Templating extends \Smarty
+class Templating
 {
+
+	/**
+	 * Driver for generating XSLT file.
+	 *
+	 * @var ITemplatingDriver
+	 */
+	private $driver;
 
 
 	/**
-	 * Object configuration
+	 * Choose the templating driver
 	 *
+	 * @param string $type Select templating driver
 	 * @param string $tmpDir The path of the temporary directory
 	 */
-	public function __construct($tmpDir)
+	public function __construct($type, $tmpDir)
 	{
-		parent::__construct();
-		$this->debugging = FALSE;
-		$this->caching = FALSE;
-		$this->compile_dir = $tmpDir;
+		switch ($type)
+		{
+			case 'simple':
+				$this->driver = new SimpleTemplatingDriver();
+				break;
+
+			case 'smarty':
+				$this->driver = new SmartyTemplatingDriver($tmpDir);
+				break;
+
+			default:
+				throw new Exception('Not supported templating type.');
+				break;
+		}
 	}
 
 
@@ -33,26 +52,14 @@ class Templating extends \Smarty
 	 * Generate the template with specifis variable and save the content into the file
 	 *
 	 * @param string $templatePath Path of template for generating
-	 * @param array $variables Array of variables for template
 	 * @param string $outputPath Path output file
+	 * @param array $settings Array of settings specific for driver
+	 *
+	 * @return void
 	 */
-	public function generate($templatePath, $variables, $outputPath)
+	public function generate($templatePath, $outputPath, array $settings = array())
 	{
-		// set variables
-		foreach ($variables as $name => $value)
-		{
-			$this->assign($name, $value);
-		}
-
-		// generate xslt
-		ob_start();
-		$this->display($templatePath);
-		$content = ob_get_clean();
-
-		if (!file_put_contents($outputPath, $content))
-		{
-			throw new \Exception('Cannot create file "' . $outputFile . '".');
-		}
+		$this->driver->generate($templatePath, $outputPath, $settings);
 	}
 
 
