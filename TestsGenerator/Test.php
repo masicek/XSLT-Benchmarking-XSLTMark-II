@@ -50,11 +50,12 @@ class Test
 	private $settings = array();
 
 	/**
-	 * The list of paths of input xml file for testing
+	 * The list of paths of input files for testing
+	 * with the paths of their expected output files
 	 *
-	 * @var array
+	 * @var array ([input] => [expected output], ...)
 	 */
-	private $xmlFilesPaths = array();
+	private $filesPaths = array();
 
 
 	/**
@@ -160,20 +161,6 @@ class Test
 
 
 	/**
-	 * Add the setting of the test template for generating
-	 *
-	 * @param string $name The name of the setting
-	 * @param string $value The value of the setting
-	 *
-	 * @return void
-	 */
-	public function addSetting($name, $value)
-	{
-		$this->settings[$name] = $value;
-	}
-
-
-	/**
 	 * Add settins of the test for generating
 	 *
 	 * @param array $settings ([name] => [value], ...)
@@ -198,39 +185,28 @@ class Test
 
 
 	/**
-	 * Add the path of xml file for testing
+	 * Add paths of input files for testing
+	 * with the paths of their expected output files
 	 *
-	 * @param string $filePath The path of file
-	 *
-	 * @return void
-	 */
-	public function addXmlFilePath($filePath)
-	{
-		$this->xmlFilesPaths[] = $filePath;
-	}
-
-
-	/**
-	 * Add paths of xml files for testing
-	 *
-	 * @param array $filePaths ([file], ...)
+	 * @param array $filesPaths ([input] => [expected output], ...)
 	 *
 	 * @return void
 	 */
-	public function addXmlFilesPaths(array $filesPaths)
+	public function addFilesPaths(array $filesPaths)
 	{
-		$this->xmlFilesPaths = $this->xmlFilesPaths + $filesPaths;
+		$this->filesPaths = array_merge($this->filesPaths, $filesPaths);
 	}
 
 
 	/**
 	 * Return all paths of xml files for testing
+	 * with their expected output files paths
 	 *
-	 * @return array
+	 * @return array ([input] => [expectedOutput], ...)
 	 */
-	public function getXmlFilesPaths()
+	public function getFilesPaths()
 	{
-		return $this->xmlFilesPaths;
+		return $this->filesPaths;
 	}
 
 

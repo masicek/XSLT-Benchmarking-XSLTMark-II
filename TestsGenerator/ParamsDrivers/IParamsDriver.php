@@ -12,9 +12,13 @@ interface IParamsDriver
 {
 
 	/**
-	 * Object configuration
+	 * Choose the params driver by extension
+	 *
+	 * @param string $rootDirectoryPath The root directory of the tests collection
+	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
+	 * @param string $tmpDirectoryPath The path of the temporary directory
 	 */
-	public function __construct($rootDirectory, $paramsFile);
+	public function __construct($rootDirectoryPath, $paramsFilePath, $tmpDirectoryPath);
 
 
 	/**
@@ -42,21 +46,32 @@ interface IParamsDriver
 
 
 	/**
-	 * Return the list of paths to files for testing
-	 *
-	 * @param string $tmpDir Temporary directory for generating xml files
+	 * Return the list of tests names
 	 *
 	 * @return array
 	 */
-	public function getXmlFilesPaths($tmpDir);
+	public function getTestsNames();
 
 
 	/**
-	 * Return the list of tests with their variables
+	 * Return the list of input files paths
+	 * and paths of their expected output files for selected test
+	 *
+	 * @param string $testName The name of the selected test
 	 *
 	 * @return array
 	 */
-	public function getTests();
+	public function getTestFilesPaths($testName);
+
+
+	/**
+	 * Return the list of settings for the selected test
+	 *
+	 * @param string $testName The name of the selected test
+	 *
+	 * @return array
+	 */
+	public function getTestSettings($testName);
 
 
 }

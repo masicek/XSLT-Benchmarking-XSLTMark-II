@@ -33,7 +33,12 @@ class XmlGenerator
 		{
 			case 'testGenerator':
 				$script = Directory::make($rootDirectory, './TestGenerator/run.php');
-				$command = sprintf('php %s -o %s -c %d', $script, $outputPath, $settings['elementNumber']);
+				$command = sprintf('php %s -o %s -c %d -e %s',
+					$script,
+					$outputPath,
+					$settings['elementNumber'],
+					$settings['elementName']
+				);
 				break;
 
 			default:

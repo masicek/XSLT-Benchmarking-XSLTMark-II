@@ -8,8 +8,8 @@ Generating Tests
 This part is in the subdirectory [TestsGenerator/](./XSLT-Benchmarking/tree/master/TestsGenerator/).
 It contains the tests generator. The generator expects templates for generating tests.
 Each template have to contain one XSLT template file, one or more XML files
-(used as input files in tests) and one file contains settings (name of generated tests,
-template path etc.).
+(used as input or output files in tests) and one file contains settings
+(name of generated tests, template path etc.).
 
 Settings can be defined in different type of file, detected by extension.
 Supported type of file are:

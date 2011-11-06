@@ -80,27 +80,27 @@ class Generator
 	/**
 	 * Register defined tests for generating
 	 *
-	 * @param string $templateDir The subdirectory of the root directory of templates
-	 * containing template of generated tests
+	 * @param string $templateDir The subdirectory of the root directory
+	 * of templates containing template of generated tests
 	 * @param string $paramsFiles File defined tests
 	 *
 	 * @return void
 	 */
 	public function addTests($templateDir, $testParamsFile = 'params.xml')
 	{
-		$params = new Params(Directory::make($this->templatesDir, $templateDir), $testParamsFile);
+		$rootDirectory = Directory::make($this->templatesDir, $templateDir);
+		$params = new Params($rootDirectory, $testParamsFile, $this->tmpDir);
 		$templateName = $params->getTemplateName();
 		$templatePath = $params->getTemplatePath();
 		$templatingType = $params->getTemplatingType();
-		$xmlFilesPaths = $params->getXmlFilesPaths($this->tmpDir);
-		foreach ($params->getTests() as $testName => $settings)
+		foreach ($params->getTestsNames() as $testName)
 		{
 			$test = new Test($templateName . ' - ' . $testName);
 			$test->setTemplatePath($templatePath);
 			$test->setTemplatingType($templatingType);
 			$test->setPath($this->testsDir);
-			$test->addXmlFilesPaths($xmlFilesPaths);
-			$test->addSettings($settings);
+			$test->addFilesPaths($params->getTestFilesPaths($testName));
+			$test->addSettings($params->getTestSettings($testName));
 			$this->templates[] = $test;
 		}
 	}
@@ -137,10 +137,12 @@ class Generator
 
 		// copy xml files to tests directory
 		$destinationDirectory = $test->getPath();
-		foreach ($test->getXmlFilesPaths() as $source)
+		foreach ($test->getFilesPaths() as $inputPath => $outputPath)
 		{
-			$destination = Directory::make($destinationDirectory, basename($source));
-			copy($source, $destination);
+			$destinationInputPath = Directory::make($destinationDirectory, basename($inputPath));
+			$destinationOutputPath = Directory::make($destinationDirectory, basename($outputPath));
+			copy($inputPath, $destinationInputPath);
+			copy($outputPath, $destinationOutputPath);
 		}
 
 		// generate template
