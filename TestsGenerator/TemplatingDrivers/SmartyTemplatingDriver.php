@@ -19,14 +19,14 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 	/**
 	 * Object configuration
 	 *
-	 * @param string $tmpDir The path of the temporary directory
+	 * @param string $tmpDirectory The path of the temporary directory
 	 */
-	public function __construct($tmpDir)
+	public function __construct($tmpDirectory)
 	{
 		parent::__construct();
 		$this->debugging = FALSE;
 		$this->caching = FALSE;
-		$this->compile_dir = $tmpDir;
+		$this->compile_dir = $tmpDirectory;
 	}
 
 

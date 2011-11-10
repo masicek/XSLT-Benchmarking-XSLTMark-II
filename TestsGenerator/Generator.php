@@ -22,21 +22,21 @@ class Generator
 	 *
 	 * @var string
 	 */
-	private $templatesDir;
+	private $templatesDirectory;
 
 	/**
 	 * Root directory of generated tests
 	 *
 	 * @var string
 	 */
-	private $testsDir;
+	private $testsDirectory;
 
 	/**
 	 * Directory temporary files
 	 *
 	 * @var string
 	 */
-	private $tmpDir;
+	private $tmpDirectory;
 
 	/**
 	 * List of test templates for generating tests
@@ -48,21 +48,25 @@ class Generator
 
 	/**
 	 * Object configuration
+	 *
+	 * @param type $templatesDirectory The root directory of all tests templates
+	 * @param type $testsDirectory The root directory of all generated tests
+	 * @param type $tmpDirectory The temporary directory
 	 */
-	public function __construct($templatesDir, $testsDir, $tmpDir)
+	public function __construct($templatesDirectory, $testsDirectory, $tmpDirectory)
 	{
-		$dir = __DIR__ . '/../';
-		$templatesDir = Directory::make($dir, $templatesDir . '/');
-		$testsDir = Directory::make($dir, $testsDir . '/');
-		$tmpDir = Directory::make($dir, $tmpDir . '/');
+		$directory = __DIR__ . '/../';
+		$templatesDirectory = Directory::make($directory, $templatesDirectory . '/');
+		$testsDirectory = Directory::make($directory, $testsDirectory . '/');
+		$tmpDirectory = Directory::make($directory, $tmpDirectory . '/');
 
-		Directory::check($templatesDir);
-		Directory::check($testsDir);
-		Directory::check($tmpDir);
+		Directory::check($templatesDirectory);
+		Directory::check($testsDirectory);
+		Directory::check($tmpDirectory);
 
-		$this->templatesDir = $templatesDir;
-		$this->testsDir = $testsDir;
-		$this->tmpDir = $tmpDir;
+		$this->templatesDirectory = $templatesDirectory;
+		$this->testsDirectory = $testsDirectory;
+		$this->tmpDirectory = $tmpDirectory;
 	}
 
 
@@ -80,16 +84,16 @@ class Generator
 	/**
 	 * Register defined tests for generating
 	 *
-	 * @param string $templateDir The subdirectory of the root directory
+	 * @param string $templateDirectory The subdirectory of the root directory
 	 * of templates containing template of generated tests
 	 * @param string $paramsFiles File defined tests
 	 *
 	 * @return void
 	 */
-	public function addTests($templateDir, $testParamsFile = 'params.xml')
+	public function addTests($templateDirectory, $testParamsFile = 'params.xml')
 	{
-		$rootDirectory = Directory::make($this->templatesDir, $templateDir);
-		$params = new Params($rootDirectory, $testParamsFile, $this->tmpDir);
+		$rootDirectory = Directory::make($this->templatesDirectory, $templateDirectory);
+		$params = new Params($rootDirectory, $testParamsFile, $this->tmpDirectory);
 		$templateName = $params->getTemplateName();
 		$templatePath = $params->getTemplatePath();
 		$templatingType = $params->getTemplatingType();
@@ -98,7 +102,7 @@ class Generator
 			$test = new Test($templateName . ' - ' . $testName);
 			$test->setTemplatePath($templatePath);
 			$test->setTemplatingType($templatingType);
-			$test->setPath($this->testsDir);
+			$test->setPath($this->testsDirectory);
 			$test->addFilesPaths($params->getTestFilesPaths($testName));
 			$test->addSettings($params->getTestSettings($testName));
 			$this->templates[] = $test;
@@ -129,10 +133,10 @@ class Generator
 	 */
 	private function generateTest(Test $test)
 	{
-		$testDir = $test->getPath();
-		if (!is_dir($testDir))
+		$testDirectory = $test->getPath();
+		if (!is_dir($testDirectory))
 		{
-			mkdir($testDir);
+			mkdir($testDirectory);
 		}
 
 		// copy xml files to tests directory
@@ -146,7 +150,7 @@ class Generator
 		}
 
 		// generate template
-		$templating = new Templating($test->getTemplatingType(), $this->tmpDir);
+		$templating = new Templating($test->getTemplatingType(), $this->tmpDirectory);
 		$templating->generate($test->getTemplatePath(), $test->getXsltPath(), $test->getSettings());
 	}
 

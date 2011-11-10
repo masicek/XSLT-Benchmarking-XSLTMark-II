@@ -27,9 +27,9 @@ class Templating
 	 * Choose the templating driver
 	 *
 	 * @param string $type Select templating driver
-	 * @param string $tmpDir The path of the temporary directory
+	 * @param string $tmpDirectory The path of the temporary directory
 	 */
-	public function __construct($type, $tmpDir)
+	public function __construct($type, $tmpDirectory)
 	{
 		switch ($type)
 		{
@@ -38,7 +38,7 @@ class Templating
 				break;
 
 			case 'smarty':
-				$this->driver = new SmartyTemplatingDriver($tmpDir);
+				$this->driver = new SmartyTemplatingDriver($tmpDirectory);
 				break;
 
 			default:
