@@ -55,10 +55,11 @@ class Generator
 	 */
 	public function __construct($templatesDirectory, $testsDirectory, $tmpDirectory)
 	{
-		$directory = __DIR__ . '/../';
-		$templatesDirectory = Directory::make($directory, $templatesDirectory . '/');
-		$testsDirectory = Directory::make($directory, $testsDirectory . '/');
-		$tmpDirectory = Directory::make($directory, $tmpDirectory . '/');
+		$callerDirectoryPath = dirname($_SERVER['SCRIPT_FILENAME']);
+
+		$templatesDirectory = Directory::make($callerDirectoryPath, $templatesDirectory . '/');
+		$testsDirectory = Directory::make($callerDirectoryPath, $testsDirectory . '/');
+		$tmpDirectory = Directory::make($callerDirectoryPath, $tmpDirectory . '/');
 
 		Directory::check($templatesDirectory);
 		Directory::check($testsDirectory);
