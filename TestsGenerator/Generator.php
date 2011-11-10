@@ -140,7 +140,7 @@ class Generator
 			mkdir($testDirectory);
 		}
 
-		// copy xml files to tests directory
+		// copy files to tests directory
 		$destinationDirectory = $test->getPath();
 		foreach ($test->getFilesPaths() as $inputPath => $outputPath)
 		{
@@ -150,9 +150,52 @@ class Generator
 			copy($outputPath, $destinationOutputPath);
 		}
 
+		// generate file with couple of 'input' and 'expected output' files
+		$this->generateInputOutputCouples($test);
+
 		// generate template
 		$templating = new Templating($test->getTemplatingType(), $this->tmpDirectory);
 		$templating->generate($test->getTemplatePath(), $test->getXsltPath(), $test->getSettings());
+	}
+
+
+	/**
+	 * Create XML file containing couples of input end expected output files for testing
+	 *
+	 * @param Test $test Test for which XML file will be created
+	 *
+	 * @return void
+	 */
+	private function generateInputOutputCouples(Test $test)
+	{
+		// get base name of couples
+		$couplesPaths = $test->getFilesPaths();
+		$couplesKeys = array_map('basename', array_keys($couplesPaths));
+		$couplesValues = array_map('basename', $couplesPaths);
+		$couples = array_combine($couplesKeys, $couplesValues);
+
+		// make xml file
+		$couplesOutput = new \DOMDocument();
+		$couplesOutput->formatOutput = true;
+		$couplesElement = $couplesOutput->createElement('couples');
+		foreach ($couples as $input => $output)
+		{
+			$coupleElement = $couplesOutput->createElement('couple');
+
+			$inputAttribute = $couplesOutput->createAttribute('input');
+			$inputAttribute->value = $input;
+
+			$outputAttribute = $couplesOutput->createAttribute('output');
+			$outputAttribute->value = $output;
+
+			$coupleElement->appendChild($inputAttribute);
+			$coupleElement->appendChild($outputAttribute);
+			$couplesElement->appendChild($coupleElement);
+		}
+
+		$couplesOutput->appendChild($couplesElement);
+
+		$couplesOutput->save(Directory::make($test->getPath(), '/couples.xml'));
 	}
 
 
