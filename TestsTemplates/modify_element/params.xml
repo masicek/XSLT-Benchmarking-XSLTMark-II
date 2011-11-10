@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Modify element" template="test.tpl.xslt">
+	<xml>
+		<file>oneElement.xml</file>
+		<file>twoElements.xml</file>
+		<generator name="testGenerator" output="manyElements.xml">
+			<setting name="elementNumber">20</setting>
+		</generator>
+	</xml>
+	<test name="Rename">
+		<variable name="action">rename</variable>
+		<variable name="newName">newTestName</variable>
+	</test>
+	<test name="Remove">
+		<variable name="action">remove</variable>
+	</test>
+</tests>
