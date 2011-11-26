@@ -1,3 +1,4 @@
 /Tmp/*
+!/Tmp/README
 /Tests/*
 !/Tests/README
