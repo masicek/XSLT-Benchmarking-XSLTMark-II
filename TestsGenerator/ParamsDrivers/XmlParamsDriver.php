@@ -4,9 +4,10 @@ namespace XSLTBenchmark\TestsGenerator;
 
 
 require_once __DIR__ . '/IParamsDriver.php';
-require_once __DIR__ . '/../Directory.php';
 require_once __DIR__ . '/XmlGenerator.php';
+require_once __DIR__ . '/../../Libs/PhpDirectory/Directory.php';
 
+use PhpDirectory\Directory;
 
 /**
  * Xml prarams for the collection of tests

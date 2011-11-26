@@ -1,15 +1,26 @@
 <?php
 
-namespace XSLTBenchmark\TestsGenerator;
+/**
+ * PhpDirectory
+ * @link git@github.com:masicek/PhpDirectory.git
+ * @author Viktor Mašíček <viktor@masicek.net>
+ * @license "New" BSD License
+ */
 
+namespace PhpDirectory;
 
 /**
- * Collection static functions for work with directory
+ * Collection of static functions for better work with directory
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
 class Directory
 {
+
+	/**
+	 * Version of PhpDirectory
+	 */
+	const VERSION = '0.1.0';
 
 
 	/**
@@ -18,7 +29,7 @@ class Directory
 	 * @param string $directory
 	 *
 	 * @throws Exception Directory not exists
-	 * @return void
+	 * @return string Input directory
 	 */
 	static public function check($directory)
 	{
@@ -26,11 +37,12 @@ class Directory
 		{
 			throw new \Exception('Directory "' . $directory . '" not exists.');
 		}
+		return $directory;
 	}
 
 
 	/**
-	 * Make path from input paths. Last path can be path to file.
+	 * Make path from list of arguments.
 	 *
 	 * @return string
 	 */
@@ -49,6 +61,19 @@ class Directory
 		$path = str_replace($ds . $ds, $ds, $path);
 		$path = str_replace($ds . '.' . $ds, $ds, $path);
 
+		return $path;
+	}
+
+
+	/**
+	 * Make path from list of arguments and check if the directory exists
+	 *
+	 * @return string
+	 */
+	static public function makeAndCheck()
+	{
+		$path = call_user_func_array('self::make', func_get_args());
+		self::check($path);
 		return $path;
 	}
 

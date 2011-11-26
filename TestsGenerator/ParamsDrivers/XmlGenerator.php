@@ -3,8 +3,9 @@
 namespace XSLTBenchmark\TestsGenerator;
 
 
-require_once __DIR__ . '/../Directory.php';
+require_once __DIR__ . '/../../Libs/PhpDirectory/Directory.php';
 
+use PhpDirectory\Directory;
 
 /**
  * Object for generating xml files by different xml generator.
