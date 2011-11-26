@@ -1,11 +1,16 @@
 <?php
 
-namespace XSLTBenchmark\TestsGenerator;
+/**
+ * XSLT Benchmarking
+ * @link git@github.com:masicek/XSLT-Benchmarking.git
+ * @author Viktor Mašíček <viktor@masicek.net>
+ * @license "New" BSD License
+ */
 
+namespace XSLTBenchmark\TestsGenerator;
 
 require_once __DIR__ . '/TemplatingDrivers/SimpleTemplatingDriver.php';
 require_once __DIR__ . '/TemplatingDrivers/SmartyTemplatingDriver.php';
-
 
 /**
  * Class for generating XSLT file from template.

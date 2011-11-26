@@ -1,7 +1,13 @@
 <?php
 
-namespace XSLTBenchmark\TestsGenerator;
+/**
+ * XSLT Benchmarking
+ * @link git@github.com:masicek/XSLT-Benchmarking.git
+ * @author Viktor Mašíček <viktor@masicek.net>
+ * @license "New" BSD License
+ */
 
+namespace XSLTBenchmark\TestsGenerator;
 
 /**
  * Interface for object for collect params about templates.

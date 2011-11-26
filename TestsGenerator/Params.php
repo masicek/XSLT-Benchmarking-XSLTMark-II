@@ -1,10 +1,15 @@
 <?php
 
+/**
+ * XSLT Benchmarking
+ * @link git@github.com:masicek/XSLT-Benchmarking.git
+ * @author Viktor Mašíček <viktor@masicek.net>
+ * @license "New" BSD License
+ */
+
 namespace XSLTBenchmark\TestsGenerator;
 
-
 require_once __DIR__ . '/ParamsDrivers/XmlParamsDriver.php';
-
 
 /**
  * Object for work with params of xslt template
