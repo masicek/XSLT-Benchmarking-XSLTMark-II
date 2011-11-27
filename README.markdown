@@ -1,7 +1,15 @@
 XSLT Benchmarking
 =================
 
-This is project for generating, runnig a reporting XSLT Benchmarking.
+This is project for generating, runnig and reporting XSLT Benchmarking.
+It can be run from command-line by [index.php](./XSLT-Benchmarking/tree/master/index.php).
+
+Usage
+-----
+
+* <code>php index.php -h</code> - print help
+* <code>php index.php -g</code> - generate tests from templates (use default directory for templates, tests and temporary files)
+* <code>php index.php -g --templates-names "modify_element"</code> - generate test from temaplte "modify_element" in default directory
 
 Generating Tests
 ----------------
@@ -19,12 +27,9 @@ Supported type of file are:
 For generating can be used different type of templating:
 
 * __simple__ = only copy the content of the template without modification
-* __smarty__ = filter the template by Smarty PHP library
+* __smarty__ = filter the template by [Smarty PHP library](http://www.smarty.net/)
 
 Input XML files can be generated. For generating external XML generatr can be used.
 Supported generator name are:
 
 * __testGenerator__ = siple PHP test generator used for testing
-
-For a better understanding see the script [run.php](./XSLT-Benchmarking/tree/master/run.php).
-and the example test template [TestsTemplates/modify_element/](./XSLT-Benchmarking/tree/master/TestsTemplates/modify_element).

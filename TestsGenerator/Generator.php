@@ -62,12 +62,6 @@ class Generator
 	 */
 	public function __construct($templatesDirectory, $testsDirectory, $tmpDirectory)
 	{
-		$callerDirectoryPath = dirname($_SERVER['SCRIPT_FILENAME']);
-
-		$templatesDirectory = Directory::make($callerDirectoryPath, $templatesDirectory . '/');
-		$testsDirectory = Directory::make($callerDirectoryPath, $testsDirectory . '/');
-		$tmpDirectory = Directory::make($callerDirectoryPath, $tmpDirectory . '/');
-
 		Directory::check($templatesDirectory);
 		Directory::check($testsDirectory);
 		Directory::check($tmpDirectory);
@@ -100,7 +94,7 @@ class Generator
 	 */
 	public function addTests($templateDirectory, $testParamsFile = 'params.xml')
 	{
-		$rootDirectory = Directory::make($this->templatesDirectory, $templateDirectory);
+		$rootDirectory = Directory::makeAndCheck($this->templatesDirectory, $templateDirectory);
 		$params = new Params($rootDirectory, $testParamsFile, $this->tmpDirectory);
 		$templateName = $params->getTemplateName();
 		$templatePath = $params->getTemplatePath();
