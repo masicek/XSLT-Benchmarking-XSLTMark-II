@@ -176,27 +176,33 @@ class Generator
 		$couples = array_combine($couplesKeys, $couplesValues);
 
 		// make xml file
-		$couplesOutput = new \DOMDocument();
-		$couplesOutput->formatOutput = true;
-		$couplesElement = $couplesOutput->createElement('couples');
+		$testDef = new \DOMDocument();
+		$testDef->formatOutput = true;
+		$testElement = $testDef->createElement('test');
+
+		// name of template for testing
+		$templateAttribute = $testDef->createAttribute('template');
+		$templateAttribute->value = $test->getXsltName();
+		$testElement->appendChild($templateAttribute);
+
 		foreach ($couples as $input => $output)
 		{
-			$coupleElement = $couplesOutput->createElement('couple');
+			$coupleElement = $testDef->createElement('couple');
 
-			$inputAttribute = $couplesOutput->createAttribute('input');
+			$inputAttribute = $testDef->createAttribute('input');
 			$inputAttribute->value = $input;
 
-			$outputAttribute = $couplesOutput->createAttribute('output');
+			$outputAttribute = $testDef->createAttribute('output');
 			$outputAttribute->value = $output;
 
 			$coupleElement->appendChild($inputAttribute);
 			$coupleElement->appendChild($outputAttribute);
-			$couplesElement->appendChild($coupleElement);
+			$testElement->appendChild($coupleElement);
 		}
 
-		$couplesOutput->appendChild($couplesElement);
+		$testDef->appendChild($testElement);
 
-		$couplesOutput->save(Directory::make($test->getPath(), '/couples.xml'));
+		$testDef->save(Directory::make($test->getPath(), '/__params.xml'));
 	}
 
 

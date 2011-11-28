@@ -154,16 +154,27 @@ class Test
 
 
 	/**
+	 * Return the name of the test xslt file
+	 *
+	 * @return string
+	 */
+	public function getXsltName()
+	{
+		preg_match('/[^\/\\\\]*[.]tpl[.]xslt$/', $this->getTemplatePath(), $match);
+		$xsltName = preg_replace('/[.]tpl[.]xslt/', '.xslt', $match[0]);
+
+		return $xsltName;
+	}
+
+
+	/**
 	 * Return the path of the test xslt file
 	 *
 	 * @return string
 	 */
 	public function getXsltPath()
 	{
-		preg_match('/[^\/\\\\]*[.]tpl[.]xslt$/', $this->getTemplatePath(), $match);
-		$xsltName = preg_replace('/[.]tpl[.]xslt/', '.xslt', $match[0]);
-
-		return Directory::make($this->getPath(), $xsltName);
+		return Directory::make($this->getPath(), $this->getXsltName());
 	}
 
 
