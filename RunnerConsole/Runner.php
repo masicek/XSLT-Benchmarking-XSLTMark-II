@@ -73,7 +73,7 @@ class Runner
 			// generating tests
 			$optionsList[] = Option::make('Generate')->description('Generating tests from templates');
 			$optionsList[] = Option::series('Templates names')
-				->short()
+				->short('n')
 				->description('Names of tests templates for generating, separated by one of this characters ", ;|"');
 
 			// run tests
