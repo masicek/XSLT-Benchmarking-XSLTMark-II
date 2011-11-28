@@ -92,7 +92,7 @@ class Generator
 	 *
 	 * @return void
 	 */
-	public function addTests($templateDirectory, $testParamsFile = 'params.xml')
+	public function addTests($templateDirectory, $testParamsFile = '__params.xml')
 	{
 		$rootDirectory = Directory::makeAndCheck($this->templatesDirectory, $templateDirectory);
 		$params = new Params($rootDirectory, $testParamsFile, $this->tmpDirectory);
