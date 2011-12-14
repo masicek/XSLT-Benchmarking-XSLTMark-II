@@ -6,7 +6,7 @@
  * Main script for runnig XSLT Benchmarking.
  * Detect Web/Console and run relevant class.
  *
- * @link git@github.com:masicek/XSLT-Benchmarking.git
+ * @link https://github.com/masicek/XSLT-Benchmarking
  * @author Viktor Mašíček <viktor@masicek.net>
  * @license "New" BSD License
  */
