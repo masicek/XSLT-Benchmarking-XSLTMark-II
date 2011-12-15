@@ -9,7 +9,7 @@
 
 namespace XSLTBenchmark\TestsGenerator;
 
-require_once __DIR__ . '/../../Libs/Smarty/Smarty.class.php';
+require_once LIBS . '/Smarty/Smarty.class.php';
 require_once __DIR__ . '/ITemplatingDriver.php';
 
 /**

@@ -12,7 +12,7 @@ namespace XSLTBenchmark\TestsGenerator;
 require_once __DIR__ . '/Templating.php';
 require_once __DIR__ . '/Test.php';
 require_once __DIR__ . '/Params.php';
-require_once __DIR__ . '/../Libs/PhpDirectory/Directory.php';
+require_once LIBS . '/PhpDirectory/Directory.php';
 
 use PhpDirectory\Directory;
 

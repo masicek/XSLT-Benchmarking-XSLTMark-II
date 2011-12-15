@@ -9,9 +9,12 @@
 
 namespace XSLTBenchmark\RunnerConsole;
 
-require_once __DIR__ . '/../Libs/PhpOptions/PhpOptions.min.php';
-require_once __DIR__ . '/../Libs/PhpDirectory/Directory.php';
-require_once __DIR__ . '/../TestsGenerator/Generator.php';
+define ('LIBS', __DIR__ . '/../Libs');
+define ('ROOT', __DIR__ . '/..');
+
+require_once LIBS . '/PhpOptions/PhpOptions.min.php';
+require_once LIBS . '/PhpDirectory/Directory.php';
+require_once ROOT . '/TestsGenerator/Generator.php';
 
 use PhpOptions\Options;
 use PhpOptions\Option;

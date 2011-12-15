@@ -9,7 +9,7 @@
 
 namespace XSLTBenchmark\TestsGenerator;
 
-require_once __DIR__ . '/../../Libs/PhpDirectory/Directory.php';
+require_once LIBS . '/PhpDirectory/Directory.php';
 
 use PhpDirectory\Directory;
 
@@ -34,7 +34,7 @@ class XmlGenerator
 	 */
 	public function generate($type, $outputPath, array $settings)
 	{
-		$rootDirectory = Directory::make(__DIR__, '/../../Libs/XmlGenerators');
+		$rootDirectory = Directory::make(LIBS, 'XmlGenerators');
 
 		switch ($type)
 		{
