@@ -10,6 +10,7 @@
 namespace XSLTBenchmark\TestsGenerator;
 
 require_once LIBS . '/PhpPath/PhpPath.min.php';
+require_once ROOT . '/Exceptions.php';
 
 use PhpPath\P;
 
@@ -85,6 +86,18 @@ class Test
 	 */
 	public function setTemplatePath($templatePath)
 	{
+		$templatePath = P::m($templatePath);
+
+		$basename = basename($templatePath);
+		$parts = explode('.', $basename);
+		$partsCount = count($parts);
+		if ($partsCount < 3 ||
+			($parts[$partsCount - 2] != 'tpl') ||
+			($parts[$partsCount - 1] != 'xsl' && $parts[$partsCount - 1] != 'xslt'))
+		{
+			throw new \XSLTBenchmark\InvalidArgumentException('Template path does not have extension ".tpl.xsl" or ".tpl.xslt". It has value "' . $templatePath . '"');
+		}
+
 		$this->templatePath = $templatePath;
 	}
 
@@ -160,8 +173,11 @@ class Test
 	 */
 	public function getXsltName()
 	{
-		preg_match('/[^\/\\\\]*[.]tpl[.]xslt$/', $this->getTemplatePath(), $match);
-		$xsltName = preg_replace('/[.]tpl[.]xslt/', '.xslt', $match[0]);
+		// remove "tpl" part
+		$basename = basename($this->getTemplatePath());
+		$parts = explode('.', $basename);
+		unset($parts[count($parts) - 2]);
+		$xsltName = implode('.', $parts);
 
 		return $xsltName;
 	}
@@ -212,7 +228,10 @@ class Test
 	 */
 	public function addFilesPaths(array $filesPaths)
 	{
-		$this->filesPaths = array_merge($this->filesPaths, $filesPaths);
+		foreach ($filesPaths as $input => $output)
+		{
+			$this->filesPaths[P::m($input)] = P::m($output);
+		}
 	}
 
 

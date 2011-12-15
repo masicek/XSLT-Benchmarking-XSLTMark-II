@@ -7,23 +7,18 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark;
-
-use \Tests\XSLTBenchmark\TestCase;
+namespace XSLTBenchmark;
 
 /**
- * firstTest
+ * List of exceptions used in XSLT Benchmarking.
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class firstTest extends TestCase
+
+
+/**
+ * Exceptions made by wrong calling method.
+ */
+class InvalidArgumentException extends \Exception
 {
-
-
-	public function test()
-	{
-		$this->assertTrue(TRUE);
-	}
-
-
 }
