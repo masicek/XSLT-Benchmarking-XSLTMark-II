@@ -9,9 +9,9 @@
 
 namespace XSLTBenchmark\TestsGenerator;
 
-require_once LIBS . '/PhpDirectory/Directory.php';
+require_once LIBS . '/PhpPath/PhpPath.min.php';
 
-use PhpDirectory\Directory;
+use PhpPath\P;
 
 /**
  * Object for generating xml files by different xml generator.
@@ -34,12 +34,12 @@ class XmlGenerator
 	 */
 	public function generate($type, $outputPath, array $settings)
 	{
-		$rootDirectory = Directory::make(LIBS, 'XmlGenerators');
+		$rootDirectory = P::m(LIBS, 'XmlGenerators');
 
 		switch ($type)
 		{
 			case 'testGenerator':
-				$script = Directory::make($rootDirectory, './TestGenerator/run.php');
+				$script = P::m($rootDirectory, 'TestGenerator/run.php');
 				$command = sprintf('php %s -o %s -c %d -e %s',
 					$script,
 					$outputPath,

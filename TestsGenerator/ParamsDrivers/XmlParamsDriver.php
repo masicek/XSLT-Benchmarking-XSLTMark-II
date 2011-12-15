@@ -11,9 +11,9 @@ namespace XSLTBenchmark\TestsGenerator;
 
 require_once __DIR__ . '/IParamsDriver.php';
 require_once __DIR__ . '/XmlGenerator.php';
-require_once LIBS . '/PhpDirectory/Directory.php';
+require_once LIBS . '/PhpPath/PhpPath.min.php';
 
-use PhpDirectory\Directory;
+use PhpPath\P;
 
 /**
  * Xml prarams for the collection of tests
@@ -64,7 +64,7 @@ class XmlParamsDriver implements IParamsDriver
 		$this->rootDirectoryPath = $rootDirectoryPath;
 		$this->tmpDirectoryPath = $tmpDirectoryPath;
 		$this->params = new \DOMDocument();
-		$this->params->load(Directory::make($this->rootDirectoryPath, $paramsFilePath));
+		$this->params->load(P::m($this->rootDirectoryPath, $paramsFilePath));
 	}
 
 
@@ -87,7 +87,7 @@ class XmlParamsDriver implements IParamsDriver
 	public function getTemplatePath()
 	{
 		$templateFile = $this->params->getElementsByTagName('tests')->item(0)->getAttribute('template');
-		return Directory::make($this->rootDirectoryPath, $templateFile);
+		return P::m($this->rootDirectoryPath, $templateFile);
 	}
 
 
@@ -245,7 +245,7 @@ class XmlParamsDriver implements IParamsDriver
 		while ($fileDefinition = $filesDefinitions->getElementsByTagName('file')->item($fileIdx))
 		{
 			$id = $fileDefinition->getAttribute('id');
-			$files[$id] = Directory::make($this->rootDirectoryPath, $fileDefinition->nodeValue);
+			$files[$id] = P::m($this->rootDirectoryPath, $fileDefinition->nodeValue);
 			$fileIdx++;
 		}
 
@@ -266,7 +266,7 @@ class XmlParamsDriver implements IParamsDriver
 			}
 
 			$type = $generatorDefinition->getAttribute('generator');
-			$outputPath = Directory::make($this->tmpDirectoryPath, $generatorDefinition->getAttribute('output'));
+			$outputPath = P::m($this->tmpDirectoryPath, $generatorDefinition->getAttribute('output'));
 			$xmlGenerator->generate($type, $outputPath, $settings);
 
 			$id = $generatorDefinition->getAttribute('id');

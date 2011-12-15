@@ -9,9 +9,9 @@
 
 namespace XSLTBenchmark\TestsGenerator;
 
-require_once LIBS . '/PhpDirectory/Directory.php';
+require_once LIBS . '/PhpPath/PhpPath.min.php';
 
-use PhpDirectory\Directory;
+use PhpPath\P;
 
 /**
  * Container for information about one test.
@@ -138,7 +138,7 @@ class Test
 		$name = preg_replace('/[^a-z0-9-_]/', '-', $name);
 		$name = preg_replace('/-+/', '-', $name);
 
-		$this->path = Directory::make($rootPath, $name);
+		$this->path = P::m($rootPath, $name);
 	}
 
 
@@ -174,7 +174,7 @@ class Test
 	 */
 	public function getXsltPath()
 	{
-		return Directory::make($this->getPath(), $this->getXsltName());
+		return P::m($this->getPath(), $this->getXsltName());
 	}
 
 

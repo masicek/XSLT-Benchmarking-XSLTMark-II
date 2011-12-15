@@ -12,9 +12,9 @@ namespace XSLTBenchmark\TestsGenerator;
 require_once __DIR__ . '/Templating.php';
 require_once __DIR__ . '/Test.php';
 require_once __DIR__ . '/Params.php';
-require_once LIBS . '/PhpDirectory/Directory.php';
+require_once LIBS . '/PhpPath/PhpPath.min.php';
 
-use PhpDirectory\Directory;
+use PhpPath\P;
 
 /**
  * Tests generator for XSTL Benchamrking
@@ -62,9 +62,9 @@ class Generator
 	 */
 	public function __construct($templatesDirectory, $testsDirectory, $tmpDirectory)
 	{
-		Directory::check($templatesDirectory);
-		Directory::check($testsDirectory);
-		Directory::check($tmpDirectory);
+		P::cd($templatesDirectory);
+		P::cd($testsDirectory);
+		P::cd($tmpDirectory);
 
 		$this->templatesDirectory = $templatesDirectory;
 		$this->testsDirectory = $testsDirectory;
@@ -94,7 +94,7 @@ class Generator
 	 */
 	public function addTests($templateDirectory, $testParamsFile = '__params.xml')
 	{
-		$rootDirectory = Directory::makeAndCheck($this->templatesDirectory, $templateDirectory);
+		$rootDirectory = P::mcd($this->templatesDirectory, $templateDirectory);
 		$params = new Params($rootDirectory, $testParamsFile, $this->tmpDirectory);
 		$templateName = $params->getTemplateName();
 		$templatePath = $params->getTemplatePath();
@@ -145,8 +145,8 @@ class Generator
 		$destinationDirectory = $test->getPath();
 		foreach ($test->getFilesPaths() as $inputPath => $outputPath)
 		{
-			$destinationInputPath = Directory::make($destinationDirectory, basename($inputPath));
-			$destinationOutputPath = Directory::make($destinationDirectory, basename($outputPath));
+			$destinationInputPath = P::m($destinationDirectory, basename($inputPath));
+			$destinationOutputPath = P::m($destinationDirectory, basename($outputPath));
 			copy($inputPath, $destinationInputPath);
 			copy($outputPath, $destinationOutputPath);
 		}
@@ -202,7 +202,7 @@ class Generator
 
 		$testDef->appendChild($testElement);
 
-		$testDef->save(Directory::make($test->getPath(), '/__params.xml'));
+		$testDef->save(P::m($test->getPath(), '__params.xml'));
 	}
 
 

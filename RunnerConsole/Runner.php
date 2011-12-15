@@ -13,12 +13,10 @@ define ('LIBS', __DIR__ . '/../Libs');
 define ('ROOT', __DIR__ . '/..');
 
 require_once LIBS . '/PhpOptions/PhpOptions.min.php';
-require_once LIBS . '/PhpDirectory/Directory.php';
 require_once ROOT . '/TestsGenerator/Generator.php';
 
 use PhpOptions\Options;
 use PhpOptions\Option;
-use PhpDirectory\Directory;
 use XSLTBenchmark\TestsGenerator\Generator;
 
 /**
