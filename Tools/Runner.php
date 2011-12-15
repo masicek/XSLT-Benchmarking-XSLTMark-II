@@ -9,13 +9,15 @@
 
 namespace XSLTBenchmark\Tools;
 
-define('LIBS_TOOLS', __DIR__ . '/Libs');
 define('DATA_TOOLS', __DIR__ . '/Data');
 define('TESTS_TOOLS', __DIR__ . '/Tests');
 define('ROOT_TOOLS', __DIR__ . '/..');
 
-require_once LIBS_TOOLS . '/PhpOptions/PhpOptions.min.php';
-require_once LIBS_TOOLS . '/PhpPath/PhpPath.min.php';
+define ('LIBS', ROOT_TOOLS . '/Libs');
+define ('ROOT', ROOT_TOOLS);
+
+require_once LIBS . '/PhpOptions/PhpOptions.min.php';
+require_once LIBS . '/PhpPath/PhpPath.min.php';
 
 use PhpOptions\Option;
 use PhpOptions\Options;
@@ -131,7 +133,7 @@ class Runner
 		);
 		$options = implode(' ', $options);
 
-		$apigen = P::m(LIBS_TOOLS, '/Apigen/apigen.php');
+		$apigen = P::m(LIBS, '/Apigen/apigen.php');
 		passthru('php ' . $apigen . ' ' . $options);
 	}
 
@@ -177,7 +179,7 @@ class Runner
 			self::$testsIncludeDone = TRUE;
 
 			// set libs as include path
-			$libs = P::m(LIBS_TOOLS, '/PHPUnit');
+			$libs = P::m(LIBS, '/PHPUnit');
 			set_include_path(get_include_path() . PATH_SEPARATOR . $libs);
 			require_once P::m('PHPUnit/Autoload.php');
 

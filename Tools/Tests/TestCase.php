@@ -10,7 +10,7 @@
 namespace Tests\XSLTBenchmark;
 
 
-require_once LIBS_TOOLS . '/PhpOptions/PhpOptions.min.php';
+require_once LIBS . '/PhpOptions/PhpOptions.min.php';
 
 
 /**
