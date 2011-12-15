@@ -9,8 +9,7 @@
 
 namespace XSLTBenchmark\RunnerConsole;
 
-require_once __DIR__ . '/../Libs/PhpOptions/Options.php';
-require_once __DIR__ . '/../Libs/PhpOptions/Option.php';
+require_once __DIR__ . '/../Libs/PhpOptions/PhpOptions.min.php';
 require_once __DIR__ . '/../Libs/PhpDirectory/Directory.php';
 require_once __DIR__ . '/../TestsGenerator/Generator.php';
 
@@ -45,7 +44,7 @@ class Runner
 
 			// base settings of options
 			$help = Option::make('Help')->description('Show this help');
-			$options->add($help)->def('Help');
+			$options->add($help)->defaults('Help');
 
 			$description = "Console XSLT Benchmarking\n";
 			$description .= "author: Viktor Masicek <viktor@masicek.net>";
@@ -57,17 +56,17 @@ class Runner
 			$optionsList[] = Option::directory('Templates', $baseDir)
 				->short()
 				->value(FALSE)
-				->def('TestsTemplates')
+				->defaults('TestsTemplates')
 				->description('Directory containing templates for generating tests');
 			$optionsList[] = Option::directory('Tests', $baseDir)
 				->short()
 				->value(FALSE)
-				->def('Tests')
+				->defaults('Tests')
 				->description('Directory for generating tests');
 			$optionsList[] = Option::directory('Tmp', $baseDir)
 				->short()
 				->value(FALSE)
-				->def('Tmp')
+				->defaults('Tmp')
 				->description('Temporary directory');
 
 			// generating tests
