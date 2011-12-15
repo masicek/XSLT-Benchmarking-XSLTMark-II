@@ -27,12 +27,16 @@ use XSLTBenchmark\TestsGenerator\Generator;
 class Runner
 {
 
+
 	/**
 	 * Comman line options
 	 *
 	 * @var \PhpOptions\Options
 	 */
 	private $options;
+
+
+	// ---- RUNNING ----
 
 
 	/**
@@ -80,7 +84,10 @@ class Runner
 			$optionsList[] = Option::make('Run')->description('Run prepared tests');
 
 			// print reports
-			$optionsList[] = Option::make('Print reports')->short('p')->long('print')->description('Print reports of tests');
+			$optionsList[] = Option::make('Print reports')
+				->short('p')
+				->long('print')
+				->description('Print reports of tests');
 
 			$options->add($optionsList);
 
@@ -88,7 +95,7 @@ class Runner
 			$options->dependences('Generate', array('Templates', 'Templates names', 'Tests', 'Tmp'));
 			$options->group('Generating tests', array('Generate', 'Templates', 'Templates names', 'Tests', 'Tmp'));
 		} catch (\PhpOptions\UserBadCallException $e) {
-			echo $e->getMessage();
+			$this->printInfo('ERROR: ' . $e->getMessage());
 			die();
 		}
 
@@ -111,40 +118,90 @@ class Runner
 
 		if ($options->get('Help'))
 		{
-			echo $options->getHelp();
+			fwrite(STDOUT, $options->getHelp());
 			return;
 		}
 
 		// generating tests
 		if ($options->get('Generate'))
 		{
-			$templatesDir = $options->get('Templates');
-			$testsDir = $options->get('Tests');
-			$tmpDir = $options->get('Tmp');
-			$generator = new Generator($templatesDir, $testsDir, $tmpDir);
-
-			$templatesNames = $options->get('Templates names');
-			if ($templatesNames)
-			{
-				foreach ($templatesNames as $templateName)
-				{
-					$generator->addTests($templateName);
-				}
-				$generator->generateAll();
-				echo 'Tests were generated from ' . count($templatesNames) . ' temapltes into directory "' . $testsDir . '"' . "\n";
-			}
+			$this->generateTests();
 		}
 
 		// run tests
-		if ($this->options->get('Run'))
+		if ($options->get('Run'))
 		{
 			// TODO
 		}
 
 		// print reports
-		if ($this->options->get('Print reports'))
+		if ($options->get('Print reports'))
 		{
 			// TODO
+		}
+	}
+
+
+	// ---- PARTS OF RUNNING ----
+
+
+	private function generateTests()
+	{
+		$this->printHeader('Generate Tests');
+
+		$options = $this->options;
+		$templatesDir = $options->get('Templates');
+		$testsDir = $options->get('Tests');
+		$tmpDir = $options->get('Tmp');
+		$generator = new Generator($templatesDir, $testsDir, $tmpDir);
+
+		$templatesNames = $options->get('Templates names');
+
+		foreach ($templatesNames as $templateName)
+		{
+			$generator->addTests($templateName);
+		}
+		$generator->generateAll();
+		$this->printInfo('Tests were generated from ' . count($templatesNames) . ' temapltes into directory "' . $testsDir . '"');
+	}
+
+
+	// ---- HELPS FUNCTIONS ----
+
+
+	/**
+	 * Print header of one runnig script
+	 *
+	 * @param string $header Text of printed header
+	 * @param bool $turnOff Turn of printing
+	 *
+	 * @return void
+	 */
+	private function printHeader($header, $turnOff = TRUE)
+	{
+		if ($turnOff)
+		{
+			$header = $header . ':';
+			$line = str_repeat('-', strlen($header));
+			$this->printInfo($header);
+			$this->printInfo($line);
+		}
+	}
+
+
+	/**
+	 * Print information text
+	 *
+	 * @param string $info Text of printed info
+	 * @param bool $turnOff Turn of printing
+	 *
+	 * @return void
+	 */
+	private function printInfo($info = '', $turnOff = TRUE)
+	{
+		if ($turnOff)
+		{
+			fwrite(STDOUT, "$info\n");
 		}
 	}
 
