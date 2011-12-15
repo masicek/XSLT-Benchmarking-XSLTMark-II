@@ -9,7 +9,9 @@
 
 namespace XSLTBenchmark\TestsGenerator;
 
-require_once __DIR__ . '/ParamsDrivers/XmlParamsDriver.php';
+define ('DRIVERS_PARAMS', __DIR__ . '/ParamsDrivers');
+
+require_once DRIVERS_PARAMS . '/XmlParamsDriver.php';
 
 /**
  * Object for work with params of xslt template

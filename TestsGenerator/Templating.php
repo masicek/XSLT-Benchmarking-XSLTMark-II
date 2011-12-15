@@ -9,8 +9,10 @@
 
 namespace XSLTBenchmark\TestsGenerator;
 
-require_once __DIR__ . '/TemplatingDrivers/SimpleTemplatingDriver.php';
-require_once __DIR__ . '/TemplatingDrivers/SmartyTemplatingDriver.php';
+define ('DRIVERS_TEMPLATING', __DIR__ . '/TemplatingDrivers');
+
+require_once DRIVERS_TEMPLATING . '/SimpleTemplatingDriver.php';
+require_once DRIVERS_TEMPLATING . '/SmartyTemplatingDriver.php';
 
 /**
  * Class for generating XSLT file from template.
