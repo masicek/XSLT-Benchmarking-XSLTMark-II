@@ -53,7 +53,7 @@ class XmlGenerator
 				break;
 		}
 
-		exec($command);
+		passthru($command);
 	}
 
 
