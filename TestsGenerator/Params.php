@@ -32,17 +32,16 @@ class Params
 	/**
 	 * Choose the params driver by extension
 	 *
-	 * @param string $rootDirectoryPath The root directory of the tests collection
 	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
 	 * @param string $tmpDirectoryPath The path of the temporary directory
 	 */
-	public function __construct($rootDirectoryPath, $paramsFilePath, $tmpDirectoryPath)
+	public function __construct($paramsFilePath, $tmpDirectoryPath)
 	{
 		$extension = pathinfo($paramsFilePath, PATHINFO_EXTENSION);
 		switch ($extension)
 		{
 			case 'xml':
-				$this->driver = new XmlParamsDriver($rootDirectoryPath, $paramsFilePath, $tmpDirectoryPath);
+				$this->driver = new XmlParamsDriver($paramsFilePath, $tmpDirectoryPath);
 				break;
 
 			default:

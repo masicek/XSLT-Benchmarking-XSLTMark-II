@@ -94,8 +94,8 @@ class Generator
 	 */
 	public function addTests($templateDirectory, $testParamsFile = '__params.xml')
 	{
-		$rootDirectory = P::mcd($this->templatesDirectory, $templateDirectory);
-		$params = new Params($rootDirectory, $testParamsFile, $this->tmpDirectory);
+		$testParamsPath = P::mcf($this->templatesDirectory, $templateDirectory, $testParamsFile);
+		$params = new Params($testParamsPath, $this->tmpDirectory);
 		$templateName = $params->getTemplateName();
 		$templatePath = $params->getTemplatePath();
 		$templatingType = $params->getTemplatingType();

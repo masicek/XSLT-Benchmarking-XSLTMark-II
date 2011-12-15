@@ -31,11 +31,11 @@ class XmlParamsDriver implements IParamsDriver
 	private $params;
 
 	/**
-	 * The root directory of the tests collection
+	 * The path of the file with deffinition of generated tests
 	 *
 	 * @var string
 	 */
-	private $rootDirectoryPath;
+	private $paramsFilePath;
 
 	/**
 	 * The path of the temporary directory
@@ -55,16 +55,15 @@ class XmlParamsDriver implements IParamsDriver
 	/**
 	 * Choose the params driver by extension
 	 *
-	 * @param string $rootDirectoryPath The root directory of the tests collection
 	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
 	 * @param string $tmpDirectoryPath The path of the temporary directory
 	 */
-	public function __construct($rootDirectoryPath, $paramsFilePath, $tmpDirectoryPath)
+	public function __construct($paramsFilePath, $tmpDirectoryPath)
 	{
-		$this->rootDirectoryPath = $rootDirectoryPath;
+		$this->paramsFilePath = $paramsFilePath;
 		$this->tmpDirectoryPath = $tmpDirectoryPath;
 		$this->params = new \DOMDocument();
-		$this->params->load(P::m($this->rootDirectoryPath, $paramsFilePath));
+		$this->params->load($paramsFilePath);
 	}
 
 
@@ -87,7 +86,7 @@ class XmlParamsDriver implements IParamsDriver
 	public function getTemplatePath()
 	{
 		$templateFile = $this->params->getElementsByTagName('tests')->item(0)->getAttribute('template');
-		return P::m($this->rootDirectoryPath, $templateFile);
+		return P::m(dirname($this->paramsFilePath), $templateFile);
 	}
 
 
@@ -245,7 +244,7 @@ class XmlParamsDriver implements IParamsDriver
 		while ($fileDefinition = $filesDefinitions->getElementsByTagName('file')->item($fileIdx))
 		{
 			$id = $fileDefinition->getAttribute('id');
-			$files[$id] = P::m($this->rootDirectoryPath, $fileDefinition->nodeValue);
+			$files[$id] = P::m(dirname($this->paramsFilePath), $fileDefinition->nodeValue);
 			$fileIdx++;
 		}
 

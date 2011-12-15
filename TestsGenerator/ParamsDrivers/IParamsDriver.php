@@ -20,11 +20,10 @@ interface IParamsDriver
 	/**
 	 * Choose the params driver by extension
 	 *
-	 * @param string $rootDirectoryPath The root directory of the tests collection
 	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
 	 * @param string $tmpDirectoryPath The path of the temporary directory
 	 */
-	public function __construct($rootDirectoryPath, $paramsFilePath, $tmpDirectoryPath);
+	public function __construct($paramsFilePath, $tmpDirectoryPath);
 
 
 	/**
