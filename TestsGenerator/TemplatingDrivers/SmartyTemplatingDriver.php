@@ -10,7 +10,10 @@
 namespace XSLTBenchmark\TestsGenerator;
 
 require_once LIBS . '/Smarty/Smarty.class.php';
+require_once LIBS . '/PhpPath/PhpPath.min.php';
 require_once __DIR__ . '/ITemplatingDriver.php';
+
+use PhpPath\P;
 
 /**
  * Extend of Smarty for generating XSLT files from template.
@@ -31,7 +34,7 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 		parent::__construct();
 		$this->debugging = FALSE;
 		$this->caching = FALSE;
-		$this->compile_dir = $tmpDirectory;
+		$this->compile_dir = P::m($tmpDirectory, '/');
 	}
 
 
@@ -58,9 +61,9 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 		$content = ob_get_clean();
 
 		if (!file_put_contents($outputPath, $content))
-		{
+		{// @codeCoverageIgnoreStart
 			throw new \Exception('Cannot create file "' . $outputFile . '".');
-		}
+		}// @codeCoverageIgnoreEnd
 	}
 
 

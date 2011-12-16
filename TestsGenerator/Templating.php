@@ -13,6 +13,10 @@ define ('DRIVERS_TEMPLATING', __DIR__ . '/TemplatingDrivers');
 
 require_once DRIVERS_TEMPLATING . '/SimpleTemplatingDriver.php';
 require_once DRIVERS_TEMPLATING . '/SmartyTemplatingDriver.php';
+require_once LIBS . '/PhpPath/PhpPath.min.php';
+require_once ROOT . '/Exceptions.php';
+
+use \PhpPath\P;
 
 /**
  * Class for generating XSLT file from template.
@@ -38,6 +42,8 @@ class Templating
 	 */
 	public function __construct($type, $tmpDirectory)
 	{
+		P::cd($tmpDirectory);
+
 		switch ($type)
 		{
 			case 'simple':
@@ -49,7 +55,7 @@ class Templating
 				break;
 
 			default:
-				throw new Exception('Not supported templating type.');
+				throw new \XSLTBenchmark\InvalidArgumentException('Not supported templating type.');
 				break;
 		}
 	}
@@ -66,6 +72,7 @@ class Templating
 	 */
 	public function generate($templatePath, $outputPath, array $settings = array())
 	{
+		P::cf($templatePath);
 		$this->driver->generate($templatePath, $outputPath, $settings);
 	}
 

@@ -10,6 +10,7 @@
 namespace XSLTBenchmark\TestsGenerator;
 
 require_once __DIR__ . '/ITemplatingDriver.php';
+require_once ROOT . '/Exceptions.php';
 
 /**
  * Simple templating - only copy input file into output file.
@@ -32,9 +33,9 @@ class SimpleTemplatingDriver implements ITemplatingDriver
 	public function generate($templatePath, $outputPath, array $settings = array())
 	{
 		if (!copy($templatePath, $outputPath))
-		{
-			throw new \Exception('Cannot create file "' . $outputFile . '".');
-		}
+		{// @codeCoverageIgnoreStart
+			throw new \XSLTBenchmark\CopyFileException('Cannot create file "' . $outputFile . '".');
+		}// @codeCoverageIgnoreEnd
 	}
 
 
