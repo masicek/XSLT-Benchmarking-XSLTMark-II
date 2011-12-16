@@ -178,6 +178,8 @@ class Runner
 		{
 			self::$testsIncludeDone = TRUE;
 
+			$this->mockeryInclude();
+
 			// set libs as include path
 			$libs = P::m(LIBS, '/PHPUnit');
 			set_include_path(get_include_path() . PATH_SEPARATOR . $libs);
@@ -189,6 +191,21 @@ class Runner
 			// include my TestCase
 			require_once P::m(TESTS_TOOLS, '/TestCase.php');
 		}
+	}
+
+
+	/**
+	 * Include Mockery for tests
+	 *
+	 * @return void
+	 */
+	private function mockeryInclude()
+	{
+		$libs = P::m(LIBS, '/Mockery');
+		set_include_path(get_include_path() . PATH_SEPARATOR . $libs);
+		require_once P::m('Mockery/Loader.php');
+		$loader = new \Mockery\Loader;
+		$loader->register();
 	}
 
 
