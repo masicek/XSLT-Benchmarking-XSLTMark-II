@@ -10,7 +10,7 @@
 namespace XSLTBenchmark\TestsGenerator;
 
 require_once __DIR__ . '/IParamsDriver.php';
-require_once __DIR__ . '/XmlGenerator.php';
+require_once __DIR__ . '/../XmlGenerator.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 
 use PhpPath\P;
