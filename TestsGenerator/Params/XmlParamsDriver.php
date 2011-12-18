@@ -10,7 +10,7 @@
 namespace XSLTBenchmark\TestsGenerator;
 
 require_once __DIR__ . '/IParamsDriver.php';
-require_once __DIR__ . '/../XmlGenerator.php';
+require_once __DIR__ . '/../XmlGenerator/XmlGenerator.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 
 use PhpPath\P;
@@ -198,7 +198,6 @@ class XmlParamsDriver implements IParamsDriver
 		}
 
 		// generated xml files
-		$xmlGenerator = new XmlGenerator();
 		foreach ($this->tests->files->generated as $generated)
 		{
 			// read settings
@@ -211,7 +210,8 @@ class XmlParamsDriver implements IParamsDriver
 			// generate file into TMP
 			$type = (string)$generated['generator'];
 			$outputPath = P::m($this->tmpDirectoryPath, (string)$generated['output']);
-			$xmlGenerator->generate($type, $outputPath, $settings);
+			$xmlGenerator = new XmlGenerator($type);
+			$xmlGenerator->generate($outputPath, $settings);
 
 			// add generated file into list of files
 			$files[(string)$generated['id']] = $outputPath;

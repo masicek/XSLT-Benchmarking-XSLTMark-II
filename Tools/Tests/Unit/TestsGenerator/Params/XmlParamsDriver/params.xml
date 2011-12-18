@@ -6,13 +6,13 @@
 		<file id="oneNew">oneNewElement.xml</file>
 		<file id="two">twoElements.xml</file>
 		<file id="twoNew">twoNewElements.xml</file>
-		<generated id="many" generator="testGenerator" output="manyElements.xml">
-			<setting name="elementNumber">20</setting>
-			<setting name="elementName">testName</setting>
+		<generated id="many" generator="easy" output="manyElements.xml">
+			<setting name="testName">20</setting>
+			<setting name="testName2">3</setting>
 		</generated>
-		<generated id="manyNew" generator="testGenerator" output="manyNewElements.xml">
-			<setting name="elementNumber">20</setting>
-			<setting name="elementName">testNewName</setting>
+		<generated id="manyNew" generator="easy" output="manyNewElements.xml">
+			<setting name="testNewName">20</setting>
+			<setting name="testName2">3</setting>
 		</generated>
 	</files>
 	<test name="Rename">
