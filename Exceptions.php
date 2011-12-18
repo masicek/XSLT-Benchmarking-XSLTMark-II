@@ -30,3 +30,11 @@ class InvalidArgumentException extends \Exception
 class CopyFileException extends \Exception
 {
 }
+
+
+/**
+ * Exception generated if unknown method is called in __call
+ */
+class UnknownMethodException extends \Exception
+{
+}

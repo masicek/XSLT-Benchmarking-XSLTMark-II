@@ -121,6 +121,8 @@ class Runner
 		$sources = array();
 		$sources[] = P::m(ROOT_TOOLS, 'RunnerConsole');
 		$sources[] = P::m(ROOT_TOOLS, 'TestsGenerator');
+		$sources[] = P::m(ROOT_TOOLS, 'DriversContainer.php');
+		$sources[] = P::m(ROOT_TOOLS, 'Exceptions.php');
 		$sources = '--source ' . implode(' --source ', $sources);
 
 		$destination = P::m(DATA_TOOLS, '/Docs');
