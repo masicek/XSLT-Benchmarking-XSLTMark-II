@@ -11,7 +11,7 @@ namespace XSLTBenchmark\TestsGenerator;
 
 require_once __DIR__ . '/Templating.php';
 require_once __DIR__ . '/Test.php';
-require_once __DIR__ . '/Params.php';
+require_once __DIR__ . '/Params/Params.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 
 use PhpPath\P;

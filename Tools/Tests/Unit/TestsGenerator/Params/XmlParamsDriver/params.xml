@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Modify element" template="test.tpl.xslt" templatingType="smarty">
+	<files>
+		<file id="zero">zeroElement.xml</file>
+		<file id="one">oneElement.xml</file>
+		<file id="oneNew">oneNewElement.xml</file>
+		<file id="two">twoElements.xml</file>
+		<file id="twoNew">twoNewElements.xml</file>
+		<generated id="many" generator="testGenerator" output="manyElements.xml">
+			<setting name="elementNumber">20</setting>
+			<setting name="elementName">testName</setting>
+		</generated>
+		<generated id="manyNew" generator="testGenerator" output="manyNewElements.xml">
+			<setting name="elementNumber">20</setting>
+			<setting name="elementName">testNewName</setting>
+		</generated>
+	</files>
+	<test name="Rename">
+		<file input="one" output="oneNew" />
+		<file input="two" output="twoNew" />
+		<file input="many" output="manyNew" />
+		<setting name="action">rename</setting>
+		<setting name="newName">newTestName</setting>
+	</test>
+	<test name="Remove">
+		<file input="one" output="zero" />
+		<file input="two" output="zero" />
+		<file input="many" output="zero" />
+		<setting name="action">remove</setting>
+	</test>
+</tests>

@@ -10,12 +10,13 @@
 namespace XSLTBenchmark\TestsGenerator;
 
 /**
- * Interface for object for collect params about templates.
+ * Abstract parent for object for collect params about templates.
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
 interface IParamsDriver
 {
+
 
 	/**
 	 * Choose the params driver by extension
@@ -24,7 +25,6 @@ interface IParamsDriver
 	 * @param string $tmpDirectoryPath The path of the temporary directory
 	 */
 	public function __construct($paramsFilePath, $tmpDirectoryPath);
-
 
 	/**
 	 * Return the name of tests collection
