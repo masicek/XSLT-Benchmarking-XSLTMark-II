@@ -26,9 +26,9 @@ class XmlParamsDriver implements IParamsDriver
 	/**
 	 * Params loaded from xml file
 	 *
-	 * @var \DOMDocument
+	 * @var \SimpleXMLElement
 	 */
-	private $params;
+	private $tests;
 
 	/**
 	 * The path of the file with deffinition of generated tests
@@ -62,8 +62,8 @@ class XmlParamsDriver implements IParamsDriver
 	{
 		$this->paramsFilePath = $paramsFilePath;
 		$this->tmpDirectoryPath = $tmpDirectoryPath;
-		$this->params = new \DOMDocument();
-		$this->params->load($paramsFilePath);
+		$this->tests = new \SimpleXMLElement($paramsFilePath, 0, TRUE);
+		// TODO add control of XML by DTD or XSD
 	}
 
 
@@ -74,7 +74,7 @@ class XmlParamsDriver implements IParamsDriver
 	 */
 	public function getTemplateName()
 	{
-		return $this->params->getElementsByTagName('tests')->item(0)->getAttribute('name');
+		return (string)$this->tests['name'];
 	}
 
 
@@ -85,8 +85,7 @@ class XmlParamsDriver implements IParamsDriver
 	 */
 	public function getTemplatePath()
 	{
-		$templateFile = $this->params->getElementsByTagName('tests')->item(0)->getAttribute('template');
-		return P::m(dirname($this->paramsFilePath), $templateFile);
+		return P::m(dirname($this->paramsFilePath), (string)$this->tests['template']);
 	}
 
 
@@ -97,7 +96,7 @@ class XmlParamsDriver implements IParamsDriver
 	 */
 	public function getTemplatingType()
 	{
-		return $this->params->getElementsByTagName('tests')->item(0)->getAttribute('templatingType');
+		return (string)$this->tests['templatingType'];
 	}
 
 
@@ -110,13 +109,9 @@ class XmlParamsDriver implements IParamsDriver
 	{
 		$names = array();
 
-		$testsDefinitions = $this->params->getElementsByTagName('test');
-		$testIdx = 0;
-		while ($testDefinition = $testsDefinitions->item($testIdx))
+		foreach ($this->tests->test as $test)
 		{
-			$testName = $testDefinition->getAttribute('name');
-			$names[] = $testName;
-			$testIdx++;
+			$names[] = (string)$test['name'];
 		}
 
 		return $names;
@@ -134,35 +129,14 @@ class XmlParamsDriver implements IParamsDriver
 	public function getTestFilesPaths($testName)
 	{
 		$files = array();
+		$test = $this->tests->xpath('//test[@name="' . $testName . '"]');
+		$allFiles = $this->getAllFilesPaths();
 
-		// TODO optimization - get selected test by xpath
-		$testsDefinitions = $this->params->getElementsByTagName('test');
-		$testIdx = 0;
-		while ($testDefinition = $testsDefinitions->item($testIdx))
+		foreach ($test[0]->file as $file)
 		{
-			$testIdx++;
-
-			$selectedTestName = $testDefinition->getAttribute('name');
-			if ($selectedTestName != $testName)
-			{
-				continue;
-			}
-
-			// all data in test
-			$allFiles = $this->getAllFilesPaths();
-			$filesDefinitions = $testDefinition->getElementsByTagName('file');
-			$fileIdx = 0;
-			while ($fileDefinition = $filesDefinitions->item($fileIdx))
-			{
-				$inputId = $fileDefinition->getAttribute('input');
-				$outputId = $fileDefinition->getAttribute('output');
-				$input = $allFiles[$inputId];
-				$output = $allFiles[$outputId];
-				$files[$input] = $output;
-				$fileIdx++;
-			}
-
-			break;
+			$input = $allFiles[(string)$file['input']];
+			$output = $allFiles[(string)$file['output']];
+			$files[$input] = $output;
 		}
 
 		return $files;
@@ -180,31 +154,10 @@ class XmlParamsDriver implements IParamsDriver
 	{
 		$settings = array();
 
-		// TODO optimization - get selected test by xpath
-		$testsDefinitions = $this->params->getElementsByTagName('test');
-		$testIdx = 0;
-		while ($testDefinition = $testsDefinitions->item($testIdx))
+		$test = $this->tests->xpath('//test[@name="' . $testName . '"]');
+		foreach ($test[0]->setting as $setting)
 		{
-			$testIdx++;
-
-			$selectedTestName = $testDefinition->getAttribute('name');
-			if ($selectedTestName != $testName)
-			{
-				continue;
-			}
-
-			// all settings in test
-			$settingsDefinitions = $testDefinition->getElementsByTagName('setting');
-			$settingIdx = 0;
-			while ($settingDefinition = $settingsDefinitions->item($settingIdx))
-			{
-				$name = $settingDefinition->getAttribute('name');
-				$value = $settingDefinition->nodeValue;
-				$settings[$name] = $value;
-				$settingIdx++;
-			}
-
-			break;
+			$settings[(string)$setting['name']] = (string)$setting;
 		}
 
 		return $settings;
@@ -237,40 +190,31 @@ class XmlParamsDriver implements IParamsDriver
 	private function createAllFilesPaths()
 	{
 		$files = array();
-		$filesDefinitions = $this->params->getElementsByTagName('files')->item(0);
 
 		// existed xml files
-		$fileIdx = 0;
-		while ($fileDefinition = $filesDefinitions->getElementsByTagName('file')->item($fileIdx))
+		foreach ($this->tests->files->file as $file)
 		{
-			$id = $fileDefinition->getAttribute('id');
-			$files[$id] = P::m(dirname($this->paramsFilePath), $fileDefinition->nodeValue);
-			$fileIdx++;
+			$files[(string)$file['id']] = P::m(dirname($this->paramsFilePath), (string)$file);
 		}
 
 		// generated xml files
 		$xmlGenerator = new XmlGenerator();
-		$fileIdx = 0;
-		while ($generatorDefinition = $filesDefinitions->getElementsByTagName('generated')->item($fileIdx))
+		foreach ($this->tests->files->generated as $generated)
 		{
 			// read settings
 			$settings = array();
-			$settingIdx = 0;
-			while ($settingDefinition = $generatorDefinition->getElementsByTagName('setting')->item($settingIdx))
+			foreach ($generated->setting as $setting)
 			{
-				$name = $settingDefinition->getAttribute('name');
-				$value = $settingDefinition->nodeValue;
-				$settings[$name] = $value;
-				$settingIdx++;
+				$settings[(string)$setting['name']] = (string)$setting;
 			}
 
-			$type = $generatorDefinition->getAttribute('generator');
-			$outputPath = P::m($this->tmpDirectoryPath, $generatorDefinition->getAttribute('output'));
+			// generate file into TMP
+			$type = (string)$generated['generator'];
+			$outputPath = P::m($this->tmpDirectoryPath, (string)$generated['output']);
 			$xmlGenerator->generate($type, $outputPath, $settings);
 
-			$id = $generatorDefinition->getAttribute('id');
-			$files[$id] = $outputPath;
-			$fileIdx++;
+			// add generated file into list of files
+			$files[(string)$generated['id']] = $outputPath;
 		}
 
 		return $files;
