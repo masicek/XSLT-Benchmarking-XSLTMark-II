@@ -11,9 +11,9 @@ namespace XSLTBenchmarking\Tools;
 
 define('DATA_TOOLS', __DIR__ . '/Data');
 define('TESTS_TOOLS', __DIR__ . '/Tests');
-define('ROOT_TOOLS', __DIR__ . '/..');
+define('ROOT_TOOLS', __DIR__ . '/../XSLTBenchmarking');
 
-define ('LIBS', ROOT_TOOLS . '/Libs');
+define ('LIBS', __DIR__ . '/../Libs');
 define ('ROOT', ROOT_TOOLS);
 
 require_once LIBS . '/PhpOptions/PhpOptions.min.php';
