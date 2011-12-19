@@ -12,7 +12,8 @@ namespace Tests\XSLTBenchmark\TestsGenerator\Templating;
 use \Tests\XSLTBenchmark\TestCase;
 use \XSLTBenchmark\TestsGenerator\Templating;
 
-require_once ROOT_TOOLS . '/TestsGenerator/Templating.php';
+require_once ROOT_TOOLS . '/TestsGenerator/Templating/Templating.php';
+require_once ROOT_TOOLS . '/TestsGenerator/Templating/ITemplatingDriver.php';
 
 /**
  * GenerateTest

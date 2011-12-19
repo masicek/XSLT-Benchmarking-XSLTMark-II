@@ -12,22 +12,23 @@ namespace Tests\XSLTBenchmark\TestsGenerator\SimpleTemplatingDriver;
 use \Tests\XSLTBenchmark\TestCase;
 use \XSLTBenchmark\TestsGenerator\SimpleTemplatingDriver;
 
-require_once ROOT_TOOLS . '/TestsGenerator/TemplatingDrivers/SimpleTemplatingDriver.php';
+require_once ROOT_TOOLS . '/TestsGenerator/Templating/SimpleTemplatingDriver.php';
 
 /**
  * SimpleTemplatingDriverTest
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
+ * @covers XSLTBenchmark\TestsGenerator\SimpleTemplatingDriver::__construct
  * @covers XSLTBenchmark\TestsGenerator\SimpleTemplatingDriver::generate
  */
-class SimpleTemplatingDriverTest extends TestCase
+class GenerateTest extends TestCase
 {
 
 
-	public function testOk()
+	public function test()
 	{
-		$driver = new SimpleTemplatingDriver();
+		$driver = new SimpleTemplatingDriver(NULL);
 		$templatePath = __FILE__;
 		$copyPath = $this->setDirSep(__DIR__ . '/tmpCopy.php');
 

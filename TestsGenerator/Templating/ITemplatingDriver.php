@@ -19,6 +19,14 @@ interface ITemplatingDriver
 
 
 	/**
+	 * Object configuration
+	 *
+	 * @param string $tmpDirectory The path of the temporary directory
+	 */
+	public function __construct($tmpDirectory);
+
+
+	/**
 	 * Generate the template with specifis variable and save the content into the file
 	 *
 	 * @param string $templatePath Path of template for generating

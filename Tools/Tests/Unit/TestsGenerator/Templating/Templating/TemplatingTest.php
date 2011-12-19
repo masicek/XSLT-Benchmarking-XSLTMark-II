@@ -12,14 +12,12 @@ namespace Tests\XSLTBenchmark\TestsGenerator\Templating;
 use \Tests\XSLTBenchmark\TestCase;
 use \XSLTBenchmark\TestsGenerator\Templating;
 
-require_once ROOT_TOOLS . '/TestsGenerator/Templating.php';
+require_once ROOT_TOOLS . '/TestsGenerator/Templating/Templating.php';
 
 /**
  * TemplatingTest
  *
  * @author Viktor Mašíček <viktor@masicek.net>
- *
- * @covers XSLTBenchmark\TestsGenerator\Templating::__construct
  */
 class TemplatingTest extends TestCase
 {
@@ -40,20 +38,6 @@ class TemplatingTest extends TestCase
 		$driver = $this->getPropertyValue($templating, 'driver');
 		$this->assertInstanceOf('\XSLTBenchmark\TestsGenerator\ITemplatingDriver', $driver);
 		$this->assertInstanceOf('\XSLTBenchmark\TestsGenerator\SmartyTemplatingDriver', $driver);
-	}
-
-
-	public function testUnknown()
-	{
-		$this->setExpectedException('\XSLTBenchmark\InvalidArgumentException');
-		$templating = new Templating('foo', __DIR__);
-	}
-
-
-	public function testBadTmp()
-	{
-		$this->setExpectedException('\PhpPath\NotExistsPathException');
-		$templating = new Templating('simple', './fooBar');
 	}
 
 

@@ -12,7 +12,7 @@ namespace Tests\XSLTBenchmark\TestsGenerator\SmartyTemplatingDriver;
 use \Tests\XSLTBenchmark\TestCase;
 use \XSLTBenchmark\TestsGenerator\SmartyTemplatingDriver;
 
-require_once ROOT_TOOLS . '/TestsGenerator/TemplatingDrivers/SmartyTemplatingDriver.php';
+require_once ROOT_TOOLS . '/TestsGenerator/Templating/SmartyTemplatingDriver.php';
 
 /**
  * SmartyTemplatingDriverTest
@@ -22,11 +22,11 @@ require_once ROOT_TOOLS . '/TestsGenerator/TemplatingDrivers/SmartyTemplatingDri
  * @covers XSLTBenchmark\TestsGenerator\SmartyTemplatingDriver::__construct
  * @covers XSLTBenchmark\TestsGenerator\SmartyTemplatingDriver::generate
  */
-class SmartyTemplatingDriverTest extends TestCase
+class GenerateTest extends TestCase
 {
 
 
-	public function testOk()
+	public function test()
 	{
 		$tmpDirPath = __DIR__;
 		$driver = new SmartyTemplatingDriver($tmpDirPath);

@@ -22,6 +22,16 @@ class SimpleTemplatingDriver implements ITemplatingDriver
 
 
 	/**
+	 * Object configuration
+	 *
+	 * @param string $tmpDirectory The path of the temporary directory
+	 */
+	public function __construct($tmpDirectory)
+	{
+	}
+
+
+	/**
 	 * Copy input file into output file
 	 *
 	 * @param string $templatePath Path of file to copy
