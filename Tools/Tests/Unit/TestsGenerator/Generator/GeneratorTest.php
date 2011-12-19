@@ -7,19 +7,19 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\TestsGenerator\Generator;
+namespace Tests\XSLTBenchmarking\TestsGenerator\Generator;
 
 require_once ROOT . '/TestsGenerator/Generator.php';
 
-use \Tests\XSLTBenchmark\TestCase;
-use \XSLTBenchmark\TestsGenerator\Generator;
+use \Tests\XSLTBenchmarking\TestCase;
+use \XSLTBenchmarking\TestsGenerator\Generator;
 
 /**
  * GeneratorTest
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmark\TestsGenerator\Generator::__construct
+ * @covers \XSLTBenchmarking\TestsGenerator\Generator::__construct
  */
 class GeneratorTest extends TestCase
 {

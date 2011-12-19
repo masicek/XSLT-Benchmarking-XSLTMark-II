@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark;
+namespace Tests\XSLTBenchmarking;
 
 
 require_once LIBS . '/PhpOptions/PhpOptions.min.php';

@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\DriversContainer;
+namespace Tests\XSLTBenchmarking\DriversContainer;
 
 require_once ROOT . '/DriversContainer.php';
 
@@ -16,6 +16,6 @@ require_once ROOT . '/DriversContainer.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class Foo extends \XSLTBenchmark\DriversContainer
+class Foo extends \XSLTBenchmarking\DriversContainer
 {
 }

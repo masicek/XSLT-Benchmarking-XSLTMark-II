@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\DriversContainer;
+namespace Tests\XSLTBenchmarking\DriversContainer;
 
 require_once __DIR__ . '/IFooDriver.php';
 

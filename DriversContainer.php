@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace XSLTBenchmark;
+namespace XSLTBenchmarking;
 
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 require_once ROOT . '/Exceptions.php';
@@ -69,14 +69,14 @@ abstract class DriversContainer
 	 * @param string $name Name of method
 	 * @param array $arguments List of arguments for calling method
 	 *
-	 * @throws \XSLTBenchmark\UnknownMethodException Unknown method on set driver
+	 * @throws \XSLTBenchmarking\UnknownMethodException Unknown method on set driver
 	 * @return mix
 	 */
 	public function __call($name, $arguments)
 	{
 		if (!in_array($name, get_class_methods($this->driver)))
 		{
-			throw new \XSLTBenchmark\UnknownMethodException('On driver "' . get_class($this->driver) . '" is not method "' . $name . '"');
+			throw new \XSLTBenchmarking\UnknownMethodException('On driver "' . get_class($this->driver) . '" is not method "' . $name . '"');
 		}
 
 		return call_user_func_array(array($this->driver, $name), $arguments);

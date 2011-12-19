@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace XSLTBenchmark\TestsGenerator;
+namespace XSLTBenchmarking\TestsGenerator;
 
 require_once LIBS . '/Smarty/Smarty.class.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
@@ -64,7 +64,7 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 
 		if (!file_put_contents($outputPath, $content))
 		{// @codeCoverageIgnoreStart
-			throw new \XSLTBenchmark\GenerteTemplateException('Cannot create file "' . $outputFile . '".');
+			throw new \XSLTBenchmarking\GenerteTemplateException('Cannot create file "' . $outputFile . '".');
 		}// @codeCoverageIgnoreEnd
 	}
 

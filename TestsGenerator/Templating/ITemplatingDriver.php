@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace XSLTBenchmark\TestsGenerator;
+namespace XSLTBenchmarking\TestsGenerator;
 
 /**
  * Interface for object for generating XSLT file from template.

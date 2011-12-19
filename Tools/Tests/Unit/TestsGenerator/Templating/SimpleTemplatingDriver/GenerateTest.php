@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\TestsGenerator\SimpleTemplatingDriver;
+namespace Tests\XSLTBenchmarking\TestsGenerator\SimpleTemplatingDriver;
 
-use \Tests\XSLTBenchmark\TestCase;
-use \XSLTBenchmark\TestsGenerator\SimpleTemplatingDriver;
+use \Tests\XSLTBenchmarking\TestCase;
+use \XSLTBenchmarking\TestsGenerator\SimpleTemplatingDriver;
 
 require_once ROOT_TOOLS . '/TestsGenerator/Templating/SimpleTemplatingDriver.php';
 
@@ -19,8 +19,8 @@ require_once ROOT_TOOLS . '/TestsGenerator/Templating/SimpleTemplatingDriver.php
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers XSLTBenchmark\TestsGenerator\SimpleTemplatingDriver::__construct
- * @covers XSLTBenchmark\TestsGenerator\SimpleTemplatingDriver::generate
+ * @covers XSLTBenchmarking\TestsGenerator\SimpleTemplatingDriver::__construct
+ * @covers XSLTBenchmarking\TestsGenerator\SimpleTemplatingDriver::generate
  */
 class GenerateTest extends TestCase
 {

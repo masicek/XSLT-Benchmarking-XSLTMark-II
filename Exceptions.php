@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace XSLTBenchmark;
+namespace XSLTBenchmarking;
 
 /**
  * List of exceptions used in XSLT Benchmarking.

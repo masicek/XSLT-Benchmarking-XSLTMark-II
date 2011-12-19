@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\TestsGenerator\XmlParamsDriver;
+namespace Tests\XSLTBenchmarking\TestsGenerator\XmlParamsDriver;
 
-use \Tests\XSLTBenchmark\TestCase;
-use \XSLTBenchmark\TestsGenerator\XmlParamsDriver;
+use \Tests\XSLTBenchmarking\TestCase;
+use \XSLTBenchmarking\TestsGenerator\XmlParamsDriver;
 
 require_once ROOT_TOOLS . '/TestsGenerator/Params/XmlParamsDriver.php';
 
@@ -19,14 +19,14 @@ require_once ROOT_TOOLS . '/TestsGenerator/Params/XmlParamsDriver.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmark\TestsGenerator\XmlParamsDriver::getTemplateName
- * @covers \XSLTBenchmark\TestsGenerator\XmlParamsDriver::getTemplatePath
- * @covers \XSLTBenchmark\TestsGenerator\XmlParamsDriver::getTemplatingType
- * @covers \XSLTBenchmark\TestsGenerator\XmlParamsDriver::getTestsNames
- * @covers \XSLTBenchmark\TestsGenerator\XmlParamsDriver::getTestFilesPaths
- * @covers \XSLTBenchmark\TestsGenerator\XmlParamsDriver::getTestSettings
- * @covers \XSLTBenchmark\TestsGenerator\XmlParamsDriver::getAllFilesPaths
- * @covers \XSLTBenchmark\TestsGenerator\XmlParamsDriver::createAllFilesPaths
+ * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTemplateName
+ * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTemplatePath
+ * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTemplatingType
+ * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestsNames
+ * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestFilesPaths
+ * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestSettings
+ * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getAllFilesPaths
+ * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::createAllFilesPaths
  */
 class GetValuesTest extends TestCase
 {

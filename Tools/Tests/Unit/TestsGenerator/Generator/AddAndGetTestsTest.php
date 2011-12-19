@@ -7,22 +7,22 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\TestsGenerator\Generator;
+namespace Tests\XSLTBenchmarking\TestsGenerator\Generator;
 
 require_once ROOT . '/TestsGenerator/Generator.php';
 require_once ROOT . '/TestsGenerator/Test.php';
 
-use \Tests\XSLTBenchmark\TestCase;
-use \XSLTBenchmark\TestsGenerator\Generator;
-use \XSLTBenchmark\TestsGenerator\Test;
+use \Tests\XSLTBenchmarking\TestCase;
+use \XSLTBenchmarking\TestsGenerator\Generator;
+use \XSLTBenchmarking\TestsGenerator\Test;
 
 /**
  * AddAndGetTestsTest
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmark\TestsGenerator\Generator::addTests
- * @covers \XSLTBenchmark\TestsGenerator\Generator::getTests
+ * @covers \XSLTBenchmarking\TestsGenerator\Generator::addTests
+ * @covers \XSLTBenchmarking\TestsGenerator\Generator::getTests
  */
 class AddAndGetTestsTest extends TestCase
 {

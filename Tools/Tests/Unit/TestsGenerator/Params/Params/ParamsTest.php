@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\TestsGenerator\Params;
+namespace Tests\XSLTBenchmarking\TestsGenerator\Params;
 
-use \Tests\XSLTBenchmark\TestCase;
-use \XSLTBenchmark\TestsGenerator\Params;
+use \Tests\XSLTBenchmarking\TestCase;
+use \XSLTBenchmarking\TestsGenerator\Params;
 
 require_once ROOT_TOOLS . '/TestsGenerator/Params/Params.php';
 
@@ -19,7 +19,7 @@ require_once ROOT_TOOLS . '/TestsGenerator/Params/Params.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmark\TestsGenerator\Params::__construct
+ * @covers \XSLTBenchmarking\TestsGenerator\Params::__construct
  */
 class ParamsTest extends TestCase
 {
@@ -43,8 +43,8 @@ class ParamsTest extends TestCase
 	{
 		$params = new Params($this->setDirSep(__DIR__ . '/params.xml'), __DIR__);
 		$driver = $this->getPropertyValue($params, 'driver');
-		$this->assertInstanceOf('\XSLTBenchmark\TestsGenerator\IParamsDriver', $driver);
-		$this->assertInstanceOf('\XSLTBenchmark\TestsGenerator\XmlParamsDriver', $driver);
+		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\IParamsDriver', $driver);
+		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\XmlParamsDriver', $driver);
 	}
 
 

@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace XSLTBenchmark\TestsGenerator;
+namespace XSLTBenchmarking\TestsGenerator;
 
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 require_once ROOT . '/DriversContainer.php';
@@ -19,7 +19,7 @@ use PhpPath\P;
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class Params extends \XSLTBenchmark\DriversContainer
+class Params extends \XSLTBenchmarking\DriversContainer
 {
 
 

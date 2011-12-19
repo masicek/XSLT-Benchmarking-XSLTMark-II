@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace XSLTBenchmark\RunnerConsole;
+namespace XSLTBenchmarking\RunnerConsole;
 
 define ('LIBS', __DIR__ . '/../Libs');
 define ('ROOT', __DIR__ . '/..');
@@ -17,7 +17,7 @@ require_once ROOT . '/TestsGenerator/Generator.php';
 
 use PhpOptions\Options;
 use PhpOptions\Option;
-use XSLTBenchmark\TestsGenerator\Generator;
+use XSLTBenchmarking\TestsGenerator\Generator;
 
 /**
  * Class for runnig XSLT Benchmark from console

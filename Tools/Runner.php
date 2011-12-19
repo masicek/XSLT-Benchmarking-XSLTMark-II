@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace XSLTBenchmark\Tools;
+namespace XSLTBenchmarking\Tools;
 
 define('DATA_TOOLS', __DIR__ . '/Data');
 define('TESTS_TOOLS', __DIR__ . '/Tests');

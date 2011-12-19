@@ -7,18 +7,18 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\TestsGenerator\EasyXmlGeneratorDriver;
+namespace Tests\XSLTBenchmarking\TestsGenerator\EasyXmlGeneratorDriver;
 
 require_once ROOT . '/TestsGenerator/XmlGenerator/EasyXmlGeneratorDriver.php';
 
-use \Tests\XSLTBenchmark\TestCase;
+use \Tests\XSLTBenchmarking\TestCase;
 
 /**
  * GenerateTest
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmark\TestsGenerator\EasyXmlGeneratorDriver::generate
+ * @covers \XSLTBenchmarking\TestsGenerator\EasyXmlGeneratorDriver::generate
  */
 class GenerateTest extends TestCase
 {
@@ -26,7 +26,7 @@ class GenerateTest extends TestCase
 
 	public function test()
 	{
-		$generator = new \XSLTBenchmark\TestsGenerator\EasyXmlGeneratorDriver();
+		$generator = new \XSLTBenchmarking\TestsGenerator\EasyXmlGeneratorDriver();
 		$outputPath = $this->setDirSep(__DIR__ . '/foo.xml');
 		$expectedOutputPath = $this->setDirSep(__DIR__ . '/expected.xml');
 

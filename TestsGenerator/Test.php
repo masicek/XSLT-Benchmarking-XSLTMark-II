@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace XSLTBenchmark\TestsGenerator;
+namespace XSLTBenchmarking\TestsGenerator;
 
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 require_once ROOT . '/Exceptions.php';
@@ -95,7 +95,7 @@ class Test
 			($parts[$partsCount - 2] != 'tpl') ||
 			($parts[$partsCount - 1] != 'xsl' && $parts[$partsCount - 1] != 'xslt'))
 		{
-			throw new \XSLTBenchmark\InvalidArgumentException('Template path does not have extension ".tpl.xsl" or ".tpl.xslt". It has value "' . $templatePath . '"');
+			throw new \XSLTBenchmarking\InvalidArgumentException('Template path does not have extension ".tpl.xsl" or ".tpl.xslt". It has value "' . $templatePath . '"');
 		}
 
 		$this->templatePath = $templatePath;

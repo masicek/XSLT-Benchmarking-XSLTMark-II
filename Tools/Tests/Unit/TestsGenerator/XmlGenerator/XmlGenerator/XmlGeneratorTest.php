@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\TestsGenerator\XmlGenerator;
+namespace Tests\XSLTBenchmarking\TestsGenerator\XmlGenerator;
 
-use \Tests\XSLTBenchmark\TestCase;
-use \XSLTBenchmark\TestsGenerator\XmlGenerator;
+use \Tests\XSLTBenchmarking\TestCase;
+use \XSLTBenchmarking\TestsGenerator\XmlGenerator;
 
 require_once ROOT_TOOLS . '/TestsGenerator/XmlGenerator/XmlGenerator.php';
 
@@ -19,7 +19,7 @@ require_once ROOT_TOOLS . '/TestsGenerator/XmlGenerator/XmlGenerator.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmark\TestsGenerator\XmlGenerator
+ * @covers \XSLTBenchmarking\TestsGenerator\XmlGenerator
  */
 class XmlGeneratorTest extends TestCase
 {
@@ -29,8 +29,8 @@ class XmlGeneratorTest extends TestCase
 	{
 		$params = new XmlGenerator('easy');
 		$driver = $this->getPropertyValue($params, 'driver');
-		$this->assertInstanceOf('\XSLTBenchmark\TestsGenerator\IXmlGeneratorDriver', $driver);
-		$this->assertInstanceOf('\XSLTBenchmark\TestsGenerator\EasyXmlGeneratorDriver', $driver);
+		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\IXmlGeneratorDriver', $driver);
+		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\EasyXmlGeneratorDriver', $driver);
 	}
 
 

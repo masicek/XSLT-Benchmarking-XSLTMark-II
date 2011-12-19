@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\TestsGenerator\Test;
+namespace Tests\XSLTBenchmarking\TestsGenerator\Test;
 
-use \Tests\XSLTBenchmark\TestCase;
-use \XSLTBenchmark\TestsGenerator\Test;
+use \Tests\XSLTBenchmarking\TestCase;
+use \XSLTBenchmarking\TestsGenerator\Test;
 
 require_once ROOT_TOOLS . '/TestsGenerator/Test.php';
 
@@ -23,7 +23,7 @@ class TestTest extends TestCase
 {
 
 	/**
-	 * @covers XSLTBenchmark\TestsGenerator\Test::__construct
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::__construct
 	 */
 	public function testTest()
 	{
@@ -33,8 +33,8 @@ class TestTest extends TestCase
 
 
 	/**
-	 * @covers XSLTBenchmark\TestsGenerator\Test::setTemplatePath
-	 * @covers XSLTBenchmark\TestsGenerator\Test::getTemplatePath
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::setTemplatePath
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::getTemplatePath
 	 */
 	public function testTemplatePath()
 	{
@@ -51,12 +51,12 @@ class TestTest extends TestCase
 	/**
 	 * @dataProvider providerTemplatePathWrong
 	 *
-	 * @covers XSLTBenchmark\TestsGenerator\Test::setTemplatePath
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::setTemplatePath
 	 */
 	public function testTemplatePathWrong($path)
 	{
 		$test = new Test('Foo');
-		$this->setExpectedException('\XSLTBenchmark\InvalidArgumentException');
+		$this->setExpectedException('\XSLTBenchmarking\InvalidArgumentException');
 		$test->setTemplatePath($path);
 	}
 
@@ -78,8 +78,8 @@ class TestTest extends TestCase
 
 
 	/**
-	 * @covers XSLTBenchmark\TestsGenerator\Test::setTemplatingType
-	 * @covers XSLTBenchmark\TestsGenerator\Test::getTemplatingType
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::setTemplatingType
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::getTemplatingType
 	 */
 	public function testTemplatingType()
 	{
@@ -90,8 +90,8 @@ class TestTest extends TestCase
 
 
 	/**
-	 * @covers XSLTBenchmark\TestsGenerator\Test::setPath
-	 * @covers XSLTBenchmark\TestsGenerator\Test::getPath
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::setPath
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::getPath
 	 */
 	public function testPath()
 	{
@@ -102,7 +102,7 @@ class TestTest extends TestCase
 
 
 	/**
-	 * @covers XSLTBenchmark\TestsGenerator\Test::getXsltName
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::getXsltName
 	 */
 	public function testGetXsltName()
 	{
@@ -113,7 +113,7 @@ class TestTest extends TestCase
 
 
 	/**
-	 * @covers XSLTBenchmark\TestsGenerator\Test::getXsltPath
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::getXsltPath
 	 */
 	public function testGetXsltPath()
 	{
@@ -129,8 +129,8 @@ class TestTest extends TestCase
 
 
 	/**
-	 * @covers XSLTBenchmark\TestsGenerator\Test::addSettings
-	 * @covers XSLTBenchmark\TestsGenerator\Test::getSettings
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::addSettings
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::getSettings
 	 */
 	public function testSettings()
 	{
@@ -145,8 +145,8 @@ class TestTest extends TestCase
 
 
 	/**
-	 * @covers XSLTBenchmark\TestsGenerator\Test::addFilesPaths
-	 * @covers XSLTBenchmark\TestsGenerator\Test::getFilesPaths
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::addFilesPaths
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::getFilesPaths
 	 */
 	public function testFilesPaths()
 	{

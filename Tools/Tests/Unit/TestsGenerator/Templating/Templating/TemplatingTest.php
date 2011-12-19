@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\TestsGenerator\Templating;
+namespace Tests\XSLTBenchmarking\TestsGenerator\Templating;
 
-use \Tests\XSLTBenchmark\TestCase;
-use \XSLTBenchmark\TestsGenerator\Templating;
+use \Tests\XSLTBenchmarking\TestCase;
+use \XSLTBenchmarking\TestsGenerator\Templating;
 
 require_once ROOT_TOOLS . '/TestsGenerator/Templating/Templating.php';
 
@@ -27,8 +27,8 @@ class TemplatingTest extends TestCase
 	{
 		$templating = new Templating('simple', __DIR__);
 		$driver = $this->getPropertyValue($templating, 'driver');
-		$this->assertInstanceOf('\XSLTBenchmark\TestsGenerator\ITemplatingDriver', $driver);
-		$this->assertInstanceOf('\XSLTBenchmark\TestsGenerator\SimpleTemplatingDriver', $driver);
+		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\ITemplatingDriver', $driver);
+		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\SimpleTemplatingDriver', $driver);
 	}
 
 
@@ -36,8 +36,8 @@ class TemplatingTest extends TestCase
 	{
 		$templating = new Templating('smarty', __DIR__);
 		$driver = $this->getPropertyValue($templating, 'driver');
-		$this->assertInstanceOf('\XSLTBenchmark\TestsGenerator\ITemplatingDriver', $driver);
-		$this->assertInstanceOf('\XSLTBenchmark\TestsGenerator\SmartyTemplatingDriver', $driver);
+		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\ITemplatingDriver', $driver);
+		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\SmartyTemplatingDriver', $driver);
 	}
 
 

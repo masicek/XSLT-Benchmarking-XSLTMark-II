@@ -11,5 +11,5 @@
  */
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'Runner.php';
-$runner = new XSLTBenchmark\Tools\Runner();
+$runner = new XSLTBenchmarking\Tools\Runner();
 $runner->run();

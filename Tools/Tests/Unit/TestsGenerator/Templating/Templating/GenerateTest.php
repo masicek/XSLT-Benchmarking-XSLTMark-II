@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\TestsGenerator\Templating;
+namespace Tests\XSLTBenchmarking\TestsGenerator\Templating;
 
-use \Tests\XSLTBenchmark\TestCase;
-use \XSLTBenchmark\TestsGenerator\Templating;
+use \Tests\XSLTBenchmarking\TestCase;
+use \XSLTBenchmarking\TestsGenerator\Templating;
 
 require_once ROOT_TOOLS . '/TestsGenerator/Templating/Templating.php';
 require_once ROOT_TOOLS . '/TestsGenerator/Templating/ITemplatingDriver.php';
@@ -20,7 +20,7 @@ require_once ROOT_TOOLS . '/TestsGenerator/Templating/ITemplatingDriver.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers XSLTBenchmark\TestsGenerator\Templating::generate
+ * @covers XSLTBenchmarking\TestsGenerator\Templating::generate
  */
 class GenerateTest extends TestCase
 {
@@ -31,7 +31,7 @@ class GenerateTest extends TestCase
 		$templating = new Templating('simple', __DIR__);
 
 		// mocked driver
-		$driver = \Mockery::mock('\XSLTBenchmark\TestsGenerator\ITemplatingDriver');
+		$driver = \Mockery::mock('\XSLTBenchmarking\TestsGenerator\ITemplatingDriver');
 		$driver->shouldReceive('generate')->with(__FILE__, 'output/path', array('foo', 'bar' => 'car'));
 		$this->setPropertyValue($templating, 'driver', $driver);
 

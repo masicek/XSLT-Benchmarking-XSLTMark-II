@@ -7,7 +7,7 @@
  * @license "New" BSD License
  */
 
-namespace XSLTBenchmark\TestsGenerator;
+namespace XSLTBenchmarking\TestsGenerator;
 
 require_once __DIR__ . '/Templating/Templating.php';
 require_once __DIR__ . '/Test.php';

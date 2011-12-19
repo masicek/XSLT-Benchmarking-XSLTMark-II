@@ -19,6 +19,6 @@ if (isset($_SERVER['HTTP_USER_AGENT']))
 else
 {
 	require_once __DIR__ . '/RunnerConsole/Runner.php';
-	$runner = new \XSLTBenchmark\RunnerConsole\Runner(__DIR__);
+	$runner = new \XSLTBenchmarking\RunnerConsole\Runner(__DIR__);
 	$runner->run();
 }

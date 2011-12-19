@@ -7,23 +7,23 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\TestsGenerator\Generator;
+namespace Tests\XSLTBenchmarking\TestsGenerator\Generator;
 
 require_once ROOT . '/TestsGenerator/Generator.php';
 require_once ROOT . '/TestsGenerator/Test.php';
 
-use \Tests\XSLTBenchmark\TestCase;
-use \XSLTBenchmark\TestsGenerator\Generator;
-use \XSLTBenchmark\TestsGenerator\Test;
+use \Tests\XSLTBenchmarking\TestCase;
+use \XSLTBenchmarking\TestsGenerator\Generator;
+use \XSLTBenchmarking\TestsGenerator\Test;
 
 /**
  * AddAndGetTestsTest
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmark\TestsGenerator\Generator::generateAll
- * @covers \XSLTBenchmark\TestsGenerator\Generator::generateTest
- * @covers \XSLTBenchmark\TestsGenerator\Generator::generateInputOutputCouples
+ * @covers \XSLTBenchmarking\TestsGenerator\Generator::generateAll
+ * @covers \XSLTBenchmarking\TestsGenerator\Generator::generateTest
+ * @covers \XSLTBenchmarking\TestsGenerator\Generator::generateInputOutputCouples
  */
 class GenerateAllTest extends TestCase
 {

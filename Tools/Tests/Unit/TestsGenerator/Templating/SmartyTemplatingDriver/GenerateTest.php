@@ -7,10 +7,10 @@
  * @license "New" BSD License
  */
 
-namespace Tests\XSLTBenchmark\TestsGenerator\SmartyTemplatingDriver;
+namespace Tests\XSLTBenchmarking\TestsGenerator\SmartyTemplatingDriver;
 
-use \Tests\XSLTBenchmark\TestCase;
-use \XSLTBenchmark\TestsGenerator\SmartyTemplatingDriver;
+use \Tests\XSLTBenchmarking\TestCase;
+use \XSLTBenchmarking\TestsGenerator\SmartyTemplatingDriver;
 
 require_once ROOT_TOOLS . '/TestsGenerator/Templating/SmartyTemplatingDriver.php';
 
@@ -19,8 +19,8 @@ require_once ROOT_TOOLS . '/TestsGenerator/Templating/SmartyTemplatingDriver.php
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers XSLTBenchmark\TestsGenerator\SmartyTemplatingDriver::__construct
- * @covers XSLTBenchmark\TestsGenerator\SmartyTemplatingDriver::generate
+ * @covers XSLTBenchmarking\TestsGenerator\SmartyTemplatingDriver::__construct
+ * @covers XSLTBenchmarking\TestsGenerator\SmartyTemplatingDriver::generate
  */
 class GenerateTest extends TestCase
 {
