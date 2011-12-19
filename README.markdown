@@ -2,7 +2,7 @@ XSLT Benchmarking
 =================
 
 This is project for generating, runnig and reporting XSLT Benchmarking.
-It can be run from command-line by [index.php](./XSLT-Benchmarking/tree/master/index.php).
+It can be run from command-line by [index.php](./XSLT-Benchmarking/tree/master/XSLTBenchmarking/index.php).
 
 Usage
 -----
@@ -13,9 +13,9 @@ Usage
 
 Generating Tests
 ----------------
-This part is in the subdirectory [TestsGenerator/](./XSLT-Benchmarking/tree/master/TestsGenerator/).
+This part is in the subdirectory [TestsGenerator/](./XSLT-Benchmarking/tree/master/XSLTBenchmarking/TestsGenerator/).
 It contains the tests generator. The generator expects templates for generating tests.
-Each template have to contain one XSLT template file, one or more XML files
+Each template has to contain one XSLT template file, one or more XML files
 (used as input or output files in tests) and one file contains settings
 (name of generated tests, template path etc.).
 
@@ -32,4 +32,4 @@ For generating can be used different type of templating:
 Input XML files can be generated. For generating external XML generatr can be used.
 Supported generator name are:
 
-* __testGenerator__ = siple PHP test generator used for testing
+* __easy__ = siple PHP test generator used for testing
