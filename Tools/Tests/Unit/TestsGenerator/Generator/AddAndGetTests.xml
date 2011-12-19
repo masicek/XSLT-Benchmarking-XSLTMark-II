@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Test name" template="test.tpl.xslt" templatingType="smarty">
+	<files>
+		<file id="one">one.xml</file>
+		<file id="two">two.xml</file>
+		<file id="three">three.xml</file>
+		<generated id="genOne" generator="easy" output="genOne.xml">
+			<setting name="first">2</setting>
+			<setting name="second">5</setting>
+		</generated>
+		<generated id="genTwo" generator="easy" output="genTwo.xml">
+			<setting name="element">20</setting>
+		</generated>
+	</files>
+	<test name="First">
+		<file input="one" output="genOne" />
+		<file input="two" output="genTwo" />
+		<setting name="first seting">Lorem ipsum</setting>
+		<setting name="second setting">123</setting>
+	</test>
+	<test name="Second">
+		<file input="one" output="genOne" />
+		<file input="two" output="genTwo" />
+		<file input="three" output="one" />
+		<setting name="setting">999</setting>
+	</test>
+</tests>
