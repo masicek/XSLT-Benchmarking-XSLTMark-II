@@ -51,9 +51,9 @@ class GenerateTest extends TestCase
 		$files = scandir($tmpDirPath);
 		foreach ($files as $file)
 		{
-			if (strpos($file, '.file.template.tpl.xslt') !== FALSE)
+			if (strpos($file, '.file.template.tpl.xslt.php') !== FALSE)
 			{
-				unlink($this->setDirSep(__DIR__ . '/' . $file));
+				unlink($this->setDirSep($tmpDirPath . '/' . $file));
 			}
 		}
 	}
