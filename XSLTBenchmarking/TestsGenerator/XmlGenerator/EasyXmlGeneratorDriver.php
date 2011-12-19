@@ -43,7 +43,7 @@ class EasyXmlGeneratorDriver implements IXmlGeneratorDriver
 
 		// make indent and new lines
 		$dom = dom_import_simplexml($xml)->ownerDocument;
-		$dom->formatOutput = true;
+		$dom->formatOutput = TRUE;
 		$dom->save($outputPath);
 	}
 
