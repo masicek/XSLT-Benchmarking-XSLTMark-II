@@ -18,7 +18,7 @@ use \Tests\XSLTBenchmarking\TestCase;
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmarking\TestsGenerator\EasyXmlGeneratorDriver::generate
+ * @covers XSLTBenchmarking\TestsGenerator\EasyXmlGeneratorDriver::generate
  */
 class GenerateTest extends TestCase
 {

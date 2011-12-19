@@ -19,7 +19,7 @@ require_once ROOT_TOOLS . '/TestsGenerator/Params/XmlParamsDriver.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::__construct
+ * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::__construct
  */
 class XmlParamsDriverTest extends TestCase
 {

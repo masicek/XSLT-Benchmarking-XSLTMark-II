@@ -21,9 +21,9 @@ use \XSLTBenchmarking\TestsGenerator\Test;
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmarking\TestsGenerator\Generator::generateAll
- * @covers \XSLTBenchmarking\TestsGenerator\Generator::generateTest
- * @covers \XSLTBenchmarking\TestsGenerator\Generator::generateInputOutputCouples
+ * @covers XSLTBenchmarking\TestsGenerator\Generator::generateAll
+ * @covers XSLTBenchmarking\TestsGenerator\Generator::generateTest
+ * @covers XSLTBenchmarking\TestsGenerator\Generator::generateInputOutputCouples
  */
 class GenerateAllTest extends TestCase
 {

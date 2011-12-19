@@ -19,7 +19,7 @@ use \XSLTBenchmarking\TestsGenerator\Generator;
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmarking\TestsGenerator\Generator::__construct
+ * @covers XSLTBenchmarking\TestsGenerator\Generator::__construct
  */
 class GeneratorTest extends TestCase
 {

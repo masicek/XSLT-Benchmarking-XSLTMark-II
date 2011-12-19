@@ -19,7 +19,7 @@ require_once ROOT_TOOLS . '/TestsGenerator/XmlGenerator/XmlGenerator.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmarking\TestsGenerator\XmlGenerator
+ * @covers XSLTBenchmarking\TestsGenerator\XmlGenerator
  */
 class XmlGeneratorTest extends TestCase
 {

@@ -19,7 +19,7 @@ require_once ROOT_TOOLS . '/TestsGenerator/Params/Params.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmarking\TestsGenerator\Params::__construct
+ * @covers XSLTBenchmarking\TestsGenerator\Params::__construct
  */
 class ParamsTest extends TestCase
 {

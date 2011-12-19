@@ -21,8 +21,8 @@ use \XSLTBenchmarking\TestsGenerator\Test;
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmarking\TestsGenerator\Generator::addTests
- * @covers \XSLTBenchmarking\TestsGenerator\Generator::getTests
+ * @covers XSLTBenchmarking\TestsGenerator\Generator::addTests
+ * @covers XSLTBenchmarking\TestsGenerator\Generator::getTests
  */
 class AddAndGetTestsTest extends TestCase
 {

@@ -19,14 +19,14 @@ require_once ROOT_TOOLS . '/TestsGenerator/Params/XmlParamsDriver.php';
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
- * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTemplateName
- * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTemplatePath
- * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTemplatingType
- * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestsNames
- * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestFilesPaths
- * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestSettings
- * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getAllFilesPaths
- * @covers \XSLTBenchmarking\TestsGenerator\XmlParamsDriver::createAllFilesPaths
+ * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTemplateName
+ * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTemplatePath
+ * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTemplatingType
+ * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestsNames
+ * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestFilesPaths
+ * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestSettings
+ * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getAllFilesPaths
+ * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::createAllFilesPaths
  */
 class GetValuesTest extends TestCase
 {
