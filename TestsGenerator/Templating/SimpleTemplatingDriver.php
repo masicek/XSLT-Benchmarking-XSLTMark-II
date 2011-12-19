@@ -44,7 +44,7 @@ class SimpleTemplatingDriver implements ITemplatingDriver
 	{
 		if (!copy($templatePath, $outputPath))
 		{// @codeCoverageIgnoreStart
-			throw new \XSLTBenchmark\CopyFileException('Cannot create file "' . $outputFile . '".');
+			throw new \XSLTBenchmark\GenerteTemplateException('Cannot create file "' . $outputFile . '".');
 		}// @codeCoverageIgnoreEnd
 	}
 

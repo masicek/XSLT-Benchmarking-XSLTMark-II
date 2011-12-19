@@ -12,6 +12,8 @@ namespace XSLTBenchmark\TestsGenerator;
 require_once LIBS . '/Smarty/Smarty.class.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 require_once __DIR__ . '/ITemplatingDriver.php';
+require_once ROOT . '/Exceptions.php';
+
 
 use PhpPath\P;
 
@@ -62,7 +64,7 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 
 		if (!file_put_contents($outputPath, $content))
 		{// @codeCoverageIgnoreStart
-			throw new \Exception('Cannot create file "' . $outputFile . '".');
+			throw new \XSLTBenchmark\GenerteTemplateException('Cannot create file "' . $outputFile . '".');
 		}// @codeCoverageIgnoreEnd
 	}
 

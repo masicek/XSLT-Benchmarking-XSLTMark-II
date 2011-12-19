@@ -27,7 +27,7 @@ class InvalidArgumentException extends \Exception
 /**
  * Exception generated after incorect copping file by 'copy' function
  */
-class CopyFileException extends \Exception
+class GenerteTemplateException extends \Exception
 {
 }
 
