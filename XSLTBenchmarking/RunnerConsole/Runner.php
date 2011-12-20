@@ -9,8 +9,14 @@
 
 namespace XSLTBenchmarking\RunnerConsole;
 
-define ('LIBS', __DIR__ . '/../../Libs');
-define ('ROOT', __DIR__ . '/..');
+if (!defined('LIBS'))
+{
+	define ('LIBS', __DIR__ . '/../../Libs');
+}
+if (!defined('ROOT'))
+{
+	define ('ROOT', __DIR__ . '/..');
+}
 
 require_once LIBS . '/PhpOptions/PhpOptions.min.php';
 require_once ROOT . '/TestsGenerator/Generator.php';

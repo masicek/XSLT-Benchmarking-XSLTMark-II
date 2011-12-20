@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test template="test.xslt">
+  <couple input="zeroElement.xml" output="zeroElement.xml"/>
+  <couple input="twoElements.xml" output="twoNewElements.xml"/>
+</test>

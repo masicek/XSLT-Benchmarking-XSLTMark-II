@@ -13,8 +13,14 @@ define('DATA_TOOLS', __DIR__ . '/Data');
 define('TESTS_TOOLS', __DIR__ . '/Tests');
 define('ROOT_TOOLS', __DIR__ . '/../XSLTBenchmarking');
 
-define ('LIBS', __DIR__ . '/../Libs');
-define ('ROOT', ROOT_TOOLS);
+if (!defined('LIBS'))
+{
+	define ('LIBS', __DIR__ . '/../Libs');
+}
+if (!defined('ROOT'))
+{
+	define ('ROOT', ROOT_TOOLS);
+}
 
 require_once LIBS . '/PhpOptions/PhpOptions.min.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
@@ -58,7 +64,9 @@ class Runner
 		$optionsList = array();
 		$optionsList[] = Option::make('Help')->description('Show this help');
 		$optionsList[] = Option::make('All')->description('Run script parts (Tests, Docs)');
-		$optionsList[] = Option::make('Tests')->description('Run tests');
+		$optionsList[] = Option::make('Tests')->description('Run all tests');
+		$optionsList[] = Option::make('Tests unit')->short()->long('tu')->description('Run unit tests');
+		$optionsList[] = Option::make('Tests regression')->short()->long('tr')->description('Run regression tests');
 		$optionsList[] = Option::make('Docs')->description('Run script for generating API documenation of PhpOptions');
 
 		$options = new Options();
@@ -95,7 +103,18 @@ class Runner
 		// tests
 		if ($all || $options->get('Tests'))
 		{
-			$this->runTestsUnit();
+			$this->runTestsAll();
+		}
+		else
+		{
+			if ($options->get('Tests unit'))
+			{
+				$this->runTestsUnit();
+			}
+			if ($options->get('Tests regression'))
+			{
+				$this->runTestsRegression();
+			}
 		}
 
 		// documentation
@@ -141,6 +160,31 @@ class Runner
 
 
 	/**
+	 * Run tests
+	 *
+	 * @return void
+	 */
+	private function runTestsAll()
+	{
+		$this->printHeader('Run tests');
+
+		$this->testsInclude();
+
+		// run tests
+		$coverage = P::m(DATA_TOOLS, '/Coverage');
+		$tests = P::m(TESTS_TOOLS);
+		$this->setArguments('boot.php',
+			'--strict
+			--coverage-html ' . $coverage . '
+			' . $tests
+		);
+		\PHPUnit_TextUI_Command::main(FALSE);
+
+		$this->printInfo();
+	}
+
+
+	/**
 	 * Run unit tests
 	 *
 	 * @return void
@@ -154,6 +198,31 @@ class Runner
 		// run tests
 		$coverage = P::m(DATA_TOOLS, '/Coverage');
 		$tests = P::m(TESTS_TOOLS, '/Unit');
+		$this->setArguments('boot.php',
+			'--strict
+			--coverage-html ' . $coverage . '
+			' . $tests
+		);
+		\PHPUnit_TextUI_Command::main(FALSE);
+
+		$this->printInfo();
+	}
+
+
+	/**
+	 * Run regression tests
+	 *
+	 * @return void
+	 */
+	private function runTestsRegression()
+	{
+		$this->printHeader('Run regression tests');
+
+		$this->testsInclude();
+
+		// run tests
+		$coverage = P::m(DATA_TOOLS, '/Coverage');
+		$tests = P::m(TESTS_TOOLS, '/Regression');
 		$this->setArguments('boot.php',
 			'--strict
 			--coverage-html ' . $coverage . '
