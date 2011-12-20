@@ -9,7 +9,7 @@
 
 namespace Tests\XSLTBenchmarking\TestsGenerator\EasyXmlGeneratorDriver;
 
-require_once ROOT . '/TestsGenerator/XmlGenerator/EasyXmlGeneratorDriver.php';
+require_once ROOT_TOOLS . '/TestsGenerator/XmlGenerator/EasyXmlGeneratorDriver.php';
 
 use \Tests\XSLTBenchmarking\TestCase;
 

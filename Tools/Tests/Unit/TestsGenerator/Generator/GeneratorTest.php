@@ -9,7 +9,7 @@
 
 namespace Tests\XSLTBenchmarking\TestsGenerator\Generator;
 
-require_once ROOT . '/TestsGenerator/Generator.php';
+require_once ROOT_TOOLS . '/TestsGenerator/Generator.php';
 
 use \Tests\XSLTBenchmarking\TestCase;
 use \XSLTBenchmarking\TestsGenerator\Generator;

@@ -9,7 +9,7 @@
 
 namespace Tests\XSLTBenchmarking\DriversContainer;
 
-require_once ROOT . '/DriversContainer.php';
+require_once ROOT_TOOLS . '/DriversContainer.php';
 
 /**
  * Test object for DriversContainer

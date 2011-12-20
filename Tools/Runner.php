@@ -187,9 +187,6 @@ class Runner
 			set_include_path(get_include_path() . PATH_SEPARATOR . $libs);
 			require_once P::m('PHPUnit/Autoload.php');
 
-			// path to tested classes
-			define('ROOT_TESTS', ROOT_TOOLS);
-
 			// include my TestCase
 			require_once P::m(TESTS_TOOLS, '/TestCase.php');
 		}
