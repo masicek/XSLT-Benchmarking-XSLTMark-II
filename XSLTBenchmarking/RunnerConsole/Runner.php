@@ -57,7 +57,7 @@ class Runner
 			$help = Option::make('Help')->description('Show this help');
 			$options->add($help)->defaults('Help');
 
-			$description = "Console XSLT Benchmarking\n";
+			$description = "XSLT Benchmarking " . VERSION . " - Console Runner\n";
 			$description .= "author: Viktor Masicek <viktor@masicek.net>";
 			$options->description($description);
 

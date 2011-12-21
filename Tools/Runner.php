@@ -21,6 +21,11 @@ if (!defined('ROOT'))
 {
 	define ('ROOT', ROOT_TOOLS);
 }
+if (!defined('VERSION'))
+{
+	define('VERSION', 'testing');
+}
+
 
 require_once LIBS . '/PhpOptions/PhpOptions.min.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
