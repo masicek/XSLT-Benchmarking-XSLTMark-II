@@ -7,12 +7,19 @@
 		</xsl:copy>
 	</xsl:template>
 
-	<xsl:template match="testName">
-		{if $action == 'rename'}
-			<{$newName}>
-				<xsl:apply-templates select="@* | node( )"/>
-			</{$newName}>
-		{/if}
-	</xsl:template>
+	{if isset($action)}
+		<xsl:template match="testName">
+			{if $action == 'rename'}
+				<{$newName}>
+					<xsl:apply-templates select="@* | node( )"/>
+				</{$newName}>
+			{elseif $action == 'remove'}
+			{else}
+				<xsl:copy>
+					<xsl:apply-templates select="@* | node( )"/>
+				</xsl:copy>
+			{/if}
+		</xsl:template>
+	{/if}
 
 </xsl:stylesheet>

@@ -7,9 +7,26 @@ It can be run from command-line by [index.php](./XSLT-Benchmarking/tree/master/X
 Usage
 -----
 
-* <code>php index.php -h</code> - print help
-* <code>php index.php -g</code> - generate tests from templates (use default directory for templates, tests and temporary files)
-* <code>php index.php -g --templates-names "modify_element"</code> - generate test from temaplte "modify_element" in default directory
+```php
+php index.php -h
+```
+
+Print help.
+
+
+```php
+php index.php -g
+```
+
+Generate tests from templates (use default directory for templates, tests and temporary files).
+
+
+```php
+php index.php -g --templates-names "modify_element,value_to_attribute"
+```
+
+Generate test from temapltes <code>modify_element</code> and <code>value_to_attribute</code> in default directory.
+
 
 Generating Tests
 ----------------
