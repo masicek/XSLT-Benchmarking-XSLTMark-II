@@ -62,10 +62,49 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 		$this->display($templatePath);
 		$content = ob_get_clean();
 
+		$content = $this->repareIndent($content);
+
 		if (!file_put_contents($outputPath, $content))
 		{// @codeCoverageIgnoreStart
 			throw new \XSLTBenchmarking\GenerteTemplateException('Cannot create file "' . $outputFile . '".');
 		}// @codeCoverageIgnoreEnd
+	}
+
+
+	/**
+	 * Repare indent of output content, for better human reading.
+	 *
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	public function repareIndent($content)
+	{
+		// linearize
+		$content = preg_replace('/>[\s]*</', '><', $content);
+
+		// make indent
+		$contentSimpleXml = new \SimpleXMLElement($content);
+		$contentDomXml = dom_import_simplexml($contentSimpleXml)->ownerDocument;
+		$contentDomXml->formatOutput = TRUE;
+		$content = $contentDomXml->saveXml();
+
+		// better indent
+		$content = str_replace("\r\n", "\n", $content);
+		$lines = explode("\n", $content);
+		$linesNew = array();
+		foreach ($lines as $line)
+		{
+			$indentEndPos = strpos($line, '<');
+			$linesNew[] = str_repeat("\t", $indentEndPos / 2) . substr($line, $indentEndPos);
+		}
+		$content = implode(PHP_EOL, $linesNew);
+
+		// separate each template
+		$content = preg_replace('/(\t*<xsl:template)/', PHP_EOL . '$0', $content);
+		$content = str_replace('</xsl:stylesheet>', PHP_EOL . '</xsl:stylesheet>', $content);
+
+		return $content;
 	}
 
 

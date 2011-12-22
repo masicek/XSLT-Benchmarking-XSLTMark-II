@@ -21,6 +21,7 @@ require_once ROOT_TOOLS . '/TestsGenerator/Templating/SmartyTemplatingDriver.php
  *
  * @covers XSLTBenchmarking\TestsGenerator\SmartyTemplatingDriver::__construct
  * @covers XSLTBenchmarking\TestsGenerator\SmartyTemplatingDriver::generate
+ * @covers XSLTBenchmarking\TestsGenerator\SmartyTemplatingDriver::repareIndent
  */
 class GenerateTest extends TestCase
 {
