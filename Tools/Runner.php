@@ -78,9 +78,10 @@ class Runner
 		$options->add($optionsList);
 		$options->defaults('Help');
 		$options->description(
-			"XSTL Benchmarking\nauthor: Viktor Masicek <viktor@masicek.net>\n\n" .
-			"Script for generating running tests\n" .
-			"and generating API documentation of PhpOptions."
+			'XSTL Benchmarking' . PHP_EOL .
+			'author: Viktor Masicek <viktor@masicek.net>' . PHP_EOL . PHP_EOL .
+			'Script for generating running tests' . PHP_EOL .
+			'and generating API documentation of PhpOptions.'
 		);
 
 		$this->options = $options;

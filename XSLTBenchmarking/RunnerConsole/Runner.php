@@ -57,8 +57,8 @@ class Runner
 			$help = Option::make('Help')->description('Show this help');
 			$options->add($help)->defaults('Help');
 
-			$description = "XSLT Benchmarking " . VERSION . " - Console Runner\n";
-			$description .= "author: Viktor Masicek <viktor@masicek.net>";
+			$description = 'XSLT Benchmarking ' . VERSION . ' - Console Runner' . PHP_EOL;
+			$description .= 'author: Viktor Masicek <viktor@masicek.net>';
 			$options->description($description);
 
 			$optionsList = array();
@@ -207,7 +207,7 @@ class Runner
 	{
 		if ($turnOff)
 		{
-			fwrite(STDOUT, "$info\n");
+			fwrite(STDOUT, $info . PHP_EOL);
 		}
 	}
 
