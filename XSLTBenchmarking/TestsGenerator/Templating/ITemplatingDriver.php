@@ -33,6 +33,7 @@ interface ITemplatingDriver
 	 * @param string $outputPath Path output file
 	 * @param array $settings Array of settings specific for driver
 	 *
+	 * @throws \XSLTBenchmarking\GenerateTemplateException Problem with generating
 	 * @return void
 	 */
 	public function generate($templatePath, $outputPath, array $settings);

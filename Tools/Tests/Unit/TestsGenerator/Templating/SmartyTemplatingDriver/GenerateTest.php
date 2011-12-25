@@ -27,7 +27,7 @@ class GenerateTest extends TestCase
 {
 
 
-	public function test()
+	public function testOk()
 	{
 		$tmpDirPath = __DIR__;
 		$driver = new SmartyTemplatingDriver($tmpDirPath);
@@ -57,6 +57,22 @@ class GenerateTest extends TestCase
 				unlink($this->setDirSep($tmpDirPath . '/' . $file));
 			}
 		}
+	}
+
+
+	public function testUnknownVariable()
+	{
+		$tmpDirPath = __DIR__;
+		$driver = new SmartyTemplatingDriver($tmpDirPath);
+		$templatePath = $this->setDirSep(__DIR__ . '/template.tpl.xslt');
+		$generatedPath = $this->setDirSep(__DIR__ . '/tmpCopy.xslt');
+
+		$this->assertFileNotExists($generatedPath);
+
+		$this->setExpectedException('\XSLTBenchmarking\GenerateTemplateException');
+		$driver->generate($templatePath, $generatedPath, array(
+			'testVariable1' => 'Lorem ipsum 1',
+		));
 	}
 
 

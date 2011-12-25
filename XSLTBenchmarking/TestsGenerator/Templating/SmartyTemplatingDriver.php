@@ -47,6 +47,7 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 	 * @param string $outputPath Path output file
 	 * @param array $settings Array of variables for template
 	 *
+	 * @throws \XSLTBenchmarking\GenerateTemplateException Problem with generating
 	 * @return void
 	 */
 	public function generate($templatePath, $outputPath, array $settings)
@@ -59,7 +60,11 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 
 		// generate xslt
 		ob_start();
-		$this->display($templatePath);
+		try {
+			$this->display($templatePath);
+		} catch (\Exception $e) {
+			throw new \XSLTBenchmarking\GenerateTemplateException('Cannot generate template by Smarty Driver', 0, $e);
+		}
 		$content = ob_get_clean();
 
 		$content = $this->repareIndent($content);

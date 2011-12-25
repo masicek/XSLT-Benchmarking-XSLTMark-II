@@ -38,6 +38,7 @@ class SimpleTemplatingDriver implements ITemplatingDriver
 	 * @param string $outputPath Path output file
 	 * @param array $settings Settings are not use in this driver
 	 *
+	 * @throws \XSLTBenchmarking\GenerateTemplateException Problem with generating
 	 * @return void
 	 */
 	public function generate($templatePath, $outputPath, array $settings = array())
