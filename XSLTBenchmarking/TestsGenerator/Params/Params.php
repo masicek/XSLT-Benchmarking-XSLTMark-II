@@ -28,6 +28,8 @@ class Params extends \XSLTBenchmarking\DriversContainer
 	 *
 	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
 	 * @param string $tmpDirectoryPath The path of the temporary directory
+	 *
+	 * @throws \XSLTBenchmarking\InvalidArgumentException Wrong format of file with params
 	 */
 	public function __construct($paramsFilePath, $tmpDirectoryPath)
 	{

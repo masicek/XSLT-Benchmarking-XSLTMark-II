@@ -57,13 +57,26 @@ class XmlParamsDriver implements IParamsDriver
 	 *
 	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
 	 * @param string $tmpDirectoryPath The path of the temporary directory
+	 *
+	 * @throws \XSLTBenchmarking\InvalidArgumentException Wrong format of file with params
 	 */
 	public function __construct($paramsFilePath, $tmpDirectoryPath)
 	{
+		// validate
+		$dom = new \DOMDocument();
+		$dom->load($paramsFilePath);
+		try {
+			$dom->schemaValidate(P::m(__DIR__, 'XmlParamsDriver.xsd'));
+		} catch (\Exception $e) {
+			$error = libxml_get_last_error();
+			throw new \XSLTBenchmarking\InvalidArgumentException(
+				'File "' . $paramsFilePath . '" has wrong format: ' . $error->message
+			);
+		}
+
 		$this->paramsFilePath = $paramsFilePath;
 		$this->tmpDirectoryPath = $tmpDirectoryPath;
 		$this->tests = new \SimpleXMLElement($paramsFilePath, 0, TRUE);
-		// TODO add control of XML by DTD or XSD
 	}
 
 

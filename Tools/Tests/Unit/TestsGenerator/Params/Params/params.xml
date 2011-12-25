@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<foo>
-</foo>
+<tests name="lorem" template="lorem" templatingType="simple">
+	<files>
+		<file id="lorem">Lorem ipsum</file>
+	</files>
+	<test name="Test name">
+		<file input="lorem" output="lorem"></file>
+	</test>
+</tests>
