@@ -17,9 +17,16 @@ namespace XSLTBenchmarking;
 
 
 /**
+ * Own parent of all exceptions
+ */
+class Exception extends \Exception
+{
+}
+
+/**
  * Exceptions made by wrong calling method.
  */
-class InvalidArgumentException extends \Exception
+class InvalidArgumentException extends Exception
 {
 }
 
@@ -27,7 +34,7 @@ class InvalidArgumentException extends \Exception
 /**
  * Exception generated after incorect copping file by 'copy' function
  */
-class GenerteTemplateException extends \Exception
+class GenerateTemplateException extends Exception
 {
 }
 
@@ -35,6 +42,6 @@ class GenerteTemplateException extends \Exception
 /**
  * Exception generated if unknown method is called in __call
  */
-class UnknownMethodException extends \Exception
+class UnknownMethodException extends Exception
 {
 }

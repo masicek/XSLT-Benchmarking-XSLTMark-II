@@ -66,7 +66,7 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 
 		if (!file_put_contents($outputPath, $content))
 		{// @codeCoverageIgnoreStart
-			throw new \XSLTBenchmarking\GenerteTemplateException('Cannot create file "' . $outputFile . '".');
+			throw new \XSLTBenchmarking\GenerateTemplateException('Cannot create file "' . $outputFile . '".');
 		}// @codeCoverageIgnoreEnd
 	}
 
