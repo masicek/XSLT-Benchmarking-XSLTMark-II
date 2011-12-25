@@ -28,7 +28,7 @@ class AddAndGetTestsTest extends TestCase
 {
 
 
-	public function test()
+	public function testOk()
 	{
 		$templates = $this->setDirSep(__DIR__ . '/A');
 		$templateXYZ = $this->setDirSep(__DIR__ . '/A/XYZ');
@@ -63,7 +63,7 @@ class AddAndGetTestsTest extends TestCase
 			$this->setDirSep($templateXYZ . '/one.xml') => $this->setDirSep($tmp . '/genOne.xml'),
 			$this->setDirSep($templateXYZ . '/two.xml') => $this->setDirSep($tmp . '/genTwo.xml'),
 		));
-		$expectedTests[] = $test;
+		$expectedTests['Test name - First'] = $test;
 
 		// second test
 		$test = new Test('');
@@ -77,7 +77,7 @@ class AddAndGetTestsTest extends TestCase
 			$this->setDirSep($templateXYZ . '/two.xml') => $this->setDirSep($tmp . '/genTwo.xml'),
 			$this->setDirSep($templateXYZ . '/three.xml') => $this->setDirSep($templateXYZ . '/one.xml'),
 		));
-		$expectedTests[] = $test;
+		$expectedTests['Test name - Second'] = $test;
 
 		$this->assertEquals($expectedTests, $addedTests);
 
@@ -89,5 +89,15 @@ class AddAndGetTestsTest extends TestCase
 		unlink($this->setDirSep($tmp . '/genTwo.xml'));
 		rmdir($tmp);
 	}
+
+
+	public function testNameCollision()
+	{
+		$generator = new Generator(__DIR__, __DIR__, __DIR__);
+		$this->setExpectedException('\XSLTBenchmarking\CollisionException', 'Duplicate name of test "Duplicate name - Test name"');
+		$generator->addTests('FixtureDuplicateName');
+		$addedTests = $generator->getTests();
+	}
+
 
 }

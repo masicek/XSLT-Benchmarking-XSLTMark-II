@@ -45,3 +45,11 @@ class GenerateTemplateException extends Exception
 class UnknownMethodException extends Exception
 {
 }
+
+
+/**
+ *
+ */
+class CollisionException extends Exception
+{
+}

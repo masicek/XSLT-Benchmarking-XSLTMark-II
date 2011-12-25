@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Duplicate name" template="test.tpl.xslt" templatingType="simple">
+	<files>
+	</files>
+	<test name="Test name">
+	</test>
+	<test name="Test name">
+	</test>
+</tests>

@@ -12,6 +12,7 @@ namespace XSLTBenchmarking\TestsGenerator;
 require_once __DIR__ . '/Templating/Templating.php';
 require_once __DIR__ . '/Test.php';
 require_once __DIR__ . '/Params/Params.php';
+require_once __DIR__ . '/../Exceptions.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 
 use PhpPath\P;
@@ -101,13 +102,19 @@ class Generator
 		$templatingType = $params->getTemplatingType();
 		foreach ($params->getTestsNames() as $testName)
 		{
-			$test = new Test($templateName . ' - ' . $testName);
+			$fullName = $templateName . ' - ' . $testName;
+			if (isset($this->templates[$fullName]))
+			{
+				throw new \XSLTBenchmarking\CollisionException('Duplicate name of test "' . $fullName . '"');
+			}
+
+			$test = new Test($fullName);
 			$test->setTemplatePath($templatePath);
 			$test->setTemplatingType($templatingType);
 			$test->setPath($this->testsDirectory);
 			$test->addFilesPaths($params->getTestFilesPaths($testName));
 			$test->addSettings($params->getTestSettings($testName));
-			$this->templates[] = $test;
+			$this->templates[$fullName] = $test;
 		}
 	}
 
