@@ -79,4 +79,14 @@ interface IParamsDriver
 	public function getTestSettings($testName);
 
 
+	/**
+	 * Return the name of file with params of the test.
+	 *
+	 * @param string $testName The name of the selected test
+	 *
+	 * @return string|NULL
+	 */
+	public function getTestParamsFileName($testName);
+
+
 }

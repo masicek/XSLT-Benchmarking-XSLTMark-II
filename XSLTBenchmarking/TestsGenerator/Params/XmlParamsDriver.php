@@ -165,6 +165,26 @@ class XmlParamsDriver implements IParamsDriver
 
 
 	/**
+	 * Return the name of file with params of the test
+	 *
+	 * @param string $testName The name of the selected test
+	 *
+	 * @return string|NULL
+	 */
+	public function getTestParamsFileName($testName)
+	{
+		$test = $this->tests->xpath('//test[@name="' . $testName . '"]');
+		$name = NULL;
+		if (isset($test[0]['paramsFile']))
+		{
+			$name = (string)$test[0]['paramsFile'];
+		}
+
+		return $name;
+	}
+
+
+	/**
 	 * Return list of possible paths of files for testing with their ids
 	 *
 	 * @return array ([id] => [path], ...)

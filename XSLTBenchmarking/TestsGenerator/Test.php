@@ -67,6 +67,14 @@ class Test
 
 
 	/**
+	 * Path to file with pramas of test
+	 *
+	 * @var string
+	 */
+	private $paramsFilePath;
+
+
+	/**
 	 * Set the human-redable name of the test
 	 *
 	 * @param string $name The human-redable name of the test
@@ -244,6 +252,30 @@ class Test
 	public function getFilesPaths()
 	{
 		return $this->filesPaths;
+	}
+
+
+	/**
+	 * Set the path of the file with params of test
+	 *
+	 * @param string $fileName Name of file with params
+	 *
+	 * @return void
+	 */
+	public function setParamsFilePath($fileName)
+	{
+		$this->paramsFilePath = P::m($this->getPath(), $fileName);
+	}
+
+
+	/**
+	 * Return the path of the file with params of test
+	 *
+	 * @return string
+	 */
+	public function getParamsFilePath()
+	{
+		return $this->paramsFilePath;
 	}
 
 

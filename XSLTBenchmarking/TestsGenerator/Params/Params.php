@@ -38,4 +38,23 @@ class Params extends \XSLTBenchmarking\DriversContainer
 	}
 
 
+	/**
+	 * Return the name of file with params of the test
+	 * Default value is '__params.xml'.
+	 *
+	 * @param string $testName The name of the selected test
+	 *
+	 * @return string
+	 */
+	public function getTestParamsFileName($testName)
+	{
+		$name = $this->driver->getTestParamsFileName($testName);
+		if (!$name)
+		{
+			$name = '__params.xml';
+		}
+		return $name;
+	}
+
+
 }

@@ -164,4 +164,18 @@ class TestTest extends TestCase
 	}
 
 
+	/**
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::setParamsFilePath
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::getParamsFilePath
+	 */
+	public function testParamsFilePath()
+	{
+		$test = new Test('Foo Bar');
+		$test->setPath('root/path');
+
+		$test->setParamsFilePath('myName.xml');
+		$this->assertEquals($this->setDirSep('root/path/foo-bar/myName.xml'), $test->getParamsFilePath());
+	}
+
+
 }

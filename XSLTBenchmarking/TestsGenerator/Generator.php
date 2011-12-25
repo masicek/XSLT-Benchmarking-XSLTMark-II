@@ -114,6 +114,7 @@ class Generator
 			$test->setPath($this->testsDirectory);
 			$test->addFilesPaths($params->getTestFilesPaths($testName));
 			$test->addSettings($params->getTestSettings($testName));
+			$test->setParamsFilePath($params->getTestParamsFileName($testName));
 			$this->templates[$fullName] = $test;
 		}
 	}
@@ -197,7 +198,7 @@ class Generator
 		// save
 		$dom = dom_import_simplexml($testDef)->ownerDocument;
 		$dom->formatOutput = TRUE;
-		$dom->save(P::m($test->getPath(), '__params.xml'));
+		$dom->save($test->getParamsFilePath());
 	}
 
 

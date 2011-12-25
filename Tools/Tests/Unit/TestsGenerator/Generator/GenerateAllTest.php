@@ -51,6 +51,7 @@ class GenerateAllTest extends TestCase
 			$this->setDirSep($fixture . '/one.xml') => $this->setDirSep($fixture . '/genOne.xml'),
 			$this->setDirSep($fixture . '/two.xml') => $this->setDirSep($fixture . '/genTwo.xml'),
 		));
+		$this->setPropertyValue($test, 'paramsFilePath', $this->setDirSep($tests . '/test-name-first/myParams.xml'));
 		$testsList[] = $test;
 
 		// second test
@@ -63,6 +64,7 @@ class GenerateAllTest extends TestCase
 		$this->setPropertyValue($test, 'filesPaths', array(
 			$this->setDirSep($fixture . '/one.xml') => $this->setDirSep($fixture . '/genOne.xml'),
 		));
+		$this->setPropertyValue($test, 'paramsFilePath', $this->setDirSep($tests . '/test-name-second/__params.xml'));
 		$testsList[] = $test;
 
 		$this->setPropertyValue($generator, 'templates', $testsList);
@@ -73,7 +75,7 @@ class GenerateAllTest extends TestCase
 		$this->assertFileNotExists($this->setDirSep($tests . '/test-name-first/genOne.xml'));
 		$this->assertFileNotExists($this->setDirSep($tests . '/test-name-first/two.xml'));
 		$this->assertFileNotExists($this->setDirSep($tests . '/test-name-first/genTwo.xml'));
-		$this->assertFileNotExists($this->setDirSep($tests . '/test-name-first/__params.xml'));
+		$this->assertFileNotExists($this->setDirSep($tests . '/test-name-first/myParams.xml'));
 		// second test
 		$this->assertFileNotExists($this->setDirSep($tests . '/test-name-second/template.xslt'));
 		$this->assertFileNotExists($this->setDirSep($tests . '/test-name-second/one.xml'));
@@ -89,7 +91,7 @@ class GenerateAllTest extends TestCase
 		$this->assertFileExists($this->setDirSep($tests . '/test-name-first/genOne.xml'));
 		$this->assertFileExists($this->setDirSep($tests . '/test-name-first/two.xml'));
 		$this->assertFileExists($this->setDirSep($tests . '/test-name-first/genTwo.xml'));
-		$this->assertFileExists($this->setDirSep($tests . '/test-name-first/__params.xml'));
+		$this->assertFileExists($this->setDirSep($tests . '/test-name-first/myParams.xml'));
 		// second test
 		$this->assertFileExists($this->setDirSep($tests . '/test-name-second/template.xslt'));
 		$this->assertFileExists($this->setDirSep($tests . '/test-name-second/one.xml'));
@@ -107,7 +109,7 @@ class GenerateAllTest extends TestCase
 		);
 		$this->assertXmlFileEqualsXmlFile(
 			$this->setDirSep($fixture . '/expected__params1.xml'),
-			$this->setDirSep($tests . '/test-name-first/__params.xml')
+			$this->setDirSep($tests . '/test-name-first/myParams.xml')
 		);
 		$this->assertXmlFileEqualsXmlFile(
 			$this->setDirSep($fixture . '/expected__params2.xml'),
@@ -122,7 +124,7 @@ class GenerateAllTest extends TestCase
 		unlink($this->setDirSep($tests . '/test-name-first/genOne.xml'));
 		unlink($this->setDirSep($tests . '/test-name-first/two.xml'));
 		unlink($this->setDirSep($tests . '/test-name-first/genTwo.xml'));
-		unlink($this->setDirSep($tests . '/test-name-first/__params.xml'));
+		unlink($this->setDirSep($tests . '/test-name-first/myParams.xml'));
 		rmdir($this->setDirSep($tests . '/test-name-first'));
 		// second test
 		unlink($this->setDirSep($tests . '/test-name-second/template.xslt'));

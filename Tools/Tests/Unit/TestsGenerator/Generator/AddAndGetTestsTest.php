@@ -63,6 +63,7 @@ class AddAndGetTestsTest extends TestCase
 			$this->setDirSep($templateXYZ . '/one.xml') => $this->setDirSep($tmp . '/genOne.xml'),
 			$this->setDirSep($templateXYZ . '/two.xml') => $this->setDirSep($tmp . '/genTwo.xml'),
 		));
+		$this->setPropertyValue($test, 'paramsFilePath', $this->setDirSep($tests . '/test-name-first/testName.xml'));
 		$expectedTests['Test name - First'] = $test;
 
 		// second test
@@ -77,6 +78,7 @@ class AddAndGetTestsTest extends TestCase
 			$this->setDirSep($templateXYZ . '/two.xml') => $this->setDirSep($tmp . '/genTwo.xml'),
 			$this->setDirSep($templateXYZ . '/three.xml') => $this->setDirSep($templateXYZ . '/one.xml'),
 		));
+		$this->setPropertyValue($test, 'paramsFilePath', $this->setDirSep($tests . '/test-name-second/__params.xml'));
 		$expectedTests['Test name - Second'] = $test;
 
 		$this->assertEquals($expectedTests, $addedTests);

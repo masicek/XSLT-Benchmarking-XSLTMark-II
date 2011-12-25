@@ -77,7 +77,7 @@ class TestsGeneratorTest extends TestCase
 		// test MODIFY ELEMENT - RENAME
 		$generatedBase = $this->setDirSep($tests . '/modify-element-rename');
 		$expectedBase = $this->setDirSep($testsExpected . '/modify-element-rename');
-		$this->assertFileExistAndEquals($generatedBase, $expectedBase, '__params.xml');
+		$this->assertFileExistAndEquals($generatedBase, $expectedBase, 'myParams.xml');
 		$this->assertFileExistAndEquals($generatedBase, $expectedBase, 'test.xslt');
 		$this->assertFileExistAndEquals($generatedBase, $expectedBase, 'oneElement.xml');
 		$this->assertFileExistAndEquals($generatedBase, $expectedBase, 'oneNewElement.xml');
@@ -142,7 +142,7 @@ class TestsGeneratorTest extends TestCase
 		rmdir($base);
 		// MODIFY ELEMENT - RENAME
 		$base = $this->setDirSep($tests . '/modify-element-rename/');
-		unlink($this->setDirSep($base . '__params.xml'));
+		unlink($this->setDirSep($base . 'myParams.xml'));
 		unlink($this->setDirSep($base . 'test.xslt'));
 		unlink($this->setDirSep($base . 'oneElement.xml'));
 		unlink($this->setDirSep($base . 'oneNewElement.xml'));

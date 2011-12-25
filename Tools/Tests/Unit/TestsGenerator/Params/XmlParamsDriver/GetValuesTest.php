@@ -25,6 +25,7 @@ require_once ROOT_TOOLS . '/TestsGenerator/Params/XmlParamsDriver.php';
  * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestsNames
  * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestFilesPaths
  * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestSettings
+ * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getTestParamsFileName
  * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::getAllFilesPaths
  * @covers XSLTBenchmarking\TestsGenerator\XmlParamsDriver::createAllFilesPaths
  */
@@ -116,6 +117,15 @@ class GetValuesTest extends TestCase
 			),
 			$driver->getTestSettings('Remove')
 		);
+	}
+
+
+	public function testGetTestParamsFileName()
+	{
+		$driver = new XmlParamsDriver($this->setDirSep(__DIR__ . '/params.xml'), __DIR__);
+
+		$this->assertEquals('myParams.xml', $driver->getTestParamsFileName('Rename'));
+		$this->assertNull($driver->getTestParamsFileName('Remove'));
 	}
 
 
