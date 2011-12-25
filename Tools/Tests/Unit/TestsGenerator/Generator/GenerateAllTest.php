@@ -23,7 +23,7 @@ use \XSLTBenchmarking\TestsGenerator\Test;
  *
  * @covers XSLTBenchmarking\TestsGenerator\Generator::generateAll
  * @covers XSLTBenchmarking\TestsGenerator\Generator::generateTest
- * @covers XSLTBenchmarking\TestsGenerator\Generator::generateInputOutputCouples
+ * @covers XSLTBenchmarking\TestsGenerator\Generator::generateTestParams
  */
 class GenerateAllTest extends TestCase
 {

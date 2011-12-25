@@ -159,8 +159,8 @@ class Generator
 			copy($outputPath, $destinationOutputPath);
 		}
 
-		// generate file with couple of 'input' and 'expected output' files
-		$this->generateInputOutputCouples($test);
+		// generate file with params of generated test
+		$this->generateTestParams($test);
 
 		// generate template
 		$templating = new Templating($test->getTemplatingType(), $this->tmpDirectory);
@@ -175,7 +175,7 @@ class Generator
 	 *
 	 * @return void
 	 */
-	private function generateInputOutputCouples(Test $test)
+	private function generateTestParams(Test $test)
 	{
 		// get base name of couples
 		$couplesPaths = $test->getFilesPaths();
