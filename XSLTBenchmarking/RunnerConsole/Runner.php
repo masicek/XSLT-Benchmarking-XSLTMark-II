@@ -162,6 +162,11 @@ class Runner
 	// ---- PARTS OF RUNNING ----
 
 
+	/**
+	 * Generate tests from tests templates
+	 *
+	 * @return void
+	 */
 	private function generateTests()
 	{
 		$this->printHeader('Generate Tests');
@@ -200,8 +205,8 @@ class Runner
 		{
 			$generator->addTests($templateName);
 		}
-		$generator->generateAll();
-		$this->printInfo('Tests were generated from ' . count($templatesNames) . ' temapltes into directory "' . $testsDir . '"');
+		$testsNumber = $generator->generateAll();
+		$this->printInfo($testsNumber . ' tests were generated from ' . count($templatesNames) . ' temapltes into directory "' . $testsDir . '"');
 	}
 
 

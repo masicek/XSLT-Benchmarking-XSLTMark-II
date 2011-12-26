@@ -83,7 +83,8 @@ class GenerateAllTest extends TestCase
 		$this->assertFileNotExists($this->setDirSep($tests . '/test-name-second/__params.xml'));
 
 		// generate all tests from template
-		$generator->generateAll();
+		$testsNumber = $generator->generateAll();
+		$this->assertEquals(2, $testsNumber);
 
 		// fisrt test
 		$this->assertFileExists($this->setDirSep($tests . '/test-name-first/template.xslt'));

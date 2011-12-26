@@ -123,14 +123,17 @@ class Generator
 	/**
 	 * Generate all registered tests
 	 *
-	 * @return void
+	 * @return int Number of generated tests
 	 */
 	public function generateAll()
 	{
-		foreach ($this->getTests() as $test)
+		$tests = $this->getTests();
+		foreach ($tests as $test)
 		{
 			$this->generateTest($test);
 		}
+
+		return count($tests);
 	}
 
 
