@@ -19,10 +19,13 @@ if (!defined('ROOT'))
 }
 
 require_once LIBS . '/PhpOptions/PhpOptions.min.php';
+require_once LIBS . '/PhpPath/PhpPath.min.php';
 require_once ROOT . '/TestsGenerator/Generator.php';
+
 
 use PhpOptions\Options;
 use PhpOptions\Option;
+use PhpPath\P;
 use XSLTBenchmarking\TestsGenerator\Generator;
 
 /**
@@ -64,7 +67,7 @@ class Runner
 			$optionsList = array();
 
 			// directories
-			$optionsList[] = Option::directory('Templates', $baseDir)
+			$templates = $optionsList[] = Option::directory('Templates', $baseDir)
 				->short()
 				->value(FALSE)
 				->defaults('../Data/TestsTemplates')
@@ -81,10 +84,18 @@ class Runner
 				->description('Temporary directory');
 
 			// generating tests
-			$optionsList[] = Option::make('Generate')->description('Generating tests from templates');
-			$optionsList[] = Option::series('Templates names')
+			$generate = $optionsList[] = Option::make('Generate')->description('Generating tests from templates');
+			$optionsList[] = Option::series('Templates names', ',')
 				->short('n')
-				->description('Names of tests templates for generating, separated by one of this characters ", ;|"');
+				->value(FALSE)
+				->defaults(TRUE)
+				->description(
+					'Names of tests templates for generating, separated by character ",".' . PHP_EOL .
+					'If this option is not set (or is set without value),' . PHP_EOL .
+					'then all tests templates are selected (all subdirectories in directory' . PHP_EOL .
+					'set by option "' . $templates->getOptions() . '" are considered as tests templates).' . PHP_EOL .
+					'This option make sense only for option "' . $generate->getOptions() . '".'
+				);
 
 			// run tests
 			$optionsList[] = Option::make('Run')->description('Run prepared tests');
@@ -162,6 +173,28 @@ class Runner
 		$generator = new Generator($templatesDir, $testsDir, $tmpDir);
 
 		$templatesNames = $options->get('Templates names');
+
+		// HACK it will be solved with PhpOptions 2.0.0
+		if ($templatesNames == array('1'))
+		{
+			$templatesNames = TRUE;
+		}
+		// /HACK
+
+		// generate all templates
+		if ($templatesNames === TRUE)
+		{
+			$allResources = scandir($templatesDir);
+
+			$templatesNames = array();
+			foreach ($allResources as $resource)
+			{
+				if (!in_array($resource, array('.', '..')) && is_dir(P::m($templatesDir, $resource)))
+				{
+					$templatesNames[] = $resource;
+				}
+			}
+		}
 
 		foreach ($templatesNames as $templateName)
 		{
