@@ -115,4 +115,20 @@ class AddAndGetTestsTest extends TestCase
 	}
 
 
+	public function testUnknownTemplateDir()
+	{
+		$generator = new Generator(__DIR__, __DIR__, __DIR__);
+		$this->setExpectedException('\PhpPath\NotExistsPathException');
+		$generator->addTests('unknownTestsTeamplateDir');
+	}
+
+
+	public function testUnknownParamsFile()
+	{
+		$generator = new Generator(__DIR__, __DIR__, __DIR__);
+		$this->setExpectedException('\PhpPath\NotExistsPathException');
+		$generator->addTests('FixtureDuplicateName' , 'unknownParams.xml');
+	}
+
+
 }
