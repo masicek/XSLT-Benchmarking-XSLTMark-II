@@ -198,9 +198,9 @@ class TestTest extends TestCase
 	 */
 	public function testFilesPaths()
 	{
-		$foo1 = $this->setDirSep(__DIR__ . '/foo1');
-		$foo2 = $this->setDirSep(__DIR__ . '/foo2');
-		$foo3 = $this->setDirSep(__DIR__ . '/foo3');
+		$foo1 = $this->setDirSep(__DIR__ . '/foo1.xml');
+		$foo2 = $this->setDirSep(__DIR__ . '/foo2.xml');
+		$foo3 = $this->setDirSep(__DIR__ . '/foo3.xml');
 		$bar1 = $this->setDirSep(__DIR__ . '/bar1');
 		$bar2 = $this->setDirSep(__DIR__ . '/bar2');
 		$bar3 = $this->setDirSep(__DIR__ . '/bar3');
@@ -212,8 +212,8 @@ class TestTest extends TestCase
 		file_put_contents($bar3, '');
 
 		$test = new Test('Foo');
-		$test->addFilesPaths(array(__DIR__ . '/foo1' => __DIR__ . '/bar1'));
-		$test->addFilesPaths(array(__DIR__ . '/foo2' => __DIR__ . '/bar2', __DIR__ . '/foo3' => __DIR__ . '/bar3'));
+		$test->addFilesPaths(array(__DIR__ . '/foo1.xml' => __DIR__ . '/bar1'));
+		$test->addFilesPaths(array(__DIR__ . '/foo2.xml' => __DIR__ . '/bar2', __DIR__ . '/foo3.xml' => __DIR__ . '/bar3'));
 		$this->assertEquals(
 			array(
 				$foo1 => $bar1,
@@ -229,6 +229,17 @@ class TestTest extends TestCase
 		unlink($bar1);
 		unlink($bar2);
 		unlink($bar3);
+	}
+
+
+	/**
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::addFilesPaths
+	 */
+	public function testFilesPathsWrongInputExtension()
+	{
+		$test = new Test('Foo');
+		$this->setExpectedException('\XSLTBenchmarking\InvalidArgumentException');
+		$test->addFilesPaths(array('path/foo1.aaa' => 'path/bar1'));
 	}
 
 

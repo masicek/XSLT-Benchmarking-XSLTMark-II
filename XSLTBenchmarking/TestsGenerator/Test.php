@@ -249,6 +249,11 @@ class Test
 	{
 		foreach ($filesPaths as $input => $output)
 		{
+			$inputExtension = pathinfo($input, PATHINFO_EXTENSION);
+			if ($inputExtension != 'xml')
+			{
+				throw new \XSLTBenchmarking\InvalidArgumentException('XSLT template path does not have extension ".xml". It has value "' . $input . '"');
+			}
 			$this->filesPaths[P::mcf($input)] = P::mcf($output);
 		}
 	}
