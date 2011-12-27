@@ -21,12 +21,12 @@ if (!defined('ROOT'))
 require_once LIBS . '/PhpOptions/PhpOptions.min.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 require_once ROOT . '/TestsGenerator/Generator.php';
+require_once ROOT . '/TestsRunner/Runner.php';
 
 
 use PhpOptions\Options;
 use PhpOptions\Option;
 use PhpPath\P;
-use XSLTBenchmarking\TestsGenerator\Generator;
 
 /**
  * Class for runnig XSLT Benchmark from console
@@ -72,7 +72,7 @@ class Runner
 				->value(FALSE)
 				->defaults('../Data/TestsTemplates')
 				->description('Directory containing templates for generating tests');
-			$optionsList[] = Option::directory('Tests', $baseDir)
+			$tests = $optionsList[] = Option::directory('Tests', $baseDir)
 				->short()
 				->value(FALSE)
 				->defaults('../Data/Tests')
@@ -100,7 +100,19 @@ class Runner
 				);
 
 			// run tests
-			$optionsList[] = Option::make('Run')->description('Run prepared tests');
+			$run = $optionsList[] = Option::make('Run')->description('Run prepared tests');
+			$optionsList[] = Option::series('Tests names', ',')
+				->short()
+				->value(FALSE)
+				->defaults(TRUE)
+				->description(
+					'Subdirectories of director set by "' . $tests->getOptions() . '"' . PHP_EOL .
+					'containing tests for runnig, separated by character ",".' . PHP_EOL .
+					'If this option is not set (or is set without value),' . PHP_EOL .
+					'then all tests are selected' . PHP_EOL .
+					'(all subdirectories are considered as tests).' . PHP_EOL .
+					'This option make sense only for option "' . $run->getOptions() . '".'
+				);
 
 			// print reports
 			$optionsList[] = Option::make('Print reports')
@@ -113,6 +125,8 @@ class Runner
 			// dependences + groups
 			$options->dependences('Generate', array('Templates', 'Templates dirs', 'Tests', 'Tmp'));
 			$options->group('Generating tests', array('Generate', 'Templates', 'Templates dirs', 'Tests', 'Tmp'));
+			// HACK make group after solved bug in PhpOptions (issue #46)
+			//$options->group('Runnig tests', array('Run', 'Tests', 'Tests dirs'));
 		} catch (\PhpOptions\UserBadCallException $e) {
 			$this->printInfo('ERROR: ' . $e->getMessage());
 			die();
@@ -150,7 +164,7 @@ class Runner
 		// run tests
 		if ($options->get('Run'))
 		{
-			// TODO
+			$this->runTests();
 		}
 
 		// print reports
@@ -177,7 +191,7 @@ class Runner
 		$templatesDir = $options->get('Templates');
 		$testsDir = $options->get('Tests');
 		$tmpDir = $options->get('Tmp');
-		$generator = new Generator($templatesDir, $testsDir, $tmpDir);
+		$generator = new \XSLTBenchmarking\TestsGenerator\Generator($templatesDir, $testsDir, $tmpDir);
 
 		$templatesDirs = $options->get('Templates dirs');
 
@@ -209,6 +223,54 @@ class Runner
 		}
 		$testsNumber = $generator->generateAll();
 		$this->printInfo($testsNumber . ' tests were generated from ' . count($templatesDirs) . ' temapltes into directory "' . $testsDir . '"');
+	}
+
+
+	/**
+	 * Run all tests
+	 *
+	 * @return void
+	 */
+	private function runTests()
+	{
+		$this->printHeader('Run Tests');
+
+		$options = $this->options;
+		$testsDir = $options->get('Tests');
+		$runner = new \XSLTBenchmarking\TestsRunner\Runner($testsDir);
+
+		$testsDirs = $options->get('Tests dirs');
+
+		// HACK it will be solved with PhpOptions 2.0.0
+		if ($testsDirs == array('1'))
+		{
+			$testsDirs = TRUE;
+		}
+		// /HACK
+
+		// generate all templates
+		if ($testsDirs === TRUE)
+		{
+			$allResources = scandir($testsDir);
+
+			$testsDirs = array();
+			foreach ($allResources as $resource)
+			{
+				if (!in_array($resource, array('.', '..')) && is_dir(P::m($testsDir, $resource)))
+				{
+					$testsDirs[] = $resource;
+				}
+			}
+		}
+
+		foreach ($testsDirs as $testName)
+		{
+			$generator->addTest($testName);
+		}
+
+		$runner->runAll();
+
+		$this->printInfo('TODO - make this info');
 	}
 
 

@@ -91,4 +91,13 @@ class Runner
 	}
 
 
+	/**
+	 * Run all added tests
+	 */
+	public function runAll()
+	{
+		// TODO
+	}
+
+
 }
