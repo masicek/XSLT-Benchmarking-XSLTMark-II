@@ -41,9 +41,13 @@ class AddAndGetTestsTest extends TestCase
 		mkdir($tmp);
 
 		copy(
-			$this->setDirSep(__DIR__ . '/AddAndGetTests.xml'),
+			$this->setDirSep(__DIR__ . '/FixtureAddAndGetTests/params.xml'),
 			$this->setDirSep($templateXYZ . '/params.xml')
 		);
+		file_put_contents($this->setDirSep($templateXYZ . '/test.tpl.xslt'), '');
+		file_put_contents($this->setDirSep($templateXYZ . '/one.xml'), '');
+		file_put_contents($this->setDirSep($templateXYZ . '/two.xml'), '');
+		file_put_contents($this->setDirSep($templateXYZ . '/three.xml'), '');
 
 		$generator = new Generator($templates, $tests, $tmp);
 		$generator->addTests('XYZ', 'params.xml');
@@ -84,6 +88,10 @@ class AddAndGetTestsTest extends TestCase
 		$this->assertEquals($expectedTests, $addedTests);
 
 		unlink($this->setDirSep($templateXYZ . '/params.xml'));
+		unlink($this->setDirSep($templateXYZ . '/test.tpl.xslt'));
+		unlink($this->setDirSep($templateXYZ . '/one.xml'));
+		unlink($this->setDirSep($templateXYZ . '/two.xml'));
+		unlink($this->setDirSep($templateXYZ . '/three.xml'));
 		rmdir($templateXYZ);
 		rmdir($templates);
 		rmdir($tests);
@@ -96,6 +104,11 @@ class AddAndGetTestsTest extends TestCase
 	public function testNameCollision()
 	{
 		$generator = new Generator(__DIR__, __DIR__, __DIR__);
+		file_put_contents($this->setDirSep(__DIR__ . '/FixtureDuplicateName/test.tpl.xslt'), '');
+		file_put_contents($this->setDirSep(__DIR__ . '/FixtureDuplicateName/lorem.xml'), '');
+		$generator->addTests('FixtureDuplicateName');
+		unlink($this->setDirSep(__DIR__ . '/FixtureDuplicateName/test.tpl.xslt'));
+		unlink($this->setDirSep(__DIR__ . '/FixtureDuplicateName/lorem.xml'));
 		$this->setExpectedException('\XSLTBenchmarking\CollisionException', 'Duplicate name of test "Duplicate name - Test name"');
 		$generator->addTests('FixtureDuplicateName');
 		$addedTests = $generator->getTests();

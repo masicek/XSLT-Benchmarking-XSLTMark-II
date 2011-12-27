@@ -105,7 +105,7 @@ class Test
 	 */
 	public function setTemplatePath($templatePath)
 	{
-		$templatePath = P::m($templatePath);
+		$templatePath = P::mcf($templatePath);
 
 		$basename = basename($templatePath);
 		$parts = explode('.', $basename);
@@ -249,7 +249,7 @@ class Test
 	{
 		foreach ($filesPaths as $input => $output)
 		{
-			$this->filesPaths[P::m($input)] = P::m($output);
+			$this->filesPaths[P::mcf($input)] = P::mcf($output);
 		}
 	}
 

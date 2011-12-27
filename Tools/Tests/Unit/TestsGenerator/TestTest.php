@@ -24,11 +24,12 @@ class TestTest extends TestCase
 
 	/**
 	 * @covers XSLTBenchmarking\TestsGenerator\Test::__construct
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::getName
 	 */
 	public function testTest()
 	{
 		$test = new Test('Foo');
-		$this->assertEquals('Foo', $this->getPropertyValue($test, 'name'));
+		$this->assertEquals('Foo', $test->getName());
 	}
 
 
@@ -38,13 +39,30 @@ class TestTest extends TestCase
 	 */
 	public function testTemplatePath()
 	{
+		file_put_contents($this->setDirSep(__DIR__ . '/template.tpl.xsl'), '');
+		file_put_contents($this->setDirSep(__DIR__ . '/template.tpl.xslt'), '');
+
 		$test = new Test('Foo');
 
-		$test->setTemplatePath('path/template.tpl.xslt');
-		$this->assertEquals($this->setDirSep('path/template.tpl.xslt'), $test->getTemplatePath());
+		$test->setTemplatePath(__DIR__ . '/template.tpl.xsl');
+		$this->assertEquals($this->setDirSep(__DIR__ . '/template.tpl.xsl'), $test->getTemplatePath());
 
-		$test->setTemplatePath('path/template.tpl.xsl');
-		$this->assertEquals($this->setDirSep('path/template.tpl.xsl'), $test->getTemplatePath());
+		$test->setTemplatePath(__DIR__ . '/template.tpl.xslt');
+		$this->assertEquals($this->setDirSep(__DIR__ . '/template.tpl.xslt'), $test->getTemplatePath());
+
+		unlink($this->setDirSep(__DIR__ . '/template.tpl.xsl'));
+		unlink($this->setDirSep(__DIR__ . '/template.tpl.xslt'));
+	}
+
+
+	/**
+	 * @covers XSLTBenchmarking\TestsGenerator\Test::setTemplatePath
+	 */
+	public function testTemplatePathNotExistTemplate()
+	{
+		$test = new Test('Foo');
+		$this->setExpectedException('\PhpPath\NotExistsPathException');
+		$test->setTemplatePath($this->setDirSep(__DIR__ . '/unknown.tpl.xslt'));
 	}
 
 
@@ -53,11 +71,20 @@ class TestTest extends TestCase
 	 *
 	 * @covers XSLTBenchmarking\TestsGenerator\Test::setTemplatePath
 	 */
-	public function testTemplatePathWrong($path)
+	public function testTemplatePathWrong($name)
 	{
+		file_put_contents($this->setDirSep(__DIR__ . '/' . $name), '');
+
 		$test = new Test('Foo');
-		$this->setExpectedException('\XSLTBenchmarking\InvalidArgumentException');
-		$test->setTemplatePath($path);
+
+		try {
+			$test->setTemplatePath($this->setDirSep(__DIR__ . '/' . $name));
+			$this->fail();
+		} catch (\XSLTBenchmarking\InvalidArgumentException $e) {
+			$this->assertTrue(TRUE);
+		}
+
+		unlink($this->setDirSep(__DIR__ . '/' . $name));
 	}
 
 
@@ -68,6 +95,7 @@ class TestTest extends TestCase
 	{
 		return array(
 			array('Lorem ipsum'),
+			array('Lorem_ipsum'),
 			array('lorem.tpl'),
 			array('lorem.xslt'),
 			array('loremtpl.xslt'),
@@ -106,9 +134,17 @@ class TestTest extends TestCase
 	 */
 	public function testGetXsltName()
 	{
+		mkdir($this->setDirSep(__DIR__ . '/root'));
+		mkdir($this->setDirSep(__DIR__ . '/root/path'));
+		file_put_contents($this->setDirSep(__DIR__ . '/root/path/template.tpl.xslt'), '');
+
 		$test = new Test('Foo');
-		$test->setTemplatePath('path/template.tpl.xslt');
+		$test->setTemplatePath(__DIR__ . '/root/path/template.tpl.xslt');
 		$this->assertEquals('template.xslt', $test->getXsltName());
+
+		unlink($this->setDirSep(__DIR__ . '/root/path/template.tpl.xslt'));
+		rmdir($this->setDirSep(__DIR__ . '/root/path'));
+		rmdir($this->setDirSep(__DIR__ . '/root'));
 	}
 
 
@@ -117,14 +153,26 @@ class TestTest extends TestCase
 	 */
 	public function testGetXsltPath()
 	{
+		mkdir($this->setDirSep(__DIR__ . '/root'));
+		mkdir($this->setDirSep(__DIR__ . '/root/path'));
+		mkdir($this->setDirSep(__DIR__ . '/root/path/lorem'));
+		file_put_contents($this->setDirSep(__DIR__ . '/root/path/lorem/template.tpl.xslt'), '');
+		file_put_contents($this->setDirSep(__DIR__ . '/root/path/lorem/myPrefix.template.tpl.xslt'), '');
+
 		$test = new Test('Foo Bar');
-		$test->setPath('root/path');
+		$test->setPath(__DIR__ . '/root/path');
 
-		$test->setTemplatePath('lorem/template.tpl.xslt');
-		$this->assertEquals($this->setDirSep('root/path/foo-bar/template.xslt'), $test->getXsltPath());
+		$test->setTemplatePath(__DIR__ . '/root/path/lorem/template.tpl.xslt');
+		$this->assertEquals($this->setDirSep(__DIR__ . '/root/path/foo-bar/template.xslt'), $test->getXsltPath());
 
-		$test->setTemplatePath('lorem/myPrefix.template.tpl.xslt');
-		$this->assertEquals($this->setDirSep('root/path/foo-bar/myPrefix.template.xslt'), $test->getXsltPath());
+		$test->setTemplatePath(__DIR__ . '/root/path/lorem/myPrefix.template.tpl.xslt');
+		$this->assertEquals($this->setDirSep(__DIR__ . '/root/path/foo-bar/myPrefix.template.xslt'), $test->getXsltPath());
+
+		unlink($this->setDirSep(__DIR__ . '/root/path/lorem/template.tpl.xslt'));
+		unlink($this->setDirSep(__DIR__ . '/root/path/lorem/myPrefix.template.tpl.xslt'));
+		rmdir($this->setDirSep(__DIR__ . '/root/path/lorem'));
+		rmdir($this->setDirSep(__DIR__ . '/root/path'));
+		rmdir($this->setDirSep(__DIR__ . '/root'));
 	}
 
 
@@ -150,17 +198,37 @@ class TestTest extends TestCase
 	 */
 	public function testFilesPaths()
 	{
+		$foo1 = $this->setDirSep(__DIR__ . '/foo1');
+		$foo2 = $this->setDirSep(__DIR__ . '/foo2');
+		$foo3 = $this->setDirSep(__DIR__ . '/foo3');
+		$bar1 = $this->setDirSep(__DIR__ . '/bar1');
+		$bar2 = $this->setDirSep(__DIR__ . '/bar2');
+		$bar3 = $this->setDirSep(__DIR__ . '/bar3');
+		file_put_contents($foo1, '');
+		file_put_contents($foo2, '');
+		file_put_contents($foo3, '');
+		file_put_contents($bar1, '');
+		file_put_contents($bar2, '');
+		file_put_contents($bar3, '');
+
 		$test = new Test('Foo');
-		$test->addFilesPaths(array('foo1/bar1' => 'foo1/car1'));
-		$test->addFilesPaths(array('foo2/bar2' => 'foo2/car2', 'foo3/bar3' => 'foo3/car3'));
+		$test->addFilesPaths(array(__DIR__ . '/foo1' => __DIR__ . '/bar1'));
+		$test->addFilesPaths(array(__DIR__ . '/foo2' => __DIR__ . '/bar2', __DIR__ . '/foo3' => __DIR__ . '/bar3'));
 		$this->assertEquals(
 			array(
-				$this->setDirSep('foo1/bar1') => $this->setDirSep('foo1/car1'),
-				$this->setDirSep('foo2/bar2') => $this->setDirSep('foo2/car2'),
-				$this->setDirSep('foo3/bar3') => $this->setDirSep('foo3/car3'),
+				$foo1 => $bar1,
+				$foo2 => $bar2,
+				$foo3 => $bar3,
 			),
 			$test->getFilesPaths()
 		);
+
+		unlink($foo1);
+		unlink($foo2);
+		unlink($foo3);
+		unlink($bar1);
+		unlink($bar2);
+		unlink($bar3);
 	}
 
 
