@@ -91,6 +91,7 @@ class Generator
 	 * of templates containing template of generated tests
 	 * @param string $paramsFiles File defined tests
 	 *
+	 * @throws \XSLTBenchmarking\CollisionException Duplicate name of test
 	 * @return void
 	 */
 	public function addTests($templateDirectory, $testParamsFile = '__params.xml')
