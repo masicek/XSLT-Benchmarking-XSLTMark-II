@@ -70,6 +70,7 @@ class Runner
 		$optionsList[] = Option::make('Help')->description('Show this help');
 		$optionsList[] = Option::make('All')->description('Run script parts (Tests, Docs)');
 		$optionsList[] = Option::make('Tests')->description('Run all tests');
+		$optionsList[] = Option::make('Skipped off')->description('Turn off skipping of skipped tests');
 		$optionsList[] = Option::make('Tests unit')->short()->long('tu')->description('Run unit tests');
 		$optionsList[] = Option::make('Tests regression')->short()->long('tr')->description('Run regression tests');
 		$optionsList[] = Option::make('Docs')->description('Run script for generating API documenation of PhpOptions');
@@ -253,6 +254,8 @@ class Runner
 	{
 		if (!self::$testsIncludeDone)
 		{
+			define('TEST_SKIPPED', !(bool)$this->options->get('Skipped off'));
+
 			self::$testsIncludeDone = TRUE;
 
 			$this->mockeryInclude();

@@ -127,10 +127,10 @@ class Runner
 			$options->group('Generating tests', array('Generate', 'Templates', 'Templates dirs', 'Tests', 'Tmp'));
 			// HACK make group after solved bug in PhpOptions (issue #46)
 			//$options->group('Runnig tests', array('Run', 'Tests', 'Tests dirs'));
-		} catch (\PhpOptions\UserBadCallException $e) {
+		} catch (\PhpOptions\UserBadCallException $e) {// @codeCoverageIgnoreStart
 			$this->printInfo('ERROR: ' . $e->getMessage());
 			die();
-		}
+		}// @codeCoverageIgnoreEnd
 
 		$this->options = $options;
 	}
@@ -150,10 +150,10 @@ class Runner
 		$options = $this->options;
 
 		if ($options->get('Help'))
-		{
+		{// @codeCoverageIgnoreStart
 			fwrite(STDOUT, $options->getHelp());
 			return;
-		}
+		}// @codeCoverageIgnoreEnd
 
 		// generating tests
 		if ($options->get('Generate'))

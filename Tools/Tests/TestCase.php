@@ -32,6 +32,18 @@ class TestCase extends \PHPUnit_Framework_TestCase
 
 
 	/**
+	 * Turn off skipping of tests if it is required
+	 */
+	public static function markTestSkipped($message = '')
+	{
+		if (TEST_SKIPPED)
+		{
+			parent::markTestSkipped($message);
+		}
+	}
+
+
+	/**
 	 * Simulate input command-line arguments
 	 *
 	 * @param string $arguments List of arguments
