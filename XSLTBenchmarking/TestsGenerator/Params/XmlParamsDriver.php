@@ -31,11 +31,11 @@ class XmlParamsDriver implements IParamsDriver
 	private $tests;
 
 	/**
-	 * The path of the file with deffinition of generated tests
+	 * The path of the directory with definition of generated tests
 	 *
 	 * @var string
 	 */
-	private $paramsFilePath;
+	private $rootDirectory;
 
 	/**
 	 * The path of the temporary directory
@@ -74,7 +74,7 @@ class XmlParamsDriver implements IParamsDriver
 			);
 		}
 
-		$this->paramsFilePath = $paramsFilePath;
+		$this->rootDirectory = dirname($paramsFilePath);
 		$this->tmpDirectoryPath = $tmpDirectoryPath;
 		$this->tests = new \SimpleXMLElement($paramsFilePath, 0, TRUE);
 	}
@@ -98,7 +98,7 @@ class XmlParamsDriver implements IParamsDriver
 	 */
 	public function getTemplatePath()
 	{
-		return P::m(dirname($this->paramsFilePath), (string)$this->tests['template']);
+		return P::m($this->rootDirectory, (string)$this->tests['template']);
 	}
 
 
@@ -227,7 +227,7 @@ class XmlParamsDriver implements IParamsDriver
 		// existed xml files
 		foreach ($this->tests->files->file as $file)
 		{
-			$files[(string)$file['id']] = P::m(dirname($this->paramsFilePath), (string)$file);
+			$files[(string)$file['id']] = P::m($this->rootDirectory, (string)$file);
 		}
 
 		// generated xml files
