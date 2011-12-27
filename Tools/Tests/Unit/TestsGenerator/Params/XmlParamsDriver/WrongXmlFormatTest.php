@@ -57,7 +57,6 @@ class WrongXmlFormatTest extends TestCase
 	 */
 	public function testWrong($search, $replacement)
 	{
-
 		// make wrong copy of params file
 		$content = file_get_contents($this->setDirSep(__DIR__ . '/paramsWrong.xml'));
 		$content = str_replace($search, $replacement, $content);
@@ -85,6 +84,9 @@ class WrongXmlFormatTest extends TestCase
 			array('generator="easy"', 'generator="unknown"'),
 			array('<setting name="testName">20</setting>', ''),
 			array('<file input="one" output="manyNew" />', ''),
+			array('name="Remove"', 'name="Rename"'),
+			array('setting name="newName"', 'setting name="action"'),
+			array('setting name="testNameTmp"', 'setting name="testName"'),
 		);
 	}
 

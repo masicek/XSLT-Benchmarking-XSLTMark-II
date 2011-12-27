@@ -6,7 +6,4 @@
 	<test name="Test name">
 		<file input="lorem" output="lorem"></file>
 	</test>
-	<test name="Test name">
-		<file input="lorem" output="lorem"></file>
-	</test>
 </tests>

@@ -9,6 +9,10 @@
 		<generated id="many" generator="easy" output="manyElements.xml">
 			<setting name="testName">20</setting>
 		</generated>
+		<generated id="many2" generator="easy" output="manyElements2.xml">
+			<setting name="testName">10</setting>
+			<setting name="testNameTmp">30</setting>
+		</generated>
 		<generated id="manyNew" generator="easy" output="manyNewElements.xml">
 			<setting name="testNewName">20</setting>
 			<setting name="testName2">3</setting>
