@@ -62,6 +62,8 @@ class GenerateTest extends TestCase
 
 	public function testUnknownVariable()
 	{
+		$this->markTestSkipped('This test is OK, but too long. Unskipped for global final testing.');
+
 		$tmpDirPath = __DIR__;
 		$driver = new SmartyTemplatingDriver($tmpDirPath);
 		$templatePath = $this->setDirSep(__DIR__ . '/template.tpl.xslt');
