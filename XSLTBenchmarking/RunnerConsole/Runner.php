@@ -85,15 +85,17 @@ class Runner
 
 			// generating tests
 			$generate = $optionsList[] = Option::make('Generate')->description('Generating tests from templates');
-			$optionsList[] = Option::series('Templates names', ',')
-				->short('n')
+			$optionsList[] = Option::series('Templates dirs', ',')
+				->short()
 				->value(FALSE)
 				->defaults(TRUE)
+				// HACK PHP_EOL will not be used in PhpOptions 2.0.0
 				->description(
-					'Names of tests templates for generating, separated by character ",".' . PHP_EOL .
+					'Subdirectories of director set by "' . $templates->getOptions() . '"' . PHP_EOL .
+					'containing tests templates for generating, separated by character ",".' . PHP_EOL .
 					'If this option is not set (or is set without value),' . PHP_EOL .
-					'then all tests templates are selected (all subdirectories in directory' . PHP_EOL .
-					'set by option "' . $templates->getOptions() . '" are considered as tests templates).' . PHP_EOL .
+					'then all tests templates are selected' . PHP_EOL .
+					'(all subdirectories are considered as tests templates).' . PHP_EOL .
 					'This option make sense only for option "' . $generate->getOptions() . '".'
 				);
 
@@ -109,8 +111,8 @@ class Runner
 			$options->add($optionsList);
 
 			// dependences + groups
-			$options->dependences('Generate', array('Templates', 'Templates names', 'Tests', 'Tmp'));
-			$options->group('Generating tests', array('Generate', 'Templates', 'Templates names', 'Tests', 'Tmp'));
+			$options->dependences('Generate', array('Templates', 'Templates dirs', 'Tests', 'Tmp'));
+			$options->group('Generating tests', array('Generate', 'Templates', 'Templates dirs', 'Tests', 'Tmp'));
 		} catch (\PhpOptions\UserBadCallException $e) {
 			$this->printInfo('ERROR: ' . $e->getMessage());
 			die();
@@ -177,36 +179,36 @@ class Runner
 		$tmpDir = $options->get('Tmp');
 		$generator = new Generator($templatesDir, $testsDir, $tmpDir);
 
-		$templatesNames = $options->get('Templates names');
+		$templatesDirs = $options->get('Templates dirs');
 
 		// HACK it will be solved with PhpOptions 2.0.0
-		if ($templatesNames == array('1'))
+		if ($templatesDirs == array('1'))
 		{
-			$templatesNames = TRUE;
+			$templatesDirs = TRUE;
 		}
 		// /HACK
 
 		// generate all templates
-		if ($templatesNames === TRUE)
+		if ($templatesDirs === TRUE)
 		{
 			$allResources = scandir($templatesDir);
 
-			$templatesNames = array();
+			$templatesDirs = array();
 			foreach ($allResources as $resource)
 			{
 				if (!in_array($resource, array('.', '..')) && is_dir(P::m($templatesDir, $resource)))
 				{
-					$templatesNames[] = $resource;
+					$templatesDirs[] = $resource;
 				}
 			}
 		}
 
-		foreach ($templatesNames as $templateName)
+		foreach ($templatesDirs as $templateDir)
 		{
-			$generator->addTests($templateName);
+			$generator->addTests($templateDir);
 		}
 		$testsNumber = $generator->generateAll();
-		$this->printInfo($testsNumber . ' tests were generated from ' . count($templatesNames) . ' temapltes into directory "' . $testsDir . '"');
+		$this->printInfo($testsNumber . ' tests were generated from ' . count($templatesDirs) . ' temapltes into directory "' . $testsDir . '"');
 	}
 
 

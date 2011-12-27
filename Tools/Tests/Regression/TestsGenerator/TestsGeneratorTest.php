@@ -45,7 +45,7 @@ class TestsGeneratorTest extends TestCase
 		$this->setArguments(
 			'-g ' .
 			'--templates "./Templates" ' .
-			'--templates-names "modify_element,value_to_attribute" ' .
+			'--templates-dirs "modify_element,value_to_attribute" ' .
 			'--tests "./Tests" ' .
 			'--tmp "./Tmp" '
 		);
