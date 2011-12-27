@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<test template="template.xslt">
+<test name="Test name - First" template="template.xslt">
 	<couple input="one.xml" output="genOne.xml"/>
 	<couple input="two.xml" output="genTwo.xml"/>
 </test>

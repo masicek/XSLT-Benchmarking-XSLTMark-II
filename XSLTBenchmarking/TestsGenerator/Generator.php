@@ -188,6 +188,7 @@ class Generator
 
 		// make xml file
 		$testDef = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><test></test>');
+		$testDef->addAttribute('name', $test->getName());
 		$testDef->addAttribute('template', $test->getXsltName());
 
 		// couples

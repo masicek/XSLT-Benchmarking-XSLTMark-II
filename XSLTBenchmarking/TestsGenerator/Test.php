@@ -86,6 +86,17 @@ class Test
 
 
 	/**
+	 * Return the human-redable name of the test
+	 *
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+
+
+	/**
 	 * Set the path of the test template
 	 *
 	 * @param string $templatePath The path of the test template
