@@ -33,20 +33,16 @@ class TestsGeneratorTest extends TestCase
 		// used directories
 		$baseDir = __DIR__;
 		$templates = $this->setDirSep($baseDir . '/Templates');
-		$tests = $this->setDirSep($baseDir . '/Tests');
+		$tests = $this->setDirSep($baseDir . '/TestsGenerated');
 		$testsExpected = $this->setDirSep($baseDir . '/TestsExpected');
 		$tmp = $this->setDirSep($baseDir . '/Tmp');
-
-		// make needed directories
-		mkdir($tests);
-		mkdir($tmp);
 
 		// simulate arguments for generating tests
 		$this->setArguments(
 			'-g ' .
 			'--templates "./Templates" ' .
 			'--templates-dirs "modify_element,value_to_attribute" ' .
-			'--tests "./Tests" ' .
+			'--tests "./TestsGenerated" ' .
 			'--tmp "./Tmp" '
 		);
 

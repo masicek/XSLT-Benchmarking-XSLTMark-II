@@ -1,5 +1,4 @@
 /Tmp/*
-!/Tmp/README
 /Data/Tests/*
-!/Data/Tests/README
+/Data/Reports/*
 /Tools/Data/*

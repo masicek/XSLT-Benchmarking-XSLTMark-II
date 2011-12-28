@@ -72,12 +72,12 @@ class Runner
 				->value(FALSE)
 				->defaults('../Data/TestsTemplates')
 				->description('Directory containing templates for generating tests');
-			$tests = $optionsList[] = Option::directory('Tests', $baseDir)
+			$tests = $optionsList[] = Option::directory('Tests', $baseDir, 'makeDir')
 				->short()
 				->value(FALSE)
 				->defaults('../Data/Tests')
 				->description('Directory for generating tests');
-			$optionsList[] = Option::directory('Tmp', $baseDir)
+			$optionsList[] = Option::directory('Tmp', $baseDir, 'makeDir')
 				->short()
 				->value(FALSE)
 				->defaults('../Tmp')
