@@ -40,7 +40,7 @@ class Generator
 	private $testsDirectory;
 
 	/**
-	 * Directory temporary files
+	 * Directory for temporary files
 	 *
 	 * @var string
 	 */
@@ -57,9 +57,9 @@ class Generator
 	/**
 	 * Object configuration
 	 *
-	 * @param type $templatesDirectory The root directory of all tests templates
-	 * @param type $testsDirectory The root directory of all generated tests
-	 * @param type $tmpDirectory The temporary directory
+	 * @param string $templatesDirectory The root directory of all tests templates
+	 * @param string $testsDirectory The root directory of all generated tests
+	 * @param string $tmpDirectory The temporary directory
 	 */
 	public function __construct($templatesDirectory, $testsDirectory, $tmpDirectory)
 	{
