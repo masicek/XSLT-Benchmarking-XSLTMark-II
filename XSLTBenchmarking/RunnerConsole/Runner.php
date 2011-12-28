@@ -195,13 +195,6 @@ class Runner
 
 		$templatesDirs = $options->get('Templates dirs');
 
-		// HACK it will be solved with PhpOptions 2.0.0
-		if ($templatesDirs == array('1'))
-		{
-			$templatesDirs = TRUE;
-		}
-		// /HACK
-
 		// generate all templates
 		if ($templatesDirs === TRUE)
 		{
