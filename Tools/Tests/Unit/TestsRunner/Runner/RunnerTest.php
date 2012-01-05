@@ -30,7 +30,11 @@ class RunnerTest extends TestCase
 	{
 		mkdir($this->setDirSep(__DIR__ . '/tests'));
 
-		$runner = new Runner(__DIR__ . '/tests');
+		$runner = new Runner(
+			$this->getMock('\XSLTBenchmarking\Factory'),
+			$this->getMock('\XSLTBenchmarking\TestsRunner\Params'),
+			__DIR__ . '/tests'
+		);
 		$this->assertEquals($this->setDirSep(__DIR__ . '/tests'), $this->getPropertyValue($runner, 'testsDirectory'));
 
 		rmdir($this->setDirSep(__DIR__ . '/tests'));
@@ -40,7 +44,11 @@ class RunnerTest extends TestCase
 	public function testNotExistDir()
 	{
 		$this->setExpectedException('\PhpPath\NotExistsPathException');
-		$runner = new Runner(__DIR__ . '/unknown');
+		$runner = new Runner(
+			$this->getMock('\XSLTBenchmarking\Factory'),
+			$this->getMock('\XSLTBenchmarking\TestsRunner\Params'),
+			__DIR__ . '/unknown'
+		);
 	}
 
 

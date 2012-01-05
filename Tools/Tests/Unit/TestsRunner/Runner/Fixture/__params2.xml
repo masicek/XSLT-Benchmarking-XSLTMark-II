@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<test name="Test name 2" template="test2.xslt">
-	<couple input="lorem.xml" output="ipsum.xml"/>
-</test>

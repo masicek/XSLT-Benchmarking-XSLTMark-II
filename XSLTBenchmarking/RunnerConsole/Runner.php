@@ -9,19 +9,18 @@
 
 namespace XSLTBenchmarking\RunnerConsole;
 
-if (!defined('LIBS'))
-{
-	define ('LIBS', __DIR__ . '/../../Libs');
-}
-if (!defined('ROOT'))
-{
-	define ('ROOT', __DIR__ . '/..');
-}
-
 require_once LIBS . '/PhpOptions/PhpOptions.min.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
+
+require_once ROOT . '/Factory.php';
+
 require_once ROOT . '/TestsGenerator/Generator.php';
+require_once ROOT . '/TestsGenerator/Templating/Templating.php';
+require_once ROOT . '/TestsGenerator/Params/Params.php';
+require_once ROOT . '/TestsGenerator/XmlGenerator/XmlGenerator.php';
+
 require_once ROOT . '/TestsRunner/Runner.php';
+require_once ROOT . '/TestsRunner/Params/Params.php';
 
 
 use PhpOptions\Options;
@@ -45,13 +44,78 @@ class Runner
 	private $options;
 
 
+	/**
+	 * Factory class for making new objects
+	 *
+	 * @var \XSLTBenchmarking\Factory
+	 */
+	private $factory;
+
+
 	// ---- RUNNING ----
+
+	/**
+	 * Setting the object.
+	 *
+	 * @param string $baseDir Base dir of expected set directories
+	 */
+	public function __construct($baseDir)
+	{
+		$this->options = $this->defineOptions($baseDir);
+		$this->factory = new \XSLTBenchmarking\Factory();
+	}
 
 
 	/**
-	 * Define expected options
+	 * Run XSLT Benchmarking
+	 * - show help
+	 * @todo - generate tests
+	 * @todo - run tests
+	 * @todo - print reports
+	 *
+	 * @return void
 	 */
-	public function __construct($baseDir)
+	public function run()
+	{
+		$options = $this->options;
+
+		if ($options->get('Help'))
+		{// @codeCoverageIgnoreStart
+			fwrite(STDOUT, $options->getHelp());
+			return;
+		}// @codeCoverageIgnoreEnd
+
+		// generating tests
+		if ($options->get('Generate'))
+		{
+			$this->generateTests();
+		}
+
+		// run tests
+		if ($options->get('Run'))
+		{
+			$this->runTests();
+		}
+
+		// print reports
+		if ($options->get('Print reports'))
+		{
+			// TODO
+		}
+	}
+
+
+	// ---- DEFINE COMMAND-LINE OPTIONS ----
+
+
+	/**
+	 * Define excepted command-line options.
+	 *
+	 * @param string $baseDir Base dir of expected set directories
+	 *
+	 * @return \PhpOptions\Options
+	 */
+	private function defineOptions($baseDir)
 	{
 		try {
 			$options = new Options();
@@ -132,48 +196,8 @@ class Runner
 			die();
 		}// @codeCoverageIgnoreEnd
 
-		$this->options = $options;
+		return $options;
 	}
-
-
-	/**
-	 * Run XSLT Benchmarking
-	 * - show help
-	 * @todo - generate tests
-	 * @todo - run tests
-	 * @todo - print reports
-	 *
-	 * @return void
-	 */
-	public function run()
-	{
-		$options = $this->options;
-
-		if ($options->get('Help'))
-		{// @codeCoverageIgnoreStart
-			fwrite(STDOUT, $options->getHelp());
-			return;
-		}// @codeCoverageIgnoreEnd
-
-		// generating tests
-		if ($options->get('Generate'))
-		{
-			$this->generateTests();
-		}
-
-		// run tests
-		if ($options->get('Run'))
-		{
-			$this->runTests();
-		}
-
-		// print reports
-		if ($options->get('Print reports'))
-		{
-			// TODO
-		}
-	}
-
 
 	// ---- PARTS OF RUNNING ----
 
@@ -191,7 +215,17 @@ class Runner
 		$templatesDir = $options->get('Templates');
 		$testsDir = $options->get('Tests');
 		$tmpDir = $options->get('Tmp');
-		$generator = new \XSLTBenchmarking\TestsGenerator\Generator($templatesDir, $testsDir, $tmpDir);
+
+		$generator = new \XSLTBenchmarking\TestsGenerator\Generator(
+			$this->factory,
+			new \XSLTBenchmarking\TestsGenerator\Params(
+				new \XSLTBenchmarking\TestsGenerator\XmlGenerator(),
+				$tmpDir),
+			new \XSLTBenchmarking\TestsGenerator\Templating($tmpDir),
+			new \XSLTBenchmarking\TestsRunner\Params(),
+			$templatesDir,
+			$testsDir
+		);
 
 		$templatesDirs = $options->get('Templates dirs');
 
@@ -230,16 +264,13 @@ class Runner
 
 		$options = $this->options;
 		$testsDir = $options->get('Tests');
-		$runner = new \XSLTBenchmarking\TestsRunner\Runner($testsDir);
+		$runner = new \XSLTBenchmarking\TestsRunner\Runner(
+			$this->factory,
+			new \XSLTBenchmarking\TestsGenerator\Params(),
+			$testsDir
+		);
 
 		$testsDirs = $options->get('Tests dirs');
-
-		// HACK it will be solved with PhpOptions 2.0.0
-		if ($testsDirs == array('1'))
-		{
-			$testsDirs = TRUE;
-		}
-		// /HACK
 
 		// generate all templates
 		if ($testsDirs === TRUE)

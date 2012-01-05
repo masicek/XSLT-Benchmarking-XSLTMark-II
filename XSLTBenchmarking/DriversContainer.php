@@ -30,13 +30,31 @@ abstract class DriversContainer
 	 */
 	protected $driver = NULL;
 
+	/**
+	 * Arguments for construct of each driver
+	 *
+	 * @var array
+	 */
+	private $args = array();
+
+
+	/**
+	 * Save arguments for pass into each driver
+	 */
+	public function __construct()
+	{
+		$this->args = func_get_args();
+	}
+
 
 	/**
 	 * Make new object of driver selected by name.
 	 *
 	 * @param string $driverName Name of driver for using
+	 *
+	 * @return this
 	 */
-	public function __construct($driverName)
+	public function setDriver($driverName)
 	{
 		// create driver file name
 		$driverName = ucfirst(strtolower($driverName));
@@ -59,7 +77,10 @@ abstract class DriversContainer
 		$reflection = new \ReflectionClass($className);
 		$args = func_get_args();
 		unset($args[0]);
+		$args = array_merge($this->args, $args); // TODO do test for join arguments
 		$this->driver = $reflection->newInstanceArgs($args);
+
+		return $this;
 	}
 
 

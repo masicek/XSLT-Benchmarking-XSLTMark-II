@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<test name="Test name" template="test.xslt">
-	<couple input="firstIn.xml" output="firstOut.xml"/>
-	<couple input="secondIn.xml" output="secondOut.xml"/>
-</test>

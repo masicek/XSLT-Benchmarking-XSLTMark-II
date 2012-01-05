@@ -29,6 +29,18 @@ interface IParamsDriver
 
 
 	/**
+	 * Function for generating new paramas file
+	 *
+	 * @param string $name Name of the test
+	 * @param string $templatePath Path of tested XSLT template
+	 * @param array $couplesPaths ([input] => [output], ...)
+	 *
+	 * @return void
+	 */
+	public function generate($name, $templatePath, array $couplesPaths);
+
+
+	/**
 	 * Return the name of test
 	 *
 	 * @return string

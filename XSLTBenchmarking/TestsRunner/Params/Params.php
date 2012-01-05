@@ -30,11 +30,10 @@ class Params extends \XSLTBenchmarking\DriversContainer
 	 *
 	 * @throws \XSLTBenchmarking\InvalidArgumentException Wrong format of file with params
 	 */
-	public function __construct($paramsFilePath)
+	public function setFile($paramsFilePath)
 	{
-		P::cf($paramsFilePath);
 		$extension = pathinfo($paramsFilePath, PATHINFO_EXTENSION);
-		parent::__construct($extension, $paramsFilePath);
+		return $this->setDriver($extension, $paramsFilePath);
 	}
 
 

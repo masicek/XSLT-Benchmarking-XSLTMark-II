@@ -13,6 +13,7 @@ use \Tests\XSLTBenchmarking\TestCase;
 use \XSLTBenchmarking\TestsGenerator\Params;
 
 require_once ROOT_TOOLS . '/TestsGenerator/Params/Params.php';
+require_once ROOT_TOOLS . '/TestsGenerator/XmlGenerator/XmlGenerator.php';
 
 /**
  * GetTestParamsFileNameTest
@@ -27,7 +28,8 @@ class GetTestParamsFileNameTest extends TestCase
 
 	public function testDefaultValue()
 	{
-		$params = new Params($this->setDirSep(__DIR__ . '/params.xml'), __DIR__);
+		$params = new Params(new \XSLTBenchmarking\TestsGenerator\XmlGenerator(), __DIR__);
+		$params->setFile($this->setDirSep(__DIR__ . '/params.xml'));
 		$driver = \Mockery::mock('\XSLTBenchmarking\TestsGenerator\IParamsDriver');
 		$driver->shouldReceive('getTestParamsFileName')->with('Lorem ipsum')->andReturn(NULL);
 		$this->setPropertyValue($params, 'driver', $driver);
@@ -38,7 +40,8 @@ class GetTestParamsFileNameTest extends TestCase
 
 	public function testSetValue()
 	{
-		$params = new Params($this->setDirSep(__DIR__ . '/params.xml'), __DIR__);
+		$params = new Params(new \XSLTBenchmarking\TestsGenerator\XmlGenerator(), __DIR__);
+		$params->setFile($this->setDirSep(__DIR__ . '/params.xml'));
 		$driver = \Mockery::mock('\XSLTBenchmarking\TestsGenerator\IParamsDriver');
 		$driver->shouldReceive('getTestParamsFileName')->with('Lorem ipsum')->andReturn('myParams.xml');
 		$this->setPropertyValue($params, 'driver', $driver);

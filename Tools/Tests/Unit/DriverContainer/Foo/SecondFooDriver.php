@@ -20,6 +20,12 @@ class SecondFooDriver implements IFooDriver
 {
 
 
+	public function __construct($param1, $param2)
+	{
+		// do not use of params
+	}
+
+
 	public function methodOne()
 	{
 		return 'Second::method1';

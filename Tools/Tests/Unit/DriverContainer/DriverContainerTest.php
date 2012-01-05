@@ -19,6 +19,7 @@ use \Tests\XSLTBenchmarking\TestCase;
  * @author Viktor Mašíček <viktor@masicek.net>
  *
  * @covers XSLTBenchmarking\DriversContainer::__construct
+ * @covers XSLTBenchmarking\DriversContainer::setDriver
  * @covers XSLTBenchmarking\DriversContainer::__call
  * @covers XSLTBenchmarking\DriversContainer::getDriversDirectory
  * @covers XSLTBenchmarking\DriversContainer::getDriversNamespace
@@ -30,16 +31,18 @@ class DriversContainerTest extends TestCase
 
 	public function testFirstFooDriver()
 	{
-		$foo = new Foo('first');
+		$foo = new Foo('first param', 'second param');
 		$this->assertInstanceOf('\XSLTBenchmarking\DriversContainer', $foo);
 		$this->assertInstanceOf('\Tests\XSLTBenchmarking\DriversContainer\Foo', $foo);
+		$this->assertNull($this->getPropertyValue($foo, 'driver'));
 
+		$foo->setDriver('first');
 		$driver = $this->getPropertyValue($foo, 'driver');
 		$this->assertInstanceOf('\Tests\XSLTBenchmarking\DriversContainer\IFooDriver', $driver);
 		$this->assertInstanceOf('\Tests\XSLTBenchmarking\DriversContainer\FirstFooDriver', $driver);
 
-		$this->assertEquals('First::method1', $foo->methodOne());
-		$this->assertEquals('First::method2: lorem ipsum', $foo->methodTwo('lorem', 'ipsum'));
+		$this->assertEquals('First::method1 (first param)', $foo->methodOne());
+		$this->assertEquals('First::method2: (second param) lorem ipsum', $foo->methodTwo('lorem', 'ipsum'));
 
 		$this->setExpectedException('\XSLTBenchmarking\UnknownMethodException');
 		$foo->methodUnknown();
@@ -48,10 +51,12 @@ class DriversContainerTest extends TestCase
 
 	public function testSecondFooDriver()
 	{
-		$foo = new Foo('second');
+		$foo = new Foo('first param', 'second param');
 		$this->assertInstanceOf('\XSLTBenchmarking\DriversContainer', $foo);
 		$this->assertInstanceOf('\Tests\XSLTBenchmarking\DriversContainer\Foo', $foo);
+		$this->assertNull($this->getPropertyValue($foo, 'driver'));
 
+		$foo->setDriver('second');
 		$driver = $this->getPropertyValue($foo, 'driver');
 		$this->assertInstanceOf('\Tests\XSLTBenchmarking\DriversContainer\IFooDriver', $driver);
 		$this->assertInstanceOf('\Tests\XSLTBenchmarking\DriversContainer\SecondFooDriver', $driver);
@@ -61,6 +66,21 @@ class DriversContainerTest extends TestCase
 
 		$this->setExpectedException('\XSLTBenchmarking\UnknownMethodException');
 		$foo->methodUnknown();
+	}
+
+
+	public function testSecondFooDriverTwice()
+	{
+		$foo = new Foo(NULL, NULL);
+		$this->assertNull($this->getPropertyValue($foo, 'driver'));
+
+		$foo->setDriver('second');
+		$driver1 = $this->getPropertyValue($foo, 'driver');
+
+		$foo->setDriver('second');
+		$driver2 = $this->getPropertyValue($foo, 'driver');
+
+		$this->assertNotSame($driver1, $driver2);
 	}
 
 

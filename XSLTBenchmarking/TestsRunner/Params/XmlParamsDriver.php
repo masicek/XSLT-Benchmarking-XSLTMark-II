@@ -39,6 +39,13 @@ class XmlParamsDriver implements IParamsDriver
 	 */
 	private $rootDirectory;
 
+	/**
+	 * The path of the generated file defined test
+	 *
+	 * @var string
+	 */
+	private $path;
+
 
 	/**
 	 * Set the params file.
@@ -49,20 +56,64 @@ class XmlParamsDriver implements IParamsDriver
 	 */
 	public function __construct($paramsFilePath)
 	{
-		// validate
-		$dom = new \DOMDocument();
-		$dom->load($paramsFilePath);
-		try {
-			$dom->schemaValidate(P::m(__DIR__, 'XmlParamsDriver.xsd'));
-		} catch (\Exception $e) {
-			$error = libxml_get_last_error();
-			throw new \XSLTBenchmarking\InvalidArgumentException(
-				'File "' . $paramsFilePath . '" has wrong format: ' . $error->message
-			);
+		// reading of params
+		if (is_file($paramsFilePath))
+		{
+			// validate
+			$dom = new \DOMDocument();
+			$dom->load($paramsFilePath);
+			try {
+				$dom->schemaValidate(P::m(__DIR__, 'XmlParamsDriver.xsd'));
+			} catch (\Exception $e) {
+				$error = libxml_get_last_error();
+				throw new \XSLTBenchmarking\InvalidArgumentException(
+					'File "' . $paramsFilePath . '" has wrong format: ' . $error->message
+				);
+			}
+
+			$this->rootDirectory = dirname($paramsFilePath);
+			$this->test = new \SimpleXMLElement($paramsFilePath, 0, TRUE);
+		}
+		else
+		{
+			$this->path = $paramsFilePath;
+		}
+	}
+
+
+	/**
+	 * Function for generating new paramas file
+	 *
+	 * @param string $name Name of the test
+	 * @param string $templatePath Path of tested XSLT template
+	 * @param array $couplesPaths ([input] => [output], ...)
+	 *
+	 * @return void
+	 */
+	public function generate($name, $templatePath, array $couplesPaths)
+	{
+		// get base name of couples
+		$couplesKeys = array_map('basename', array_keys($couplesPaths));
+		$couplesValues = array_map('basename', $couplesPaths);
+		$couples = array_combine($couplesKeys, $couplesValues);
+
+		// make xml file
+		$testDef = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><test></test>');
+		$testDef->addAttribute('name', $name);
+		$testDef->addAttribute('template', $templatePath);
+
+		// couples
+		foreach ($couples as $input => $output)
+		{
+			$couple = $testDef->addChild('couple');
+			$couple->addAttribute('input', $input);
+			$couple->addAttribute('output', $output);
 		}
 
-		$this->rootDirectory = dirname($paramsFilePath);
-		$this->test = new \SimpleXMLElement($paramsFilePath, 0, TRUE);
+		// save
+		$dom = dom_import_simplexml($testDef)->ownerDocument;
+		$dom->formatOutput = TRUE;
+		$dom->save($this->path);
 	}
 
 

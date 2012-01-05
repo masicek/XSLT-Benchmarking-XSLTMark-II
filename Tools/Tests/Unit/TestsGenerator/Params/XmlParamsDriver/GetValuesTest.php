@@ -14,6 +14,7 @@ use \XSLTBenchmarking\TestsGenerator\XmlParamsDriver;
 
 require_once ROOT_TOOLS . '/TestsGenerator/Params/XmlParamsDriver.php';
 
+
 /**
  * GetValuesTest
  *
@@ -32,100 +33,100 @@ require_once ROOT_TOOLS . '/TestsGenerator/Params/XmlParamsDriver.php';
 class GetValuesTest extends TestCase
 {
 
+	private $driver;
+
+	public function setUp()
+	{
+		$this->driver = new XmlParamsDriver(
+			$this->getMock('\XSLTBenchmarking\TestsGenerator\XmlGenerator'),
+			__DIR__,
+			$this->setDirSep(__DIR__ . '/params.xml')
+		);
+	}
 
 	public function testGetTemplateName()
 	{
-		$driver = new XmlParamsDriver($this->setDirSep(__DIR__ . '/params.xml'), __DIR__);
-		$this->assertEquals('Modify element', $driver->getTemplateName());
+		$this->assertEquals('Modify element', $this->driver->getTemplateName());
 	}
 
 
 	public function testGetTemplatePath()
 	{
-		$driver = new XmlParamsDriver($this->setDirSep(__DIR__ . '/params.xml'), __DIR__);
-		$this->assertEquals($this->setDirSep(__DIR__ . '/test.tpl.xslt'), $driver->getTemplatePath());
+		$this->assertEquals($this->setDirSep(__DIR__ . '/test.tpl.xslt'), $this->driver->getTemplatePath());
 	}
 
 
 	public function testGetTemplatingType()
 	{
-		$driver = new XmlParamsDriver($this->setDirSep(__DIR__ . '/params.xml'), __DIR__);
-		$this->assertEquals('smarty', $driver->getTemplatingType());
+		$this->assertEquals('smarty', $this->driver->getTemplatingType());
 	}
 
 
 	public function testGetTestsNames()
 	{
-		$driver = new XmlParamsDriver($this->setDirSep(__DIR__ . '/params.xml'), __DIR__);
-		$this->assertEquals(array('Rename', 'Remove'), $driver->getTestsNames());
+		$this->assertEquals(array('Rename', 'Remove'), $this->driver->getTestsNames());
 	}
 
 
 	public function testGetTestFilesPaths()
 	{
-		$tmpDir = $this->setDirSep(__DIR__ . '/tmp');
-		mkdir($tmpDir);
-		$driver = new XmlParamsDriver($this->setDirSep(__DIR__ . '/params.xml'), $tmpDir);
+		$generator = \Mockery::mock('\XSLTBenchmarking\TestsGenerator\XmlGenerator()');
+		$generator->shouldReceive('setDriver')->twice()->with('easy');
+		$generator->shouldReceive('generate')->once()->with(
+			$this->setDirSep(__DIR__ . '/manyElements.xml'),
+			array('testName' => 20, 'testName2' => 3)
+		);
+		$generator->shouldReceive('generate')->once()->with(
+			$this->setDirSep(__DIR__ . '/manyNewElements.xml'),
+			array('testNewName' => 20, 'testName2' => 3)
+		);
 
-		$this->assertFileNotExists($this->setDirSep($tmpDir . '/manyElements.xml'));
-		$this->assertFileNotExists($this->setDirSep($tmpDir . '/manyNewElements.xml'));
+		$this->setPropertyValue($this->driver, 'xmlGenerator', $generator);
+
 
 		$this->assertEquals(
 			array(
 				$this->setDirSep(__DIR__ . '/oneElement.xml') => $this->setDirSep(__DIR__ . '/oneNewElement.xml'),
 				$this->setDirSep(__DIR__ . '/twoElements.xml') => $this->setDirSep(__DIR__ . '/twoNewElements.xml'),
-				$this->setDirSep($tmpDir . '/manyElements.xml') => $this->setDirSep($tmpDir . '/manyNewElements.xml'),
+				$this->setDirSep(__DIR__ . '/manyElements.xml') => $this->setDirSep(__DIR__ . '/manyNewElements.xml'),
 			),
-			$driver->getTestFilesPaths('Rename')
+			$this->driver->getTestFilesPaths('Rename')
 		);
-
-		$this->assertFileExists($this->setDirSep($tmpDir . '/manyElements.xml'));
-		$this->assertFileExists($this->setDirSep($tmpDir . '/manyNewElements.xml'));
 
 		$this->assertEquals(
 			array(
 				$this->setDirSep(__DIR__ . '/oneElement.xml') => $this->setDirSep(__DIR__ . '/zeroElement.xml'),
 				$this->setDirSep(__DIR__ . '/twoElements.xml') => $this->setDirSep(__DIR__ . '/zeroElement.xml'),
-				$this->setDirSep($tmpDir . '/manyElements.xml') => $this->setDirSep(__DIR__ . '/zeroElement.xml'),
+				$this->setDirSep(__DIR__ . '/manyElements.xml') => $this->setDirSep(__DIR__ . '/zeroElement.xml'),
 			),
-			$driver->getTestFilesPaths('Remove')
+			$this->driver->getTestFilesPaths('Remove')
 		);
-
-
-		// remove all files in tmp dir
-		unlink($this->setDirSep($tmpDir . '/manyElements.xml'));
-		unlink($this->setDirSep($tmpDir . '/manyNewElements.xml'));
-		rmdir($tmpDir);
 	}
 
 
 	public function testGetTestSettings()
 	{
-		$driver = new XmlParamsDriver($this->setDirSep(__DIR__ . '/params.xml'), __DIR__);
-
 		$this->assertEquals(
 			array(
 				'action' => 'rename',
 				'newName' => 'newTestName',
 			),
-			$driver->getTestSettings('Rename')
+			$this->driver->getTestSettings('Rename')
 		);
 
 		$this->assertEquals(
 			array(
 				'action' => 'remove',
 			),
-			$driver->getTestSettings('Remove')
+			$this->driver->getTestSettings('Remove')
 		);
 	}
 
 
 	public function testGetTestParamsFileName()
 	{
-		$driver = new XmlParamsDriver($this->setDirSep(__DIR__ . '/params.xml'), __DIR__);
-
-		$this->assertEquals('myParams.xml', $driver->getTestParamsFileName('Rename'));
-		$this->assertNull($driver->getTestParamsFileName('Remove'));
+		$this->assertEquals('myParams.xml', $this->driver->getTestParamsFileName('Rename'));
+		$this->assertNull($this->driver->getTestParamsFileName('Remove'));
 	}
 
 

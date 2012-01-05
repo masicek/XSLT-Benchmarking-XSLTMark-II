@@ -9,9 +9,6 @@
 
 namespace XSLTBenchmarking\TestsGenerator;
 
-require_once __DIR__ . '/Templating/Templating.php';
-require_once __DIR__ . '/Test.php';
-require_once __DIR__ . '/Params/Params.php';
 require_once __DIR__ . '/../Exceptions.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 
@@ -24,6 +21,34 @@ use PhpPath\P;
  */
 class Generator
 {
+
+	/**
+	 * Factory class for making new objects
+	 *
+	 * @var \XSLTBenchmarking\Factory
+	 */
+	private $factory;
+
+	/**
+	 * Object for reading params of tests templates
+	 *
+	 * @var \XSLTBenchmarking\TestsGenerator\Params
+	 */
+	private $params;
+
+	/**
+	 * Object for generating XSLT from template of XSLT
+	 *
+	 * @var \XSLTBenchmarking\TestsGenerator\Templating
+	 */
+	private $templating;
+
+	/**
+	 * Object for generating params of test
+	 *
+	 * @var \XSLTBenchmarking\TestsRunner\Params
+	 */
+	private $paramsTest;
 
 	/**
 	 * Root directory of templates for all tests
@@ -40,13 +65,6 @@ class Generator
 	private $testsDirectory;
 
 	/**
-	 * Directory for temporary files
-	 *
-	 * @var string
-	 */
-	private $tmpDirectory;
-
-	/**
 	 * List of test templates for generating tests
 	 *
 	 * @var array of Test
@@ -57,19 +75,30 @@ class Generator
 	/**
 	 * Object configuration
 	 *
+	 * @param \XSLTBenchmarking\Factory $factory Factory class for making new objects
+	 * @param \XSLTBenchmarking\TestsGenerator\Params $params Object for reading params of tests templates
+	 * @param \XSLTBenchmarking\TestsGenerator\Templating $templating Object for generating XSLT from template of XSLT
+	 * @param \XSLTBenchmarking\TestsRunner\Params $paramsTest Object for generating params of test
 	 * @param string $templatesDirectory The root directory of all tests templates
 	 * @param string $testsDirectory The root directory of all generated tests
-	 * @param string $tmpDirectory The temporary directory
 	 */
-	public function __construct($templatesDirectory, $testsDirectory, $tmpDirectory)
+	public function __construct(
+		\XSLTBenchmarking\Factory $factory,
+		\XSLTBenchmarking\TestsGenerator\Params $params,
+		\XSLTBenchmarking\TestsGenerator\Templating $templating,
+		\XSLTBenchmarking\TestsRunner\Params $paramsTest,
+		$templatesDirectory,
+		$testsDirectory)
 	{
 		P::cd($templatesDirectory);
 		P::cd($testsDirectory);
-		P::cd($tmpDirectory);
 
+		$this->factory = $factory;
+		$this->params = $params;
+		$this->templating = $templating;
+		$this->paramsTest = $paramsTest;
 		$this->templatesDirectory = $templatesDirectory;
 		$this->testsDirectory = $testsDirectory;
-		$this->tmpDirectory = $tmpDirectory;
 	}
 
 
@@ -97,11 +126,11 @@ class Generator
 	public function addTests($templateDirectory, $testParamsFile = '__params.xml')
 	{
 		$testParamsPath = P::mcf($this->templatesDirectory, $templateDirectory, $testParamsFile);
-		$params = new Params($testParamsPath, $this->tmpDirectory);
-		$templateName = $params->getTemplateName();
-		$templatePath = $params->getTemplatePath();
-		$templatingType = $params->getTemplatingType();
-		foreach ($params->getTestsNames() as $testName)
+		$this->params->setFile($testParamsPath);
+		$templateName = $this->params->getTemplateName();
+		$templatePath = $this->params->getTemplatePath();
+		$templatingType = $this->params->getTemplatingType();
+		foreach ($this->params->getTestsNames() as $testName)
 		{
 			$fullName = $templateName . ' - ' . $testName;
 			if (isset($this->templates[$fullName]))
@@ -109,13 +138,13 @@ class Generator
 				throw new \XSLTBenchmarking\CollisionException('Duplicate name of test "' . $fullName . '"');
 			}
 
-			$test = new Test($fullName);
+			$test = $this->factory->getTestsGeneratorTest($fullName);
 			$test->setTemplatePath($templatePath);
 			$test->setTemplatingType($templatingType);
 			$test->setPath($this->testsDirectory);
-			$test->addFilesPaths($params->getTestFilesPaths($testName));
-			$test->addSettings($params->getTestSettings($testName));
-			$test->setParamsFilePath($params->getTestParamsFileName($testName));
+			$test->addFilesPaths($this->params->getTestFilesPaths($testName));
+			$test->addSettings($this->params->getTestSettings($testName));
+			$test->setParamsFilePath($this->params->getTestParamsFileName($testName));
 			$this->templates[$fullName] = $test;
 		}
 	}
@@ -147,14 +176,13 @@ class Generator
 	 */
 	private function generateTest(Test $test)
 	{
-		$testDirectory = $test->getPath();
-		if (!is_dir($testDirectory))
+		$destinationDirectory = $test->getPath();
+		if (!is_dir($destinationDirectory))
 		{
-			mkdir($testDirectory);
+			mkdir($destinationDirectory);
 		}
 
 		// copy files to tests directory
-		$destinationDirectory = $test->getPath();
 		foreach ($test->getFilesPaths() as $inputPath => $outputPath)
 		{
 			$destinationInputPath = P::m($destinationDirectory, basename($inputPath));
@@ -163,47 +191,17 @@ class Generator
 			copy($outputPath, $destinationOutputPath);
 		}
 
-		// generate file with params of generated test
-		$this->generateTestParams($test);
-
 		// generate template
-		$templating = new Templating($test->getTemplatingType(), $this->tmpDirectory);
-		$templating->generate($test->getTemplatePath(), $test->getXsltPath(), $test->getSettings());
-	}
+		$this->templating->setDriver($test->getTemplatingType());
+		$this->templating->generate($test->getTemplatePath(), $test->getXsltPath(), $test->getSettings());
 
-
-	/**
-	 * Create XML file containing couples of input end expected output files for testing
-	 *
-	 * @param Test $test Test for which XML file will be created
-	 *
-	 * @return void
-	 */
-	private function generateTestParams(Test $test)
-	{
-		// get base name of couples
-		$couplesPaths = $test->getFilesPaths();
-		$couplesKeys = array_map('basename', array_keys($couplesPaths));
-		$couplesValues = array_map('basename', $couplesPaths);
-		$couples = array_combine($couplesKeys, $couplesValues);
-
-		// make xml file
-		$testDef = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><test></test>');
-		$testDef->addAttribute('name', $test->getName());
-		$testDef->addAttribute('template', $test->getXsltName());
-
-		// couples
-		foreach ($couples as $input => $output)
-		{
-			$couple = $testDef->addChild('couple');
-			$couple->addAttribute('input', $input);
-			$couple->addAttribute('output', $output);
-		}
-
-		// save
-		$dom = dom_import_simplexml($testDef)->ownerDocument;
-		$dom->formatOutput = TRUE;
-		$dom->save($test->getParamsFilePath());
+		// generate file with params of generated test
+		$this->paramsTest->setFile($test->getParamsFilePath());
+		$this->paramsTest->generate(
+			$test->getName(),
+			$test->getXsltName(),
+			$test->getFilesPaths()
+		);
 	}
 
 

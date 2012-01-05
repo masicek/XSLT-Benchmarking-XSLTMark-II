@@ -20,21 +20,16 @@ require_once ROOT_TOOLS . '/TestsRunner/Params/Params.php';
  * @author Viktor Mašíček <viktor@masicek.net>
  *
  * @covers XSLTBenchmarking\TestsRunner\Params::__construct
+ * @covers XSLTBenchmarking\TestsRunner\Params::setFile
  */
 class ParamsTest extends TestCase
 {
 
 
-	public function testBadParams()
-	{
-		$this->setExpectedException('\PhpPath\NotExistsPathException');
-		$params = new Params('./foo.xml');
-	}
-
-
 	public function testXml()
 	{
-		$params = new Params($this->setDirSep(__DIR__ . '/params.xml'));
+		$params = new Params();
+		$params->setFile($this->setDirSep(__DIR__ . '/params.xml'));
 		$driver = $this->getPropertyValue($params, 'driver');
 		$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\IParamsDriver', $driver);
 		$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\XmlParamsDriver', $driver);

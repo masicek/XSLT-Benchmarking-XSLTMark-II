@@ -36,7 +36,7 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 		parent::__construct();
 		$this->debugging = FALSE;
 		$this->caching = FALSE;
-		$this->compile_dir = P::m($tmpDirectory, '/');
+		$this->compile_dir = P::mcd($tmpDirectory, '/');
 	}
 
 
@@ -52,6 +52,8 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 	 */
 	public function generate($templatePath, $outputPath, array $settings)
 	{
+		P::cf($templatePath);
+
 		// set variables
 		foreach ($settings as $name => $value)
 		{

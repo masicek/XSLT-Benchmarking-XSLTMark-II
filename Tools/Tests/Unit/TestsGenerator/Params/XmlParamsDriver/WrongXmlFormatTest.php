@@ -47,7 +47,11 @@ class WrongXmlFormatTest extends TestCase
 	 */
 	public function testCheck()
 	{
-		$driver = new XmlParamsDriver($this->setDirSep(__DIR__ . '/paramsWrong.xml'), __DIR__);
+		$driver = new XmlParamsDriver(
+			$this->getMock('\XSLTBenchmarking\TestsGenerator\XmlGenerator'),
+			__DIR__,
+			$this->setDirSep(__DIR__ . '/paramsWrong.xml')
+		);
 		$this->assertTrue(TRUE);
 	}
 
@@ -63,7 +67,11 @@ class WrongXmlFormatTest extends TestCase
 		file_put_contents($this->tmp, $content);
 
 		$this->setExpectedException('\XSLTBenchmarking\InvalidArgumentException');
-		$driver = new XmlParamsDriver($this->tmp, __DIR__);
+		$driver = new XmlParamsDriver(
+			$this->getMock('\XSLTBenchmarking\TestsGenerator\XmlGenerator'),
+			__DIR__,
+			$this->tmp
+		);
 	}
 
 
@@ -89,5 +97,6 @@ class WrongXmlFormatTest extends TestCase
 			array('setting name="testNameTmp"', 'setting name="testName"'),
 		);
 	}
+
 
 }

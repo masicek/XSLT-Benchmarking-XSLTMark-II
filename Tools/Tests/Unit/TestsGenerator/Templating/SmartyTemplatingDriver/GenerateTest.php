@@ -60,6 +60,21 @@ class GenerateTest extends TestCase
 	}
 
 
+	public function testBadTemapltePath()
+	{
+		$driver = new SmartyTemplatingDriver(__DIR__);
+		$this->setExpectedException('\PhpPath\NotExistsPathException');
+		$driver->generate('./foo.php', 'output/path', array());
+	}
+
+
+	public function testBadTmpDir()
+	{
+		$this->setExpectedException('\PhpPath\NotExistsPathException');
+		$driver = new SmartyTemplatingDriver($this->setDirSep(__DIR__ . '/unknownDir'));
+	}
+
+
 	public function testUnknownVariable()
 	{
 		$this->markTestSkipped('This test is OK, but too long. Unskipped for global final testing.');

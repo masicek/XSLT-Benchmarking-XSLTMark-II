@@ -21,12 +21,18 @@ interface IParamsDriver
 	/**
 	 * Choose the params driver by extension
 	 *
-	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
+	 * @param \XSLTBenchmarking\TestsGenerator\XmlGenerator $xmlGenerator Object for generating XML files
 	 * @param string $tmpDirectoryPath The path of the temporary directory
+	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
 	 *
 	 * @throws \XSLTBenchmarking\InvalidArgumentException Wrong format of file with params
 	 */
-	public function __construct($paramsFilePath, $tmpDirectoryPath);
+	public function __construct(
+		\XSLTBenchmarking\TestsGenerator\XmlGenerator $xmlGenerator,
+		$tmpDirectoryPath,
+		$paramsFilePath
+	);
+
 
 	/**
 	 * Return the name of tests collection

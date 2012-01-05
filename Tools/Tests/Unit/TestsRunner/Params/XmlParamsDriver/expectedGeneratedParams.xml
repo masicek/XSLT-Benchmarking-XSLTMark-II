@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test name="Test name" template="Test template name">
+	<couple input="input1" output="output1"/>
+	<couple input="input2" output="output2"/>
+</test>

@@ -23,6 +23,20 @@ class Runner
 
 
 	/**
+	 * Factory class for making new objects
+	 *
+	 * @var \XSLTBenchmarking\Factory
+	 */
+	private $factory;
+
+	/**
+	 * Object for reading params of tests
+	 *
+	 * @var \XSLTBenchmarking\TestsRunner\Params
+	 */
+	private $params;
+
+	/**
 	 * Root directory of generated tests
 	 *
 	 * @var string
@@ -41,12 +55,20 @@ class Runner
 	/**
 	 * Object configuration
 	 *
+	 * @param \XSLTBenchmarking\Factory $factory Factory class for making new objects
+	 * @param \XSLTBenchmarking\TestsRunner\Params $params Object for reading params of tests
 	 * @param type $testsDirectory The root directory of all generated tests
 	 */
-	public function __construct($testsDirectory)
+	public function __construct(
+		\XSLTBenchmarking\Factory $factory,
+		\XSLTBenchmarking\TestsRunner\Params $params,
+		$testsDirectory
+	)
 	{
 		$testsDirectory = P::mcd($testsDirectory);
 
+		$this->factory = $factory;
+		$this->params = $params;
 		$this->testsDirectory = $testsDirectory;
 	}
 
@@ -64,17 +86,17 @@ class Runner
 	{
 		$testParamsPath = P::mcf($this->testsDirectory, $testDirectory, $testParamsFile);
 
-		$params = new Params($testParamsPath);
-		$name = $params->getName();
+		$this->params->setFile($testParamsPath);
+		$name = $this->params->getName();
 
 		if (isset($this->tests[$name]))
 		{
 			throw new \XSLTBenchmarking\CollisionException('Duplicate name of test "' . $name . '"');
 		}
 
-		$test = new Test($name);
-		$test->setTemplatePath($params->getTemplatePath());
-		$test->addCouplesPaths($params->getCouplesPaths());
+		$test = $this->factory->getTestsRunnerTest($name);
+		$test->setTemplatePath($this->params->getTemplatePath());
+		$test->addCouplesPaths($this->params->getCouplesPaths());
 
 		$this->tests[$name] = $test;
 	}

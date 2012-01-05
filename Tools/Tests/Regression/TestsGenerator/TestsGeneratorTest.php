@@ -19,6 +19,7 @@ use \Tests\XSLTBenchmarking\TestCase;
  * @author Viktor Mašíček <viktor@masicek.net>
  *
  * @covers XSLTBenchmarking\RunnerConsole\Runner::__construct
+ * @covers XSLTBenchmarking\RunnerConsole\Runner::defineOptions
  * @covers XSLTBenchmarking\RunnerConsole\Runner::run
  * @covers XSLTBenchmarking\RunnerConsole\Runner::generateTests
  * @covers XSLTBenchmarking\RunnerConsole\Runner::printHeader
@@ -41,7 +42,6 @@ class TestsGeneratorTest extends TestCase
 		$this->setArguments(
 			'-g ' .
 			'--templates "./Templates" ' .
-			'--templates-dirs "modify_element,value_to_attribute" ' .
 			'--tests "./TestsGenerated" ' .
 			'--tmp "./Tmp" '
 		);

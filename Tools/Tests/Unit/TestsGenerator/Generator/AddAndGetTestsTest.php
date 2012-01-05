@@ -27,107 +27,127 @@ use \XSLTBenchmarking\TestsGenerator\Test;
 class AddAndGetTestsTest extends TestCase
 {
 
+	private $generator;
+
+	public function setUp()
+	{
+		$factory = $this->getMock('\XSLTBenchmarking\Factory');
+		$params = $this->getMock('\XSLTBenchmarking\TestsGenerator\Params');
+		$templating = $this->getMock('\XSLTBenchmarking\TestsGenerator\Templating');
+		$paramsTest = $this->getMock('\XSLTBenchmarking\TestsRunner\Params');
+
+		$this->generator = new Generator($factory, $params, $templating, $paramsTest, __DIR__, __DIR__);
+
+		mkdir(__DIR__ . '/AAA');
+		file_put_contents(__DIR__ . '/AAA/myParams', '');
+	}
+
+
+	public function tearDown()
+	{
+		unlink(__DIR__ . '/AAA/myParams');
+		rmdir(__DIR__ . '/AAA');
+	}
+
 
 	public function testOk()
 	{
-		$templates = $this->setDirSep(__DIR__ . '/A');
-		$templateXYZ = $this->setDirSep(__DIR__ . '/A/XYZ');
-		$tests = $this->setDirSep(__DIR__ . '/B');
-		$tmp = $this->setDirSep(__DIR__ . '/C');
-
-		mkdir($templates);
-		mkdir($templateXYZ);
-		mkdir($tests);
-		mkdir($tmp);
-
-		copy(
-			$this->setDirSep(__DIR__ . '/FixtureAddAndGetTests/params.xml'),
-			$this->setDirSep($templateXYZ . '/params.xml')
+		$factory = \Mockery::mock('\XSLTBenchmarking\Factory');
+		$factory->shouldReceive('getTestsGeneratorTest')->once()->with('Test name - First')->andReturnUsing(
+			function () {
+				$test = \Mockery::mock('\XSLTBenchmarking\TestsGenerator\Test');
+				$test->shouldReceive('setTemplatePath')->once()->with('Test template path');
+				$test->shouldReceive('setTemplatingType')->once()->with('Test templating type');
+				$test->shouldReceive('setPath')->once()->with(__DIR__);
+				$test->shouldReceive('addFilesPaths')->once()->with(array('Test files paths 1'));
+				$test->shouldReceive('addSettings')->once()->with(array('Test settings 1'));
+				$test->shouldReceive('setParamsFilePath')->once()->with('Test params file name 1');
+				return $test;
+			}
 		);
-		file_put_contents($this->setDirSep($templateXYZ . '/test.tpl.xslt'), '');
-		file_put_contents($this->setDirSep($templateXYZ . '/one.xml'), '');
-		file_put_contents($this->setDirSep($templateXYZ . '/two.xml'), '');
-		file_put_contents($this->setDirSep($templateXYZ . '/three.xml'), '');
+		$factory->shouldReceive('getTestsGeneratorTest')->once()->with('Test name - Second')->andReturnUsing(
+			function () {
+				$test = \Mockery::mock('\XSLTBenchmarking\TestsGenerator\Test');
+				$test->shouldReceive('setTemplatePath')->once()->with('Test template path');
+				$test->shouldReceive('setTemplatingType')->once()->with('Test templating type');
+				$test->shouldReceive('setPath')->once()->with(__DIR__);
+				$test->shouldReceive('addFilesPaths')->once()->with(array('Test files paths 2'));
+				$test->shouldReceive('addSettings')->once()->with(array('Test settings 2'));
+				$test->shouldReceive('setParamsFilePath')->once()->with('Test params file name 2');
+				return $test;
+			}
+		);
 
-		$generator = new Generator($templates, $tests, $tmp);
-		$generator->addTests('XYZ', 'params.xml');
-		$addedTests = $generator->getTests();
+		$params = \Mockery::mock('\XSLTBenchmarking\TestsGenerator\Params');
+		$params->shouldReceive('setFile')->once()->with($this->setDirSep(__DIR__ . '/AAA/myParams'));
+		$params->shouldReceive('getTemplateName')->once()->withAnyArgs()->andReturn('Test name');
+		$params->shouldReceive('getTemplatePath')->once()->withAnyArgs()->andReturn('Test template path');
+		$params->shouldReceive('getTemplatingType')->once()->withAnyArgs()->andReturn('Test templating type');
+		$params->shouldReceive('getTestsNames')->once()->withAnyArgs()->andReturn(array('First', 'Second'));
+		$params->shouldReceive('getTestFilesPaths')->once()->with('First')->andReturn(array('Test files paths 1'));
+		$params->shouldReceive('getTestFilesPaths')->once()->with('Second')->andReturn(array('Test files paths 2'));
+		$params->shouldReceive('getTestSettings')->once()->with('First')->andReturn(array('Test settings 1'));
+		$params->shouldReceive('getTestSettings')->once()->with('Second')->andReturn(array('Test settings 2'));
+		$params->shouldReceive('getTestParamsFileName')->once()->with('First')->andReturn('Test params file name 1');
+		$params->shouldReceive('getTestParamsFileName')->once()->with('Second')->andReturn('Test params file name 2');
 
-		// make expected tests
-		$expectedTests = array();
+		$this->setPropertyValue($this->generator, 'factory', $factory);
+		$this->setPropertyValue($this->generator, 'params', $params);
 
-		// first test
-		$test = new Test('');
-		$this->setPropertyValue($test, 'name', 'Test name - First');
-		$this->setPropertyValue($test, 'templatePath', $this->setDirSep($templateXYZ . '/test.tpl.xslt'));
-		$this->setPropertyValue($test, 'templatingType', 'smarty');
-		$this->setPropertyValue($test, 'path', $this->setDirSep($tests . '/test-name-first'));
-		$this->setPropertyValue($test, 'settings', array('first seting' => 'Lorem ipsum', 'second setting' => 123));
-		$this->setPropertyValue($test, 'filesPaths', array(
-			$this->setDirSep($templateXYZ . '/one.xml') => $this->setDirSep($tmp . '/genOne.xml'),
-			$this->setDirSep($templateXYZ . '/two.xml') => $this->setDirSep($tmp . '/genTwo.xml'),
-		));
-		$this->setPropertyValue($test, 'paramsFilePath', $this->setDirSep($tests . '/test-name-first/testName.xml'));
-		$expectedTests['Test name - First'] = $test;
+		$this->generator->addTests('AAA', 'myParams');
+		$addedTests = $this->generator->getTests();
 
-		// second test
-		$test = new Test('');
-		$this->setPropertyValue($test, 'name', 'Test name - Second');
-		$this->setPropertyValue($test, 'templatePath', $this->setDirSep($templateXYZ . '/test.tpl.xslt'));
-		$this->setPropertyValue($test, 'templatingType', 'smarty');
-		$this->setPropertyValue($test, 'path', $this->setDirSep($tests . '/test-name-second'));
-		$this->setPropertyValue($test, 'settings', array('setting' => 999));
-		$this->setPropertyValue($test, 'filesPaths', array(
-			$this->setDirSep($templateXYZ . '/one.xml') => $this->setDirSep($tmp . '/genOne.xml'),
-			$this->setDirSep($templateXYZ . '/two.xml') => $this->setDirSep($tmp . '/genTwo.xml'),
-			$this->setDirSep($templateXYZ . '/three.xml') => $this->setDirSep($templateXYZ . '/one.xml'),
-		));
-		$this->setPropertyValue($test, 'paramsFilePath', $this->setDirSep($tests . '/test-name-second/__params.xml'));
-		$expectedTests['Test name - Second'] = $test;
-
-		$this->assertEquals($expectedTests, $addedTests);
-
-		unlink($this->setDirSep($templateXYZ . '/params.xml'));
-		unlink($this->setDirSep($templateXYZ . '/test.tpl.xslt'));
-		unlink($this->setDirSep($templateXYZ . '/one.xml'));
-		unlink($this->setDirSep($templateXYZ . '/two.xml'));
-		unlink($this->setDirSep($templateXYZ . '/three.xml'));
-		rmdir($templateXYZ);
-		rmdir($templates);
-		rmdir($tests);
-		unlink($this->setDirSep($tmp . '/genOne.xml'));
-		unlink($this->setDirSep($tmp . '/genTwo.xml'));
-		rmdir($tmp);
+		$this->assertEquals(2, count($addedTests));
+		$this->assertArrayHasKey('Test name - First', $addedTests);
+		$this->assertArrayHasKey('Test name - Second', $addedTests);
 	}
 
 
 	public function testNameCollision()
 	{
-		$generator = new Generator(__DIR__, __DIR__, __DIR__);
-		file_put_contents($this->setDirSep(__DIR__ . '/FixtureDuplicateName/test.tpl.xslt'), '');
-		file_put_contents($this->setDirSep(__DIR__ . '/FixtureDuplicateName/lorem.xml'), '');
-		$generator->addTests('FixtureDuplicateName');
-		unlink($this->setDirSep(__DIR__ . '/FixtureDuplicateName/test.tpl.xslt'));
-		unlink($this->setDirSep(__DIR__ . '/FixtureDuplicateName/lorem.xml'));
-		$this->setExpectedException('\XSLTBenchmarking\CollisionException', 'Duplicate name of test "Duplicate name - Test name"');
-		$generator->addTests('FixtureDuplicateName');
-		$addedTests = $generator->getTests();
+		$factory = \Mockery::mock('\XSLTBenchmarking\Factory');
+		$factory->shouldReceive('getTestsGeneratorTest')->andReturnUsing(
+			function () {
+				$test = \Mockery::mock('\XSLTBenchmarking\TestsGenerator\Test');
+				$test->shouldReceive('setTemplatePath');
+				$test->shouldReceive('setTemplatingType');
+				$test->shouldReceive('setPath');
+				$test->shouldReceive('addFilesPaths');
+				$test->shouldReceive('addSettings');
+				$test->shouldReceive('setParamsFilePath');
+				return $test;
+			}
+		);
+
+		$params = \Mockery::mock('\XSLTBenchmarking\TestsGenerator\Params');
+		$params->shouldReceive('getTemplateName')->once()->withAnyArgs()->andReturn('Test name');
+		$params->shouldReceive('getTestsNames')->once()->withAnyArgs()->andReturn(array('Duplicate name', 'Duplicate name'));
+		$params->shouldReceive('setFile');
+		$params->shouldReceive('getTemplatePath');
+		$params->shouldReceive('getTemplatingType');
+		$params->shouldReceive('getTestFilesPaths')->andReturn(array());
+		$params->shouldReceive('getTestSettings')->andReturn(array());
+		$params->shouldReceive('getTestParamsFileName');
+
+		$this->setPropertyValue($this->generator, 'factory', $factory);
+		$this->setPropertyValue($this->generator, 'params', $params);
+
+		$this->setExpectedException('\XSLTBenchmarking\CollisionException', 'Duplicate name of test "Test name - Duplicate name"');
+		$this->generator->addTests('AAA', 'myParams');
 	}
 
 
 	public function testUnknownTemplateDir()
 	{
-		$generator = new Generator(__DIR__, __DIR__, __DIR__);
 		$this->setExpectedException('\PhpPath\NotExistsPathException');
-		$generator->addTests('unknownTestsTeamplateDir');
+		$this->generator->addTests('unknownTestsTeamplateDir', 'myParams');
 	}
 
 
 	public function testUnknownParamsFile()
 	{
-		$generator = new Generator(__DIR__, __DIR__, __DIR__);
 		$this->setExpectedException('\PhpPath\NotExistsPathException');
-		$generator->addTests('FixtureDuplicateName' , 'unknownParams.xml');
+		$this->generator->addTests('AAA', 'unknownParamsFile');
 	}
 
 

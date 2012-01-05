@@ -24,23 +24,6 @@ class Params extends \XSLTBenchmarking\DriversContainer
 
 
 	/**
-	 * Choose the params driver by extension
-	 *
-	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
-	 * @param string $tmpDirectoryPath The path of the temporary directory
-	 *
-	 * @throws \XSLTBenchmarking\InvalidArgumentException Wrong format of file with params
-	 */
-	public function __construct($paramsFilePath, $tmpDirectoryPath)
-	{
-		P::cf($paramsFilePath);
-		P::cd($tmpDirectoryPath);
-		$extension = pathinfo($paramsFilePath, PATHINFO_EXTENSION);
-		parent::__construct($extension, $paramsFilePath, $tmpDirectoryPath);
-	}
-
-
-	/**
 	 * Return the name of file with params of the test
 	 * Default value is '__params.xml'.
 	 *
@@ -53,9 +36,25 @@ class Params extends \XSLTBenchmarking\DriversContainer
 		$name = $this->driver->getTestParamsFileName($testName);
 		if (!$name)
 		{
+			// TODO in future based on driver
 			$name = '__params.xml';
 		}
 		return $name;
+	}
+
+
+	/**
+	 * Choose the params driver by extension of params file
+	 *
+	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
+	 *
+	 * @throws \XSLTBenchmarking\InvalidArgumentException Wrong format of file with params
+	 */
+	public function setFile($paramsFilePath)
+	{
+		P::cf($paramsFilePath);
+		$extension = pathinfo(P::m($paramsFilePath), PATHINFO_EXTENSION);
+		return $this->setDriver($extension, $paramsFilePath);
 	}
 
 

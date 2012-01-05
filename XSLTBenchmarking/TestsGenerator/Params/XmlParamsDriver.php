@@ -53,15 +53,30 @@ class XmlParamsDriver implements IParamsDriver
 
 
 	/**
+	 * Object for generating XML files
+	 *
+	 * @var XmlGenerator
+	 */
+	private $xmlGenerator = NULL;
+
+
+	/**
 	 * Choose the params driver by extension
 	 *
-	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
+	 * @param \XSLTBenchmarking\TestsGenerator\XmlGenerator $xmlGenerator Object for generating XML files
 	 * @param string $tmpDirectoryPath The path of the temporary directory
+	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
 	 *
 	 * @throws \XSLTBenchmarking\InvalidArgumentException Wrong format of file with params
 	 */
-	public function __construct($paramsFilePath, $tmpDirectoryPath)
+	public function __construct(
+		\XSLTBenchmarking\TestsGenerator\XmlGenerator $xmlGenerator,
+		$tmpDirectoryPath,
+		$paramsFilePath)
 	{
+		P::cd($tmpDirectoryPath);
+		P::cf($paramsFilePath);
+
 		// validate
 		$dom = new \DOMDocument();
 		$dom->load($paramsFilePath);
@@ -75,6 +90,7 @@ class XmlParamsDriver implements IParamsDriver
 		}
 
 		$this->rootDirectory = dirname($paramsFilePath);
+		$this->xmlGenerator = $xmlGenerator;
 		$this->tmpDirectoryPath = $tmpDirectoryPath;
 		$this->tests = new \SimpleXMLElement($paramsFilePath, 0, TRUE);
 	}
@@ -209,7 +225,6 @@ class XmlParamsDriver implements IParamsDriver
 			return $this->allFilesPaths;
 		}
 
-
 		$this->allFilesPaths = $this->createAllFilesPaths();
 		return $this->allFilesPaths;
 	}
@@ -243,8 +258,8 @@ class XmlParamsDriver implements IParamsDriver
 			// generate file into TMP
 			$type = (string)$generated['generator'];
 			$outputPath = P::m($this->tmpDirectoryPath, (string)$generated['output']);
-			$xmlGenerator = new XmlGenerator($type);
-			$xmlGenerator->generate($outputPath, $settings);
+			$this->xmlGenerator->setDriver($type);
+			$this->xmlGenerator->generate($outputPath, $settings);
 
 			// add generated file into list of files
 			$files[(string)$generated['id']] = $outputPath;

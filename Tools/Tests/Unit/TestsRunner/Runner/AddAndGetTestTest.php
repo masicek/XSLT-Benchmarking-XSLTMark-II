@@ -30,91 +30,111 @@ require_once ROOT_TOOLS . '/TestsRunner/Test.php';
 class AddAndGetTestTest extends TestCase
 {
 
+	private $runner;
+
+	public function setUp()
+	{
+		mkdir($this->setDirSep(__DIR__ . '/AAA'));
+		mkdir($this->setDirSep(__DIR__ . '/BBB'));
+		file_put_contents($this->setDirSep(__DIR__ . '/AAA/testParams'), '');
+		file_put_contents($this->setDirSep(__DIR__ . '/BBB/testParams'), '');
+
+		$this->runner = new Runner(
+			$this->getMock('\XSLTBenchmarking\Factory'),
+			$this->getMock('\XSLTBenchmarking\TestsRunner\Params'),
+			__DIR__
+		);
+	}
+
+	public function tearDown()
+	{
+		unlink($this->setDirSep(__DIR__ . '/AAA/testParams'));
+		unlink($this->setDirSep(__DIR__ . '/BBB/testParams'));
+		rmdir($this->setDirSep(__DIR__ . '/AAA'));
+		rmdir($this->setDirSep(__DIR__ . '/BBB'));
+	}
 
 	public function testOk()
 	{
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/test.xslt'), '');
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/firstIn.xml'), '');
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/firstOut.xml'), '');
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/secondIn.xml'), '');
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/secondOut.xml'), '');
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/test2.xslt'), '');
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/lorem.xml'), '');
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/ipsum.xml'), '');
+		$factory = \Mockery::mock('\XSLTBenchmarking\Factory');
+		$factory->shouldReceive('getTestsRunnerTest')->once()->with('Test name 1')->andReturnUsing(
+			function () {
+				$test = \Mockery::mock('\XSLTBenchmarking\TestsRunner\Test');
+				$test->shouldReceive('setTemplatePath')->once()->andReturn('Test template path 1');
+				$test->shouldReceive('addCouplesPaths')->once()->andReturn(array('Test couples paths 1'));
+				return $test;
+			}
+		);
+		$factory->shouldReceive('getTestsRunnerTest')->once()->with('Test name 2')->andReturnUsing(
+			function () {
+				$test = \Mockery::mock('\XSLTBenchmarking\TestsRunner\Test');
+				$test->shouldReceive('setTemplatePath')->once()->andReturn('Test template path 2');
+				$test->shouldReceive('addCouplesPaths')->once()->andReturn(array('Test couples paths 2'));
+				return $test;
+			}
+		);
 
-		$runner = new Runner(__DIR__);
-		$runner->addTest('Fixture');
-		$runner->addTest('Fixture', '__params2.xml');
-		$tests = $runner->getTests();
+		$params = \Mockery::mock('\XSLTBenchmarking\TestsRunner\Params');
+		$params->shouldReceive('setFile')->once()->with($this->setDirSep(__DIR__ . '/AAA/testParams'));
+		$params->shouldReceive('setFile')->once()->with($this->setDirSep(__DIR__ . '/BBB/testParams'));
+		$params->shouldReceive('getName')->once()->andReturn('Test name 1');
+		$params->shouldReceive('getName')->once()->andReturn('Test name 2');
+		$params->shouldReceive('getTemplatePath')->once()->andReturn('Test template path 1');
+		$params->shouldReceive('getTemplatePath')->once()->andReturn('Test template path 2');
+		$params->shouldReceive('getCouplesPaths')->once()->andReturn(array('Test couples paths 1'));
+		$params->shouldReceive('getCouplesPaths')->once()->andReturn(array('Test couples paths 2'));
 
-		$expectedTests = array();
-		// first test
-		$test = new Test('');
-		$this->setPropertyValue($test, 'name', 'Test name');
-		$this->setPropertyValue($test, 'templatePath', $this->setDirSep(__DIR__ . '/Fixture/test.xslt'));
-		$this->setPropertyValue($test, 'couples', array(
-			$this->setDirSep(__DIR__ . '/Fixture/firstIn.xml') => $this->setDirSep(__DIR__ . '/Fixture/firstOut.xml'),
-			$this->setDirSep(__DIR__ . '/Fixture/secondIn.xml') => $this->setDirSep(__DIR__ . '/Fixture/secondOut.xml'),
-		));
-		$expectedTests['Test name'] = $test;
+		$this->setPropertyValue($this->runner, 'factory', $factory);
+		$this->setPropertyValue($this->runner, 'params', $params);
 
-		// second test
-		$test = new Test('');
-		$this->setPropertyValue($test, 'name', 'Test name 2');
-		$this->setPropertyValue($test, 'templatePath', $this->setDirSep(__DIR__ . '/Fixture/test2.xslt'));
-		$this->setPropertyValue($test, 'couples', array(
-			$this->setDirSep(__DIR__ . '/Fixture/lorem.xml') => $this->setDirSep(__DIR__ . '/Fixture/ipsum.xml'),
-		));
-		$expectedTests['Test name 2'] = $test;
+		$this->runner->addTest('AAA', 'testParams');
+		$this->runner->addTest('BBB', 'testParams');
 
-		$this->assertEquals($expectedTests, $tests);
-
-		unlink($this->setDirSep(__DIR__ . '/Fixture/test.xslt'));
-		unlink($this->setDirSep(__DIR__ . '/Fixture/firstIn.xml'));
-		unlink($this->setDirSep(__DIR__ . '/Fixture/firstOut.xml'));
-		unlink($this->setDirSep(__DIR__ . '/Fixture/secondIn.xml'));
-		unlink($this->setDirSep(__DIR__ . '/Fixture/secondOut.xml'));
-		unlink($this->setDirSep(__DIR__ . '/Fixture/test2.xslt'));
-		unlink($this->setDirSep(__DIR__ . '/Fixture/lorem.xml'));
-		unlink($this->setDirSep(__DIR__ . '/Fixture/ipsum.xml'));
+		$tests = $this->runner->getTests();
+		$this->assertEquals(2, count($tests));
+		$this->assertArrayHasKey('Test name 1', $tests);
+		$this->assertArrayHasKey('Test name 2', $tests);
 	}
 
 
 	public function testUnknownTestDir()
 	{
-		$runner = new Runner(__DIR__);
 		$this->setExpectedException('\PhpPath\NotExistsPathException');
-		$runner->addTest('unknownTestsDir');
+		$this->runner->addTest('unknownTestsDir', 'testParams');
 	}
 
 
 	public function testUnknownParamsFile()
 	{
-		$runner = new Runner(__DIR__);
 		$this->setExpectedException('\PhpPath\NotExistsPathException');
-		$runner->addTest('Fixture', 'unknownParams.xml');
+		$this->runner->addTest('AAA', 'unknownParams.xml');
 	}
 
 
 	public function testNameCollision()
 	{
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/test.xslt'), '');
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/firstIn.xml'), '');
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/firstOut.xml'), '');
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/secondIn.xml'), '');
-		file_put_contents($this->setDirSep(__DIR__ . '/Fixture/secondOut.xml'), '');
+		$factory = \Mockery::mock('\XSLTBenchmarking\Factory');
+		$factory->shouldReceive('getTestsRunnerTest')->once()->with('Test name')->andReturnUsing(
+			function () {
+				$test = \Mockery::mock('\XSLTBenchmarking\TestsRunner\Test');
+				$test->shouldReceive('setTemplatePath');
+				$test->shouldReceive('addCouplesPaths');
+				return $test;
+			}
+		);
 
-		$runner = new Runner(__DIR__);
-		$runner->addTest('Fixture');
+		$params = \Mockery::mock('\XSLTBenchmarking\TestsRunner\Params');
+		$params->shouldReceive('setFile')->twice();
+		$params->shouldReceive('getName')->twice()->andReturn('Test name');
+		$params->shouldReceive('getTemplatePath')->once()->andReturn('Test template path');
+		$params->shouldReceive('getCouplesPaths')->once()->andReturn(array('Test couples paths'));
 
-		unlink($this->setDirSep(__DIR__ . '/Fixture/test.xslt'));
-		unlink($this->setDirSep(__DIR__ . '/Fixture/firstIn.xml'));
-		unlink($this->setDirSep(__DIR__ . '/Fixture/firstOut.xml'));
-		unlink($this->setDirSep(__DIR__ . '/Fixture/secondIn.xml'));
-		unlink($this->setDirSep(__DIR__ . '/Fixture/secondOut.xml'));
+		$this->setPropertyValue($this->runner, 'factory', $factory);
+		$this->setPropertyValue($this->runner, 'params', $params);
 
+		$this->runner->addTest('AAA', 'testParams');
 		$this->setExpectedException('\XSLTBenchmarking\CollisionException', 'Duplicate name of test "Test name"');
-		$runner->addTest('Fixture');
+		$this->runner->addTest('AAA', 'testParams');
 	}
 
 

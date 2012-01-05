@@ -21,29 +21,33 @@ use \XSLTBenchmarking\TestsGenerator\Generator;
  *
  * @covers XSLTBenchmarking\TestsGenerator\Generator::__construct
  */
+
+
 class GeneratorTest extends TestCase
 {
 
+	private $factory;
+	private $params;
+	private $templating;
+	private $paramsTest;
+
+	public function setUp()
+	{
+		$this->factory = $this->getMock('\XSLTBenchmarking\Factory');
+		$this->params = $this->getMock('\XSLTBenchmarking\TestsGenerator\Params');
+		$this->templating = $this->getMock('\XSLTBenchmarking\TestsGenerator\Templating');
+		$this->paramsTest = $this->getMock('\XSLTBenchmarking\TestsRunner\Params');
+	}
 
 	public function testOk()
 	{
-		$templates = $this->setDirSep(__DIR__ . '/A');
-		$tests = $this->setDirSep(__DIR__ . '/B');
-		$tmp = $this->setDirSep(__DIR__ . '/C');
+		$generator = new Generator($this->factory, $this->params, $this->templating, $this->paramsTest, __DIR__, __DIR__);
 
-		mkdir($templates);
-		mkdir($tests);
-		mkdir($tmp);
-
-		$generator = new Generator($templates, $tests, $tmp);
-
-		$this->assertEquals($templates, $this->getPropertyValue($generator, 'templatesDirectory'));
-		$this->assertEquals($tests, $this->getPropertyValue($generator, 'testsDirectory'));
-		$this->assertEquals($tmp, $this->getPropertyValue($generator, 'tmpDirectory'));
-
-		rmdir($templates);
-		rmdir($tests);
-		rmdir($tmp);
+		$this->assertEquals($this->params, $this->getPropertyValue($generator, 'params'));
+		$this->assertEquals($this->templating, $this->getPropertyValue($generator, 'templating'));
+		$this->assertEquals($this->paramsTest, $this->getPropertyValue($generator, 'paramsTest'));
+		$this->assertEquals(__DIR__, $this->getPropertyValue($generator, 'templatesDirectory'));
+		$this->assertEquals(__DIR__, $this->getPropertyValue($generator, 'testsDirectory'));
 	}
 
 
@@ -51,7 +55,7 @@ class GeneratorTest extends TestCase
 	{
 		$unknown = $this->setDirSep(__DIR__ . '/unknown');
 		$this->setExpectedException('\PhpPath\NotExistsPathException');
-		$generator = new Generator($unknown, __DIR__, __DIR__);
+		$generator = new Generator($this->factory, $this->params, $this->templating, $this->paramsTest, $unknown, __DIR__);
 	}
 
 
@@ -59,15 +63,7 @@ class GeneratorTest extends TestCase
 	{
 		$unknown = $this->setDirSep(__DIR__ . '/unknown');
 		$this->setExpectedException('\PhpPath\NotExistsPathException');
-		$generator = new Generator(__DIR__, $unknown, __DIR__);
-	}
-
-
-	public function testBadTmpDir()
-	{
-		$unknown = $this->setDirSep(__DIR__ . '/unknown');
-		$this->setExpectedException('\PhpPath\NotExistsPathException');
-		$generator = new Generator(__DIR__, __DIR__, $unknown);
+		$generator = new Generator($this->factory, $this->params, $this->templating, $this->paramsTest, __DIR__, $unknown);
 	}
 
 

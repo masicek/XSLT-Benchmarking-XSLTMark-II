@@ -26,7 +26,7 @@ class GenerateTest extends TestCase
 {
 
 
-	public function test()
+	public function testOk()
 	{
 		$driver = new SimpleTemplatingDriver(NULL);
 		$templatePath = __FILE__;
@@ -41,6 +41,14 @@ class GenerateTest extends TestCase
 
 		// remove copy of file
 		unlink($copyPath);
+	}
+
+
+	public function testBadTemapltePath()
+	{
+		$driver = new SimpleTemplatingDriver(NULL);
+		$this->setExpectedException('\PhpPath\NotExistsPathException');
+		$driver->generate('./foo.php', 'output/path');
 	}
 
 

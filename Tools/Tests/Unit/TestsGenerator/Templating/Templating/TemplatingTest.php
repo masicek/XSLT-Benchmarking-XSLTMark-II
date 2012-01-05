@@ -25,7 +25,8 @@ class TemplatingTest extends TestCase
 
 	public function testSimple()
 	{
-		$templating = new Templating('simple', __DIR__);
+		$templating = new Templating(__DIR__);
+		$templating->setDriver('simple');
 		$driver = $this->getPropertyValue($templating, 'driver');
 		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\ITemplatingDriver', $driver);
 		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\SimpleTemplatingDriver', $driver);
@@ -34,7 +35,8 @@ class TemplatingTest extends TestCase
 
 	public function testSmarty()
 	{
-		$templating = new Templating('smarty', __DIR__);
+		$templating = new Templating(__DIR__);
+		$templating->setDriver('smarty');
 		$driver = $this->getPropertyValue($templating, 'driver');
 		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\ITemplatingDriver', $driver);
 		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\SmartyTemplatingDriver', $driver);
