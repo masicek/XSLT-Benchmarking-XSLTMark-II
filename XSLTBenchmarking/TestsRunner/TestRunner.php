@@ -53,6 +53,13 @@ class TestRunner
 	private $repeating;
 
 	/**
+	 * Object for control that generated file is same as expected
+	 *
+	 * @var \XSLTBenchmarking\TestsRunner\Controlor
+	 */
+	private $controlor;
+
+	/**
 	 * Path of temporary directory for generating output files by processors
 	 *
 	 * @var string
@@ -76,6 +83,7 @@ class TestRunner
 		$processorsSelected,
 		array $processorsExclude,
 		$repeating,
+		\XSLTBenchmarking\TestsRunner\Controlor $controlor,
 		$tmpDir
 	)
 	{
@@ -111,6 +119,7 @@ class TestRunner
 		$this->processor = $processor;
 		$this->processorsNames = $processorsFinal;
 		$this->repeating = $repeating;
+		$this->controlor = $controlor;
 		$this->tmpDir = $tmpDir;
 	}
 
@@ -124,17 +133,60 @@ class TestRunner
 	 */
 	public function run(\XSLTBenchmarking\TestsRunner\Test $test)
 	{
-		// TODO co merit: speed, memory usage, correctness
-		// - cas jednoho parsovani (pro dany procesor)
-		// - jestli je vystup korektni nebo ne (pres Corrector)
-		// - pouzita pamet
-		//
+		$testName = $test->getName();
+		$templatePath = $test->getTemplatePath();
+		$couplesPaths = $test->getCouplesPaths();
+		$report = $this->factory->getReport($test);
 
-		$report = $this->factory->getReport();
-		// TODO setting values of report
+		foreach ($this->processorsNames as $processorName)
+		{
+			foreach ($couplesPaths as $xmlInputPath => $expectedOutputPath)
+			{
+				$outputPath = P::m($this->tmpDir, pathinfo($expectedOutputPath, PATHINFO_BASENAME));
+
+				// run transformations
+				$result = $this->processor->run(
+					$processorName,
+					$templatePath,
+					$xmlInputPath,
+					$outputPath,
+					$this->repeating
+				);
+
+				// set times and success
+				if (is_array($result))
+				{
+					$success = TRUE;
+					$spendTimes = $result;
+				}
+				else
+				{
+					$success = $result;
+					$spendTimes = array();
+				}
+
+				// set corretness
+				$corretness = FALSE;
+				if ($success === TRUE)
+				{
+					$corretness = $this->controlor->isSame($outputPath, $expectedOutputPath);
+				}
+
+				// reported results
+				$report->addRecord(
+					$processorName,
+					$xmlInputPath,
+					$expectedOutputPath,
+					$success,
+					$corretness,
+					$spendTimes
+				);
+			}
+		}
 
 		return $report;
 	}
+
 
 
 }

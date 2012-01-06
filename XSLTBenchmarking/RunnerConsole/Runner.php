@@ -330,6 +330,7 @@ class Runner
 				$processors,
 				$processorsExclude,
 				$repeating,
+				new \XSLTBenchmarking\TestsRunner\Controlor(),
 				$tmpDir
 			),
 			new \XSLTBenchmarking\Reports\Printer($reportsDir),

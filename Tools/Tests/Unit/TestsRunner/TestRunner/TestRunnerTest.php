@@ -26,6 +26,7 @@ class TestRunnerTest extends TestCase
 
 	private $factory;
 	private $processor;
+	private $controlor;
 
 	public function setUp()
 	{
@@ -38,6 +39,7 @@ class TestRunnerTest extends TestCase
 				'processor2' => 'prcessor2.sh',
 				'processor3' => 'prcessor3.sh')
 			));
+		$this->controlor = $this->getMock('XSLTBenchmarking\TestsRunner\Controlor');
 	}
 
 	public function testSettingsWithoutProccesors()
@@ -48,12 +50,14 @@ class TestRunnerTest extends TestCase
 			array(),
 			array(),
 			123,
+			$this->controlor,
 			__DIR__
 		);
 
 		$this->assertEquals($this->factory, $this->getPropertyValue($runner, 'factory'));
 		$this->assertEquals($this->processor, $this->getPropertyValue($runner, 'processor'));
 		$this->assertEquals(123, $this->getPropertyValue($runner, 'repeating'));
+		$this->assertEquals($this->controlor, $this->getPropertyValue($runner, 'controlor'));
 		$this->assertEquals(__DIR__, $this->getPropertyValue($runner, 'tmpDir'));
 	}
 
@@ -66,6 +70,7 @@ class TestRunnerTest extends TestCase
 			array(),
 			array(),
 			123,
+			$this->controlor,
 			$this->setDirSep(__DIR__ . '/unknown')
 		);
 	}
@@ -79,6 +84,7 @@ class TestRunnerTest extends TestCase
 			TRUE,
 			array(),
 			123,
+			$this->controlor,
 			__DIR__
 		);
 
@@ -97,6 +103,7 @@ class TestRunnerTest extends TestCase
 			TRUE,
 			array('processor2'),
 			123,
+			$this->controlor,
 			__DIR__
 		);
 
@@ -115,6 +122,7 @@ class TestRunnerTest extends TestCase
 			array('processor2', 'processor3'),
 			array(),
 			123,
+			$this->controlor,
 			__DIR__
 		);
 
@@ -133,6 +141,7 @@ class TestRunnerTest extends TestCase
 			array('processor2', 'processor3'),
 			array('processor2'),
 			123,
+			$this->controlor,
 			__DIR__
 		);
 
@@ -152,6 +161,7 @@ class TestRunnerTest extends TestCase
 			array('unknown'),
 			array(),
 			123,
+			$this->controlor,
 			__DIR__
 		);
 	}
