@@ -99,12 +99,6 @@ class Runner
 		{
 			$this->runTests();
 		}
-
-		// print reports
-		if ($options->get('Print reports'))
-		{
-			// TODO
-		}
 	}
 
 
@@ -160,24 +154,25 @@ class Runner
 
 
 			// generating tests
-			$generate = $optionsList[] = Option::make('Generate')->description('Generating tests from templates');
+			$optionsList[] = Option::make('Generate')->description('Generating tests from templates');
+			// @HACK in PhpOption 2.0.0 use array of dirs
 			$optionsList[] = Option::series('Templates dirs', ',')
 				->short()
 				->value(FALSE)
 				->defaults(TRUE)
-				// HACK PHP_EOL will not be used in PhpOptions 2.0.0
 				->description(
 					'Subdirectories of director set by "' . $templates->getOptions() . '"' . PHP_EOL .
 					'containing tests templates for generating, separated by character ",".' . PHP_EOL .
 					'If this option is not set (or is set without value),' . PHP_EOL .
 					'then all tests templates are selected' . PHP_EOL .
-					'(all subdirectories are considered as tests templates).' . PHP_EOL .
-					'This option make sense only for option "' . $generate->getOptions() . '".'
+					'(all subdirectories are considered as tests templates).'
 				);
 
+
 			// run tests
-			$run = $optionsList[] = Option::make('Run')->description('Run prepared tests');
-			$optionsList[] = Option::series('Tests names', ',')
+			$optionsList[] = Option::make('Run')->description('Run prepared tests');
+			// @HACK in PhpOption 2.0.0 use array of dirs
+			$optionsList[] = Option::series('Tests dirs', ',')
 				->short()
 				->value(FALSE)
 				->defaults(TRUE)
@@ -186,15 +181,11 @@ class Runner
 					'containing tests for runnig, separated by character ",".' . PHP_EOL .
 					'If this option is not set (or is set without value),' . PHP_EOL .
 					'then all tests are selected' . PHP_EOL .
-					'(all subdirectories are considered as tests).' . PHP_EOL .
-					'This option make sense only for option "' . $run->getOptions() . '".'
+					'(all subdirectories are considered as tests).'
+				);
 				);
 
-			// print reports
-			$optionsList[] = Option::make('Print reports')
-				->short('p')
-				->long('print')
-				->description('Print reports of tests');
+
 
 			$options->add($optionsList);
 
