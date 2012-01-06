@@ -11,11 +11,9 @@ namespace Tests\XSLTBenchmarking\TestsRunner\Runner;
 
 use \Tests\XSLTBenchmarking\TestCase;
 use \XSLTBenchmarking\TestsRunner\Runner;
-use \XSLTBenchmarking\TestsRunner\Test;
 
 
 require_once ROOT_TOOLS . '/TestsRunner/Runner.php';
-require_once ROOT_TOOLS . '/TestsRunner/Test.php';
 
 
 
@@ -42,6 +40,8 @@ class AddAndGetTestTest extends TestCase
 		$this->runner = new Runner(
 			$this->getMock('\XSLTBenchmarking\Factory'),
 			$this->getMock('\XSLTBenchmarking\TestsRunner\Params'),
+			$this->getMock('\XSLTBenchmarking\TestsRunner\TestRunner', array(), array(), '', FALSE),
+			$this->getMock('\XSLTBenchmarking\Reports\Printer'),
 			__DIR__
 		);
 	}

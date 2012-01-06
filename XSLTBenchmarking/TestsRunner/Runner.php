@@ -37,12 +37,25 @@ class Runner
 	private $params;
 
 	/**
+	 * Object for runnig one test on all processors
+	 *
+	 * @var \XSLTBenchmarking\TestsRunner\TestRunner
+	 */
+	private $testRunner;
+
+	/**
+	 * Object for printing reports
+	 *
+	 * @var \XSLTBenchmarking\Reports\Printer
+	 */
+	private $reportsPrinter;
+
+	/**
 	 * Root directory of generated tests
 	 *
 	 * @var string
 	 */
 	private $testsDirectory;
-
 
 	/**
 	 * Tests for generating
@@ -57,11 +70,14 @@ class Runner
 	 *
 	 * @param \XSLTBenchmarking\Factory $factory Factory class for making new objects
 	 * @param \XSLTBenchmarking\TestsRunner\Params $params Object for reading params of tests
+	 * @param \XSLTBenchmarking\TestsRunner\TestRunner $testRunner Object for runnig one test on all processors
 	 * @param type $testsDirectory The root directory of all generated tests
 	 */
 	public function __construct(
 		\XSLTBenchmarking\Factory $factory,
 		\XSLTBenchmarking\TestsRunner\Params $params,
+		\XSLTBenchmarking\TestsRunner\TestRunner $testRunner,
+		\XSLTBenchmarking\Reports\Printer $reportPrinter,
 		$testsDirectory
 	)
 	{
@@ -69,6 +85,8 @@ class Runner
 
 		$this->factory = $factory;
 		$this->params = $params;
+		$this->testRunner = $testRunner;
+		$this->reportsPrinter = $reportPrinter;
 		$this->testsDirectory = $testsDirectory;
 	}
 
@@ -114,11 +132,21 @@ class Runner
 
 
 	/**
-	 * Run all added tests
+	 * Run all added tests and print reports
+	 *
+	 * @return int Number of run tests
 	 */
 	public function runAll()
 	{
-		// TODO
+		foreach ($this->tests as $name => $test)
+		{
+			$report = $this->testRunner->run($test);
+			$this->reportsPrinter->addReport($report);
+		}
+
+		$this->reportsPrinter->printAll();
+
+		return count($this->tests);
 	}
 
 

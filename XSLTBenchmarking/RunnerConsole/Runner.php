@@ -21,6 +21,9 @@ require_once ROOT . '/TestsGenerator/XmlGenerator/XmlGenerator.php';
 
 require_once ROOT . '/TestsRunner/Runner.php';
 require_once ROOT . '/TestsRunner/Params/Params.php';
+require_once ROOT . '/TestsRunner/TestRunner.php';
+
+require_once ROOT . '/Reports/Printer.php';
 
 
 use PhpOptions\Options;
@@ -69,7 +72,7 @@ class Runner
 	/**
 	 * Run XSLT Benchmarking
 	 * - show help
-	 * @todo - generate tests
+	 * - generate tests
 	 * @todo - run tests
 	 * @todo - print reports
 	 *
@@ -118,6 +121,8 @@ class Runner
 	private function defineOptions($baseDir)
 	{
 		try {
+			// @HACK PHP_EOL will not be used in PhpOptions 2.0.0 in options descriptions
+
 			$options = new Options();
 
 			// base settings of options
@@ -130,6 +135,7 @@ class Runner
 
 			$optionsList = array();
 
+
 			// directories
 			$templates = $optionsList[] = Option::directory('Templates', $baseDir)
 				->short()
@@ -141,11 +147,17 @@ class Runner
 				->value(FALSE)
 				->defaults('../Data/Tests')
 				->description('Directory for generating tests');
+			$optionsList[] = Option::directory('Reports', $baseDir, 'makeDir')
+				->short()
+				->value(FALSE)
+				->defaults('../Data/Reports')
+				->description('Directory for reports of tests');
 			$optionsList[] = Option::directory('Tmp', $baseDir, 'makeDir')
 				->short()
 				->value(FALSE)
 				->defaults('../Tmp')
 				->description('Temporary directory');
+
 
 			// generating tests
 			$generate = $optionsList[] = Option::make('Generate')->description('Generating tests from templates');
@@ -199,6 +211,7 @@ class Runner
 		return $options;
 	}
 
+
 	// ---- PARTS OF RUNNING ----
 
 
@@ -232,16 +245,7 @@ class Runner
 		// generate all templates
 		if ($templatesDirs === TRUE)
 		{
-			$allResources = scandir($templatesDir);
-
-			$templatesDirs = array();
-			foreach ($allResources as $resource)
-			{
-				if (!in_array($resource, array('.', '..')) && is_dir(P::m($templatesDir, $resource)))
-				{
-					$templatesDirs[] = $resource;
-				}
-			}
+			$templatesDirs = $this->getDirs($templatesDir);
 		}
 
 		foreach ($templatesDirs as $templateDir)
@@ -264,9 +268,14 @@ class Runner
 
 		$options = $this->options;
 		$testsDir = $options->get('Tests');
+		$reportsDir = $options->get('Reports');
+		$tmpDir = $options->get('Tmp');
+
 		$runner = new \XSLTBenchmarking\TestsRunner\Runner(
 			$this->factory,
-			new \XSLTBenchmarking\TestsGenerator\Params(),
+			new \XSLTBenchmarking\TestsRunner\Params(),
+			new \XSLTBenchmarking\TestsRunner\TestRunner($this->factory, $tmpDir),
+			new \XSLTBenchmarking\Reports\Printer($reportsDir),
 			$testsDir
 		);
 
@@ -275,30 +284,45 @@ class Runner
 		// generate all templates
 		if ($testsDirs === TRUE)
 		{
-			$allResources = scandir($testsDir);
-
-			$testsDirs = array();
-			foreach ($allResources as $resource)
-			{
-				if (!in_array($resource, array('.', '..')) && is_dir(P::m($testsDir, $resource)))
-				{
-					$testsDirs[] = $resource;
-				}
-			}
+			$testsDirs = $this->getDirs($testsDir);
 		}
 
-		foreach ($testsDirs as $testName)
+		foreach ($testsDirs as $testDir)
 		{
-			$generator->addTest($testName);
+			$generator->addTest($testDir);
 		}
 
-		$runner->runAll();
+		$testsNumber = $runner->runAll();
 
-		$this->printInfo('TODO - make this info');
+		$this->printInfo($testsNumber . ' were run.');
 	}
 
 
 	// ---- HELPS FUNCTIONS ----
+
+
+	/**
+	 * Return subdirectories names
+	 *
+	 * @param string $path Directory that is scanned
+	 *
+	 * @return array
+	 */
+	private function getDirs($path)
+	{
+		$allResources = scandir($path);
+
+		$dirs = array();
+		foreach ($allResources as $resource)
+		{
+			if (!in_array($resource, array('.', '..')) && is_dir(P::m($path, $resource)))
+			{
+				$dirs[] = $resource;
+			}
+		}
+
+		return $dirs;
+	}
 
 
 	/**

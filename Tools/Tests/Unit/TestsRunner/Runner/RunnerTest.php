@@ -33,6 +33,8 @@ class RunnerTest extends TestCase
 		$runner = new Runner(
 			$this->getMock('\XSLTBenchmarking\Factory'),
 			$this->getMock('\XSLTBenchmarking\TestsRunner\Params'),
+			$this->getMock('\XSLTBenchmarking\TestsRunner\TestRunner', array(), array(), '', FALSE),
+			$this->getMock('\XSLTBenchmarking\Reports\Printer'),
 			__DIR__ . '/tests'
 		);
 		$this->assertEquals($this->setDirSep(__DIR__ . '/tests'), $this->getPropertyValue($runner, 'testsDirectory'));
@@ -47,6 +49,8 @@ class RunnerTest extends TestCase
 		$runner = new Runner(
 			$this->getMock('\XSLTBenchmarking\Factory'),
 			$this->getMock('\XSLTBenchmarking\TestsRunner\Params'),
+			$this->getMock('\XSLTBenchmarking\TestsRunner\TestRunner', array(), array(), '', FALSE),
+			$this->getMock('\XSLTBenchmarking\Reports\Printer'),
 			__DIR__ . '/unknown'
 		);
 	}
