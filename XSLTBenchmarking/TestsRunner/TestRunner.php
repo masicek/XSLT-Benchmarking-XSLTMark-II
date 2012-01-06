@@ -9,6 +9,12 @@
 
 namespace XSLTBenchmarking\TestsRunner;
 
+require_once ROOT . '/Exceptions.php';
+require_once LIBS . '/PhpPath/PhpPath.min.php';
+
+use PhpPath\P;
+
+
 /**
  * Class for run one test
  *
@@ -26,11 +32,18 @@ class TestRunner
 	private $factory;
 
 	/**
+	 * Object for runnig XSLT transformation
+	 *
+	 * @var \XSLTBenchmarking\TestsRunner\Processor
+	 */
+	private $processor;
+
+	/**
 	 * List of processors selected for testing
 	 *
 	 * @var array
 	 */
-	private $processors;
+	private $processorsNames;
 
 	/**
 	 * Number of repeatig for each test and processor
@@ -51,26 +64,30 @@ class TestRunner
 	 * Object configuration
 	 *
 	 * @param \XSLTBenchmarking\Factory $factory Factory class for making new objects
-	 * @param array|TRUE $processors List of tested processors
+	 * @param \XSLTBenchmarking\TestsRunner\Processor $processor Class for parse one template in one processor
+	 * @param array|TRUE $processorsSelected List of tested processors
 	 * @param array $processors Exclude List of tested processors, that we want exclude form tested processors
 	 * @param int $repeating Number of repeatig for each test and processor
 	 * @param string $tmpDir
 	 */
 	public function __construct(
 		\XSLTBenchmarking\Factory $factory,
-		$processors,
+		\XSLTBenchmarking\TestsRunner\Processor $processor,
+		$processorsSelected,
 		array $processorsExclude,
 		$repeating,
 		$tmpDir
 	)
 	{
-		if ($processors === TRUE)
+		$tmpDir = P::mcd($tmpDir);
+
+		$processorsAvailable = array_keys($processor->getAvailable());
+		if ($processorsSelected === TRUE)
 		{
-			// TODO get all possible processors
-			//$processors = ...
+			$processorsSelected = $processorsAvailable;
 		}
 
-		$processorsFinal = $processors;
+		$processorsFinal = $processorsSelected;
 		foreach ($processorsExclude as $processor)
 		{
 			$key = array_search($processor, $processorsFinal);
@@ -81,8 +98,18 @@ class TestRunner
 		}
 		$processorsFinal = array_values($processorsFinal);
 
+		// check correct set of processors
+		foreach ($processorsSelected as $processorSelected)
+		{
+			if (!in_array($processorSelected, $processorsAvailable))
+			{
+				throw new \XSLTBenchmarking\InvalidArgumentException('Unknown processor name "' . $processorSelected . '"');
+			}
+		}
+
 		$this->factory = $factory;
-		$this->processors = $processorsFinal;
+		$this->processor = $processor;
+		$this->processorsNames = $processorsFinal;
 		$this->repeating = $repeating;
 		$this->tmpDir = $tmpDir;
 	}

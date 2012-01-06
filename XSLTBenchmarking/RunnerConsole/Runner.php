@@ -22,6 +22,7 @@ require_once ROOT . '/TestsGenerator/XmlGenerator/XmlGenerator.php';
 require_once ROOT . '/TestsRunner/Runner.php';
 require_once ROOT . '/TestsRunner/Params/Params.php';
 require_once ROOT . '/TestsRunner/TestRunner.php';
+require_once ROOT . '/TestsRunner/Processor/Processor.php';
 
 require_once ROOT . '/Reports/Printer.php';
 
@@ -325,6 +326,7 @@ class Runner
 			new \XSLTBenchmarking\TestsRunner\Params(),
 			new \XSLTBenchmarking\TestsRunner\TestRunner(
 				$this->factory,
+				new \XSLTBenchmarking\TestsRunner\Processor(),
 				$processors,
 				$processorsExclude,
 				$repeating,
