@@ -18,22 +18,73 @@ class TestRunner
 {
 
 
+	/**
+	 * Factory class for making new objects
+	 *
+	 * @var \XSLTBenchmarking\Factory
+	 */
+	private $factory;
+
+	/**
+	 * List of processors selected for testing
+	 *
+	 * @var array
+	 */
+	private $processors;
+
+	/**
+	 * Number of repeatig for each test and processor
+	 *
+	 * @var int
+	 */
+	private $repeating;
+
+	/**
+	 * Path of temporary directory for generating output files by processors
+	 *
+	 * @var string
+	 */
+	private $tmpDir;
+
+
+	/**
+	 * Object configuration
+	 *
+	 * @param \XSLTBenchmarking\Factory $factory Factory class for making new objects
+	 * @param array|TRUE $processors List of tested processors
+	 * @param array $processors Exclude List of tested processors, that we want exclude form tested processors
+	 * @param int $repeating Number of repeatig for each test and processor
+	 * @param string $tmpDir
+	 */
 	public function __construct(
 		\XSLTBenchmarking\Factory $factory,
+		$processors,
+		array $processorsExclude,
+		$repeating,
 		$tmpDir
 	)
 	{
-		// TODO nastaveni:
-		// - seznam procesoru (include + exclude)
-		// - pocet opakovani kazdeho testu
-		//
+		if ($processors === TRUE)
+		{
+			// TODO get all possible processors
+			//$processors = ...
+		}
 
-		// TODO set needed settings
+		$processorsFinal = $processors;
+		foreach ($processorsExclude as $processor)
+		{
+			$key = array_search($processor, $processorsFinal);
+			if ($key !== FALSE)
+			{
+				unset($processorsFinal[$key]);
+			}
+		}
+		$processorsFinal = array_values($processorsFinal);
 
-		// TODO nakonfigurovat objekt podle options
-		// TODO trida na spusteni jednoho testu ve vsech moznych procesorech
-		//      nastaveni (pocet opakovani, jake pouzit procesory, ...)
-
+		$this->factory = $factory;
+		$this->processors = $processorsFinal;
+		$this->repeating = $repeating;
+		$this->tmpDir = $tmpDir;
 	}
 
 
@@ -51,6 +102,11 @@ class TestRunner
 		// - jestli je vystup korektni nebo ne (pres Corrector)
 		// - pouzita pamet
 		//
+
+		$report = $this->factory->getReport();
+		// TODO setting values of report
+
+		return $report;
 	}
 
 

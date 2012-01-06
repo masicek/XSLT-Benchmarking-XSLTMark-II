@@ -11,6 +11,7 @@ namespace XSLTBenchmarking;
 
 require_once __DIR__ . '/TestsGenerator/Test.php';
 require_once __DIR__ . '/TestsRunner/Test.php';
+require_once __DIR__ . '/Reports/Report.php';
 
 /**
  * Factory class for making new objects.
@@ -45,6 +46,17 @@ class Factory
 	public function getTestsRunnerTest($name)
 	{
 		return new TestsRunner\Test($name);
+	}
+
+
+	/**
+	 * Make new Report class and return it
+	 *
+	 * @return \XSLTBenchmarking\Reports\Report
+	 */
+	public function getReport()
+	{
+		return new Reports\Report();
 	}
 
 

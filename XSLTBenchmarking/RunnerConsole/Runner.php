@@ -183,17 +183,65 @@ class Runner
 					'then all tests are selected' . PHP_EOL .
 					'(all subdirectories are considered as tests).'
 				);
+
+			// @HACK in PhpOption 2.0.0 use array of enum
+			$optionsList[] = Option::series('Processors', ',')
+				->value(FALSE)
+				->defaults(TRUE)
+				->description(
+					'List of tested processors' . PHP_EOL .
+					'If this option is not set (or is set without value),' . PHP_EOL .
+					'then all available processors are tested.'
 				);
 
+			$optionsList[] = Option::series('Processors exclude', ',')
+				->short('e')
+				->description(
+					'List of tested processors, that we want exclude form tested processors.'
+				);
+
+			$optionsList[] = Option::integer('Repeating', 'unsigned')
+				->short()
+				//->defaults(1) @HACK supported in PhpOptions 2.0.0
+				->description('Number of repeatig for each test and processor.');
 
 
 			$options->add($optionsList);
 
 			// dependences + groups
-			$options->dependences('Generate', array('Templates', 'Templates dirs', 'Tests', 'Tmp'));
-			$options->group('Generating tests', array('Generate', 'Templates', 'Templates dirs', 'Tests', 'Tmp'));
-			// HACK make group after solved bug in PhpOptions (issue #46)
-			//$options->group('Runnig tests', array('Run', 'Tests', 'Tests dirs'));
+			// @HACK in PhpOptions 2.0.0 generate groups based on dependences
+			$options->dependences('Generate', array(
+				'Templates',
+				'Templates dirs',
+				'Tests',
+				'Tmp'
+			));
+			$options->group('Generating tests', array('Generate',
+				'Templates',
+				'Templates dirs',
+				'Tests',
+				'Tmp'
+			));
+
+			$options->dependences('Run', array(
+				'Tests',
+				'Tests dirs',
+				'Processors',
+				'Processors exclude',
+				'Repeating',
+				'Reports',
+				'Tmp'
+			));
+			$options->group('Runnig tests', array('Run',
+				'Tests',
+				'Tests dirs',
+				'Processors',
+				'Processors exclude',
+				'Repeating',
+				'Reports',
+				'Tmp'
+			));
+
 		} catch (\PhpOptions\UserBadCallException $e) {// @codeCoverageIgnoreStart
 			$this->printInfo('ERROR: ' . $e->getMessage());
 			die();
@@ -260,12 +308,28 @@ class Runner
 		$options = $this->options;
 		$testsDir = $options->get('Tests');
 		$reportsDir = $options->get('Reports');
+		$processors = $options->get('Processors');
+		$processorsExxclude = $options->get('Processors exclude');
+		$repeating = $options->get('Repeating');
 		$tmpDir = $options->get('Tmp');
+
+		// @HACK from PhpOptions 2.0.0 it is not necessary
+		if (!$repeating)
+		{
+			$repeating = 1;
+		}
+		// \@HACK
 
 		$runner = new \XSLTBenchmarking\TestsRunner\Runner(
 			$this->factory,
 			new \XSLTBenchmarking\TestsRunner\Params(),
-			new \XSLTBenchmarking\TestsRunner\TestRunner($this->factory, $tmpDir),
+			new \XSLTBenchmarking\TestsRunner\TestRunner(
+				$this->factory,
+				$processors,
+				$processorsExclude,
+				$repeating,
+				$tmpDir
+			),
 			new \XSLTBenchmarking\Reports\Printer($reportsDir),
 			$testsDir
 		);

@@ -47,4 +47,15 @@ class FactoryTest extends TestCase
 	}
 
 
+	/**
+	 * @covers \XSLTBenchmarking\Factory::getReport
+	 */
+	public function testGetReport()
+	{
+		$factory = new Factory();
+		$report = $factory->getReport();
+		$this->assertInstanceOf('\XSLTBenchmarking\Reports\Report', $report);
+	}
+
+
 }
