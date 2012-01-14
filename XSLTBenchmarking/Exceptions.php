@@ -48,7 +48,7 @@ class UnknownMethodException extends Exception
 
 
 /**
- *
+ * Colision of setting of objects
  */
 class CollisionException extends Exception
 {
