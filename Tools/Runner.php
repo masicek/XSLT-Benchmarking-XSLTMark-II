@@ -12,10 +12,11 @@ namespace XSLTBenchmarking\Tools;
 define('DATA_TOOLS', __DIR__ . '/Data');
 define('TESTS_TOOLS', __DIR__ . '/Tests');
 define('ROOT_TOOLS', __DIR__ . '/../XSLTBenchmarking');
+define('LIBS_TOOLS', __DIR__ . '/../Libs');
 
 if (!defined('LIBS'))
 {
-	define ('LIBS', __DIR__ . '/../Libs');
+	define ('LIBS', LIBS_TOOLS);
 }
 if (!defined('ROOT'))
 {

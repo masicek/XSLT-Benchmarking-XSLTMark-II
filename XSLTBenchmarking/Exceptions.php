@@ -53,3 +53,11 @@ class UnknownMethodException extends Exception
 class CollisionException extends Exception
 {
 }
+
+
+/**
+ * State of objects or scripts are invalide
+ */
+class InvalidStateException extends Exception
+{
+}
