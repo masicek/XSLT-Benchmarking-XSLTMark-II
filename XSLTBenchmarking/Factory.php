@@ -52,11 +52,14 @@ class Factory
 	/**
 	 * Make new Report class and return it
 	 *
+	 * @param string $testName Name of the reported test
+	 * @param string $templatePath Path of the tests XSLT template
+	 *
 	 * @return \XSLTBenchmarking\Reports\Report
 	 */
-	public function getReport()
+	public function getReport($testName, $templatePath)
 	{
-		return new Reports\Report();
+		return new Reports\Report($testName, $templatePath);
 	}
 
 

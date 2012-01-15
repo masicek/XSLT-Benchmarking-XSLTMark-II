@@ -42,8 +42,8 @@ class RunAllTest extends TestCase
 		);
 
 		$reports = array(
-			$this->getMock('\XSLTBenchmarking\Reports\Report'),
-			$this->getMock('\XSLTBenchmarking\Reports\Report'),
+			$this->getMock('\XSLTBenchmarking\Reports\Report', array(), array(), '', FALSE),
+			$this->getMock('\XSLTBenchmarking\Reports\Report', array(), array(), '', FALSE),
 		);
 
 		$testRunner = \Mockery::mock('\XSLTBenchmarking\TestsRunner\TestRunner');

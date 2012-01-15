@@ -53,7 +53,7 @@ class FactoryTest extends TestCase
 	public function testGetReport()
 	{
 		$factory = new Factory();
-		$report = $factory->getReport();
+		$report = $factory->getReport('Test name', 'Test path');
 		$this->assertInstanceOf('\XSLTBenchmarking\Reports\Report', $report);
 	}
 

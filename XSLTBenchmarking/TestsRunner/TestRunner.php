@@ -133,10 +133,12 @@ class TestRunner
 	 */
 	public function run(\XSLTBenchmarking\TestsRunner\Test $test)
 	{
-		$testName = $test->getName();
 		$templatePath = $test->getTemplatePath();
 		$couplesPaths = $test->getCouplesPaths();
-		$report = $this->factory->getReport($test);
+		$report = $this->factory->getReport(
+			$test->getName(),
+			$templatePath
+		);
 
 		foreach ($this->processorsNames as $processorName)
 		{

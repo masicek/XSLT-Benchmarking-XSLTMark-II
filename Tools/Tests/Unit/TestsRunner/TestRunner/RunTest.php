@@ -61,7 +61,7 @@ class RunTest extends TestCase
 		// factory
 		$factory = \Mockery::mock('\XSLTBenchmarking\Factory');
 		// -- test1
-		$factory->shouldReceive('getReport')->once()->with($test1)->andReturnUsing(
+		$factory->shouldReceive('getReport')->once()->with('Test name 1', 'Test template path 1')->andReturnUsing(
 			function ()
 			{
 				$report = \Mockery::mock('\XSLTBenchmarking\Reports\Report');
@@ -101,7 +101,7 @@ class RunTest extends TestCase
 			}
 		);
 		// -- test2
-		$factory->shouldReceive('getReport')->once()->with($test2)->andReturnUsing(
+		$factory->shouldReceive('getReport')->once()->with('Test name 2', 'Test template path 2')->andReturnUsing(
 			function ()
 			{
 				$report = \Mockery::mock('\XSLTBenchmarking\Reports\Report');
