@@ -10,8 +10,10 @@
 namespace XSLTBenchmarking\TestsRunner;
 
 require_once ROOT . '/Exceptions.php';
+require_once ROOT . '/Microtime.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 
+use XSLTBenchmarking\Microtime;
 use PhpPath\P;
 
 
@@ -22,12 +24,6 @@ use PhpPath\P;
  */
 class Processor
 {
-
-	/**
-	 * Scale of time decimal precision
-	 * @todo maby set as comannd-line option
-	 */
-	const SCALE = 6;
 
 
 	/**
@@ -115,9 +111,9 @@ class Processor
 		$times = array();
 		for ($repeatingIdx = 0; $repeatingIdx < $repeating; $repeatingIdx++)
 		{
-			$timeStart = $this->getMicrotime();
+			$timeStart = Microtime::now();
 			exec($command, $output);
-			$timeEnd = $this->getMicrotime();
+			$timeEnd = Microtime::now();
 
 			if (!isset($output[0]) || $output[0] !== 'OK')
 			{
@@ -125,7 +121,7 @@ class Processor
 			}
 
 			// spend time
-			$times[] = $this->substractMicrotime($timeEnd, $timeStart);
+			$times[] = Microtime::substract($timeEnd, $timeStart);
 		}
 
 		if (!isset($output[0]))
@@ -250,35 +246,6 @@ class Processor
 		$command = $prefix . $script . ' ' . implode(' ', $arguments) . ' ' . P::m(LIBS, 'Processors/Saxon');
 
 		return $command;
-	}
-
-
-	// --- TIME FUNCTIONS ---
-
-
-	/**
-	 * Get current time stamp with sufficient precision
-	 *
-	 * @return string
-	 */
-	private function getMicrotime()
-	{
-		list($usec, $sec) = explode(' ', microtime());
-		return bcadd($sec, $usec, self::SCALE);
-	}
-
-
-	/**
-	 * Get substrast of time stamps with sufficient precision
-	 *
-	 * @param string $leftOperand Left operand
-	 * @param string $rightOperand Right operand
-	 *
-	 * @return string = $leftOperand - $rightOperand
-	 */
-	private function substractMicrotime($leftOperand, $rightOperand)
-	{
-		return bcsub($leftOperand, $rightOperand, self::SCALE);
 	}
 
 

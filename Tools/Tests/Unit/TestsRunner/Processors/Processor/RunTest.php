@@ -21,8 +21,6 @@ require_once ROOT_TOOLS . '/TestsRunner/Processors/Processor.php';
  *
  * @covers \XSLTBenchmarking\TestsRunner\Processor::run
  * @covers \XSLTBenchmarking\TestsRunner\Processor::getCommand
- * @covers \XSLTBenchmarking\TestsRunner\Processor::getMicrotime
- * @covers \XSLTBenchmarking\TestsRunner\Processor::substractMicrotime
  */
 class RunTest extends TestCase
 {
