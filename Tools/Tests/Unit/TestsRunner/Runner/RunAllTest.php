@@ -32,7 +32,7 @@ class RunAllTest extends TestCase
 			$this->getMock('\XSLTBenchmarking\Factory'),
 			$this->getMock('\XSLTBenchmarking\TestsRunner\Params'),
 			$this->getMock('\XSLTBenchmarking\TestsRunner\TestRunner', array(), array(), '', FALSE),
-			$this->getMock('\XSLTBenchmarking\Reports\Printer'),
+			$this->getMock('\XSLTBenchmarking\Reports\Printer', array(), array(), '', FALSE),
 			__DIR__
 		);
 
@@ -53,14 +53,14 @@ class RunAllTest extends TestCase
 		$printer = \Mockery::mock('\XSLTBenchmarking\Reports\Printer');
 		$printer->shouldReceive('addReport')->once()->with($reports[0]);
 		$printer->shouldReceive('addReport')->once()->with($reports[1]);
-		$printer->shouldReceive('printAll')->once();
+		$printer->shouldReceive('printAll')->once()->andReturn('Path of report');
 
 		$this->setPropertyValue($runner, 'tests', $tests);
 		$this->setPropertyValue($runner, 'testRunner', $testRunner);
 		$this->setPropertyValue($runner, 'reportsPrinter', $printer);
 
-		$testsNumber = $runner->runAll();
-		$this->assertEquals(2, $testsNumber);
+		$reportFilePath = $runner->runAll();
+		$this->assertEquals('Path of report', $reportFilePath);
 	}
 
 

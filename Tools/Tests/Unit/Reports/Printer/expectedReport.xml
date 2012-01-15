@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	<global>
+		<repeating>111</repeating>
+		<processors>
+			<processor name="processor1" fullName="full name 1" link="link 1" version="version 1" />
+			<processor name="processor2" fullName="full name 2" link="link 2" version="version 2" />
+			<processor name="processor3" fullName="full name 3" link="link 3" version="version 3" />
+		</processors>
+	</global>
+	<tests>
+		<test name="First test" template="template 1">
+			<processor name="processor1">
+				<input input="input 1" expectedOutput="expected 1" success="OK" corretness="1" sumTime="123.456" avgTime="444.555" />
+				<input input="input 2" expectedOutput="expected 2" success="Error 1" corretness="0" sumTime="" avgTime="" />
+				<input input="input 3" expectedOutput="expected 3" success="OK" corretness="0" sumTime="333.666" avgTime="1.2" />
+				<input input="input 4" expectedOutput="expected 1" success="OK" corretness="1" sumTime="111.222" avgTime="333.444" />
+			</processor>
+			<processor name="processor2">
+				<input input="input 1" expectedOutput="expected 1" success="Error 2.1" corretness="0" sumTime="" avgTime="" />
+				<input input="input 2" expectedOutput="expected 1" success="Error 2.2" corretness="0" sumTime="" avgTime="" />
+				<input input="input 3" expectedOutput="expected 1" success="Error 2.3" corretness="0" sumTime="" avgTime="" />
+				<input input="input 4" expectedOutput="expected 1" success="Error 2.4" corretness="0" sumTime="" avgTime="" />
+			</processor>
+			<processor name="processor3">
+				<input input="input 1" expectedOutput="expected 1" success="OK" corretness="1" sumTime="101" avgTime="201" />
+				<input input="input 2" expectedOutput="expected 2" success="OK" corretness="0" sumTime="102" avgTime="202" />
+				<input input="input 3" expectedOutput="expected 3" success="OK" corretness="1" sumTime="103" avgTime="203" />
+				<input input="input 4" expectedOutput="expected 4" success="OK" corretness="0" sumTime="104" avgTime="204" />
+			</processor>
+		</test>
+		<test name="Second test" template="template 2">
+			<processor name="processor1">
+				<input input="input 10" expectedOutput="expected 10" success="OK" corretness="1" sumTime="9123.456" avgTime="9444.555" />
+				<input input="input 20" expectedOutput="expected 20" success="Error 10" corretness="0" sumTime="" avgTime="" />
+				<input input="input 30" expectedOutput="expected 30" success="OK" corretness="0" sumTime="9333.666" avgTime="91.2" />
+				<input input="input 40" expectedOutput="expected 10" success="OK" corretness="1" sumTime="9111.222" avgTime="9333.444" />
+			</processor>
+			<processor name="processor2">
+				<input input="input 10" expectedOutput="expected 10" success="OK" corretness="1" sumTime="1001" avgTime="2001" />
+				<input input="input 20" expectedOutput="expected 20" success="OK" corretness="0" sumTime="1002" avgTime="2002" />
+				<input input="input 30" expectedOutput="expected 30" success="OK" corretness="1" sumTime="1003" avgTime="2003" />
+				<input input="input 40" expectedOutput="expected 40" success="OK" corretness="0" sumTime="1004" avgTime="2004" />
+			</processor>
+			<processor name="processor3">
+				<input input="input 10" expectedOutput="expected 10" success="Error 3.1" corretness="0" sumTime="" avgTime="" />
+				<input input="input 20" expectedOutput="expected 10" success="Error 3.2" corretness="0" sumTime="" avgTime="" />
+				<input input="input 30" expectedOutput="expected 10" success="Error 3.3" corretness="0" sumTime="" avgTime="" />
+				<input input="input 40" expectedOutput="expected 10" success="Error 3.4" corretness="0" sumTime="" avgTime="" />
+			</processor>
+		</test>
+	</tests>
+</reports>

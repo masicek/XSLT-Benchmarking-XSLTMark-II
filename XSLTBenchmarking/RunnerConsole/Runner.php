@@ -321,19 +321,24 @@ class Runner
 		}
 		// \@HACK
 
+		$processor = new \XSLTBenchmarking\TestsRunner\Processor();
 		$runner = new \XSLTBenchmarking\TestsRunner\Runner(
 			$this->factory,
 			new \XSLTBenchmarking\TestsRunner\Params(),
 			new \XSLTBenchmarking\TestsRunner\TestRunner(
 				$this->factory,
-				new \XSLTBenchmarking\TestsRunner\Processor(),
+				$processor,
 				$processors,
 				$processorsExclude,
 				$repeating,
 				new \XSLTBenchmarking\TestsRunner\Controlor(),
 				$tmpDir
 			),
-			new \XSLTBenchmarking\Reports\Printer($reportsDir),
+			new \XSLTBenchmarking\Reports\Printer(
+				$reportsDir,
+				$processor->getInformations(),
+				$repeating
+			),
 			$testsDir
 		);
 
@@ -350,9 +355,9 @@ class Runner
 			$generator->addTest($testDir);
 		}
 
-		$testsNumber = $runner->runAll();
+		$reportFilePath = $runner->runAll();
 
-		$this->printInfo($testsNumber . ' were run.');
+		$this->printInfo('Reports of test are in "' . $reportFilePath . '"');
 	}
 
 

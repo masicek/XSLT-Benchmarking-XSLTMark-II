@@ -144,9 +144,9 @@ class Runner
 			$this->reportsPrinter->addReport($report);
 		}
 
-		$this->reportsPrinter->printAll();
+		$reportFilePath = $this->reportsPrinter->printAll();
 
-		return count($this->tests);
+		return $reportFilePath;
 	}
 
 
