@@ -89,13 +89,15 @@ class IsSameTest extends TestCase
 		$file1 = $this->setDirSep(__DIR__ . '/file1.xml');
 		$file2 = $this->setDirSep(__DIR__ . '/file2.txt');
 
-		$xml1 = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
-		'	<root rootAttribute1 =    "xxx"   rootAttribute2="yyy">' . PHP_EOL .
+		$xml1 = '<?xml version="1.0" encoding="utf-8"?>' . PHP_EOL .
+		'	<root rootAttribute1 =    "xxx    zzz"   rootAttribute2="yyy">' . PHP_EOL .
 		'		<element1 attribute1 =  "aaa"     attribute2="bbb"   >Lorem ipsum</element1 >' . PHP_EOL .
 		'		<empty ></empty  >' . PHP_EOL .
 		'	</root>';
-		$xml2 = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL .
-		'	<root rootAttribute2="yyy" rootAttribute1="xxx"><element1 attribute2="bbb" attribute1="aaa">Lorem ipsum</element1>' . PHP_EOL .
+		$xml2 = '<?xml    version="1.0"    encoding="UTF-8"    ?>' . PHP_EOL .
+		'	<root rootAttribute2="yyy"' . PHP_EOL .
+		'		rootAttribute1="xxx    zzz"' . PHP_EOL .
+		'	><element1 attribute2="bbb" attribute1="aaa">Lorem ipsum</element1>' . PHP_EOL .
 		'		<empty/></root>';
 
 		file_put_contents($file1, $xml1);

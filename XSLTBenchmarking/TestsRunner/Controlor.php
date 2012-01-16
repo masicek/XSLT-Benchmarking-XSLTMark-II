@@ -73,8 +73,12 @@ class Controlor
 			return $inputContent;
 		}
 
+		// normalize empty atribute ('att' => 'att=""')
+		// TODO
+
 		// remove insignificant whitespaces
-		// simplier empty elements ("<el></el>" => "<el/>")
+		// simplier empty elements ('<el></el>' => '<el/>')
+		// simplier attributes ('att   =  "aaa"    att2="bbb"' => 'att="aaa" att2="bbb"')
 		$dom = new \DOMDocument();
 		$dom->preserveWhiteSpace = FALSE;
 		$dom->loadXml($inputContent);
@@ -82,6 +86,13 @@ class Controlor
 
 		// sort attributes
 		$outputContent = preg_replace_callback('#<[^/?][^>]*>#', array($this, 'sortAttributes'), $outputContent);
+
+		// unify declaration
+		$declarationLast = strpos($outputContent, '?>');
+		$declaration = substr($outputContent, 0, $declarationLast);
+		$declarationUnify = trim($declaration);
+		$declarationUnify = strtolower($declarationUnify);
+		$outputContent = $declarationUnify . substr($outputContent, $declarationLast);
 
 		return $outputContent;
 	}
@@ -117,7 +128,8 @@ class Controlor
 		$attributes = str_replace($end, '', $attributes);
 		if ($attributes)
 		{
-			$attributes = explode(' ', $attributes);
+			preg_match_all('/[^ ]+="[^"]*"/', $attributes, $matches);
+			$attributes = $matches[0];
 			$attributes = array_filter($attributes);
 			sort($attributes);
 			$attributes = implode(' ', $attributes);
