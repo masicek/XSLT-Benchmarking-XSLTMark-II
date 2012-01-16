@@ -46,6 +46,51 @@ class Microtime
 
 
 	/**
+	 * Return microtime in humanreadable form
+	 *
+	 * @param string $microtime Timestamp returned by another function in this class
+	 *
+	 * @return string
+	 */
+	public static function humanReadable($microtime)
+	{
+		list($sec, $usec) = explode('.', $microtime);
+
+		$days = floor($sec / 86400);
+
+		$sec -= $days * 86400;
+		$hours = floor($sec / 3600);
+
+		$sec -= $hours * 3600;
+		$minutes = floor($sec / 60);
+
+		$sec -= $minutes * 60;
+
+		if (strlen($hours) == 1)
+		{
+			$hours = '0' . $hours;
+		}
+		if (strlen($minutes) == 1)
+		{
+			$minutes = '0' . $minutes;
+		}
+		if (strlen($sec) == 1)
+		{
+			$sec = '0' . $sec;
+		}
+
+		$result = $hours . ':' . $minutes . ':' . $sec . '.' . $usec;
+
+		if ($days)
+		{
+			$result = $days . 'days ' . $result;
+		}
+
+		return $result;
+	}
+
+
+	/**
 	 * Get substrast of time stamps with sufficient precision
 	 *
 	 * @param string $leftOperand Left operand
