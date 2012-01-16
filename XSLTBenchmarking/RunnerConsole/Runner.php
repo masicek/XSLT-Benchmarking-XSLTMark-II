@@ -13,6 +13,7 @@ require_once LIBS . '/PhpOptions/PhpOptions.min.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 
 require_once ROOT . '/Factory.php';
+require_once ROOT . '/Microtime.php';
 
 require_once ROOT . '/TestsGenerator/Generator.php';
 require_once ROOT . '/TestsGenerator/Templating/Templating.php';
@@ -27,6 +28,7 @@ require_once ROOT . '/TestsRunner/Processor/Processor.php';
 require_once ROOT . '/Reports/Printer.php';
 
 
+use XSLTBenchmarking\Microtime;
 use PhpOptions\Options;
 use PhpOptions\Option;
 use PhpPath\P;
@@ -292,8 +294,14 @@ class Runner
 		{
 			$generator->addTests($templateDir);
 		}
+
+		$start = Microtime::now();
 		$testsNumber = $generator->generateAll();
-		$this->printInfo($testsNumber . ' tests were generated from ' . count($templatesDirs) . ' temapltes into directory "' . $testsDir . '"');
+		$end = Microtime::now();
+		$length = Microtime::substract($end, $start);
+		$length = Microtime::humanReadable($length);
+
+		$this->printInfo('Tests generating lasted "' . $length . '". ' . $testsNumber . ' tests were generated from ' . count($templatesDirs) . ' temapltes into directory "' . $testsDir . '"');
 	}
 
 
@@ -355,9 +363,13 @@ class Runner
 			$generator->addTest($testDir);
 		}
 
+		$start = Microtime::now();
 		$reportFilePath = $runner->runAll();
+		$end = Microtime::now();
+		$length = Microtime::substract($end, $start);
+		$length = Microtime::humanReadable($length);
 
-		$this->printInfo('Reports of test are in "' . $reportFilePath . '"');
+		$this->printInfo('Tests runnig lasted "' . $length . '". Reports of tests are in "' . $reportFilePath . '"');
 	}
 
 
