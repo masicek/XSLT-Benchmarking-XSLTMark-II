@@ -8,7 +8,11 @@
 	</xsl:template>
 
 	<xsl:template match="testName">
-		<testName value="/text()" />
+		<xsl:element name="testName">
+			<xsl:attribute name="value">
+				<xsl:value-of select="text()"/>
+			</xsl:attribute>
+		</xsl:element>
 	</xsl:template>
 
 </xsl:stylesheet>

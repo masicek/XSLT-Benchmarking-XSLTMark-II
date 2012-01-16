@@ -53,6 +53,7 @@ class TestsGeneratorTest extends TestCase
 		$this->assertFalse(is_dir($this->setDirSep($tests . '/modify-element-copy')));
 		$this->assertFalse(is_dir($this->setDirSep($tests . '/value-to-attribute-first')));
 
+		// run runner for generating tests
 		$runner = new \XSLTBenchmarking\RunnerConsole\Runner($baseDir);
 		$runner->run();
 
