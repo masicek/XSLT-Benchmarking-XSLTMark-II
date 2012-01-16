@@ -150,39 +150,41 @@ class RunTest extends TestCase
 		// processor
 		$processor = \Mockery::mock('\XSLTBenchmarking\TestsRunner\Processor');
 		// -- test1
+		$out1Regexp = '#^' . str_replace('\\', '\\\\', $this->setDirSep(__DIR__ . '/out1')) . '-[0-9]+-[0-9]+$#';
+		$out2Regexp = '#^' . str_replace('\\', '\\\\', $this->setDirSep(__DIR__ . '/out2')) . '-[0-9]+-[0-9]+$#';
 		$processor->shouldReceive('run')->once()
-			->with('processor1', 'Test template path 1', 'dir1/in1', $this->setDirSep(__DIR__ . '/out1'), 123)
+			->with('processor1', 'Test template path 1', 'dir1/in1', $out1Regexp, 123)
 			->andReturn('Error 11');
 		$processor->shouldReceive('run')->once()
-			->with('processor1', 'Test template path 1', 'dir1/in2', $this->setDirSep(__DIR__ . '/out2'), 123)
+			->with('processor1', 'Test template path 1', 'dir1/in2', $out2Regexp, 123)
 			->andReturn(array('Spend times 12'));
 		$processor->shouldReceive('run')->once()
-			->with('processor2', 'Test template path 1', 'dir1/in1', $this->setDirSep(__DIR__ . '/out1'), 123)
+			->with('processor2', 'Test template path 1', 'dir1/in1', $out1Regexp, 123)
 			->andReturn(array('Spend times 13'));
 		$processor->shouldReceive('run')->once()
-			->with('processor2', 'Test template path 1', 'dir1/in2', $this->setDirSep(__DIR__ . '/out2'), 123)
+			->with('processor2', 'Test template path 1', 'dir1/in2', $out2Regexp, 123)
 			->andReturn('Error 14');
 		// -- test2
 		$processor->shouldReceive('run')->once()
-			->with('processor1', 'Test template path 2', 'dir2/in1', $this->setDirSep(__DIR__ . '/out1'), 123)
+			->with('processor1', 'Test template path 2', 'dir2/in1', $out1Regexp, 123)
 			->andReturn('Error 21');
 		$processor->shouldReceive('run')->once()
-			->with('processor1', 'Test template path 2', 'dir2/in2', $this->setDirSep(__DIR__ . '/out2'), 123)
+			->with('processor1', 'Test template path 2', 'dir2/in2', $out2Regexp, 123)
 			->andReturn('Error 22');
 		$processor->shouldReceive('run')->once()
-			->with('processor2', 'Test template path 2', 'dir2/in1', $this->setDirSep(__DIR__ . '/out1'), 123)
+			->with('processor2', 'Test template path 2', 'dir2/in1', $out1Regexp, 123)
 			->andReturn(array('Spend times 23'));
 		$processor->shouldReceive('run')->once()
-			->with('processor2', 'Test template path 2', 'dir2/in2', $this->setDirSep(__DIR__ . '/out2'), 123)
+			->with('processor2', 'Test template path 2', 'dir2/in2', $out2Regexp, 123)
 			->andReturn(array('Spend times 24'));
 		$this->setPropertyValue($runner, 'processor', $processor);
 
 		// controlor
 		$controlor = \Mockery::mock('\XSLTBenchmarking\TestsRunner\Controlor');
-		$controlor->shouldReceive('isSame')->twice()->with($this->setDirSep(__DIR__ . '/out1'), 'dir1/out1')->andReturn(TRUE);
-		$controlor->shouldReceive('isSame')->twice()->with($this->setDirSep(__DIR__ . '/out2'), 'dir1/out2')->andReturn(FALSE);
-		$controlor->shouldReceive('isSame')->twice()->with($this->setDirSep(__DIR__ . '/out1'), 'dir2/out1')->andReturn(TRUE);
-		$controlor->shouldReceive('isSame')->twice()->with($this->setDirSep(__DIR__ . '/out2'), 'dir2/out2')->andReturn(TRUE);
+		$controlor->shouldReceive('isSame')->twice()->with($out1Regexp, 'dir1/out1')->andReturn(TRUE);
+		$controlor->shouldReceive('isSame')->twice()->with($out2Regexp, 'dir1/out2')->andReturn(FALSE);
+		$controlor->shouldReceive('isSame')->twice()->with($out1Regexp, 'dir2/out1')->andReturn(TRUE);
+		$controlor->shouldReceive('isSame')->twice()->with($out2Regexp, 'dir2/out2')->andReturn(TRUE);
 		$this->setPropertyValue($runner, 'controlor', $controlor);
 
 		$report1 = $runner->run($test1);

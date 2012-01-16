@@ -9,6 +9,7 @@
 
 namespace XSLTBenchmarking\TestsRunner;
 
+require_once ROOT . '/Microtime.php';
 require_once ROOT . '/Exceptions.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
 
@@ -144,7 +145,14 @@ class TestRunner
 		{
 			foreach ($couplesPaths as $xmlInputPath => $expectedOutputPath)
 			{
-				$outputPath = P::m($this->tmpDir, pathinfo($expectedOutputPath, PATHINFO_BASENAME));
+				// unique filename
+				$pathInfo = pathinfo($expectedOutputPath);
+				$microtime = \XSLTBenchmarking\Microtime::now();
+				$microtime = str_replace('.', '-', $microtime);
+				$filename = isset($pathInfo['filename']) ? ($pathInfo['filename'] . '-') : '';
+				$extension = isset($pathInfo['extension']) ? ('.' . $pathInfo['extension']) : '';
+				$filename = $filename . $microtime . $extension;
+				$outputPath = P::m($this->tmpDir, $filename);
 
 				// run transformations
 				$result = $this->processor->run(
