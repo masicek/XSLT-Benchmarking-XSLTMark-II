@@ -61,12 +61,12 @@ class Report
 	/**
 	 * Add report of one runnig transformation
 	 *
-	 * @param string $processorName
-	 * @param string $xmlInputPath
-	 * @param string $expectedOutputPath
-	 * @param string $success
-	 * @param bool $corretness
-	 * @param array $spendTimes
+	 * @param string $processorName Short name of selected processor
+	 * @param string $xmlInputPath Path of XML input file
+	 * @param string $expectedOutputPath Path of file with expected output
+	 * @param string $success 'OK' or error message
+	 * @param bool $correctness Flag of correcness transformation
+	 * @param array $spendTimes Spended times by transformations
 	 *
 	 * @return void
 	 */
@@ -75,7 +75,7 @@ class Report
 		$xmlInputPath,
 		$expectedOutputPath,
 		$success,
-		$corretness,
+		$correctness,
 		array $spendTimes
 	)
 	{
@@ -84,7 +84,7 @@ class Report
 		$record['input'] = $xmlInputPath;
 		$record['expectedOutput'] = $expectedOutputPath;
 		$record['success'] = $success;
-		$record['correctness'] = $corretness;
+		$record['correctness'] = $correctness;
 		if (count($spendTimes) > 0)
 		{
 			$record['sumTime'] = Microtime::sum($spendTimes);

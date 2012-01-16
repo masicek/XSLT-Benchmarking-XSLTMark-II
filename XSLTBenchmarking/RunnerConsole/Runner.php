@@ -310,7 +310,7 @@ class Runner
 		$testsDir = $options->get('Tests');
 		$reportsDir = $options->get('Reports');
 		$processors = $options->get('Processors');
-		$processorsExxclude = $options->get('Processors exclude');
+		$processorsExclude = $options->get('Processors exclude');
 		$repeating = $options->get('Repeating');
 		$tmpDir = $options->get('Tmp');
 

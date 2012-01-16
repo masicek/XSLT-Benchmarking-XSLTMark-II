@@ -96,9 +96,9 @@ class TestRunner
 		}
 
 		$processorsFinal = $processorsSelected;
-		foreach ($processorsExclude as $processor)
+		foreach ($processorsExclude as $processorExclude)
 		{
-			$key = array_search($processor, $processorsFinal);
+			$key = array_search($processorExclude, $processorsFinal);
 			if ($key !== FALSE)
 			{
 				unset($processorsFinal[$key]);
@@ -167,11 +167,11 @@ class TestRunner
 					$spendTimes = array();
 				}
 
-				// set corretness
-				$corretness = FALSE;
+				// set correctness
+				$correctness = FALSE;
 				if ($success === TRUE)
 				{
-					$corretness = $this->controlor->isSame($outputPath, $expectedOutputPath);
+					$correctness = $this->controlor->isSame($outputPath, $expectedOutputPath);
 				}
 
 				// reported results
@@ -180,7 +180,7 @@ class TestRunner
 					$xmlInputPath,
 					$expectedOutputPath,
 					$success,
-					$corretness,
+					$correctness,
 					$spendTimes
 				);
 			}
