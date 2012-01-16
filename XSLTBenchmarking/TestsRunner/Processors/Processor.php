@@ -243,7 +243,7 @@ class Processor
 			$prefix = $this->processorsPrefixes[$scriptExtension];
 		}
 
-		$command = $prefix . $script . ' ' . implode(' ', $arguments) . ' ' . P::m(LIBS, 'Processors/Saxon');
+		$command = $prefix . $script . ' ' . implode(' ', $arguments) . ' ' . P::m(LIBS, 'Processors');
 
 		return $command;
 	}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test name="Modify element - Copy" template="test.xslt">
+  <couple input="oneElement.xml" output="oneElement.xml"/>
+  <couple input="twoElements.xml" output="twoElements.xml"/>
+  <couple input="manyElements.xml" output="manyElements.xml"/>
+</test>

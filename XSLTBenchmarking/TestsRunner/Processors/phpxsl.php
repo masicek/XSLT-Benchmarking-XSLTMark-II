@@ -8,7 +8,7 @@
  */
 
 // print information
-if (isset($argv[1]) && $argv[1] == '--information')
+if (isset($argv[1]) && $argv[1] == 'information')
 {
 	echo 'XSL' . PHP_EOL;
 	echo 'http://php.net/manual/en/book.xsl.php' . PHP_EOL;

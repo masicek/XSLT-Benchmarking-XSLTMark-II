@@ -8,11 +8,12 @@
  */
 
 // print information
-if (isset($argv[1]) && $argv[1] == '--information')
+if (isset($argv[1]) && $argv[1] == 'information')
 {
 	echo 'XSLT (PHP4)' . PHP_EOL;
 	echo 'http://www.php.net/manual/en/book.xslt.php' . PHP_EOL;
-	echo xslt_backend_version() . PHP_EOL;
+//	echo xslt_backend_version() . PHP_EOL;
+	echo '' . PHP_EOL;
 	exit();
 }
 

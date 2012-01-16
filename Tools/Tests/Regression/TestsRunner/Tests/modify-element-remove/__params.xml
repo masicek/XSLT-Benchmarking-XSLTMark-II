@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test name="Modify element - Remove" template="test.xslt">
+  <couple input="oneElement.xml" output="zeroElement.xml"/>
+  <couple input="twoElements.xml" output="zeroElement.xml"/>
+  <couple input="manyElements.xml" output="zeroElement.xml"/>
+</test>

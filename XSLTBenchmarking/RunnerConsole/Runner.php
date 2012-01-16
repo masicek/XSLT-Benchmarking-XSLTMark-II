@@ -23,7 +23,8 @@ require_once ROOT . '/TestsGenerator/XmlGenerator/XmlGenerator.php';
 require_once ROOT . '/TestsRunner/Runner.php';
 require_once ROOT . '/TestsRunner/Params/Params.php';
 require_once ROOT . '/TestsRunner/TestRunner.php';
-require_once ROOT . '/TestsRunner/Processor/Processor.php';
+require_once ROOT . '/TestsRunner/Processors/Processor.php';
+require_once ROOT . '/TestsRunner/Controlor.php';
 
 require_once ROOT . '/Reports/Printer.php';
 
@@ -199,6 +200,7 @@ class Runner
 
 			$optionsList[] = Option::series('Processors exclude', ',')
 				->short('e')
+				//->defaults(array()) @HACK supported in PhpOptions 2.0.0
 				->description(
 					'List of tested processors, that we want exclude form tested processors.'
 				);
@@ -360,7 +362,7 @@ class Runner
 
 		foreach ($testsDirs as $testDir)
 		{
-			$generator->addTest($testDir);
+			$runner->addTest($testDir);
 		}
 
 		$start = Microtime::now();
