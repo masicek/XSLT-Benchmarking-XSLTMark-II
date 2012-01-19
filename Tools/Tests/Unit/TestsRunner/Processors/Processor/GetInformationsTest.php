@@ -30,10 +30,10 @@ class GetInformationsTest extends TestCase
 	{
 		mkdir(__DIR__ . '/test');
 		file_put_contents(__DIR__ . '/test/processor1.php',
-			'<?php if (isset($argv[1]) && $argv[1] == \'information\') {echo "name 1\nlink 1\nversion 1";}'
+			'<?php if (isset($argv[1]) && $argv[1] == \'--information\') {echo "name 1\nlink 1\nversion 1";}'
 		);
 		file_put_contents(__DIR__ . '/test/processor2.php',
-			'<?php if (isset($argv[1]) && $argv[1] == \'information\') {echo "name 2\nlink 2\nversion 2";}'
+			'<?php if (isset($argv[1]) && $argv[1] == \'--information\') {echo "name 2\nlink 2\nversion 2";}'
 		);
 		file_put_contents(__DIR__ . '/test/README', '');
 

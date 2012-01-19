@@ -5,7 +5,7 @@
 
 @echo off
 
-IF %1 == information (
+IF %1 == --information (
 	:: print information
 	ECHO Saxon
 	ECHO http://saxon.sourceforge.net/

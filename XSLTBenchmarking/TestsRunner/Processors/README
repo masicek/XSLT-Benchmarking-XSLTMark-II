@@ -10,7 +10,7 @@ Each script has to except three arguments:
 
 Each script return string 'OK' if transformation run success and error message in onther way.
 
-Each script has to return information about them if it is call with option "information".
+Each script has to return information about them if it is call with option "--information".
 Each information is on separate line (depends on the order):
 	- Full name of used XSLT processor
 	- Web link of site about XSLT processor

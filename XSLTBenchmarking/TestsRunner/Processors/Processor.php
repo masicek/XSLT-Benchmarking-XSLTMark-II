@@ -211,7 +211,7 @@ class Processor
 		{
 			// each script return fullName, link and version on separate lines
 			$procesorScript = P::m($this->scriptsDir, $processorFile);
-			$command = $this->getCommand($procesorScript, array('information'));
+			$command = $this->getCommand($procesorScript, array('--information'));
 			$information = array();
 			exec($command, $information);
 

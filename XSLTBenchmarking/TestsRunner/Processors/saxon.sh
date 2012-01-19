@@ -5,7 +5,7 @@
 # @author Viktor Mašíček <viktor@masicek.net>
 # @license "New" BSD License
 
-if [ "$1" == "information" ]; then
+if [ "$1" == "--information" ]; then
 	# print information
 	echo "Saxon"
 	echo "http://saxon.sourceforge.net/"
