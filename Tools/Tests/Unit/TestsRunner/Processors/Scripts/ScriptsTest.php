@@ -26,7 +26,7 @@ class ScriptsTest extends TestCase
 
 	public function setUp()
 	{
-		$this->processorsDir = $this->setDirSep(ROOT_TOOLS . '/TestsRunner/Processors/');
+		$this->processorsDir = $this->setDirSep(ROOT_TOOLS . '/TestsRunner/Processors/Scripts/');
 	}
 
 
@@ -66,7 +66,7 @@ class ScriptsTest extends TestCase
 	 */
 	public function test_runOk($prefix, $scriptFile)
 	{
-		$script = $prefix . $this->setDirSep($this->processorsDir . '/' . $scriptFile);
+		$script = $prefix . $this->processorsDir . $scriptFile;
 
 		$templatePath = $this->setDirSep(__DIR__ . '/template.xslt');;
 		$inputXmlPath = $this->setDirSep(__DIR__ . '/input.xml');;
@@ -93,7 +93,7 @@ class ScriptsTest extends TestCase
 	 */
 	public function test_runError($prefix, $scriptFile)
 	{
-		$script = $prefix . $this->setDirSep($this->processorsDir . '/' . $scriptFile);
+		$script = $prefix . $this->processorsDir . $scriptFile;
 
 		$templatePath = $this->setDirSep(__DIR__ . '/templateWrong.xslt');;
 		$inputXmlPath = $this->setDirSep(__DIR__ . '/input.xml');;

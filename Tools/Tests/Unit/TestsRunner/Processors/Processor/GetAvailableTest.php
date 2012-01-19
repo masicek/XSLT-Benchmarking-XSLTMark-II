@@ -32,7 +32,6 @@ class GetAvailableTest extends TestCase
 		file_put_contents(__DIR__ . '/test/processor1.php', '');
 		file_put_contents(__DIR__ . '/test/processor2.bat', '');
 		file_put_contents(__DIR__ . '/test/processor2.sh', '');
-		file_put_contents(__DIR__ . '/test/README', '');
 
 		$processor = new Processor(__DIR__ . '/test');
 
@@ -57,7 +56,6 @@ class GetAvailableTest extends TestCase
 		unlink(__DIR__ . '/test/processor1.php');
 		unlink(__DIR__ . '/test/processor2.bat');
 		unlink(__DIR__ . '/test/processor2.sh');
-		unlink(__DIR__ . '/test/README');
 		rmdir(__DIR__ . '/test');
 	}
 

@@ -35,7 +35,6 @@ class GetInformationsTest extends TestCase
 		file_put_contents(__DIR__ . '/test/processor2.php',
 			'<?php if (isset($argv[1]) && $argv[1] == \'--information\') {echo "name 2\nlink 2\nversion 2";}'
 		);
-		file_put_contents(__DIR__ . '/test/README', '');
 
 		$processor = new Processor(__DIR__ . '/test');
 		$this->assertEquals(array(
@@ -54,7 +53,6 @@ class GetInformationsTest extends TestCase
 
 		unlink(__DIR__ . '/test/processor1.php');
 		unlink(__DIR__ . '/test/processor2.php');
-		unlink(__DIR__ . '/test/README');
 		rmdir(__DIR__ . '/test');
 	}
 

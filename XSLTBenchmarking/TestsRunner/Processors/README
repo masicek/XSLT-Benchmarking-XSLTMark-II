@@ -1,7 +1,7 @@
 Information fo add XSLT proseccor:
 ==================================
 
-In this direcotry can be created any script for processor transformation.
+In direcotry "./Scripts" can be created any script for processor transformation.
 
 Each script has to except three arguments:
 	- path of XSLT temaplte file
@@ -15,3 +15,6 @@ Each information is on separate line (depends on the order):
 	- Full name of used XSLT processor
 	- Web link of site about XSLT processor
 	- Used version of XSLT processor
+
+Scripts with extension ".bat" will be used only on Windows.
+Scripts with extension ".sh" will be used only on Linux.

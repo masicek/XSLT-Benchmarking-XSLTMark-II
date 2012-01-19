@@ -63,8 +63,13 @@ class Processor
 	 *
 	 * @param string $scriptsDir Root directory of scripts for runnig processors
 	 */
-	public function __construct($scriptsDir = __DIR__)
+	public function __construct($scriptsDir = NULL)
 	{
+		if (is_null($scriptsDir))
+		{
+			$scriptsDir = P::m(__DIR__, 'Scripts');
+		}
+
 		$this->scriptsDir = P::mcd($scriptsDir);
 	}
 
@@ -168,7 +173,7 @@ class Processor
 
 		foreach ($files as $file)
 		{
-			if (in_array($file, array(basename(__FILE__), '.', '..', 'README')))
+			if (in_array($file, array('.', '..')))
 			{
 				continue;
 			}

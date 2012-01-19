@@ -28,7 +28,7 @@ class ProcessorTest extends TestCase
 	public function testDefault()
 	{
 		$reflection = new \ReflectionClass('\XSLTBenchmarking\TestsRunner\Processor');
-		$dir = dirname($reflection->getFileName());
+		$dir = $this->setDirSep(dirname($reflection->getFileName()) . '/Scripts');
 
 		$processor = new Processor();
 		$this->assertEquals($dir, $this->getPropertyValue($processor, 'scriptsDir'));
