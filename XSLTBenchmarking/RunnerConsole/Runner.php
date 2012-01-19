@@ -119,8 +119,6 @@ class Runner
 	private function defineOptions($baseDir)
 	{
 		try {
-			// @HACK PHP_EOL will not be used in PhpOptions 2.0.0 in options descriptions
-
 			$options = new Options();
 
 			// base settings of options
@@ -165,10 +163,10 @@ class Runner
 				->value(FALSE)
 				->defaults(TRUE)
 				->description(
-					'Subdirectories of director set by "' . $templates->getOptions() . '"' . PHP_EOL .
-					'containing tests templates for generating, separated by character ",".' . PHP_EOL .
-					'If this option is not set (or is set without value),' . PHP_EOL .
-					'then all tests templates are selected' . PHP_EOL .
+					'Subdirectories of director set by "' . $templates->getOptions() . '" ' .
+					'containing tests templates for generating, separated by character ",". ' .
+					'If this option is not set (or is set without value), ' .
+					'then all tests templates are selected ' .
 					'(all subdirectories are considered as tests templates).'
 				);
 
@@ -181,10 +179,10 @@ class Runner
 				->value(FALSE)
 				->defaults(TRUE)
 				->description(
-					'Subdirectories of director set by "' . $tests->getOptions() . '"' . PHP_EOL .
-					'containing tests for runnig, separated by character ",".' . PHP_EOL .
-					'If this option is not set (or is set without value),' . PHP_EOL .
-					'then all tests are selected' . PHP_EOL .
+					'Subdirectories of director set by "' . $tests->getOptions() . '" ' .
+					'containing tests for runnig, separated by character ",". ' .
+					'If this option is not set (or is set without value), ' .
+					'then all tests are selected ' .
 					'(all subdirectories are considered as tests).'
 				);
 
@@ -193,59 +191,45 @@ class Runner
 				->value(FALSE)
 				->defaults(TRUE)
 				->description(
-					'List of tested processors' . PHP_EOL .
-					'If this option is not set (or is set without value),' . PHP_EOL .
+					'List of tested processors. ' .
+					'If this option is not set (or is set without value), ' .
 					'then all available processors are tested.'
 				);
 
 			$optionsList[] = Option::series('Processors exclude', ',')
 				->short('e')
-				//->defaults(array()) @HACK supported in PhpOptions 2.0.0
+				->defaults(array())
 				->description(
 					'List of tested processors, that we want exclude form tested processors.'
 				);
 
 			$optionsList[] = Option::integer('Repeating', 'unsigned')
 				->short()
-				//->defaults(1) @HACK supported in PhpOptions 2.0.0
+				->defaults(1)
 				->description('Number of repeatig for each test and processor.');
 
 
 			$options->add($optionsList);
 
 			// dependences + groups
-			// @HACK in PhpOptions 2.0.0 generate groups based on dependences
 			$options->dependences('Generate', array(
-				'Templates',
-				'Templates dirs',
-				'Tests',
-				'Tmp'
-			));
-			$options->group('Generating tests', array('Generate',
-				'Templates',
-				'Templates dirs',
-				'Tests',
-				'Tmp'
-			));
+					'Templates',
+					'Templates dirs',
+					'Tests',
+					'Tmp'),
+				'Generating tests'
+			);
 
 			$options->dependences('Run', array(
-				'Tests',
-				'Tests dirs',
-				'Processors',
-				'Processors exclude',
-				'Repeating',
-				'Reports',
-				'Tmp'
-			));
-			$options->group('Runnig tests', array('Run',
-				'Tests',
-				'Tests dirs',
-				'Processors',
-				'Processors exclude',
-				'Repeating',
-				'Reports',
-				'Tmp'
-			));
+					'Tests',
+					'Tests dirs',
+					'Processors',
+					'Processors exclude',
+					'Repeating',
+					'Reports',
+					'Tmp'),
+				'Runnig tests'
+			);
 
 		} catch (\PhpOptions\UserBadCallException $e) {// @codeCoverageIgnoreStart
 			$this->printInfo('ERROR: ' . $e->getMessage());
@@ -323,13 +307,6 @@ class Runner
 		$processorsExclude = $options->get('Processors exclude');
 		$repeating = $options->get('Repeating');
 		$tmpDir = $options->get('Tmp');
-
-		// @HACK from PhpOptions 2.0.0 it is not necessary
-		if (!$repeating)
-		{
-			$repeating = 1;
-		}
-		// \@HACK
 
 		$processor = new \XSLTBenchmarking\TestsRunner\Processor();
 		$runner = new \XSLTBenchmarking\TestsRunner\Runner(
