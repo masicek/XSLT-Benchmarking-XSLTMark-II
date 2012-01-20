@@ -24,17 +24,25 @@ $output = $argv[3];
 
 
 // do transformation
-$processor = new XSLTProcessor();
-$processor->importStylesheet(new \SimpleXMLElement($xslt, 0, TRUE));
-$outputXml = $processor->transformToXml(new \SimpleXMLElement($xml, 0, TRUE));
-if ($outputXml !== FALSE)
-{
-	file_put_contents($output, $outputXml);
-	$return = 'OK';
+try {
+	libxml_use_internal_errors(true);
+	$processor = new \XSLTProcessor();
+	$processor->importStylesheet(new \SimpleXMLElement($xslt, 0, TRUE));
+	$outputXml = $processor->transformToXml(new \SimpleXMLElement($xml, 0, TRUE));
+	if ($outputXml !== FALSE)
+	{
+		file_put_contents($output, $outputXml);
+		$return = 'OK';
+	}
+	else
+	{
+		$return = 'Error';
+	}
 }
-else
+catch (\Exception $e)
 {
-	$return = 'Error';
+	$error = libxml_get_last_error();
+	$return = $error->message . ': line ' . $error->line . ', column ' . $error->column . ', file ' . $error->file;
 }
 
 echo $return;

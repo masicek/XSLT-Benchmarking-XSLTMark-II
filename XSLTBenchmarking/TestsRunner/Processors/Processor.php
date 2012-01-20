@@ -53,8 +53,14 @@ class Processor
 	 * @var array ([extension of script] => [prefix of command])
 	 */
 	private $processorsPrefixes = array(
-		'php' => 'php ',
-		'jar' => 'java -jar ',
+		'WINNT' => array(
+			'php' => 'php -d extension=##LIBS##\libxslt\php_xsl.dll',
+			'jar' => 'java -jar ',
+		),
+		'Linux' => array(
+			'php' => 'php -d extension=##LIBS##\libxslt\xsl.so',
+			'jar' => 'java -jar ',
+		),
 	);
 
 
@@ -243,10 +249,13 @@ class Processor
 	{
 		$prefix = '';
 		$scriptExtension = strtolower(pathinfo($script, PATHINFO_EXTENSION));
-		if (isset($this->processorsPrefixes[$scriptExtension]))
+		if (isset($this->processorsPrefixes[PHP_OS][$scriptExtension]))
 		{
-			$prefix = $this->processorsPrefixes[$scriptExtension];
+			$prefix = $this->processorsPrefixes[PHP_OS][$scriptExtension];
 		}
+
+		// set possibly needed path to Libs/Processors
+		$prefix = str_replace('##LIBS##', P::m(LIBS, 'Processors'), $prefix);
 
 		$command = $prefix . $script . ' ' . implode(' ', $arguments) . ' ' . P::m(LIBS, 'Processors');
 

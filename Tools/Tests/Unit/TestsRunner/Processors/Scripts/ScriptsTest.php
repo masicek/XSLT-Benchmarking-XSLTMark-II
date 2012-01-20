@@ -115,22 +115,21 @@ class ScriptsTest extends TestCase
 
 	public function providerScripts()
 	{
+		$libsProcessors = $this->setDirSep(LIBS_TOOLS . '/Processors');
 		switch (PHP_OS)
 		{
 			case 'WINNT':
 				$values = array(
-					// TODO need install libxsl into PHP
 //					'php4xslt' => array('php ', 'php4xslt.php'),
-//					'phpxsl' => array('php ', 'phpxsl.php'),
+					'phpxsl' => array('php -d extension=' . $libsProcessors . '\libxslt\php_xsl.dll ', 'phpxsl.php'),
 					'saxon' => array('', 'saxon.bat'),
 				);
 				break;
 
 			case 'Linux':
 				$values = array(
-					// TODO need install libxsl into PHP
 //					'php4xslt' => array('php ', 'php4xslt.php'),
-//					'phpxsl' => array('php ', 'phpxsl.php'),
+					'phpxsl' => array('php -d extension=' . $libsProcessors . '\libxslt\xsl.so ', 'phpxsl.php'),
 					'saxon' => array('', 'saxon.sh'),
 				);
 				break;
