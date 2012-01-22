@@ -40,10 +40,12 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 		{
 			case self::OS_WIN:
 				$extension = '[LIBS]\libxslt\1.1.23\php_xsl.dll';
+				$prefix = '[LIBS]\..\Php\5.3.6\php.exe';
 				break;
 
 //			case self::OS_LINUX:
 //				$extension = '[LIBS]/libxslt/1.1.23/xsl.so';
+//				$prefix = '[LIBS]/../Php/?????/php';
 //				break;
 
 			default:// @codeCoverageIgnoreStart
@@ -65,7 +67,7 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 			'	file_put_contents(\'[ERROR]\', $errorMessage);' .
 			'}';
 
-		$commandTemplate = 'php -d extension=' . $extension . ' -r "' . $phpScript . '"';
+		$commandTemplate = $prefix . ' -d extension=' . $extension . ' -r "' . $phpScript . '"';
 
 		return $commandTemplate;
 	}

@@ -36,7 +36,22 @@ class Saxon655ProcessorDriver extends AProcessorDriver
 	 */
 	public function getCommandTemplate()
 	{
-		$commandTemplate = 'java -jar [LIBS]\Saxon\6.5.5\saxon.jar -o "[OUTPUT]" "[INPUT]" "[XSLT]" 2> "[ERROR]"';
+		switch (PHP_OS)
+		{
+			case self::OS_WIN:
+				$prefix = '[LIBS]\..\Java\1.6.0_29\java.exe';
+				break;
+
+//			case self::OS_LINUX:
+//				$prefix = '[LIBS]/../Java/??????/java';
+//				break;
+
+			default:// @codeCoverageIgnoreStart
+				throw new \XSLTBenchmarking\UnsupportedOSException();
+				break;
+		}// @codeCoverageIgnoreEnd
+
+		$commandTemplate = $prefix . ' -jar [LIBS]\Saxon\6.5.5\saxon.jar -o "[OUTPUT]" "[INPUT]" "[XSLT]" 2> "[ERROR]"';
 		$commandTemplate = str_replace('\\', DIRECTORY_SEPARATOR, $commandTemplate);
 		return $commandTemplate;
 	}
