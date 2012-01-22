@@ -14,6 +14,7 @@ require_once LIBS . '/PhpPath/PhpPath.min.php';
 
 require_once ROOT . '/Factory.php';
 require_once ROOT . '/Microtime.php';
+require_once ROOT . '/Printer.php';
 
 require_once ROOT . '/TestsGenerator/Generator.php';
 require_once ROOT . '/TestsGenerator/Templating/Templating.php';
@@ -30,6 +31,7 @@ require_once ROOT . '/Reports/Printer.php';
 
 
 use XSLTBenchmarking\Microtime;
+use XSLTBenchmarking\Printer;
 use PhpOptions\Options;
 use PhpOptions\Option;
 use PhpPath\P;
@@ -255,7 +257,7 @@ class Runner
 			);
 
 		} catch (\PhpOptions\UserBadCallException $e) {// @codeCoverageIgnoreStart
-			$this->printInfo('ERROR: ' . $e->getMessage());
+			Printer::info('ERROR: ' . $e->getMessage());
 			die();
 		}// @codeCoverageIgnoreEnd
 
@@ -295,15 +297,15 @@ class Runner
 		}
 
 		// print list
-		$this->printHeader('Available processors');
+		Printer::header('Available processors');
 		$name = str_pad('SHORT NAME', $maxName, ' ', STR_PAD_LEFT);
 		$kernel = str_pad('KERNEL', $maxKernel, ' ', STR_PAD_LEFT);
-		$this->printHeader($name . ' | ' . $kernel . ' | FULL NAME');
+		Printer::header($name . ' | ' . $kernel . ' | FULL NAME');
 		foreach($processorsDrivers as $driverName => $processorDriver)
 		{
 			$name = str_pad($driverName, $maxName, ' ', STR_PAD_LEFT);
 			$kernel = str_pad($processorDriver->getKernel(), $maxKernel, ' ', STR_PAD_LEFT);
-			$this->printInfo($name . ' | ' . $kernel . ' | ' . $processorDriver->getFullName());
+			Printer::info($name . ' | ' . $kernel . ' | ' . $processorDriver->getFullName());
 		}
 	}
 
@@ -315,7 +317,7 @@ class Runner
 	 */
 	private function generateTests()
 	{
-		$this->printHeader('Generate Tests');
+		Printer::header('Generate Tests');
 
 		$options = $this->options;
 		$templatesDir = $options->get('Templates');
@@ -352,7 +354,7 @@ class Runner
 		$length = Microtime::substract($end, $start);
 		$length = Microtime::humanReadable($length);
 
-		$this->printInfo('Tests generating lasted "' . $length . '". ' . $testsNumber . ' tests were generated from ' . count($templatesDirs) . ' temapltes into directory "' . $testsDir . '"');
+		Printer::info('Tests generating lasted "' . $length . '". ' . $testsNumber . ' tests were generated from ' . count($templatesDirs) . ' temapltes into directory "' . $testsDir . '".');
 	}
 
 
@@ -363,7 +365,7 @@ class Runner
 	 */
 	private function runTests()
 	{
-		$this->printHeader('Run Tests');
+		Printer::header('Run Tests');
 
 		$options = $this->options;
 		$testsDir = $options->get('Tests');
@@ -413,7 +415,7 @@ class Runner
 		$length = Microtime::substract($end, $start);
 		$length = Microtime::humanReadable($length);
 
-		$this->printInfo('Tests runnig lasted "' . $length . '". Reports of tests are in "' . $reportFilePath . '"');
+		Printer::info('Tests runnig lasted "' . $length . '". Reports of tests are in "' . $reportFilePath . '".');
 	}
 
 
@@ -441,43 +443,6 @@ class Runner
 		}
 
 		return $dirs;
-	}
-
-
-	/**
-	 * Print header of one runnig script
-	 *
-	 * @param string $header Text of printed header
-	 * @param bool $turnOff Turn of printing
-	 *
-	 * @return void
-	 */
-	private function printHeader($header, $turnOff = TRUE)
-	{
-		if ($turnOff)
-		{
-			$header = $header . ':';
-			$line = str_repeat('-', strlen($header));
-			$this->printInfo($header);
-			$this->printInfo($line);
-		}
-	}
-
-
-	/**
-	 * Print information text
-	 *
-	 * @param string $info Text of printed info
-	 * @param bool $turnOff Turn of printing
-	 *
-	 * @return void
-	 */
-	private function printInfo($info = '', $turnOff = TRUE)
-	{
-		if ($turnOff)
-		{
-			fwrite(STDOUT, $info . PHP_EOL);
-		}
 	}
 
 

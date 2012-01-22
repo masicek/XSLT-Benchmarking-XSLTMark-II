@@ -30,6 +30,7 @@ if (!defined('VERSION'))
 
 require_once LIBS . '/PhpOptions/PhpOptions.min.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
+require_once ROOT . '/Printer.php';
 
 use PhpOptions\Option;
 use PhpOptions\Options;
@@ -87,6 +88,8 @@ class Runner
 		);
 
 		$this->options = $options;
+
+		\XSLTBenchmarking\Printer::$mode = \XSLTBenchmarking\Printer::MODE_TEST;
 	}
 
 

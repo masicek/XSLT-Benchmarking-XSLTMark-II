@@ -23,8 +23,6 @@ use \Tests\XSLTBenchmarking\TestCase;
  * @covers XSLTBenchmarking\RunnerConsole\Runner::run
  * @covers XSLTBenchmarking\RunnerConsole\Runner::generateTests
  * @covers XSLTBenchmarking\RunnerConsole\Runner::getDirs
- * @covers XSLTBenchmarking\RunnerConsole\Runner::printHeader
- * @covers XSLTBenchmarking\RunnerConsole\Runner::printInfo
  */
 class TestsGeneratorTest extends TestCase
 {
@@ -55,7 +53,10 @@ class TestsGeneratorTest extends TestCase
 
 		// run runner for generating tests
 		$runner = new \XSLTBenchmarking\RunnerConsole\Runner($baseDir);
+		ob_start();
 		$runner->run();
+		$output = ob_get_clean();
+		$this->assertRegExp('/4 tests were generated from 2 temapltes/', $output);
 
 		// check generated tests
 		$this->assertTrue(is_dir($this->setDirSep($tests . '/modify-element-rename')));

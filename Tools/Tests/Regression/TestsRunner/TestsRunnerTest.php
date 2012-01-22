@@ -23,8 +23,6 @@ use \Tests\XSLTBenchmarking\TestCase;
  * @covers XSLTBenchmarking\RunnerConsole\Runner::run
  * @covers XSLTBenchmarking\RunnerConsole\Runner::runTests
  * @covers XSLTBenchmarking\RunnerConsole\Runner::getDirs
- * @covers XSLTBenchmarking\RunnerConsole\Runner::printHeader
- * @covers XSLTBenchmarking\RunnerConsole\Runner::printInfo
  */
 class TestsRunnerTest extends TestCase
 {
@@ -55,7 +53,9 @@ class TestsRunnerTest extends TestCase
 
 		// run runner for runnig tests
 		$runner = new \XSLTBenchmarking\RunnerConsole\Runner($baseDir);
+		ob_start();
 		$runner->run();
+		$output = ob_get_clean();
 
 		// check generated report
 		$reportsFiles = scandir($reports);
@@ -63,6 +63,8 @@ class TestsRunnerTest extends TestCase
 		unset($reportsFiles[array_search('..', $reportsFiles)]);
 		$this->assertEquals(1, count($reports));
 		$reportFile = $this->setDirSep($reports . '/' . array_shift($reportsFiles));
+
+		$this->assertRegExp('/Reports of tests are in "' . str_replace('\\', '\\\\', $reportFile) . '"/', $output);
 
 		$report = file_get_contents($reportFile);
 
