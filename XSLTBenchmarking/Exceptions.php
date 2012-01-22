@@ -61,3 +61,15 @@ class CollisionException extends Exception
 class InvalidStateException extends Exception
 {
 }
+
+
+/**
+ * Unsupported operating system
+ */
+class UnsupportedOSException extends Exception
+{
+	public function __construct($message, $code = 0, Exception $previous = null)
+	{
+		$this->message = 'Unsupported operating system "' . PHP_OS . '"';
+    }
+}
