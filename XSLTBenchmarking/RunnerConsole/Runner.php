@@ -139,6 +139,8 @@ class Runner
 
 			$optionsList = array();
 
+			// common
+			$optionsList[] = Option::make('Verbose')->description('Print informations during running scrips');
 
 			// directories
 			$templates = $optionsList[] = Option::directory('Templates', $baseDir)
@@ -349,7 +351,7 @@ class Runner
 		}
 
 		$start = Microtime::now();
-		$testsNumber = $generator->generateAll();
+		$testsNumber = $generator->generateAll($options->get('Verbose'));
 		$end = Microtime::now();
 		$length = Microtime::substract($end, $start);
 		$length = Microtime::humanReadable($length);
@@ -410,7 +412,7 @@ class Runner
 		}
 
 		$start = Microtime::now();
-		$reportFilePath = $runner->runAll();
+		$reportFilePath = $runner->runAll($options->get('Verbose'));
 		$end = Microtime::now();
 		$length = Microtime::substract($end, $start);
 		$length = Microtime::humanReadable($length);

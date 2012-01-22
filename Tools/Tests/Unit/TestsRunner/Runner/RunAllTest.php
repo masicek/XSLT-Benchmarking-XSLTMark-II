@@ -26,7 +26,10 @@ class RunAllTest extends TestCase
 {
 
 
-	public function test()
+	/**
+	 * @dataProvider provider
+	 */
+	public function test($verbose)
 	{
 		$runner = new Runner(
 			$this->getMock('\XSLTBenchmarking\Factory'),
@@ -36,10 +39,11 @@ class RunAllTest extends TestCase
 			__DIR__
 		);
 
-		$tests = array(
-			$this->getMock('\XSLTBenchmarking\TestsRunner\Test', array(), array(), '', FALSE),
-			$this->getMock('\XSLTBenchmarking\TestsRunner\Test', array(), array(), '', FALSE)
-		);
+		$test1 = $this->getMock('\XSLTBenchmarking\TestsRunner\Test', array('getName'), array(), '', FALSE);
+		$test1->expects($this->any())->method('getName')->will($this->returnValue('Test name 1'));
+		$test2 = $this->getMock('\XSLTBenchmarking\TestsRunner\Test', array('getName'), array(), '', FALSE);
+		$test2->expects($this->any())->method('getName')->will($this->returnValue('Test name 2'));
+		$tests = array($test1, $test2);
 
 		$reports = array(
 			$this->getMock('\XSLTBenchmarking\Reports\Report', array(), array(), '', FALSE),
@@ -59,8 +63,34 @@ class RunAllTest extends TestCase
 		$this->setPropertyValue($runner, 'testRunner', $testRunner);
 		$this->setPropertyValue($runner, 'reportsPrinter', $printer);
 
-		$reportFilePath = $runner->runAll();
+		ob_start();
+		$reportFilePath = $runner->runAll($verbose);
+		$output = ob_get_clean();
+
 		$this->assertEquals('Path of report', $reportFilePath);
+
+		if ($verbose)
+		{
+			$this->assertEquals(
+				'Runnig of the test "Test name 1" done.' . PHP_EOL .
+				'Runnig of the test "Test name 2" done.' . PHP_EOL,
+				$output
+			);
+		}
+		else
+		{
+			$this->assertEquals('', $output);
+		}
+
+	}
+
+
+	public function provider($verbose)
+	{
+		return array(
+			'verbose' => array(TRUE),
+			'not verbose' => array(FALSE)
+		);
 	}
 
 

@@ -28,7 +28,10 @@ class GenerateAllTest extends TestCase
 {
 
 
-	public function testOk()
+	/**
+	 * @dataProvider providerOk
+	 */
+	public function testOk($verbose)
 	{
 		$factoryInit = $this->getMock('\XSLTBenchmarking\Factory');
 		$paramsInit = $this->getMock('\XSLTBenchmarking\TestsGenerator\Params');
@@ -109,8 +112,24 @@ class GenerateAllTest extends TestCase
 		file_put_contents(__DIR__ . '/file.3.1', 'file content 3.1');
 		file_put_contents(__DIR__ . '/file.3.2', 'file content 3.2');
 
-		$testsNumber = $generator->generateAll();
+		ob_start();
+		$testsNumber = $generator->generateAll($verbose);
+		$output = ob_get_clean();
+
 		$this->assertEquals(2, $testsNumber);
+
+		if ($verbose)
+		{
+			$this->assertEquals(
+				'Tests from template "Test name 1" were generated.' . PHP_EOL .
+				'Tests from template "Test name 2" were generated.' . PHP_EOL,
+				$output
+			);
+		}
+		else
+		{
+			$this->assertEquals('', $output);
+		}
 
 		$this->assertFileEquals(__DIR__ . '/XYZ/file.1.1', __DIR__ . '/file.1.1');
 		$this->assertFileEquals(__DIR__ . '/XYZ/file.1.2', __DIR__ . '/file.1.2');
@@ -133,6 +152,15 @@ class GenerateAllTest extends TestCase
 		unlink(__DIR__ . '/ABC/file.3.2');
 		rmdir(__DIR__ . '/ABC');
 		rmdir(__DIR__ . '/XYZ');
+	}
+
+
+	public function providerOk($verbose)
+	{
+		return array(
+			'verbose' => array(TRUE),
+			'not verbose' => array(FALSE)
+		);
 	}
 
 

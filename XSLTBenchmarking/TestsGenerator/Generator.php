@@ -11,8 +11,10 @@ namespace XSLTBenchmarking\TestsGenerator;
 
 require_once __DIR__ . '/../Exceptions.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
+require_once ROOT . '/Printer.php';
 
 use PhpPath\P;
+use XSLTBenchmarking\Printer;
 
 /**
  * Tests generator for XSTL Benchamrking
@@ -153,14 +155,20 @@ class Generator
 	/**
 	 * Generate all registered tests
 	 *
+	 * @param bool $verbose Print information about each run test
+	 *
 	 * @return int Number of generated tests
 	 */
-	public function generateAll()
+	public function generateAll($verbose = FALSE)
 	{
 		$tests = $this->getTests();
 		foreach ($tests as $test)
 		{
 			$this->generateTest($test);
+			if ($verbose)
+			{
+				Printer::info('Tests from template "' . $test->getName() . '" were generated.');
+			}
 		}
 
 		return count($tests);

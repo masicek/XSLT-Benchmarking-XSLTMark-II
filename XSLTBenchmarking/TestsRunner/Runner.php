@@ -10,8 +10,11 @@
 namespace XSLTBenchmarking\TestsRunner;
 
 require_once LIBS . '/PhpPath/PhpPath.min.php';
+require_once ROOT . '/Exceptions.php';
+require_once ROOT . '/Printer.php';
 
 use PhpPath\P;
+use XSLTBenchmarking\Printer;
 
 /**
  * Runner
@@ -134,14 +137,20 @@ class Runner
 	/**
 	 * Run all added tests and print reports
 	 *
+	 * @param bool $verbose Print information about each run test
+	 *
 	 * @return int Number of run tests
 	 */
-	public function runAll()
+	public function runAll($verbose = FALSE)
 	{
 		foreach ($this->tests as $name => $test)
 		{
 			$report = $this->testRunner->run($test);
 			$this->reportsPrinter->addReport($report);
+			if ($verbose)
+			{
+				Printer::info('Runnig of the test "' . $test->getName() . '" done.');
+			}
 		}
 
 		$reportFilePath = $this->reportsPrinter->printAll();
