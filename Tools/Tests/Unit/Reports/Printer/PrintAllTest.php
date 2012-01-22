@@ -30,9 +30,9 @@ class PrintAllTest extends TestCase
 		mkdir(__DIR__ . '/reports');
 
 		$processors = array(
-			'processor1' => array('fullName' => 'full name 1', 'link' => 'link 1', 'version' => 'version 1'),
-			'processor2' => array('fullName' => 'full name 2', 'link' => 'link 2', 'version' => 'version 2'),
-			'processor3' => array('fullName' => 'full name 3', 'link' => 'link 3', 'version' => 'version 3'),
+			'processor1' => array('firstInformation' => 'First information 1', 'secondInformation' => 'Second information 1', 'thirdInformation' => 'Third information 1'),
+			'processor2' => array('firstInformation' => 'First information 2'),
+			'processor3' => array('firstInformation' => 'First information 3', 'secondInformation' => 'Second information 3'),
 		);
 		$printer = new Printer(__DIR__ . '/reports', $processors, 111);
 

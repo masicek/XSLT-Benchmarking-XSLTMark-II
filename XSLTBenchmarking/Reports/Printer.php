@@ -56,7 +56,7 @@ class Printer
 	 * Setting common infromation for report
 	 *
 	 * @param string $reportsDir Directory for generating the report
-	 * @param array $processors ([name] => ('fullName' => [fullName], 'link' => [link], 'verions' => [version]), ...)
+	 * @param array $processors ([name] => ('[INFORMATION NAME]' => [INFORMATION VALUE], ...)
 	 * @param int $repeating Number of repeating each tranformation during testing
 	 */
 	public function __construct($reportsDir, array $processors, $repeating)
@@ -91,7 +91,7 @@ class Printer
 	 *    <global>
 	 *       <repeating>...</repeating>
 	 *       <processors>
-	 *          <processor name="..." fullName="..." link="..." version="..." />
+	 *          <processor name="..." [INFORMATION 1]="..." [INFORMATION 2]="..." />
 	 *          <processor ... />
 	 *          ...
 	 *       </processors>
@@ -131,9 +131,10 @@ class Printer
 		{
 			$processorListEl = $processorsListEl->addChild('processor');
 			$processorListEl->addAttribute('name', $name);
-			$processorListEl->addAttribute('fullName', $processor['fullName']);
-			$processorListEl->addAttribute('link', $processor['link']);
-			$processorListEl->addAttribute('version', $processor['version']);
+			foreach ($processor as $attributeName => $attribteValue)
+			{
+				$processorListEl->addAttribute($attributeName, $attribteValue);
+			}
 		}
 
 		// reports of tests
