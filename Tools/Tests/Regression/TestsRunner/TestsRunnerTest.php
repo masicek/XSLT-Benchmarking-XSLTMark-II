@@ -44,8 +44,8 @@ class TestsRunnerTest extends TestCase
 			'-r ' .
 			'--tests "./Tests" ' .
 			'--reports "./ReportsGenerated" ' .
-			'--processors saxon,phpxsl ' .
-			'--processors-exclude phpxsl ' .
+			'--processors saxon655,libxslt1123cmd,sablotron103cmd ' .
+			'--processors-exclude libxslt1123cmd ' .
 			'--repeating 5 ' .
 			'--tmp "./Tmp" '
 		);
