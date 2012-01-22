@@ -76,7 +76,7 @@ class TestRunner
 	 * @param array|TRUE $processorsSelected List of tested processors
 	 * @param array $processors Exclude List of tested processors, that we want exclude form tested processors
 	 * @param int $repeating Number of repeatig for each test and processor
-	 * @param string $tmpDir
+	 * @param string $tmpDir Path of temporary directory
 	 */
 	public function __construct(
 		\XSLTBenchmarking\Factory $factory,
