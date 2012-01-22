@@ -269,6 +269,8 @@ class Runner
 	/**
 	 * Print available processors
 	 *
+	 * @codeCoverageIgnore
+	 *
 	 * @return void
 	 */
 	private function printAvailableProcessors()

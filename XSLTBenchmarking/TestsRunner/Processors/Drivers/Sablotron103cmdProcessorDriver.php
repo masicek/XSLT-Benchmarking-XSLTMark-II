@@ -9,7 +9,9 @@
 
 namespace XSLTBenchmarking\TestsRunner;
 
+// @codeCoverageIgnoreStart
 require_once __DIR__ . '/AProcessorDriver.php';
+// @codeCoverageIgnoreEnd
 
 /**
  * Driver for "Sablotron 1.0.3 - command-line"
@@ -44,11 +46,10 @@ class Sablotron103cmdProcessorDriver extends AProcessorDriver
 //				$commandTemplate = '[LIBS]/Sablotron/1.0.3/sabcmd [XSLT] [INPUT] [OUTPUT] 2> [ERROR]';
 //				break;
 
-			default:
+			default:// @codeCoverageIgnoreStart
 				throw new \XSLTBenchmarking\UnsupportedOSException();
 				break;
-
-		}
+		}// @codeCoverageIgnoreEnd
 
 		return $commandTemplate;
 	}

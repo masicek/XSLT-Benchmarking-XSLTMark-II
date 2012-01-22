@@ -9,7 +9,9 @@
 
 namespace XSLTBenchmarking\TestsRunner;
 
+// @codeCoverageIgnoreStart
 require_once __DIR__ . '/AProcessorDriver.php';
+// @codeCoverageIgnoreEnd
 
 /**
  * Driver for "libxslt 1.1.23 - PHP"
@@ -44,11 +46,10 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 //				$extension = '[LIBS]/libxslt/1.1.23/xsl.so';
 //				break;
 
-			default:
+			default:// @codeCoverageIgnoreStart
 				throw new \XSLTBenchmarking\UnsupportedOSException();
 				break;
-
-		}
+		}// @codeCoverageIgnoreEnd
 
 		$phpScript = 'try {' .
 			'	libxml_use_internal_errors(TRUE);' .

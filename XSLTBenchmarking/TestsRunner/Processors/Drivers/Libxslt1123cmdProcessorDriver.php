@@ -9,7 +9,9 @@
 
 namespace XSLTBenchmarking\TestsRunner;
 
+// @codeCoverageIgnoreStart
 require_once __DIR__ . '/AProcessorDriver.php';
+// @codeCoverageIgnoreEnd
 
 /**
  * Driver for "libxslt 1.1.23 - command-line"
@@ -44,11 +46,10 @@ class Libxslt1123cmdProcessorDriver extends AProcessorDriver
 //				$commandTemplate = '[LIBS]/libxslt/1.1.23/xsltproc -o [OUTPUT] [XSLT] [INPUT] 2> [ERROR]';
 //				break;
 
-			default:
+			default:// @codeCoverageIgnoreStart
 				throw new \XSLTBenchmarking\UnsupportedOSException();
 				break;
-
-		}
+		}// @codeCoverageIgnoreEnd
 
 		return $commandTemplate;
 	}

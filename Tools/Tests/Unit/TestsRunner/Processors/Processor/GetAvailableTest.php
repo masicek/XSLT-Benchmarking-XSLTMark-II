@@ -21,6 +21,7 @@ require_once ROOT_TOOLS . '/TestsRunner/Processors/Processor.php';
  *
  * @covers \XSLTBenchmarking\TestsRunner\Processor::getAvailable
  * @covers \XSLTBenchmarking\TestsRunner\Processor::detectAvailable
+ * @covers \XSLTBenchmarking\TestsRunner\AProcessorDriver::getName
  */
 class GetAvailableTest extends TestCase
 {

@@ -9,7 +9,9 @@
 
 namespace XSLTBenchmarking\TestsRunner;
 
+// @codeCoverageIgnoreStart
 require_once __DIR__ . '/AProcessorDriver.php';
+// @codeCoverageIgnoreEnd
 
 /**
  * Driver for "Saxon 6.5.5"

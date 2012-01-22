@@ -21,6 +21,7 @@ require_once ROOT_TOOLS . '/TestsRunner/Processors/Processor.php';
  *
  * @covers \XSLTBenchmarking\TestsRunner\Processor::getInformations
  * @covers \XSLTBenchmarking\TestsRunner\Processor::readInformations
+ * @covers \XSLTBenchmarking\TestsRunner\AProcessorDriver::getInformations
  */
 class GetInformationsTest extends TestCase
 {
