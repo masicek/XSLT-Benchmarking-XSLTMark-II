@@ -3,29 +3,54 @@ XSLT Benchmarking
 
 This is project for generating, runnig and reporting XSLT Benchmarking.
 It can be run from command-line by [index.php](./XSLT-Benchmarking/tree/master/XSLTBenchmarking/index.php).
+For running can be used included precompiled PHP. Example for Windows, if you are in project root directory:
+
+```
+C:\XSLT-Benchmarking>.\Libs\Php\5.3.6\php.exe .\XSLTBenchmarking\index.php
+```
+
+Following examples will be in short variant with expecting register ```php``` command for running PHP.
 
 Usage
 -----
 
-```php
+```
 php index.php -h
 ```
 
 Print help.
 
 
-```php
+```
 php index.php -g
 ```
 
 Generate tests from templates (use default directory for templates, tests and temporary files).
 
 
-```php
-php index.php -g --templates-names "modify_element,value_to_attribute"
+```
+php index.php -g --templates-dirs "modify_element,value_to_attribute"
 ```
 
-Generate test from temapltes <code>modify_element</code> and <code>value_to_attribute</code> in default directory.
+Generate test from temapltes ```modify_element``` and ```value_to_attribute``` in default directory.
+
+```
+php index.php -r
+```
+
+Run all tests (use default directory for tests, reports and temporary files).
+
+```
+php index.php -r --tests-dirs "modify-element-copy,value-to-attribute-first"
+```
+
+Run tests "modify-element-copy" and "value-to-attribute-first" in default directory.
+
+```
+php index.php -g -r -v
+```
+
+Generate testf from all templates and run all generated test. Verbose mode is on.
 
 
 Generating Tests
@@ -37,7 +62,7 @@ Each template has to contain one XSLT template file, one or more XML files
 (name of generated tests, template path etc.).
 
 Settings can be defined in different type of file, detected by extension.
-Supported type of file are:
+Currently supported type of file are:
 
 * __xml__
 
@@ -50,3 +75,8 @@ Input XML files can be generated. For generating external XML generatr can be us
 Supported generator name are:
 
 * __easy__ = siple PHP test generator used for testing
+
+
+Running Tests
+-------------
+TODO

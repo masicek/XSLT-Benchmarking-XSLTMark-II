@@ -15,7 +15,7 @@
 			<setting name="testName2">3</setting>
 		</generated>
 	</files>
-	<test name="Rename" paramsFile="params.xml">
+	<test name="Rename">
 		<file input="one" output="oneNew" />
 		<file input="two" output="twoNew" />
 		<file input="many" output="manyNew" />
