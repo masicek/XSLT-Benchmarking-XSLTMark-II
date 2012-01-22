@@ -31,21 +31,20 @@ class RunTest extends TestCase
 
 	public function setUp()
 	{
-		mkdir(__DIR__ . '/test');
-		file_put_contents(__DIR__ . '/test/processorOK.php', '<?php sleep(1); echo "OK";');
-		file_put_contents(__DIR__ . '/test/processorError.php', '<?php echo "Error message";');
-		file_put_contents(__DIR__ . '/test/processorNoReturn.php', '<?php ');
-
-		$this->processor = new Processor(__DIR__ . '/test');
+		$this->processor = new Processor(
+			__DIR__,
+			__DIR__ . '/FixtureDrivers',
+			'\Tests\XSLTBenchmarking\TestsRunner\Processor\\'
+		);
 	}
 
 
 	public function tearDown()
 	{
-		unlink(__DIR__ . '/test/processorOK.php');
-		unlink(__DIR__ . '/test/processorError.php');
-		unlink(__DIR__ . '/test/processorNoReturn.php');
-		rmdir(__DIR__ . '/test');
+		if (is_file($this->setDirSep(__DIR__ . '/transformation.err')))
+		{
+			unlink($this->setDirSep(__DIR__ . '/transformation.err'));
+		}
 	}
 
 
@@ -58,6 +57,23 @@ class RunTest extends TestCase
 
 	public function testBadTemplatePath()
 	{
+		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel'), array(), '', FALSE);
+		$processorOK->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
+		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
+		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
+
+		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel'), array(), '', FALSE);
+		$processorError->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
+		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
+		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
+
+		$available = array(
+			'processorOK' => $processorOK,
+			'processorError' => $processorError,
+		);
+
+		$this->setPropertyValue($this->processor, 'available', $available);
+
 		$this->setExpectedException('\PhpPath\NotExistsPathException');
 		$this->processor->run('processorOK', 'unknown', __FILE__, 'output', 111);
 	}
@@ -65,28 +81,105 @@ class RunTest extends TestCase
 
 	public function testBadXmlInputPath()
 	{
+		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel'), array(), '', FALSE);
+		$processorOK->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
+		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
+		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
+
+		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel'), array(), '', FALSE);
+		$processorError->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
+		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
+		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
+
+		$available = array(
+			'processorOK' => $processorOK,
+			'processorError' => $processorError,
+		);
+
+		$this->setPropertyValue($this->processor, 'available', $available);
+
 		$this->setExpectedException('\PhpPath\NotExistsPathException');
 		$this->processor->run('processorOK', __FILE__, 'unknown', 'output', 111);
 	}
 
 
-	public function testSetErrorTranformation()
+	public function testErrorFileExist()
 	{
+		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel'), array(), '', FALSE);
+		$processorOK->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
+		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
+		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
+
+		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel'), array(), '', FALSE);
+		$processorError->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
+		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
+		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
+
+		$available = array(
+			'processorOK' => $processorOK,
+			'processorError' => $processorError,
+		);
+
+		$this->setPropertyValue($this->processor, 'available', $available);
+
+		file_put_contents($this->setDirSep(__DIR__ . '/transformation.err'), '');
+		$this->setExpectedException('\XSLTBenchmarking\InvalidStateException');
 		$return = $this->processor->run('processorError', __FILE__, __FILE__, 'output', 111);
-		$this->assertEquals('Error message', $return);
 	}
 
 
-	public function testUnknownErrorTranformation()
+	public function testError()
 	{
-		$return = $this->processor->run('processorNoReturn', __FILE__, __FILE__, 'output', 111);
-		$this->assertEquals('Unknown error', $return);
+		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel'), array(), '', FALSE);
+		$processorOK->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
+		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
+		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
+
+		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel'), array(), '', FALSE);
+		$processorError->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
+		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
+		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
+
+		$available = array(
+			'processorOK' => $processorOK,
+			'processorError' => $processorError,
+		);
+
+		$this->setPropertyValue($this->processor, 'available', $available);
+
+		$filesBefore = scandir(__DIR__);
+		$return = $this->processor->run('processorError', __FILE__, __FILE__, 'output', 111);
+		$filesAfter = scandir(__DIR__);
+
+		$this->assertEquals($filesBefore, $filesAfter);
+		$this->assertEquals('Test error', $return);
 	}
 
 
 	public function testOk()
 	{
+		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel'), array(), '', FALSE);
+		$processorOK->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
+		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
+		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
+
+		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel'), array(), '', FALSE);
+		$processorError->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
+		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
+		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
+
+		$available = array(
+			'processorOK' => $processorOK,
+			'processorError' => $processorError,
+		);
+
+		$this->setPropertyValue($this->processor, 'available', $available);
+
+		$filesBefore = scandir(__DIR__);
 		$returnTimes = $this->processor->run('processorOK', __FILE__, __FILE__, 'output', 3);
+		$filesAfter = scandir(__DIR__);
+
+		$this->assertEquals($filesBefore, $filesAfter);
 
 		$this->assertTrue(is_array($returnTimes));
 		$this->assertEquals(3, count($returnTimes));

@@ -31,13 +31,13 @@ class TestRunnerTest extends TestCase
 	public function setUp()
 	{
 		$this->factory = $this->getMock('\XSLTBenchmarking\Factory');
-		$this->processor = $this->getMock('XSLTBenchmarking\TestsRunner\Processor', array('getAvailable'));
+		$this->processor = $this->getMock('XSLTBenchmarking\TestsRunner\Processor', array('getAvailable'),  array(), '', FALSE);
 		$this->processor->expects($this->any())
 			->method('getAvailable')
 			->will($this->returnValue(array(
-				'processor1' => 'prcessor1.php',
-				'processor2' => 'prcessor2.sh',
-				'processor3' => 'prcessor3.sh')
+				'processor1' => 'prcessor1Driver',
+				'processor2' => 'prcessor2Driver',
+				'processor3' => 'prcessor3Driver')
 			));
 		$this->controlor = $this->getMock('XSLTBenchmarking\TestsRunner\Controlor');
 	}

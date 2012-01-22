@@ -28,12 +28,12 @@ class RunTest extends TestCase
 	public function test()
 	{
 		$factory = $this->getMock('\XSLTBenchmarking\Factory', array('getReport'));
-		$processor = $this->getMock('\XSLTBenchmarking\TestsRunner\Processor', array('getAvailable'));
+		$processor = $this->getMock('\XSLTBenchmarking\TestsRunner\Processor', array('getAvailable'), array(), '', FALSE);
 		$processor->expects($this->any())
 			->method('getAvailable')
 			->will($this->returnValue(array(
-				'processor1' => 'prcessor1.php',
-				'processor2' => 'prcessor2.sh')
+				'processor1' => 'prcessor1Driver',
+				'processor2' => 'prcessor2Driver')
 			));
 		$controlor = $this->getMock('\XSLTBenchmarking\TestsRunner\Controlor');
 		$runner = new TestRunner(

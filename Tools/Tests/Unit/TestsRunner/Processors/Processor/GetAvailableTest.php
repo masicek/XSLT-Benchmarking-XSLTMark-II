@@ -28,35 +28,21 @@ class GetAvailableTest extends TestCase
 
 	public function test()
 	{
-		mkdir(__DIR__ . '/test');
-		file_put_contents(__DIR__ . '/test/processor1.php', '');
-		file_put_contents(__DIR__ . '/test/processor2.bat', '');
-		file_put_contents(__DIR__ . '/test/processor2.sh', '');
+		$processor = new Processor(
+			__DIR__,
+			__DIR__ . '/FixtureDrivers',
+			'\Tests\XSLTBenchmarking\TestsRunner\Processor\\'
+		);
 
-		$processor = new Processor(__DIR__ . '/test');
+		$available = $processor->getAvailable();
 
-		switch (PHP_OS)
-		{
-			case 'WINNT':
-				$expectedAvailable = array(
-					'processor1' => 'processor1.php',
-					'processor2' => 'processor2.bat',
-				);
-				break;
-
-			case 'Linux':
-				$expectedAvailable = array(
-					'processor1' => 'processor1.php',
-					'processor2' => 'processor2.sh',
-				);
-		}
-
-		$this->assertEquals($expectedAvailable, $processor->getAvailable());
-
-		unlink(__DIR__ . '/test/processor1.php');
-		unlink(__DIR__ . '/test/processor2.bat');
-		unlink(__DIR__ . '/test/processor2.sh');
-		rmdir(__DIR__ . '/test');
+		$this->assertEquals(2, count($available));
+		$this->assertArrayHasKey('first', $available);
+		$this->assertArrayHasKey('second', $available);
+		$this->assertInstanceOf('\Tests\XSLTBenchmarking\TestsRunner\Processor\FirstProcessorDriver', $available['first']);
+		$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\AProcessorDriver', $available['first']);
+		$this->assertInstanceOf('\Tests\XSLTBenchmarking\TestsRunner\Processor\SecondProcessorDriver', $available['second']);
+		$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\AProcessorDriver', $available['second']);
 	}
 
 

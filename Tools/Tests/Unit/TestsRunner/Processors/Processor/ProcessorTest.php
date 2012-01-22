@@ -28,24 +28,39 @@ class ProcessorTest extends TestCase
 	public function testDefault()
 	{
 		$reflection = new \ReflectionClass('\XSLTBenchmarking\TestsRunner\Processor');
-		$dir = $this->setDirSep(dirname($reflection->getFileName()) . '/Scripts');
+		$driversDir = $this->setDirSep(dirname($reflection->getFileName()) . '/Drivers');
 
-		$processor = new Processor();
-		$this->assertEquals($dir, $this->getPropertyValue($processor, 'scriptsDir'));
+		$processor = new Processor(__DIR__);
+		$this->assertEquals(__DIR__, $this->getPropertyValue($processor, 'tmpDir'));
+		$this->assertEquals($driversDir, $this->getPropertyValue($processor, 'driversDir'));
+		$this->assertEquals('\XSLTBenchmarking\TestsRunner\\', $this->getPropertyValue($processor, 'driversNamespace'));
 	}
 
 
-	public function testSetOk()
+	public function testOk()
 	{
-		$processor = new Processor(__DIR__ . '/../');
-		$this->assertEquals($this->setDirSep(__DIR__ . '/../'), $this->getPropertyValue($processor, 'scriptsDir'));
+		$processor = new Processor(
+			__DIR__,
+			__DIR__ . '/FixtureDrivers',
+			'\Tests\XSLTBenchmarking\TestsRunner\Processor\\'
+		);
+		$this->assertEquals(__DIR__, $this->getPropertyValue($processor, 'tmpDir'));
+		$this->assertEquals($this->setDirSep(__DIR__ . '/FixtureDrivers'), $this->getPropertyValue($processor, 'driversDir'));
+		$this->assertEquals('\Tests\XSLTBenchmarking\TestsRunner\Processor\\', $this->getPropertyValue($processor, 'driversNamespace'));
 	}
 
 
-	public function testSetUnknown()
+	public function testWrongTmp()
 	{
 		$this->setExpectedException('\PhpPath\NotExistsPathException');
 		$processor = new Processor(__DIR__ . '/unknown/');
+	}
+
+
+	public function testWrongDriversDir()
+	{
+		$this->setExpectedException('\PhpPath\NotExistsPathException');
+		$processor = new Processor(__DIR__, __DIR__ . '/unknown/');
 	}
 
 

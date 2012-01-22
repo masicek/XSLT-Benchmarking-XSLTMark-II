@@ -308,7 +308,7 @@ class Runner
 		$repeating = $options->get('Repeating');
 		$tmpDir = $options->get('Tmp');
 
-		$processor = new \XSLTBenchmarking\TestsRunner\Processor();
+		$processor = new \XSLTBenchmarking\TestsRunner\Processor($tmpDir);
 		$runner = new \XSLTBenchmarking\TestsRunner\Runner(
 			$this->factory,
 			new \XSLTBenchmarking\TestsRunner\Params(),

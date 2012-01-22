@@ -27,11 +27,25 @@ class Processor
 
 
 	/**
-	 * Root directory of scripts for runnig processors
+	 * Path of dirctory containing processors drivers
 	 *
 	 * @var string
 	 */
-	private $scriptsDir = NULL;
+	private $driversDir;
+
+	/**
+	 * Namespace of processors drivers
+	 *
+	 * @var string
+	 */
+	private $driversNamespace;
+
+	/**
+	 * Path of temporary directory
+	 *
+	 * @var string
+	 */
+	private $tmpDir;
 
 	/**
 	 * List of available names of processors
@@ -47,43 +61,31 @@ class Processor
 	 */
 	private $informations = NULL;
 
-	/**
-	 * List of prefixes for runnig processors scripts from command-line
-	 *
-	 * @var array ([extension of script] => [prefix of command])
-	 */
-	private $processorsPrefixes = array(
-		'WINNT' => array(
-			'php' => 'php -d extension=##LIBS##\libxslt\php_xsl.dll',
-			'jar' => 'java -jar ',
-		),
-		'Linux' => array(
-			'php' => 'php -d extension=##LIBS##\libxslt\xsl.so',
-			'jar' => 'java -jar ',
-		),
-	);
-
 
 	/**
 	 * Configure object
 	 *
-	 * @param string $scriptsDir Root directory of scripts for runnig processors
+	 * @param string $tmpDir Path of temporary directory
+	 * @param string $driversDir Path of dirctory containing processor drivers
+	 * @param string $driversNamespace Namespace of processors drivers
 	 */
-	public function __construct($scriptsDir = NULL)
+	public function __construct($tmpDir, $driversDir = NULL, $driversNamespace = '\XSLTBenchmarking\TestsRunner\\')
 	{
-		if (is_null($scriptsDir))
+		if (is_null($driversDir))
 		{
-			$scriptsDir = P::m(__DIR__, 'Scripts');
+			$driversDir = P::m(__DIR__, 'Drivers');
 		}
 
-		$this->scriptsDir = P::mcd($scriptsDir);
+		$this->tmpDir = P::mcd($tmpDir);
+		$this->driversDir = P::mcd($driversDir);
+		$this->driversNamespace = $driversNamespace;
 	}
 
 
 	/**
 	 * Return list of available names of processors
 	 *
-	 * @return array ([name] => [name with extension])
+	 * @return array ([name] => AProcessorDriver)
 	 */
 	public function getAvailable()
 	{
@@ -92,6 +94,21 @@ class Processor
 			$this->available = $this->detectAvailable();
 		}
 		return $this->available;
+	}
+
+
+	/**
+	 * Return information about processors
+	 *
+	 * @return array
+	 */
+	public function getInformations()
+	{
+		if (!$this->informations)
+		{
+			$this->informations = $this->readInformations();
+		}
+		return $this->informations;
 	}
 
 
@@ -116,17 +133,33 @@ class Processor
 		P::mcf($templatePath);
 		P::mcf($xmlInputPath);
 
-		$procesorScript = P::m($this->scriptsDir, $processors[$processor]);
-		$command = $this->getCommand($procesorScript, array($templatePath, $xmlInputPath, $outputPath));
+		$errorPath = P::m($this->tmpDir, 'transformation.err');
+		$command = $this->getCommand($processors[$processor], $templatePath, $xmlInputPath, $outputPath, $errorPath);
 
 		$times = array();
 		for ($repeatingIdx = 0; $repeatingIdx < $repeating; $repeatingIdx++)
 		{
+			if (is_file($errorPath))
+			{
+				throw new \XSLTBenchmarking\InvalidStateException('Error tmp file should not exist "' . $errorPath . '"');
+			}
+
 			$timeStart = Microtime::now();
-			exec($command, $output);
+			exec($command);
 			$timeEnd = Microtime::now();
 
-			if (!isset($output[0]) || $output[0] !== 'OK')
+			// detect error
+			if (is_file($errorPath))
+			{
+				$error = file_get_contents($errorPath);
+				unlink($errorPath);
+			}
+			else
+			{
+				$error = '';
+			}
+
+			if ($error)
 			{
 				break;
 			}
@@ -135,33 +168,14 @@ class Processor
 			$times[] = Microtime::substract($timeEnd, $timeStart);
 		}
 
-		if (!isset($output[0]))
+		if ($error)
 		{
-			return 'Unknown error';
-		}
-		elseif ($output[0] !== 'OK')
-		{
-			return implode(PHP_EOL, $output);
+			return $error;
 		}
 		else
 		{
 			return $times;
 		}
-	}
-
-
-	/**
-	 * Return information about processors
-	 *
-	 * @return array [name] => ('fullName' => [fullName], 'link' => [link], 'verions' => [version])
-	 */
-	public function getInformations()
-	{
-		if (!$this->informations)
-		{
-			$this->informations = $this->readInformations();
-		}
-		return $this->informations;
 	}
 
 
@@ -171,66 +185,42 @@ class Processor
 	/**
 	 * Detect list of available names of processors
 	 *
-	 * @return array ([name] => [name with extension])
+	 * @return array ([name] => AProcessorDriver)
 	 */
 	private function detectAvailable()
 	{
-		$files = scandir($this->scriptsDir);
+		$driversFiles = scandir($this->driversDir);
 
-		foreach ($files as $file)
+		$drivers = array();
+		foreach ($driversFiles as $driverFile)
 		{
-			if (in_array($file, array('.', '..')))
+			if (in_array($driverFile, array('AProcessorDriver.php', '.', '..')))
 			{
 				continue;
 			}
 
-			// OS filter
-			// @codeCoverageIgnoreStart
-			$extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-			if (!in_array(PHP_OS, array('WINNT', 'Linux')))
-			{
-				throw new \XSLTBenchmarking\InvalidStateException('Unknown OS "' . PHP_OS . '"');
-			}
-			if (PHP_OS == 'WINNT' && $extension == 'sh')
-			{
-				continue;
-			}
-			if (PHP_OS == 'Linux' && $extension == 'bat')
-			{
-				continue;
-			}
-			// @codeCoverageIgnoreEnd
+			require_once P::m($this->driversDir, $driverFile);
+			$className = $this->driversNamespace . substr($driverFile, 0, -4);
+			$driver = new $className;
 
-			$nameWithoutExtension = pathinfo($file, PATHINFO_FILENAME);
-			$available[$nameWithoutExtension] = $file;
+			$drivers[$driver->getName()] = $driver;
 		}
 
-		return $available;
+		return $drivers;
 	}
 
 
 	/**
 	 * Read information about processors
 	 *
-	 * @return array [name] => ('fullName' => [fullName], 'link' => [link], 'verions' => [version])
+	 * @return array
 	 */
 	private function readInformations()
 	{
 		$informations = array();
-		$processors = $this->getAvailable();
-		foreach ($processors as $processorName => $processorFile)
+		foreach ($this->getAvailable() as $name => $processorDriver)
 		{
-			// each script return fullName, link and version on separate lines
-			$procesorScript = P::m($this->scriptsDir, $processorFile);
-			$command = $this->getCommand($procesorScript, array('--information'));
-			$information = array();
-			exec($command, $information);
-
-			$informations[$processorName] = array(
-				'fullName' => $information[0],
-				'link' => $information[1],
-				'version' => $information[2],
-			);
+			$informations[$name] = $processorDriver->getInformations();
 		}
 
 		return $informations;
@@ -238,26 +228,34 @@ class Processor
 
 
 	/**
-	 * Make command for excute script with arguments and prepand needed prefix
+	 * Make command for excute script with arguments
 	 *
-	 * @param string $script Script path
-	 * @param array $arguments List of arguments
+	 * Templates substitutions:
+	 * [XSLT] = path of XSLT template for transformation
+	 * [INPUT] = path of input XML file
+	 * [OUTPUT] = path of generated output XML file
+	 * [ERROR] = path of file for eventual generated error message
+	 * [LIBS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 *
+	 * @param AProcessorDriver $processor Driver for selected processor
+	 * @param string $templatePath Path of XSLT template for transformation
+	 * @param string $xmlInputPath Path of input XML file
+	 * @param string $outputPath Path of generated output XML file
+	 * @param string $errorPath Path of file for eventual generated error message
 	 *
 	 * @return string
 	 */
-	private function getCommand($script, array $arguments)
+	private function getCommand(AProcessorDriver $processor, $templatePath, $xmlInputPath, $outputPath, $errorPath)
 	{
-		$prefix = '';
-		$scriptExtension = strtolower(pathinfo($script, PATHINFO_EXTENSION));
-		if (isset($this->processorsPrefixes[PHP_OS][$scriptExtension]))
-		{
-			$prefix = $this->processorsPrefixes[PHP_OS][$scriptExtension];
-		}
+		// get command by OS
+		$command = $processor->getCommandTemplate();
 
-		// set possibly needed path to Libs/Processors
-		$prefix = str_replace('##LIBS##', P::m(LIBS, 'Processors'), $prefix);
-
-		$command = $prefix . $script . ' ' . implode(' ', $arguments) . ' ' . P::m(LIBS, 'Processors');
+		// replace substitutions
+		$command = str_replace('[XSLT]', $templatePath, $command);
+		$command = str_replace('[INPUT]', $xmlInputPath, $command);
+		$command = str_replace('[OUTPUT]', $outputPath, $command);
+		$command = str_replace('[ERROR]', $errorPath, $command);
+		$command = str_replace('[LIBS]', P::m(LIBS, 'Processors'), $command);
 
 		return $command;
 	}
