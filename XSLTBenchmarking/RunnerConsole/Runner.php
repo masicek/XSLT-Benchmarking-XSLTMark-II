@@ -92,6 +92,12 @@ class Runner
 			return;
 		}// @codeCoverageIgnoreEnd
 
+		if ($options->get('Processors available'))
+		{// @codeCoverageIgnoreStart
+			$this->printAvailableProcessors();
+			return;
+		}// @codeCoverageIgnoreEnd
+
 		// generating tests
 		if ($options->get('Generate'))
 		{
@@ -187,7 +193,7 @@ class Runner
 				);
 
 			// @HACK in PhpOption 2.0.0 use array of enum
-			$optionsList[] = Option::series('Processors', ',')
+			$processors = $optionsList[] = Option::series('Processors', ',')
 				->value(FALSE)
 				->defaults(TRUE)
 				->description(
@@ -196,11 +202,18 @@ class Runner
 					'then all available processors are tested.'
 				);
 
-			$optionsList[] = Option::series('Processors exclude', ',')
+			$processorsExclude = $optionsList[] = Option::series('Processors exclude', ',')
 				->short('e')
 				->defaults(array())
 				->description(
 					'List of tested processors, that we want exclude form tested processors.'
+				);
+
+			$optionsList[] = Option::make('Processors available')
+				->short('a')
+				->description(
+					'Print list of short names of available processors (possible used in options "' . $processors->getOptions() . '" ' .
+					'and "' . $processorsExclude->getOptions() . '") and their kernels and full names.'
 				);
 
 			$optionsList[] = Option::integer('Repeating', 'unsigned')
@@ -227,8 +240,18 @@ class Runner
 					'Processors exclude',
 					'Repeating',
 					'Reports',
-					'Tmp'),
-				'Runnig tests'
+					'Tmp')
+			);
+			$options->group('Runnig tests', array(
+					'Run',
+					'Tests',
+					'Tests dirs',
+					'Processors',
+					'Processors exclude',
+					'Processors available',
+					'Repeating',
+					'Reports',
+					'Tmp')
 			);
 
 		} catch (\PhpOptions\UserBadCallException $e) {// @codeCoverageIgnoreStart
@@ -241,6 +264,46 @@ class Runner
 
 
 	// ---- PARTS OF RUNNING ----
+
+
+	/**
+	 * Print available processors
+	 *
+	 * @return void
+	 */
+	private function printAvailableProcessors()
+	{
+		$tmpDir = $this->options->get('Tmp');
+		$processor = new \XSLTBenchmarking\TestsRunner\Processor($tmpDir);
+		$processorsDrivers = $processor->getAvailable();
+
+		// get max lengtho of each parts
+		$maxName = 0;
+		$maxKernel = 0;
+		foreach($processorsDrivers as $driverName => $processorDriver)
+		{
+			if (strlen($driverName) > $maxName)
+			{
+				$maxName = strlen($driverName);
+			}
+			if (strlen($processorDriver->getKernel()) > $maxKernel)
+			{
+				$maxKernel = strlen($processorDriver->getKernel());
+			}
+		}
+
+		// print list
+		$this->printHeader('Available processors');
+		$name = str_pad('SHORT NAME', $maxName, ' ', STR_PAD_LEFT);
+		$kernel = str_pad('KERNEL', $maxKernel, ' ', STR_PAD_LEFT);
+		$this->printHeader($name . ' | ' . $kernel . ' | FULL NAME');
+		foreach($processorsDrivers as $driverName => $processorDriver)
+		{
+			$name = str_pad($driverName, $maxName, ' ', STR_PAD_LEFT);
+			$kernel = str_pad($processorDriver->getKernel(), $maxKernel, ' ', STR_PAD_LEFT);
+			$this->printInfo($name . ' | ' . $kernel . ' | ' . $processorDriver->getFullName());
+		}
+	}
 
 
 	/**
