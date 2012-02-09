@@ -75,6 +75,18 @@ abstract class AProcessorDriver
 
 
 	/**
+	 * Flag, if template for transformating has to be set in input XML
+	 * by directive "<?xml-stylesheet href="[XSLT]" type="text/xml" ..."
+	 *
+	 * @return bool
+	 */
+	public function isTemplateSetInInput()
+	{
+		return FALSE;
+	}
+
+
+	/**
 	 * Return template of command
 	 *
 	 * Templates substitutions:

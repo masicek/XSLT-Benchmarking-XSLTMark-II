@@ -115,26 +115,34 @@ class Processor
 	/**
 	 * Run one XSLT transformation in the processor
 	 *
-	 * @param string $processor Name of used processor
+	 * @param string $processorName Name of used processor
 	 * @param string $templatePath Path of XSLT template
 	 * @param string $xmlInputPath Path of XML input file
 	 * @param string $outputPath Path of generated output file
 	 *
 	 * @return array|string List of spend times on transformation|Error message
 	 */
-	public function run($processor, $templatePath, $xmlInputPath, $outputPath, $repeating)
+	public function run($processorName, $templatePath, $xmlInputPath, $outputPath, $repeating)
 	{
 		$processors = $this->getAvailable();
-		if (!isset($processors[$processor]))
+		if (!isset($processors[$processorName]))
 		{
-			throw new \XSLTBenchmarking\InvalidArgumentException('Unknown processor "' . $processor . '"');
+			throw new \XSLTBenchmarking\InvalidArgumentException('Unknown processor "' . $processorName . '"');
 		}
+
+		$processor = $processors[$processorName];
 
 		P::mcf($templatePath);
 		P::mcf($xmlInputPath);
 
+		// stylesheet for transformation have to be set in input XML file
+		if ($processor->isTemplateSetInInput())
+		{
+			$xmlInputPath = $this->makeInputWithTemplatePath($xmlInputPath, $templatePath);
+		}
+
 		$errorPath = P::m($this->tmpDir, 'transformation.err');
-		$command = $this->getCommand($processors[$processor], $templatePath, $xmlInputPath, $outputPath, $errorPath);
+		$command = $this->getCommand($processor, $templatePath, $xmlInputPath, $outputPath, $errorPath);
 
 		$times = array();
 		for ($repeatingIdx = 0; $repeatingIdx < $repeating; $repeatingIdx++)
@@ -262,6 +270,33 @@ class Processor
 		$command = str_replace('[LIBS]', P::m(LIBS, 'Processors'), $command);
 
 		return $command;
+	}
+
+
+	/**
+	 * Add into input XML path of template by directive "<?xml-stylesheet href="[XSLT]" type="text/xml" ..."
+	 * and return path of generated file (in temporary directory).
+	 *
+	 * @param string $xmlInputPath Path of input XML
+	 * @param string $templatePath Path of template
+	 *
+	 * @return string
+	 */
+	private function makeInputWithTemplatePath($xmlInputPath, $templatePath)
+	{
+		$content = file_get_contents($xmlInputPath);
+
+		// add template path
+		$content = str_replace(
+			'<?xml version="1.0" encoding="UTF-8"?>',
+			'<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="' . $templatePath . '" ?>',
+			$content
+		);
+
+		$xmlInputPath = P::m($this->tmpDir, basename($xmlInputPath));
+		file_put_contents($xmlInputPath, $content);
+
+		return $xmlInputPath;
 	}
 
 
