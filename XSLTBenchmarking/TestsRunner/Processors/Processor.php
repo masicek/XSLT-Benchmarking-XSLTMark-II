@@ -203,7 +203,11 @@ class Processor
 			$className = $this->driversNamespace . substr($driverFile, 0, -4);
 			$driver = new $className;
 
-			$drivers[$driver->getName()] = $driver;
+			// driver have to be instance of AProcessorDriver
+			if ($driver instanceof AProcessorDriver)
+			{
+				$drivers[$driver->getName()] = $driver;
+			}
 		}
 
 		return $drivers;
