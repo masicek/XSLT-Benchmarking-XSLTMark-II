@@ -75,7 +75,7 @@ class Runner
 		$optionsList[] = Option::make('Skipped on')->description('Turn on skipping of slow tests prepared for skipping');
 		$optionsList[] = Option::make('Tests unit')->short()->long('tu')->description('Run unit tests');
 		$optionsList[] = Option::make('Tests regression')->short()->long('tr')->description('Run regression tests');
-		$optionsList[] = Option::make('Docs')->description('Run script for generating API documenation of PhpOptions');
+		$optionsList[] = Option::make('Docs')->description('Run script for generating API documenation of XSLT Benchmarking');
 
 		$options = new Options();
 		$options->add($optionsList);
@@ -83,8 +83,7 @@ class Runner
 		$options->description(
 			'XSTL Benchmarking' . PHP_EOL .
 			'author: Viktor Masicek <viktor@masicek.net>' . PHP_EOL . PHP_EOL .
-			'Script for generating running tests' . PHP_EOL .
-			'and generating API documentation of PhpOptions.'
+			'Script for running tests and generating API documentation of XSLT Benchmarking.'
 		);
 
 		$this->options = $options;
