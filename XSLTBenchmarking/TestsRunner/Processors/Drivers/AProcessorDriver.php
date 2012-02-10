@@ -75,6 +75,42 @@ abstract class AProcessorDriver
 
 
 	/**
+	 * Preparing command template for transformation, that are not include in measured time.
+	 *
+	 * Templates substitutions:
+	 * [XSLT] = path of XSLT template for transformation
+	 * [INPUT] = path of input XML file
+	 * [OUTPUT] = path of generated output XML file
+	 * [ERROR] = path of file for eventual generated error message
+	 * [LIBS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 *
+	 * @return string
+	 */
+	public function getBeforeCommandTemplate()
+	{
+		return '';
+	}
+
+
+	/**
+	 * Concluding command template for transformation, that are not include in measured time.
+	 *
+	 * Templates substitutions:
+	 * [XSLT] = path of XSLT template for transformation
+	 * [INPUT] = path of input XML file
+	 * [OUTPUT] = path of generated output XML file
+	 * [ERROR] = path of file for eventual generated error message
+	 * [LIBS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 *
+	 * @return string
+	 */
+	public function getAfterCommandTemplate()
+	{
+		return '';
+	}
+
+
+	/**
 	 * Flag, if template for transformating has to be set in input XML
 	 * by directive "<?xml-stylesheet href="[XSLT]" type="text/xml" ..."
 	 *

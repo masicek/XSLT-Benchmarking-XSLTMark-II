@@ -74,7 +74,7 @@ class CommandsTest extends TestCase
 			$method = new \ReflectionMethod('\XSLTBenchmarking\TestsRunner\Processor', 'getCommand');
 			$method->setAccessible(TRUE);
 			$command = $method->invokeArgs($processor, array(
-				$processorDriver,
+				$processorDriver->getCommandTemplate(),
 				$templatePath,
 				$inputXmlPath,
 				$outputPath,
@@ -120,7 +120,7 @@ class CommandsTest extends TestCase
 			$method = new \ReflectionMethod('\XSLTBenchmarking\TestsRunner\Processor', 'getCommand');
 			$method->setAccessible(TRUE);
 			$command = $method->invokeArgs($processor, array(
-				$processorDriver,
+				$processorDriver->getCommandTemplate(),
 				$templatePath,
 				$inputXmlPath,
 				$outputPath,

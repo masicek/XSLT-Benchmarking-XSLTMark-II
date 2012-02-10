@@ -27,16 +27,11 @@ class GetCommandTest extends TestCase
 
 	public function test()
 	{
-		$processorDriver = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel'), array(), '', FALSE);
-		$processorDriver->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('[LIBS] Lorem [XSLT] ipsum [INPUT][OUTPUT] dolor [ERROR]'));
-		$processorDriver->expects($this->never())->method('getFullName')->will($this->returnValue(''));
-		$processorDriver->expects($this->never())->method('getKernel')->will($this->returnValue(''));
-
 		$processor = new Processor(__DIR__);
 		$method = new \ReflectionMethod('\XSLTBenchmarking\TestsRunner\Processor', 'getCommand');
 		$method->setAccessible(TRUE);
 		$command = $method->invokeArgs($processor, array(
-			$processorDriver,
+			'[LIBS] Lorem [XSLT] ipsum [INPUT][OUTPUT] dolor [ERROR]',
 			'Template path',
 			'Input path',
 			'Output path',

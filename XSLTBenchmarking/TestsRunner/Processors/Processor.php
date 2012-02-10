@@ -142,7 +142,10 @@ class Processor
 		}
 
 		$errorPath = P::m($this->tmpDir, 'transformation.err');
-		$command = $this->getCommand($processor, $templatePath, $xmlInputPath, $outputPath, $errorPath);
+
+		$beforeCommand = $this->getCommand($processor->getBeforeCommandTemplate(), $templatePath, $xmlInputPath, $outputPath, $errorPath);
+		$command = $this->getCommand($processor->getCommandTemplate(), $templatePath, $xmlInputPath, $outputPath, $errorPath);
+		$afterCommand = $this->getCommand($processor->getAfterCommandTemplate(), $templatePath, $xmlInputPath, $outputPath, $errorPath);
 
 		$times = array();
 		for ($repeatingIdx = 0; $repeatingIdx < $repeating; $repeatingIdx++)
@@ -152,9 +155,22 @@ class Processor
 				throw new \XSLTBenchmarking\InvalidStateException('Error tmp file should not exist "' . $errorPath . '"');
 			}
 
+			// preparing command
+			if ($beforeCommand)
+			{
+				exec($beforeCommand);
+			}
+
+			// transformation command
 			$timeStart = Microtime::now();
 			exec($command);
 			$timeEnd = Microtime::now();
+
+			// concluding comand
+			if ($afterCommand)
+			{
+				exec($afterCommand);
+			}
 
 			// detect error
 			if (is_file($errorPath))
@@ -240,7 +256,7 @@ class Processor
 
 
 	/**
-	 * Make command for excute script with arguments
+	 * Make command from template
 	 *
 	 * Templates substitutions:
 	 * [XSLT] = path of XSLT template for transformation
@@ -249,7 +265,7 @@ class Processor
 	 * [ERROR] = path of file for eventual generated error message
 	 * [LIBS] = path of directory containing XSLT processors (libraries, command-line program etc.)
 	 *
-	 * @param AProcessorDriver $processor Driver for selected processor
+	 * @param string $commandTemplate Template of command
 	 * @param string $templatePath Path of XSLT template for transformation
 	 * @param string $xmlInputPath Path of input XML file
 	 * @param string $outputPath Path of generated output XML file
@@ -257,10 +273,9 @@ class Processor
 	 *
 	 * @return string
 	 */
-	private function getCommand(AProcessorDriver $processor, $templatePath, $xmlInputPath, $outputPath, $errorPath)
+	private function getCommand($commandTemplate, $templatePath, $xmlInputPath, $outputPath, $errorPath)
 	{
-		// get command by OS
-		$command = $processor->getCommandTemplate();
+		$command = $commandTemplate;
 
 		// replace substitutions
 		$command = str_replace('[XSLT]', $templatePath, $command);
