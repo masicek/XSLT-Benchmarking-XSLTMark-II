@@ -123,6 +123,15 @@ abstract class AProcessorDriver
 
 
 	/**
+	 * Return flag, if the driver is available.
+	 * For example, it can be used for distinguish OS.
+	 *
+	 * @return bool
+	 */
+	abstract public function isAvailable();
+
+
+	/**
 	 * Return template of command
 	 *
 	 * Templates substitutions:

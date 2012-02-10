@@ -228,7 +228,7 @@ class Processor
 			$driver = new $className;
 
 			// driver have to be instance of AProcessorDriver
-			if ($driver instanceof AProcessorDriver)
+			if (($driver instanceof AProcessorDriver) && ($driver->isAvailable()))
 			{
 				$drivers[$driver->getName()] = $driver;
 			}

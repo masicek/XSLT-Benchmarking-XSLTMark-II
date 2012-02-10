@@ -23,6 +23,24 @@ class Sablotron103cmdProcessorDriver extends AProcessorDriver
 
 
 	/**
+	 * Return flag, if the driver is available.
+	 *
+	 * @return bool
+	 */
+	public function isAvailable()
+	{
+		if (PHP_OS == self::OS_WIN)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+
+	/**
 	 * Return template of command
 	 *
 	 * Templates substitutions:
@@ -45,11 +63,7 @@ class Sablotron103cmdProcessorDriver extends AProcessorDriver
 //			case self::OS_LINUX:
 //				$commandTemplate = '[LIBS]/Sablotron/1.0.3/sabcmd [XSLT] [INPUT] [OUTPUT] 2> [ERROR]';
 //				break;
-
-			default:// @codeCoverageIgnoreStart
-				throw new \XSLTBenchmarking\UnsupportedOSException();
-				break;
-		}// @codeCoverageIgnoreEnd
+		}
 
 		return $commandTemplate;
 	}

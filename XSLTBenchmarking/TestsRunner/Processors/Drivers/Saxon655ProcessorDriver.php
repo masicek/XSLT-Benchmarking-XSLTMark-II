@@ -23,6 +23,24 @@ class Saxon655ProcessorDriver extends AProcessorDriver
 
 
 	/**
+	 * Return flag, if the driver is available.
+	 *
+	 * @return bool
+	 */
+	public function isAvailable()
+	{
+		if (PHP_OS == self::OS_WIN)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+
+	/**
 	 * Return template of command
 	 *
 	 * Templates substitutions:
@@ -46,10 +64,7 @@ class Saxon655ProcessorDriver extends AProcessorDriver
 //				$prefix = '[LIBS]/../Java/??????/java';
 //				break;
 
-			default:// @codeCoverageIgnoreStart
-				throw new \XSLTBenchmarking\UnsupportedOSException();
-				break;
-		}// @codeCoverageIgnoreEnd
+		}
 
 		$commandTemplate = $prefix . ' -jar [LIBS]\Saxon\6.5.5\saxon.jar -o "[OUTPUT]" "[INPUT]" "[XSLT]" 2> "[ERROR]"';
 		$commandTemplate = str_replace('\\', DIRECTORY_SEPARATOR, $commandTemplate);

@@ -58,21 +58,23 @@ class RunTest extends TestCase
 
 	public function testBadTemplatePath()
 	{
-		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorOK->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
 		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
 		$processorOK->expects($this->never())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorOK->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
-		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorError->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
 		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
 		$processorError->expects($this->never())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorError->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
 		$available = array(
 			'processorOK' => $processorOK,
@@ -88,21 +90,23 @@ class RunTest extends TestCase
 
 	public function testBadXmlInputPath()
 	{
-		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorOK->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
 		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
 		$processorOK->expects($this->never())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorOK->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
-		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorError->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
 		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
 		$processorError->expects($this->never())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorError->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
 		$available = array(
 			'processorOK' => $processorOK,
@@ -118,21 +122,23 @@ class RunTest extends TestCase
 
 	public function testErrorFileExist()
 	{
-		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorOK->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
 		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
 		$processorOK->expects($this->never())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorOK->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
-		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorError->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
 		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorError->expects($this->once())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
 		$processorError->expects($this->once())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorError->expects($this->once())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorError->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
 		$available = array(
 			'processorOK' => $processorOK,
@@ -149,21 +155,23 @@ class RunTest extends TestCase
 
 	public function testError()
 	{
-		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorOK->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
 		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
 		$processorOK->expects($this->never())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorOK->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
-		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorError->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
 		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorError->expects($this->once())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
 		$processorError->expects($this->once())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorError->expects($this->once())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorError->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
 		$available = array(
 			'processorOK' => $processorOK,
@@ -183,21 +191,23 @@ class RunTest extends TestCase
 
 	public function testXmlAndXsltSeparately()
 	{
-		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorOK->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
 		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorOK->expects($this->once())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
 		$processorOK->expects($this->once())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorOK->expects($this->once())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorOK->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
-		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorError->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
 		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
 		$processorError->expects($this->never())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorError->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
 		$available = array(
 			'processorOK' => $processorOK,
@@ -224,21 +234,23 @@ class RunTest extends TestCase
 
 	public function testXsltInXml()
 	{
-		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorOK->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
 		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorOK->expects($this->once())->method('isTemplateSetInInput')->will($this->returnValue(TRUE));
 		$processorOK->expects($this->once())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorOK->expects($this->once())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorOK->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
-		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorError->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
 		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('isTemplateSetInInput')->will($this->returnValue(TRUE));
 		$processorError->expects($this->never())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorError->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
 		$available = array(
 			'processorOK' => $processorOK,
@@ -279,7 +291,7 @@ class RunTest extends TestCase
 		$controleOutputPath = $this->setDirSep(__DIR__ . '/controleOutput');
 		file_put_contents($controleOutputPath, '');
 
-		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorOK->expects($this->once())->method('getCommandTemplate')->will($this->returnValue(
 			'php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test command;\');"'
 		));
@@ -292,14 +304,16 @@ class RunTest extends TestCase
 		$processorOK->expects($this->once())->method('getAfterCommandTemplate')->will($this->returnValue(
 			'php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test of after command;\');"'
 		));
+		$processorOK->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
-		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate'), array(), '', FALSE);
+		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorError->expects($this->never())->method('getCommandTemplate')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
 		$processorError->expects($this->never())->method('getBeforeCommandTemplate')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getAfterCommandTemplate')->will($this->returnValue(''));
+		$processorError->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
 		$available = array(
 			'processorOK' => $processorOK,

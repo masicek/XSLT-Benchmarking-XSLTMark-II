@@ -12,35 +12,35 @@ namespace Tests\XSLTBenchmarking\TestsRunner\Processor;
 require_once ROOT_TOOLS . '/TestsRunner/Processors/Drivers/AProcessorDriver.php';
 
 /**
- * SecondProcessorDriver
+ * NotAvailableProcessorDriver
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class SecondProcessorDriver extends \XSLTBenchmarking\TestsRunner\AProcessorDriver
+class NotAvailableProcessorDriver extends \XSLTBenchmarking\TestsRunner\AProcessorDriver
 {
 
 
 	public function isAvailable()
 	{
-		return TRUE;
+		return FALSE;
 	}
 
 
 	public function getCommandTemplate()
 	{
-		return 'Second command';
+		return '';
 	}
 
 
 	public function getFullName()
 	{
-		return 'Second processor';
+		return 'First processor';
 	}
 
 
 	public function getKernel()
 	{
-		return 'Second kernel';
+		return 'First kernel';
 	}
 
 

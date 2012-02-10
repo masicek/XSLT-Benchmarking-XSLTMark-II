@@ -93,17 +93,4 @@ class ExceptionsTest extends TestCase
 	}
 
 
-	/**
-	 * @covers \XSLTBenchmarking\UnsupportedOSException
-	 */
-	public function testUnsupportedOSException()
-	{
-		$this->setExpectedException(
-			'\XSLTBenchmarking\UnsupportedOSException',
-			'Unsupported operating system "' . PHP_OS . '"'
-		);
-		throw new \XSLTBenchmarking\UnsupportedOSException();
-	}
-
-
 }

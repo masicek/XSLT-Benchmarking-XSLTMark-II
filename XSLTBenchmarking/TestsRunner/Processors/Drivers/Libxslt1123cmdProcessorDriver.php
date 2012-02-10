@@ -23,6 +23,24 @@ class Libxslt1123cmdProcessorDriver extends AProcessorDriver
 
 
 	/**
+	 * Return flag, if the driver is available.
+	 *
+	 * @return bool
+	 */
+	public function isAvailable()
+	{
+		if (PHP_OS == self::OS_WIN)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+
+	/**
 	 * Return template of command
 	 *
 	 * Templates substitutions:
@@ -45,11 +63,7 @@ class Libxslt1123cmdProcessorDriver extends AProcessorDriver
 //			case self::OS_LINUX:
 //				$commandTemplate = '[LIBS]/libxslt/1.1.23/xsltproc -o [OUTPUT] [XSLT] [INPUT] 2> [ERROR]';
 //				break;
-
-			default:// @codeCoverageIgnoreStart
-				throw new \XSLTBenchmarking\UnsupportedOSException();
-				break;
-		}// @codeCoverageIgnoreEnd
+		}
 
 		return $commandTemplate;
 	}

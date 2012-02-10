@@ -19,6 +19,11 @@ require_once ROOT_TOOLS . '/TestsRunner/Processors/Drivers/AProcessorDriver.php'
 class FirstProcessorDriver extends \XSLTBenchmarking\TestsRunner\AProcessorDriver
 {
 
+	public function isAvailable()
+	{
+		return TRUE;
+	}
+
 
 	public function getCommandTemplate()
 	{

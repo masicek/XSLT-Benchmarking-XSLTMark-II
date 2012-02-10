@@ -23,6 +23,24 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 
 
 	/**
+	 * Return flag, if the driver is available.
+	 *
+	 * @return bool
+	 */
+	public function isAvailable()
+	{
+		if (PHP_OS == self::OS_WIN)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+
+
+	/**
 	 * Return template of command
 	 *
 	 * Templates substitutions:
@@ -48,10 +66,7 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 //				$prefix = '[LIBS]/../Php/?????/php';
 //				break;
 
-			default:// @codeCoverageIgnoreStart
-				throw new \XSLTBenchmarking\UnsupportedOSException();
-				break;
-		}// @codeCoverageIgnoreEnd
+		}
 
 		$phpScript = 'try {' .
 			'	libxml_use_internal_errors(TRUE);' .
