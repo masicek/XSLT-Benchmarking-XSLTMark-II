@@ -28,6 +28,7 @@ require_once ROOT . '/TestsRunner/Processors/Processor.php';
 require_once ROOT . '/TestsRunner/Controlor.php';
 
 require_once ROOT . '/Reports/Printer.php';
+require_once ROOT . '/Reports/Merger.php';
 
 
 use XSLTBenchmarking\Microtime;
@@ -111,6 +112,12 @@ class Runner
 		{
 			$this->runTests();
 		}
+
+		// merge reports
+		if ($options->get('Merge reports'))
+		{
+			$this->mergeReports();
+		}
 	}
 
 
@@ -153,7 +160,7 @@ class Runner
 				->value(FALSE)
 				->defaults('../Data/Tests')
 				->description('Directory for generating tests');
-			$optionsList[] = Option::directory('Reports', $baseDir, 'makeDir')
+			$reportsDir = $optionsList[] = Option::directory('Reports', $baseDir, 'makeDir')
 				->short()
 				->value(FALSE)
 				->defaults('../Data/Reports')
@@ -225,6 +232,21 @@ class Runner
 				->defaults(1)
 				->description('Number of repeatig for each test and processor.');
 
+			// merge reports
+			$orderReports = $optionsList[] = Option::enum('Order reports', 'asc,desc,set')
+				->defaults('set')
+				->description('Type of ordering for merge reports.');
+
+			$optionsList[] = Option::series('Merge reports')
+				->value(FALSE)
+				->defaults(TRUE)
+				->description(
+					'List of mergered reports in directory set by "' . $reportsDir->getOptions() . '". ' .
+					'If this option is set without value, ' .
+					'then all available reports (without suffix "-merge") are mergered. ' .
+					'Reports are mergered in set order or ordered by name ' .
+					'if option "' . $orderReports->getOptions() . '" is set.'
+				);
 
 			$options->add($optionsList);
 
@@ -257,6 +279,12 @@ class Runner
 					'Reports',
 					'Tmp')
 			);
+
+			$options->group('Reporting', array(
+				'Merge reports',
+				'Order reports',
+				'Reports',
+			));
 
 		} catch (\PhpOptions\UserBadCallException $e) {// @codeCoverageIgnoreStart
 			Printer::info('ERROR: ' . $e->getMessage());
@@ -342,7 +370,7 @@ class Runner
 		// generate all templates
 		if ($templatesDirs === TRUE)
 		{
-			$templatesDirs = $this->getDirs($templatesDir);
+			$templatesDirs = $this->getSubresources($templatesDir, 'directories');
 		}
 
 		foreach ($templatesDirs as $templateDir)
@@ -402,7 +430,7 @@ class Runner
 		// generate all templates
 		if ($testsDirs === TRUE)
 		{
-			$testsDirs = $this->getDirs($testsDir);
+			$testsDirs = $this->getSubresources($testsDir, 'directories');
 		}
 
 		foreach ($testsDirs as $testDir)
@@ -420,17 +448,60 @@ class Runner
 	}
 
 
+	/**
+	 * Merge reports into one report file
+	 *
+	 * @return void
+	 */
+	private function mergeReports()
+	{
+		Printer::header('Merge reports');
+
+		$options = $this->options;
+		$reportsDir = $options->get('Reports');
+		$reportsFiles = $options->get('Merge reports');
+		$orderType = $options->get('Order reports');
+
+		// generate all templates
+		if ($reportsFiles === TRUE)
+		{
+			$reportsFiles = $this->getSubresources($reportsDir, 'files');
+		}
+
+		// order
+		if ($orderType == 'asc' || $orderType == 'desc')
+		{
+			sort($reportsFiles);
+		}
+		if ($orderType == 'desc')
+		{
+			array_reverse($reportsFiles);
+		}
+
+		$merger = new \XSLTBenchmarking\Reports\Merger();
+
+		foreach ($reportsFiles as $reportFile)
+		{
+			$merger->addReportFile(P::m($reportsDir, $reportFile));
+		}
+
+		$generatedReport = $merger->merge($reportsDir);
+
+		Printer::info(count($reportsFiles) . ' resports were mergered into "' . $generatedReport . '".');
+	}
+
+
 	// ---- HELPS FUNCTIONS ----
 
 
 	/**
-	 * Return subdirectories names
+	 * Return subdirectories and files names in set path
 	 *
 	 * @param string $path Directory that is scanned
 	 *
 	 * @return array
 	 */
-	private function getDirs($path)
+	private function getSubresources($path, $type = NULL)
 	{
 		$allResources = scandir($path);
 
@@ -439,6 +510,14 @@ class Runner
 		{
 			if (!in_array($resource, array('.', '..')) && is_dir(P::m($path, $resource)))
 			{
+				if ($type == 'directories' && !is_dir($resource))
+				{
+					continue;
+				}
+				if ($type == 'files' && !is_file($resource))
+				{
+					continue;
+				}
 				$dirs[] = $resource;
 			}
 		}
