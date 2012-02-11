@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	<global>
+		<processors>
+			<processor name="processor1" firstInformation="First information 1" secondInformation="Second information 1" thirdInformation="Third information 1" />
+			<processor name="processor2" firstInformation="First information 2" />
+		</processors>
+	</global>
+	<tests>
+		<test name="First test" template="template 1">
+			<processor name="processor1">
+				<input input="input 1" expectedOutput="expected 1" success="OK" correctness="1" sumTime="123.456" avgTime="444.555" repeating="111" />
+				<input input="input 2" expectedOutput="expected 2" success="Error 1" correctness="0" sumTime="" avgTime="" repeating="111" />
+			</processor>
+			<processor name="processor2">
+				<input input="input 1" expectedOutput="expected 1" success="Error 2.1" correctness="0" sumTime="" avgTime="" repeating="111" />
+				<input input="input 2" expectedOutput="expected 1" success="Error 2.2" correctness="0" sumTime="" avgTime="" repeating="111" />
+			</processor>
+		</test>
+		<test name="Second test" template="template 2">
+			<processor name="processor1">
+				<input input="input 10" expectedOutput="expected 10" success="OK" correctness="1" sumTime="9123.456" avgTime="9444.555" repeating="111" />
+				<input input="input 20" expectedOutput="expected 20" success="Error 10" correctness="0" sumTime="" avgTime="" repeating="111" />
+				<input input="input 30" expectedOutput="expected 30" success="OK" correctness="0" sumTime="9333.666" avgTime="91.2" repeating="111" />
+			</processor>
+			<processor name="processor2">
+				<input input="input 10" expectedOutput="expected 10" success="OK" correctness="1" sumTime="1001" avgTime="2001" repeating="111" />
+				<input input="input 20" expectedOutput="expected 20" success="OK" correctness="0" sumTime="1002" avgTime="2002" repeating="111" />
+				<input input="input 30" expectedOutput="expected 30" success="OK" correctness="1" sumTime="1003" avgTime="2003" repeating="111" />
+			</processor>
+		</test>
+	</tests>
+</reports>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<reports>
+	<global>
+		<processors>
+			<processor name="processor1" firstInformation="First information 1" secondInformation="Second information 1" thirdInformation="Third information 1" />
+			<processor name="processor2" firstInformation="First information 2" />
+			<processor name="processor3" firstInformation="First information 3" secondInformation="Second information 3" />
+		</processors>
+	</global>
+	<tests>
+		<test name="First test" template="template 1">
+			<processor name="processor1">
+				<input input="input 1" expectedOutput="expected 1" success="OK" correctness="1" sumTime="123.456" avgTime="444.555" repeating="111" />
+				<input input="input 2" expectedOutput="expected 2" success="Error 1" correctness="0" sumTime="" avgTime="" repeating="111" />
+			</processor>
+			<processor name="processor2">
+				<input input="input 1" expectedOutput="expected 1" success="Error 2.1" correctness="0" sumTime="" avgTime="" repeating="111" />
+				<input input="input 2" expectedOutput="expected 1" success="Error 2.2" correctness="0" sumTime="" avgTime="" repeating="111" />
+			</processor>
+			<processor name="processor3">
+				<input input="input 1" expectedOutput="expected 1" success="OK" correctness="1" sumTime="10100" avgTime="20100" repeating="111" />
+				<input input="input 2" expectedOutput="expected 2" success="OK" correctness="0" sumTime="10200" avgTime="20200" repeating="111" />
+				<input input="input 3" expectedOutput="expected 3" success="OK" correctness="1" sumTime="10300" avgTime="20300" repeating="111" />
+				<input input="input 4" expectedOutput="expected 4" success="OK" correctness="0" sumTime="10400" avgTime="20400" repeating="111" />
+			</processor>
+		</test>
+	</tests>
+</reports>
