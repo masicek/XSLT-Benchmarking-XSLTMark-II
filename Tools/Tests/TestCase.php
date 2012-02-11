@@ -34,7 +34,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
 	/**
 	 * Turn off skipping of tests if it is required
 	 */
-	public static function markTestSkipped($message = '')
+	public static function markTestSkipped($message = 'This test is OK, but too long. Unskipped for global final testing.')
 	{
 		if (TEST_SKIPPED)
 		{
