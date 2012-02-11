@@ -38,13 +38,6 @@ class Printer
 	private $processors;
 
 	/**
-	 * Number of repeating each tranformation during testing
-	 *
-	 * @var int
-	 */
-	private $repeating;
-
-	/**
 	 * List of reports
 	 *
 	 * @var array of \XSLTBenchmarking\Reports\Report
@@ -57,15 +50,13 @@ class Printer
 	 *
 	 * @param string $reportsDir Directory for generating the report
 	 * @param array $processors ([name] => ('[INFORMATION NAME]' => [INFORMATION VALUE], ...)
-	 * @param int $repeating Number of repeating each tranformation during testing
 	 */
-	public function __construct($reportsDir, array $processors, $repeating)
+	public function __construct($reportsDir, array $processors)
 	{
 		P::mcd($reportsDir);
 
 		$this->reportsDir = $reportsDir;
 		$this->processors = $processors;
-		$this->repeating = $repeating;
 	}
 
 
@@ -99,7 +90,7 @@ class Printer
 	 *    <tests>
 	 *       <test name="..." template="...">
 	 *          <processor name="...">
-	 *             <input input="..." expectedOutput="..." success="..." correctness="..." sumTime="..." avgTime="..." />
+	 *             <input input="..." expectedOutput="..." success="..." correctness="..." sumTime="..." avgTime="..." repeating="..." />
 	 *             <input ... />
 	 *             ...
 	 *          </processor>
@@ -125,7 +116,6 @@ class Printer
 
 		// global informations
 		$globalEl = $reportsEl->addChild('global');
-		$globalEl->addChild('repeating', $this->repeating);
 		$processorsListEl = $globalEl->addChild('processors');
 		foreach ($this->processors as $name => $processor)
 		{
@@ -159,6 +149,7 @@ class Printer
 					$inputEl->addAttribute('correctness', (int)$data['correctness']);
 					$inputEl->addAttribute('sumTime', $data['sumTime']);
 					$inputEl->addAttribute('avgTime', $data['avgTime']);
+					$inputEl->addAttribute('repeating', $data['repeating']);
 				}
 			}
 		}

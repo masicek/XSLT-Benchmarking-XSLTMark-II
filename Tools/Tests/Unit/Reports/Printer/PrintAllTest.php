@@ -34,7 +34,7 @@ class PrintAllTest extends TestCase
 			'processor2' => array('firstInformation' => 'First information 2'),
 			'processor3' => array('firstInformation' => 'First information 3', 'secondInformation' => 'Second information 3'),
 		);
-		$printer = new Printer(__DIR__ . '/reports', $processors, 111);
+		$printer = new Printer(__DIR__ . '/reports', $processors);
 
 		// report 1
 		$report1 = \Mockery::mock('\XSLTBenchmarking\Reports\Report');
@@ -42,22 +42,22 @@ class PrintAllTest extends TestCase
 		$report1->shouldReceive('getTemplatePath')->andReturn('template 1');
 		$report1->shouldReceive('getProcessors')->andReturn(array('processor1', 'processor2', 'processor3'));
 		$report1->shouldReceive('getInputs')->with('processor1')->andReturn(array(
-			array('input' => 'input 1', 'expectedOutput' => 'expected 1', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '123.456', 'avgTime' => '444.555'),
-			array('input' => 'input 2', 'expectedOutput' => 'expected 2', 'success' => 'Error 1', 'correctness' => '', 'sumTime' => '', 'avgTime' => ''),
-			array('input' => 'input 3', 'expectedOutput' => 'expected 3', 'success' => 'OK', 'correctness' => FALSE, 'sumTime' => '333.666', 'avgTime' => '1.2'),
-			array('input' => 'input 4', 'expectedOutput' => 'expected 1', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '111.222', 'avgTime' => '333.444'),
+			array('input' => 'input 1', 'expectedOutput' => 'expected 1', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '123.456', 'avgTime' => '444.555', 'repeating' => '111'),
+			array('input' => 'input 2', 'expectedOutput' => 'expected 2', 'success' => 'Error 1', 'correctness' => '', 'sumTime' => '', 'avgTime' => '', 'repeating' => '111'),
+			array('input' => 'input 3', 'expectedOutput' => 'expected 3', 'success' => 'OK', 'correctness' => FALSE, 'sumTime' => '333.666', 'avgTime' => '1.2', 'repeating' => '111'),
+			array('input' => 'input 4', 'expectedOutput' => 'expected 1', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '111.222', 'avgTime' => '333.444', 'repeating' => '111'),
 		));
 		$report1->shouldReceive('getInputs')->with('processor2')->andReturn(array(
-			array('input' => 'input 1', 'expectedOutput' => 'expected 1', 'success' => 'Error 2.1', 'correctness' => '', 'sumTime' => '', 'avgTime' => ''),
-			array('input' => 'input 2', 'expectedOutput' => 'expected 1', 'success' => 'Error 2.2', 'correctness' => '', 'sumTime' => '', 'avgTime' => ''),
-			array('input' => 'input 3', 'expectedOutput' => 'expected 1', 'success' => 'Error 2.3', 'correctness' => '', 'sumTime' => '', 'avgTime' => ''),
-			array('input' => 'input 4', 'expectedOutput' => 'expected 1', 'success' => 'Error 2.4', 'correctness' => '', 'sumTime' => '', 'avgTime' => ''),
+			array('input' => 'input 1', 'expectedOutput' => 'expected 1', 'success' => 'Error 2.1', 'correctness' => '', 'sumTime' => '', 'avgTime' => '', 'repeating' => '111'),
+			array('input' => 'input 2', 'expectedOutput' => 'expected 1', 'success' => 'Error 2.2', 'correctness' => '', 'sumTime' => '', 'avgTime' => '', 'repeating' => '111'),
+			array('input' => 'input 3', 'expectedOutput' => 'expected 1', 'success' => 'Error 2.3', 'correctness' => '', 'sumTime' => '', 'avgTime' => '', 'repeating' => '111'),
+			array('input' => 'input 4', 'expectedOutput' => 'expected 1', 'success' => 'Error 2.4', 'correctness' => '', 'sumTime' => '', 'avgTime' => '', 'repeating' => '111'),
 		));
 		$report1->shouldReceive('getInputs')->with('processor3')->andReturn(array(
-			array('input' => 'input 1', 'expectedOutput' => 'expected 1', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '101', 'avgTime' => '201'),
-			array('input' => 'input 2', 'expectedOutput' => 'expected 2', 'success' => 'OK', 'correctness' => FALSE, 'sumTime' => '102', 'avgTime' => '202'),
-			array('input' => 'input 3', 'expectedOutput' => 'expected 3', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '103', 'avgTime' => '203'),
-			array('input' => 'input 4', 'expectedOutput' => 'expected 4', 'success' => 'OK', 'correctness' => FALSE, 'sumTime' => '104', 'avgTime' => '204'),
+			array('input' => 'input 1', 'expectedOutput' => 'expected 1', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '101', 'avgTime' => '201', 'repeating' => '111'),
+			array('input' => 'input 2', 'expectedOutput' => 'expected 2', 'success' => 'OK', 'correctness' => FALSE, 'sumTime' => '102', 'avgTime' => '202', 'repeating' => '111'),
+			array('input' => 'input 3', 'expectedOutput' => 'expected 3', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '103', 'avgTime' => '203', 'repeating' => '111'),
+			array('input' => 'input 4', 'expectedOutput' => 'expected 4', 'success' => 'OK', 'correctness' => FALSE, 'sumTime' => '104', 'avgTime' => '204', 'repeating' => '111'),
 		));
 
 		// report 2
@@ -66,22 +66,22 @@ class PrintAllTest extends TestCase
 		$report2->shouldReceive('getTemplatePath')->andReturn('template 2');
 		$report2->shouldReceive('getProcessors')->andReturn(array('processor1', 'processor2', 'processor3'));
 		$report2->shouldReceive('getInputs')->with('processor1')->andReturn(array(
-			array('input' => 'input 10', 'expectedOutput' => 'expected 10', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '9123.456', 'avgTime' => '9444.555'),
-			array('input' => 'input 20', 'expectedOutput' => 'expected 20', 'success' => 'Error 10', 'correctness' => '', 'sumTime' => '', 'avgTime' => ''),
-			array('input' => 'input 30', 'expectedOutput' => 'expected 30', 'success' => 'OK', 'correctness' => FALSE, 'sumTime' => '9333.666', 'avgTime' => '91.2'),
-			array('input' => 'input 40', 'expectedOutput' => 'expected 10', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '9111.222', 'avgTime' => '9333.444'),
+			array('input' => 'input 10', 'expectedOutput' => 'expected 10', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '9123.456', 'avgTime' => '9444.555', 'repeating' => '111'),
+			array('input' => 'input 20', 'expectedOutput' => 'expected 20', 'success' => 'Error 10', 'correctness' => '', 'sumTime' => '', 'avgTime' => '', 'repeating' => '111'),
+			array('input' => 'input 30', 'expectedOutput' => 'expected 30', 'success' => 'OK', 'correctness' => FALSE, 'sumTime' => '9333.666', 'avgTime' => '91.2', 'repeating' => '111'),
+			array('input' => 'input 40', 'expectedOutput' => 'expected 10', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '9111.222', 'avgTime' => '9333.444', 'repeating' => '111'),
 		));
 		$report2->shouldReceive('getInputs')->with('processor2')->andReturn(array(
-			array('input' => 'input 10', 'expectedOutput' => 'expected 10', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '1001', 'avgTime' => '2001'),
-			array('input' => 'input 20', 'expectedOutput' => 'expected 20', 'success' => 'OK', 'correctness' => FALSE, 'sumTime' => '1002', 'avgTime' => '2002'),
-			array('input' => 'input 30', 'expectedOutput' => 'expected 30', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '1003', 'avgTime' => '2003'),
-			array('input' => 'input 40', 'expectedOutput' => 'expected 40', 'success' => 'OK', 'correctness' => FALSE, 'sumTime' => '1004', 'avgTime' => '2004'),
+			array('input' => 'input 10', 'expectedOutput' => 'expected 10', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '1001', 'avgTime' => '2001', 'repeating' => '111'),
+			array('input' => 'input 20', 'expectedOutput' => 'expected 20', 'success' => 'OK', 'correctness' => FALSE, 'sumTime' => '1002', 'avgTime' => '2002', 'repeating' => '111'),
+			array('input' => 'input 30', 'expectedOutput' => 'expected 30', 'success' => 'OK', 'correctness' => TRUE, 'sumTime' => '1003', 'avgTime' => '2003', 'repeating' => '111'),
+			array('input' => 'input 40', 'expectedOutput' => 'expected 40', 'success' => 'OK', 'correctness' => FALSE, 'sumTime' => '1004', 'avgTime' => '2004', 'repeating' => '111'),
 		));
 		$report2->shouldReceive('getInputs')->with('processor3')->andReturn(array(
-			array('input' => 'input 10', 'expectedOutput' => 'expected 10', 'success' => 'Error 3.1', 'correctness' => '', 'sumTime' => '', 'avgTime' => ''),
-			array('input' => 'input 20', 'expectedOutput' => 'expected 10', 'success' => 'Error 3.2', 'correctness' => '', 'sumTime' => '', 'avgTime' => ''),
-			array('input' => 'input 30', 'expectedOutput' => 'expected 10', 'success' => 'Error 3.3', 'correctness' => '', 'sumTime' => '', 'avgTime' => ''),
-			array('input' => 'input 40', 'expectedOutput' => 'expected 10', 'success' => 'Error 3.4', 'correctness' => '', 'sumTime' => '', 'avgTime' => ''),
+			array('input' => 'input 10', 'expectedOutput' => 'expected 10', 'success' => 'Error 3.1', 'correctness' => '', 'sumTime' => '', 'avgTime' => '', 'repeating' => '111'),
+			array('input' => 'input 20', 'expectedOutput' => 'expected 10', 'success' => 'Error 3.2', 'correctness' => '', 'sumTime' => '', 'avgTime' => '', 'repeating' => '111'),
+			array('input' => 'input 30', 'expectedOutput' => 'expected 10', 'success' => 'Error 3.3', 'correctness' => '', 'sumTime' => '', 'avgTime' => '', 'repeating' => '111'),
+			array('input' => 'input 40', 'expectedOutput' => 'expected 10', 'success' => 'Error 3.4', 'correctness' => '', 'sumTime' => '', 'avgTime' => '', 'repeating' => '111'),
 		));
 
 		$this->setPropertyValue($printer, 'reports', array($report1, $report2));

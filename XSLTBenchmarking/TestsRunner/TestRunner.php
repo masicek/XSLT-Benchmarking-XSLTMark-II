@@ -189,7 +189,8 @@ class TestRunner
 					$expectedOutputPath,
 					$success,
 					$correctness,
-					$spendTimes
+					$spendTimes,
+					$this->repeating
 				);
 			}
 		}

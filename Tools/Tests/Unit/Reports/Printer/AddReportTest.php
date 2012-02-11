@@ -27,7 +27,7 @@ class AddReportTest extends TestCase
 
 	public function test()
 	{
-		$printer = new Printer(__DIR__, array('Lorem', 'ipsum'), 111);
+		$printer = new Printer(__DIR__, array('Lorem', 'ipsum'));
 		$report1 = $this->getMock('\XSLTBenchmarking\Reports\Report', array(), array(), '', FALSE);
 		$report2 = $this->getMock('\XSLTBenchmarking\Reports\Report', array(), array(), '', FALSE);
 		$report3 = $this->getMock('\XSLTBenchmarking\Reports\Report', array(), array(), '', FALSE);

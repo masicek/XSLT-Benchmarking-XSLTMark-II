@@ -392,8 +392,7 @@ class Runner
 			),
 			new \XSLTBenchmarking\Reports\Printer(
 				$reportsDir,
-				$processor->getInformations(),
-				$repeating
+				$processor->getInformations()
 			),
 			$testsDir
 		);

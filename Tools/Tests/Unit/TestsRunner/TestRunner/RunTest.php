@@ -71,7 +71,8 @@ class RunTest extends TestCase
 					'dir1/out1',
 					'Error 11',
 					FALSE,
-					array()
+					array(),
+					123
 				);
 				$report->shouldReceive('addRecord')->once()->with(
 					'processor1',
@@ -79,7 +80,8 @@ class RunTest extends TestCase
 					'dir1/out2',
 					TRUE,
 					FALSE,
-					array('Spend times 12')
+					array('Spend times 12'),
+					123
 				);
 				$report->shouldReceive('addRecord')->once()->with(
 					'processor2',
@@ -87,7 +89,8 @@ class RunTest extends TestCase
 					'dir1/out1',
 					TRUE,
 					TRUE,
-					array('Spend times 13')
+					array('Spend times 13'),
+					123
 				);
 				$report->shouldReceive('addRecord')->once()->with(
 					'processor2',
@@ -95,7 +98,8 @@ class RunTest extends TestCase
 					'dir1/out2',
 					'Error 14',
 					FALSE,
-					array()
+					array(),
+					123
 				);
 				return $report;
 			}
@@ -111,7 +115,8 @@ class RunTest extends TestCase
 					'dir2/out1',
 					'Error 21',
 					FALSE,
-					array()
+					array(),
+					123
 				);
 				$report->shouldReceive('addRecord')->once()->with(
 					'processor1',
@@ -119,7 +124,8 @@ class RunTest extends TestCase
 					'dir2/out2',
 					'Error 22',
 					FALSE,
-					array()
+					array(),
+					123
 				);
 				$report->shouldReceive('addRecord')->once()->with(
 					'processor2',
@@ -127,7 +133,8 @@ class RunTest extends TestCase
 					'dir2/out1',
 					TRUE,
 					TRUE,
-					array('Spend times 23')
+					array('Spend times 23'),
+					123
 				);
 				$report->shouldReceive('addRecord')->once()->with(
 					'processor2',
@@ -135,7 +142,8 @@ class RunTest extends TestCase
 					'dir2/out2',
 					TRUE,
 					TRUE,
-					array('Spend times 24')
+					array('Spend times 24'),
+					123
 				);
 				return $report;
 			}

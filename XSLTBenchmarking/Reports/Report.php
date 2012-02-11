@@ -67,6 +67,7 @@ class Report
 	 * @param string $success 'OK' or error message
 	 * @param bool $correctness Flag of correcness transformation
 	 * @param array $spendTimes Spended times by transformations
+	 * @param int $repeating Number of repeating tranformation
 	 *
 	 * @return void
 	 */
@@ -76,7 +77,8 @@ class Report
 		$expectedOutputPath,
 		$success,
 		$correctness,
-		array $spendTimes
+		array $spendTimes,
+		$repeating
 	)
 	{
 		$record = array();
@@ -95,6 +97,7 @@ class Report
 			$record['sumTime'] = '';
 			$record['avgTime'] = '';
 		}
+		$record['repeating'] = $repeating;
 
 		if (!isset($this->records[$processorName]))
 		{

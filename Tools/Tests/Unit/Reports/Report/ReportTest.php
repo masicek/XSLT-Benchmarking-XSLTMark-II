@@ -50,7 +50,8 @@ class ReportTest extends TestCase
 			'expected output path 1',
 			'OK',
 			TRUE,
-			array('123.456')
+			array('123.456'),
+			111
 		);
 
 		$this->assertEquals(array('processor1'), $report->getProcessors());
@@ -63,6 +64,7 @@ class ReportTest extends TestCase
 					'correctness' => TRUE,
 					'sumTime' => '123.456',
 					'avgTime' => '123.456',
+					'repeating' => '111',
 				),
 			),
 			$report->getInputs('processor1')
@@ -84,7 +86,8 @@ class ReportTest extends TestCase
 			'expected output path 1',
 			'OK',
 			TRUE,
-			array('123.456')
+			array('123.456'),
+			111
 		);
 		$report->addRecord(
 			'processor1',
@@ -92,7 +95,8 @@ class ReportTest extends TestCase
 			'expected output path 2',
 			'Error 1',
 			FALSE,
-			array()
+			array(),
+			222
 		);
 		$report->addRecord(
 			'processor2',
@@ -100,7 +104,8 @@ class ReportTest extends TestCase
 			'expected output path 1',
 			'OK',
 			TRUE,
-			array('555.666', '444.555', '666.777')
+			array('555.666', '444.555', '666.777'),
+			333
 		);
 
 		$this->assertEquals(array('processor1', 'processor2'), $report->getProcessors());
@@ -113,6 +118,7 @@ class ReportTest extends TestCase
 					'correctness' => TRUE,
 					'sumTime' => '123.456',
 					'avgTime' => '123.456',
+					'repeating' => '111',
 				),
 				array(
 					'input' => 'input path 2',
@@ -121,6 +127,7 @@ class ReportTest extends TestCase
 					'correctness' => FALSE,
 					'sumTime' => '',
 					'avgTime' => '',
+					'repeating' => '222',
 				),
 			),
 			$report->getInputs('processor1')
@@ -134,6 +141,7 @@ class ReportTest extends TestCase
 					'correctness' => TRUE,
 					'sumTime' => '1666.998000',
 					'avgTime' => '555.666',
+					'repeating' => '333',
 				),
 			),
 			$report->getInputs('processor2')
@@ -153,7 +161,8 @@ class ReportTest extends TestCase
 			'expected output path 1',
 			'OK',
 			TRUE,
-			array('123.456')
+			array('123.456'),
+			111
 		);
 
 		$this->setExpectedException('\XSLTBenchmarking\InvalidArgumentException');
