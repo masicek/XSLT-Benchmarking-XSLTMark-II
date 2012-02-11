@@ -29,8 +29,9 @@ require_once ROOT . '/TestsRunner/Controlor.php';
 
 require_once ROOT . '/Reports/Printer.php';
 require_once ROOT . '/Reports/Merger.php';
+require_once ROOT . '/Reports/Convertor/Convertor.php';
 
-
+use XSLTBenchmarking\Reports\Convertor;
 use XSLTBenchmarking\Microtime;
 use XSLTBenchmarking\Printer;
 use PhpOptions\Options;
@@ -117,6 +118,12 @@ class Runner
 		if ($options->get('Merge reports'))
 		{
 			$this->mergeReports();
+		}
+
+		// convert reports
+		if ($options->get('Convert reports'))
+		{
+			$this->convertReports();
 		}
 	}
 
@@ -248,6 +255,19 @@ class Runner
 					'if option "' . $orderReports->getOptions() . '" is set.'
 				);
 
+			// convert reports into set output
+			$convertType = $optionsList[] = Option::enum('Convert type', 'html')
+				->short()
+				->default('html')
+				->description('Type of report converting');
+
+			$optionsList[] = Option::file('Convert reports', $baseDir)
+				->description(
+					'Convert set report of tests into selected output ' .
+					'set by "' . $convertType->getOptions() . '". ' .
+					'Generated converted report are saved into directory set by "' . $reportsDir->getOptions() . '".'
+				);
+
 			$options->add($optionsList);
 
 			// dependences + groups
@@ -283,6 +303,12 @@ class Runner
 			$options->group('Reporting', array(
 				'Merge reports',
 				'Order reports',
+				'Reports',
+			));
+
+			$options->group('Converting', array(
+				'Convert reports',
+				'Convert type',
 				'Reports',
 			));
 
@@ -465,7 +491,7 @@ class Runner
 		// generate all templates
 		if ($reportsFiles === TRUE)
 		{
-			$reportsFiles = $this->getSubresources($reportsDir, 'files');
+			$reportsFiles = $this->getSubresources($reportsDir, 'files', '.xml');
 		}
 
 		// order
@@ -491,6 +517,29 @@ class Runner
 	}
 
 
+	/**
+	 * Convert reports into another format
+	 *
+	 * @return void
+	 */
+	private function convertReports()
+	{
+		Printer::header('Convert reports');
+
+		$options = $this->options;
+		$reportsDir = $options->get('Reports');
+		$reportFile = $options->get('Convert reports');
+		$convertType = $options->get('Convert type');
+		$tmpDir = $options->get('Tmp');
+
+		$convertor = new Convertor($tmpDir);
+		$convertor->setDriver($convertType);
+		$generatedFile = $convertor->convert($reportFile, $reportsDir);
+
+		Printer::info('"' . $generatedFile . '" was be converted from report file "' . $reportFile . '".');
+	}
+
+
 	// ---- HELPS FUNCTIONS ----
 
 
@@ -498,10 +547,12 @@ class Runner
 	 * Return subdirectories and files names in set path
 	 *
 	 * @param string $path Directory that is scanned
+	 * @param string $type Type of returned resources ('files', 'directories', NULL = all)
+	 * @param string $suffix Required suffix of resources
 	 *
 	 * @return array
 	 */
-	private function getSubresources($path, $type = NULL)
+	private function getSubresources($path, $type = NULL, $suffix = '')
 	{
 		$allResources = scandir($path);
 
@@ -518,6 +569,12 @@ class Runner
 				{
 					continue;
 				}
+
+				if ($suffix && preg_match('/' . $suffix . '$/', $resource))
+				{
+					continue;
+				}
+
 				$dirs[] = $resource;
 			}
 		}
