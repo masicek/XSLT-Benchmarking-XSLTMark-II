@@ -1,0 +1,115 @@
+<!--
+XSLT Benchmarking
+@link https://github.com/masicek/XSLT-Benchmarking
+@author Viktor Mašíček <viktor@masicek.net>
+@license "New" BSD License
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>XSLT Benchmarking - Report</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+		<style type="text/css">
+			/* path of files */
+			.path{
+				font-family: monospace;
+			}
+
+			/* table of inputs for one test */
+			.test_table {
+				border-collapse: collapse;
+			}
+			.test_table th, .test_table td {
+				border: solid 1px black;
+				padding-left: 3px;
+				padding-right: 3px;
+			}
+
+			/* highlite error rows */
+			.error_column {
+				background-color: red;
+			}
+			.error_line {
+				background-color: orange;
+			}
+			.test_table_processor_name {
+				background-color: white;
+			}
+
+			/* */
+			.alignRight {
+				text-align: right;
+			}
+			.alignLeft {
+				text-align: left;
+			}
+
+		</style>
+	</head>
+	<body>
+		<h1><a href="https://github.com/masicek/XSLT-Benchmarking">XSLT Benchmarking</a> - Report</h1>
+
+		<!-- List of processors -->
+		<h2>Processors</h2>
+		<ul>
+			{foreach from=$processors item=processor key=name}
+				<li>
+					<h3><a name="processor_{$name}">{$processorsFullNames[$name]}</a></h3>
+					<ul>
+						{foreach from=$processors[$name] item=informationValue key=informationName}
+							<li>{$informationName} - {$informationValue}</li>
+						{/foreach}
+					</ul>
+				</li>
+			{/foreach}
+		</ul>
+
+		<hr/>
+
+		<!-- List of tests -->
+		<h2>Tests</h2>
+
+		{foreach from=$tests item=test key=testName}
+			<h3>{$testName}</h3>
+			<div class="path">{$test['template']}</div>
+
+			<table class="test_table">
+				<tr>
+					<th>Procesor</th>
+					<th>Input</th>
+					<th>Expected Output</th>
+					<th>Success</th>
+					<th>Correctness</th>
+					<th>SUM Time</th>
+					<th>AVG Time</th>
+					<th>Repeating</th>
+				</tr>
+
+				{foreach from=$test['processors'] item=processor key=processorName}
+					{foreach from=$processor item=input name=input}
+						<tr
+							{if $input['success'] != 'OK' || $input['correctness'] == '0'}
+								class="error_line"
+							{/if}
+						>
+							{if $smarty.foreach.input.first}
+								<td rowspan="{count($processor)}" class="test_table_processor_name">
+									<a href="#processor_{$processorName}">{$processorsFullNames[$processorName]}</a>
+								</td>
+							{/if}
+							<td class="path">{$input['input']}</td>
+							<td class="path">{$input['expectedOutput']}</td>
+							<td class="alignLeft{if $input['success'] != 'OK'} error_column{/if}">{$input['success']}</td>
+							<td class="alignRight{if ($input['correctness'] == '0') && ($input['success'] == 'OK')} error_column{/if}">{if $input['correctness'] == '1'}YES{else}NO{/if}</td>
+							<td class="alignRight">{$input['sumTime']}</td>
+							<td class="alignRight">{$input['avgTime']}</td>
+							<td class="alignRight">{$input['repeating']}</td>
+						</tr>
+					{/foreach}
+				{/foreach}
+			</table>
+		{/foreach}
+
+	</body>
+</html>
