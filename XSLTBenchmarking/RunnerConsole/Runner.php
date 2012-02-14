@@ -246,7 +246,6 @@ class Runner
 
 			$optionsList[] = Option::series('Merge reports')
 				->value(FALSE)
-				->defaults(TRUE)
 				->description(
 					'List of mergered reports in directory set by "' . $reportsDir->getOptions() . '". ' .
 					'If this option is set without value, ' .
@@ -258,7 +257,7 @@ class Runner
 			// convert reports into set output
 			$convertType = $optionsList[] = Option::enum('Convert type', 'html')
 				->short()
-				->default('html')
+				->defaults('html')
 				->description('Type of report converting');
 
 			$optionsList[] = Option::file('Convert reports', $baseDir)
@@ -399,6 +398,12 @@ class Runner
 			$templatesDirs = $this->getSubresources($templatesDir, 'directories');
 		}
 
+		if (count($templatesDirs) == 0)
+		{
+			Printer::info('No templateg for generating in "' . $templatesDir . '".');
+			return;
+		}
+
 		foreach ($templatesDirs as $templateDir)
 		{
 			$generator->addTests($templateDir);
@@ -459,6 +464,12 @@ class Runner
 			$testsDirs = $this->getSubresources($testsDir, 'directories');
 		}
 
+		if (count($testsDirs) == 0)
+		{
+			Printer::info('No tests for running in "' . $testsDir . '".');
+			return;
+		}
+
 		foreach ($testsDirs as $testDir)
 		{
 			$runner->addTest($testDir);
@@ -489,9 +500,19 @@ class Runner
 		$orderType = $options->get('Order reports');
 
 		// generate all templates
-		if ($reportsFiles === TRUE)
+		if ($reportsFiles === TRUE || count($reportsFiles) == 0)
 		{
 			$reportsFiles = $this->getSubresources($reportsDir, 'files', '.xml');
+			// exclude files with suffix '-merge'
+			$reportsFiles = array_filter($reportsFiles, function ($item) {
+				return !preg_match('/-merge.xml$/', $item);
+			});
+
+			if (count($reportsFiles) == 0)
+			{
+				Printer::info('No reports for merge in "' . $reportsDir . '".');
+				return;
+			}
 		}
 
 		// order
@@ -559,24 +580,29 @@ class Runner
 		$dirs = array();
 		foreach ($allResources as $resource)
 		{
-			if (!in_array($resource, array('.', '..')) && is_dir(P::m($path, $resource)))
+			if (in_array($resource, array('.', '..')))
 			{
-				if ($type == 'directories' && !is_dir($resource))
-				{
-					continue;
-				}
-				if ($type == 'files' && !is_file($resource))
-				{
-					continue;
-				}
-
-				if ($suffix && preg_match('/' . $suffix . '$/', $resource))
-				{
-					continue;
-				}
-
-				$dirs[] = $resource;
+				continue;
 			}
+
+			$fullPath = P::m($path, $resource);
+
+			if ($type == 'directories' && !is_dir($fullPath))
+			{
+				continue;
+			}
+
+			if ($type == 'files' && !is_file($fullPath))
+			{
+				continue;
+			}
+
+			if ($suffix && !preg_match('/' . $suffix . '$/', $resource))
+			{
+				continue;
+			}
+
+			$dirs[] = $resource;
 		}
 
 		return $dirs;
