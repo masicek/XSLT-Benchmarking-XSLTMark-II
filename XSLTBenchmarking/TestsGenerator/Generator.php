@@ -164,10 +164,17 @@ class Generator
 		$tests = $this->getTests();
 		foreach ($tests as $test)
 		{
-			$this->generateTest($test);
+			$regenerate = $this->generateTest($test);
 			if ($verbose)
 			{
-				Printer::info('Tests from template "' . $test->getName() . '" were generated.');
+				if ($regenerate)
+				{
+					Printer::info('Tests from template "' . $test->getName() . '" were regenerated.');
+				}
+				else
+				{
+					Printer::info('Tests from template "' . $test->getName() . '" were generated.');
+				}
 			}
 		}
 
@@ -176,18 +183,20 @@ class Generator
 
 
 	/**
-	 * Generate input test
+	 * Generate input test and return true, if test existed before generating
 	 *
 	 * @param Test $test Generated test
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	private function generateTest(Test $test)
 	{
 		$destinationDirectory = $test->getPath();
+		$regenrated = TRUE;
 		if (!is_dir($destinationDirectory))
 		{
 			mkdir($destinationDirectory);
+			$regenrated = FALSE;
 		}
 
 		// copy files to tests directory
@@ -210,6 +219,8 @@ class Generator
 			$test->getXsltName(),
 			$test->getFilesPaths()
 		);
+
+		return $regenrated;
 	}
 
 
