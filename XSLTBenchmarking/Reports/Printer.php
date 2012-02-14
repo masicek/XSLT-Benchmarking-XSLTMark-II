@@ -90,7 +90,7 @@ class Printer
 	 *    <tests>
 	 *       <test name="..." template="...">
 	 *          <processor name="...">
-	 *             <input input="..." expectedOutput="..." success="..." correctness="..." sumTime="..." avgTime="..." repeating="..." />
+	 *             <input input="..." expectedOutput="..." output="..." success="..." correctness="..." sumTime="..." avgTime="..." repeating="..." />
 	 *             <input ... />
 	 *             ...
 	 *          </processor>
@@ -145,6 +145,7 @@ class Printer
 					$inputEl = $processorEl->addChild('input');
 					$inputEl->addAttribute('input', $data['input']);
 					$inputEl->addAttribute('expectedOutput', $data['expectedOutput']);
+					$inputEl->addAttribute('output', $data['output']);
 					$inputEl->addAttribute('success', $data['success']);
 					$inputEl->addAttribute('correctness', (int)$data['correctness']);
 					$inputEl->addAttribute('sumTime', $data['sumTime']);

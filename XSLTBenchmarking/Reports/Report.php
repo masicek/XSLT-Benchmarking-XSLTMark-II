@@ -64,6 +64,7 @@ class Report
 	 * @param string $processorName Short name of selected processor
 	 * @param string $xmlInputPath Path of XML input file
 	 * @param string $expectedOutputPath Path of file with expected output
+	 * @param string $outputPath Path of file with generated output
 	 * @param string $success 'OK' or error message
 	 * @param bool $correctness Flag of correcness transformation
 	 * @param array $spendTimes Spended times by transformations
@@ -75,6 +76,7 @@ class Report
 		$processorName,
 		$xmlInputPath,
 		$expectedOutputPath,
+		$outputPath,
 		$success,
 		$correctness,
 		array $spendTimes,
@@ -85,6 +87,7 @@ class Report
 
 		$record['input'] = $xmlInputPath;
 		$record['expectedOutput'] = $expectedOutputPath;
+		$record['output'] = $outputPath;
 		$record['success'] = $success;
 		$record['correctness'] = $correctness;
 		if (count($spendTimes) > 0)

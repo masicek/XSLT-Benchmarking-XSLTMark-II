@@ -79,6 +79,7 @@ XSLT Benchmarking
 					<th>Procesor</th>
 					<th>Input</th>
 					<th>Expected Output</th>
+					<th>Output</th>
 					<th>Success</th>
 					<th>Correctness</th>
 					<th>SUM Time</th>
@@ -89,7 +90,7 @@ XSLT Benchmarking
 				{foreach from=$test['processors'] item=processor key=processorName}
 					{foreach from=$processor item=input name=input}
 						<tr
-							{if $input['success'] != 'OK' || $input['correctness'] == '0'}
+							{if $input['success'] != '1' || $input['correctness'] == '0'}
 								class="error_line"
 							{/if}
 						>
@@ -100,8 +101,9 @@ XSLT Benchmarking
 							{/if}
 							<td class="path">{$input['input']}</td>
 							<td class="path">{$input['expectedOutput']}</td>
-							<td class="alignLeft{if $input['success'] != 'OK'} error_column{/if}">{$input['success']}</td>
-							<td class="alignRight{if ($input['correctness'] == '0') && ($input['success'] == 'OK')} error_column{/if}">{if $input['correctness'] == '1'}YES{else}NO{/if}</td>
+							<td class="path">{$input['output']}</td>
+							<td class="alignLeft{if $input['success'] != '1'} error_column{/if}">{if $input['success'] == '1'}OK{else}$input['success']{/if}</td>
+							<td class="alignRight{if ($input['correctness'] == '0') && ($input['success'] == '1')} error_column{/if}">{if $input['correctness'] == '1'}YES{else}NO{/if}</td>
 							<td class="alignRight">{$input['sumTime']}</td>
 							<td class="alignRight">{$input['avgTime']}</td>
 							<td class="alignRight">{$input['repeating']}</td>

@@ -187,6 +187,7 @@ class TestRunner
 					$processorName,
 					$xmlInputPath,
 					$expectedOutputPath,
+					$outputPath,
 					$success,
 					$correctness,
 					$spendTimes,
