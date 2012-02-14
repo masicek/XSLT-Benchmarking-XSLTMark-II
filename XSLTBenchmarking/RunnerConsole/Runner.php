@@ -261,9 +261,15 @@ class Runner
 				->description('Type of report converting');
 
 			$optionsList[] = Option::file('Convert reports', $baseDir)
+				->value(FALSE)
+				// @HACK for detect default value (it have to be file)
+				->defaults(__FILE__)
 				->description(
 					'Convert set report of tests into selected output ' .
 					'set by "' . $convertType->getOptions() . '". ' .
+					'If file is not set, latest report in direcotry set by '.
+					'"' . $reportsDir->getOptions() . '" is converted. ' .
+					'In case of emty dir, report file have to be set. ' .
 					'Generated converted report are saved into directory set by "' . $reportsDir->getOptions() . '".'
 				);
 
@@ -553,6 +559,17 @@ class Runner
 		$convertType = $options->get('Convert type');
 		$tmpDir = $options->get('Tmp');
 
+		if ($reportFile == __FILE__)
+		{
+			$latestFile = $this->latestFile($reportsDir, 'files', '.xml');
+			if (!$latestFile)
+			{
+				Printer::info('No reports for convert in "' . $reportsDir . '".');
+				return;
+			}
+			$reportFile = P::m($reportsDir, $latestFile);
+		}
+
 		$convertor = new Convertor($tmpDir);
 		$convertor->setDriver($convertType);
 		$generatedFile = $convertor->convert($reportFile, $reportsDir);
@@ -606,6 +623,33 @@ class Runner
 		}
 
 		return $dirs;
+	}
+
+
+	/**
+	 * Return lasted file in set directory.
+	 *
+	 * @param string $path Directory that is scanned
+	 * @param string $type Type of returned resources ('files', 'directories', NULL = all)
+	 * @param string $suffix Required suffix of resources
+	 *
+	 * @return string
+	 */
+	private function latestFile($path, $type = NULL, $suffix = '')
+	{
+		$lastMod = 0;
+		$lastModFile = '';
+		foreach ($this->getSubresources($path, $type, $suffix) as $resource)
+		{
+			$fullPath = P::m($path, $resource);
+			if (is_file($fullPath) && filectime($fullPath) > $lastMod)
+			{
+				$lastMod = filectime($fullPath);
+				$lastModFile = $resource;
+			}
+		}
+
+		return $lastModFile;
 	}
 
 
