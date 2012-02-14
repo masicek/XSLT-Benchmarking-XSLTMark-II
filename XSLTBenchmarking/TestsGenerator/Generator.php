@@ -162,23 +162,27 @@ class Generator
 	public function generateAll($verbose = FALSE)
 	{
 		$tests = $this->getTests();
+		$testsCount = count($tests);
+		$testsGenerated = 0;
 		foreach ($tests as $test)
 		{
 			$regenerate = $this->generateTest($test);
+			$testsGenerated++;
 			if ($verbose)
 			{
+				$preffix = $testsGenerated . '/' . $testsCount . " - ";
 				if ($regenerate)
 				{
-					Printer::info('Tests from template "' . $test->getName() . '" were regenerated.');
+					Printer::info($preffix . 'Tests from template "' . $test->getName() . '" were regenerated.');
 				}
 				else
 				{
-					Printer::info('Tests from template "' . $test->getName() . '" were generated.');
+					Printer::info($preffix . 'Tests from template "' . $test->getName() . '" were generated.');
 				}
 			}
 		}
 
-		return count($tests);
+		return $testsCount;
 	}
 
 

@@ -121,8 +121,8 @@ class GenerateAllTest extends TestCase
 		if ($verbose)
 		{
 			$this->assertEquals(
-				'Tests from template "Test name 1" were generated.' . PHP_EOL .
-				'Tests from template "Test name 2" were generated.' . PHP_EOL,
+				'1/2 - Tests from template "Test name 1" were generated.' . PHP_EOL .
+				'2/2 - Tests from template "Test name 2" were generated.' . PHP_EOL,
 				$output
 			);
 		}

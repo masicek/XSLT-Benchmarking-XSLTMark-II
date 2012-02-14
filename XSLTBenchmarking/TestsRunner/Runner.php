@@ -143,13 +143,16 @@ class Runner
 	 */
 	public function runAll($verbose = FALSE)
 	{
+		$testCount = count($this->tests);
+		$testsRun = 0;
 		foreach ($this->tests as $name => $test)
 		{
 			$report = $this->testRunner->run($test);
 			$this->reportsPrinter->addReport($report);
+			$testsRun++;
 			if ($verbose)
 			{
-				Printer::info('Runnig of the test "' . $test->getName() . '" done.');
+				Printer::info($testsRun . '/' . $testCount . ' - Runnig of the test "' . $test->getName() . '" done.');
 			}
 		}
 

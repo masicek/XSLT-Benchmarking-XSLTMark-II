@@ -72,8 +72,8 @@ class RunAllTest extends TestCase
 		if ($verbose)
 		{
 			$this->assertEquals(
-				'Runnig of the test "Test name 1" done.' . PHP_EOL .
-				'Runnig of the test "Test name 2" done.' . PHP_EOL,
+				'1/2 - Runnig of the test "Test name 1" done.' . PHP_EOL .
+				'2/2 - Runnig of the test "Test name 2" done.' . PHP_EOL,
 				$output
 			);
 		}
