@@ -45,7 +45,7 @@ class GenerateAllTest extends TestCase
 		$templating->shouldReceive('generate')->once()->with('Test template path 2', 'Test xslt path 2', array('Test settings 2'));
 
 		$paramsTest = \Mockery::mock('\XSLTBenchmarking\TestsRunner\Params');
-		$paramsTest->shouldReceive('setFile')->once()->with('Test params file path 1');
+		$paramsTest->shouldReceive('setFile')->once()->with('Test params file path 1', FALSE);
 		$paramsTest->shouldReceive('generate')->once()->with(
 			'Test name 1',
 			'Test XSLT name 1',
@@ -54,7 +54,7 @@ class GenerateAllTest extends TestCase
 				__DIR__ . '/file.2.1' => __DIR__ . '/file.2.2',
 			)
 		);
-		$paramsTest->shouldReceive('setFile')->once()->with('Test params file path 2');
+		$paramsTest->shouldReceive('setFile')->once()->with('Test params file path 2', FALSE);
 		$paramsTest->shouldReceive('generate')->once()->with(
 			'Test name 2',
 			'Test XSLT name 2',

@@ -204,7 +204,7 @@ class Generator
 		$this->templating->generate($test->getTemplatePath(), $test->getXsltPath(), $test->getSettings());
 
 		// generate file with params of generated test
-		$this->paramsTest->setFile($test->getParamsFilePath());
+		$this->paramsTest->setFile($test->getParamsFilePath(), FALSE);
 		$this->paramsTest->generate(
 			$test->getName(),
 			$test->getXsltName(),

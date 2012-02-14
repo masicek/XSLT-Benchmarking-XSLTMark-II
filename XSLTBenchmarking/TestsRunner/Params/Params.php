@@ -27,13 +27,14 @@ class Params extends \XSLTBenchmarking\DriversContainer
 	 * Choose the params driver by extension
 	 *
 	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
+	 * @param bool $read Flag, for reading the params
 	 *
 	 * @throws \XSLTBenchmarking\InvalidArgumentException Wrong format of file with params
 	 */
-	public function setFile($paramsFilePath)
+	public function setFile($paramsFilePath, $read = TRUE)
 	{
 		$extension = pathinfo($paramsFilePath, PATHINFO_EXTENSION);
-		return $this->setDriver($extension, $paramsFilePath);
+		return $this->setDriver($extension, $paramsFilePath, $read);
 	}
 
 

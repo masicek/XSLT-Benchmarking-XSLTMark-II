@@ -30,7 +30,7 @@ class GenerateTest extends TestCase
 	{
 		$expectedFile = $this->setDirSep(__DIR__ . '/expectedGeneratedParams.xml');
 		$generatedFile = $this->setDirSep(__DIR__ . '/generatedParams.xml');
-		$driver = new XmlParamsDriver($generatedFile);
+		$driver = new XmlParamsDriver($generatedFile, FALSE);
 		$this->assertFileNotExists($generatedFile);
 		$driver->generate('Test name', 'Test template name', array('input1' => 'output1', 'input2' => 'output2'));
 		$this->assertXmlFileEqualsXmlFile($expectedFile, $generatedFile);

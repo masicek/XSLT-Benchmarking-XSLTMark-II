@@ -51,13 +51,14 @@ class XmlParamsDriver implements IParamsDriver
 	 * Set the params file.
 	 *
 	 * @param string $paramsFilePath The path of the file with deffinition of generated tests
+	 * @param bool $read Flag, for reading the params
 	 *
 	 * @throws \XSLTBenchmarking\InvalidArgumentException Wrong format of file with params
 	 */
-	public function __construct($paramsFilePath)
+	public function __construct($paramsFilePath, $read = TRUE)
 	{
 		// reading of params
-		if (is_file($paramsFilePath))
+		if ($read)
 		{
 			// validate
 			$dom = new \DOMDocument();
