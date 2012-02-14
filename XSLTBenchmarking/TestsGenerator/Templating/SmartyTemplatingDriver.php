@@ -37,6 +37,8 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 		$this->debugging = FALSE;
 		$this->caching = FALSE;
 		$this->compile_dir = P::mcd($tmpDirectory, '/');
+
+		$this->registerPlugin('modifier', 'pathEnd', array($this, 'pathEnd'));
 	}
 
 
@@ -112,6 +114,31 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 		$content = str_replace('</xsl:stylesheet>', PHP_EOL . '</xsl:stylesheet>', $content);
 
 		return $content;
+	}
+
+
+	//---- SMARTY MODIFIERS ----
+
+
+	/**
+	 * Return last $parts parts of path.
+	 *
+	 * @param string $path Modified path
+	 * @param int $partsNumber Number of last parts
+	 *
+	 * @return string
+	 */
+	public function pathEnd($path, $partsNumber = 1)
+	{
+		$parts = explode('/', $path);
+		$separator = '/';
+		if (count($parts) == 1)
+		{
+			$parts = explode('\\', $path);
+			$separator = '\\';
+		}
+		$parts = array_slice($parts, -$partsNumber);
+		return implode($separator, $parts);
 	}
 
 
