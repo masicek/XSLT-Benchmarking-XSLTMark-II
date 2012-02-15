@@ -89,6 +89,38 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 
 
 	/**
+	 * Return empty command.
+	 *
+	 * Templates substitutions:
+	 * [EMPTY] = path of directory containing empty scripts
+	 * [PROCESSORS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 * [LIBS] = path of Libs directory
+	 *
+	 * @return string
+	 */
+	public function getEmptyCommandTemplate()
+	{
+		switch (PHP_OS)
+		{
+			case self::OS_WIN:
+				$extension = '[PROCESSORS]\libxslt\1.1.23\php_xsl.dll';
+				$prefix = '[LIBS]\Php\5.3.6\php.exe';
+				break;
+
+//			case self::OS_LINUX:
+//				$extension = '[PROCESSORS]/libxslt/1.1.23/xsl.so';
+//				$prefix = '[LIBS]/Php/?????/php';
+//				break;
+
+		}
+
+		$commandTemplate = $prefix . ' -d extension=' . $extension . ' -r ""';
+
+		return $commandTemplate;
+	}
+
+
+	/**
 	 * Full name of processor (with version)
 	 *
 	 * @return string

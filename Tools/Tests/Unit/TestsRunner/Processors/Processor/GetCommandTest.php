@@ -31,7 +31,7 @@ class GetCommandTest extends TestCase
 		$method = new \ReflectionMethod('\XSLTBenchmarking\TestsRunner\Processor', 'getCommand');
 		$method->setAccessible(TRUE);
 		$command = $method->invokeArgs($processor, array(
-			'[PROCESSORS] Lorem [LIBS] [XSLT] ipsum [INPUT][OUTPUT] dolor [ERROR]',
+			'[PROCESSORS] Lorem [LIBS] [XSLT] ipsum [INPUT][OUTPUT] dolor [ERROR] aaa [EMPTY]',
 			'Template path',
 			'Input path',
 			'Output path',
@@ -40,7 +40,8 @@ class GetCommandTest extends TestCase
 
 		$libs = $this->setDirSep(LIBS_TOOLS);
 		$processors = $this->setDirSep(LIBS_TOOLS . '/Processors');
-		$this->assertEquals($processors . ' Lorem ' . $libs . ' Template path ipsum Input pathOutput path dolor Error path', $command);
+		$empty = $this->setDirSep(LIBS_TOOLS . '/Empty');
+		$this->assertEquals($processors . ' Lorem ' . $libs . ' Template path ipsum Input pathOutput path dolor Error path aaa ' . $empty, $command);
 	}
 
 

@@ -31,6 +31,12 @@ class FirstProcessorDriver extends \XSLTBenchmarking\TestsRunner\AProcessorDrive
 	}
 
 
+	public function getEmptyCommandTemplate()
+	{
+		return '';
+	}
+
+
 	public function getFullName()
 	{
 		return 'First processor';

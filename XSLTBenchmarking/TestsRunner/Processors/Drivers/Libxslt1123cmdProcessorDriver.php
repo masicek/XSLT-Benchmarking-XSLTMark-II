@@ -70,6 +70,22 @@ class Libxslt1123cmdProcessorDriver extends AProcessorDriver
 
 
 	/**
+	 * Return empty command.
+	 *
+	 * Templates substitutions:
+	 * [EMPTY] = path of directory containing empty scripts
+	 * [PROCESSORS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 * [LIBS] = path of Libs directory
+	 *
+	 * @return string
+	 */
+	public function getEmptyCommandTemplate()
+	{
+		return '';
+	}
+
+
+	/**
 	 * Full name of processor (with version)
 	 *
 	 * @return string

@@ -32,6 +32,12 @@ class SecondProcessorDriver extends \XSLTBenchmarking\TestsRunner\AProcessorDriv
 	}
 
 
+	public function getEmptyCommandTemplate()
+	{
+		return '';
+	}
+
+
 	public function getFullName()
 	{
 		return 'Second processor';

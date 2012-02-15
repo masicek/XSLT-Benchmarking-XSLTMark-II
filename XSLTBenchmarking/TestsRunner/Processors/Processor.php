@@ -143,6 +143,7 @@ class Processor
 
 		$errorPath = P::m($this->tmpDir, 'transformation.err');
 
+		$emptyCommand = $this->getCommand($processor->getEmptyCommandTemplate(), $templatePath, $xmlInputPath, $outputPath, $errorPath);
 		$beforeCommand = $this->getCommand($processor->getBeforeCommandTemplate(), $templatePath, $xmlInputPath, $outputPath, $errorPath);
 		$command = $this->getCommand($processor->getCommandTemplate(), $templatePath, $xmlInputPath, $outputPath, $errorPath);
 		$afterCommand = $this->getCommand($processor->getAfterCommandTemplate(), $templatePath, $xmlInputPath, $outputPath, $errorPath);
@@ -153,6 +154,19 @@ class Processor
 			if (is_file($errorPath))
 			{
 				throw new \XSLTBenchmarking\InvalidStateException('Error tmp file should not exist "' . $errorPath . '"');
+			}
+
+			// empty command time
+			if ($emptyCommand)
+			{
+				$timeStart = Microtime::now();
+				exec($emptyCommand);
+				$timeEnd = Microtime::now();
+				$emptyTime = Microtime::substract($timeEnd, $timeStart);
+			}
+			else
+			{
+				$emptyTime = Microtime::zero();
 			}
 
 			// preparing command
@@ -188,8 +202,10 @@ class Processor
 				break;
 			}
 
-			// spend time
-			$times[] = Microtime::substract($timeEnd, $timeStart);
+			// spend/clear time
+			$spendTime = Microtime::substract($timeEnd, $timeStart);
+			$clearTime = Microtime::substract($spendTime, $emptyTime);
+			$times[] = $clearTime;
 		}
 
 		if ($error)
@@ -265,6 +281,7 @@ class Processor
 	 * [ERROR] = path of file for eventual generated error message
 	 * [PROCESSORS] = path of directory containing XSLT processors (libraries, command-line program etc.)
 	 * [LIBS] = path of Libs directory
+	 * [EMPTY] = path of directory containing empty scripts
 	 *
 	 * @param string $commandTemplate Template of command
 	 * @param string $templatePath Path of XSLT template for transformation
@@ -285,6 +302,7 @@ class Processor
 		$command = str_replace('[ERROR]', $errorPath, $command);
 		$command = str_replace('[PROCESSORS]', P::m(LIBS, 'Processors'), $command);
 		$command = str_replace('[LIBS]', P::m(LIBS), $command);
+		$command = str_replace('[EMPTY]', P::m(LIBS, 'Empty'), $command);
 
 		return $command;
 	}

@@ -32,6 +32,12 @@ class NotAvailableProcessorDriver extends \XSLTBenchmarking\TestsRunner\AProcess
 	}
 
 
+	public function getEmptyCommandTemplate()
+	{
+		return '';
+	}
+
+
 	public function getFullName()
 	{
 		return 'First processor';

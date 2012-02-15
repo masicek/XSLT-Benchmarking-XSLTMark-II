@@ -150,6 +150,25 @@ abstract class AProcessorDriver
 
 
 	/**
+	 * Return empty command.
+	 *
+	 * Examples:
+	 * '[LIBS]\Java\1.6.0_29\java.exe -jar [EMPTY]\empty.jar' for Java
+	 * '[LIBS]\Php\5.3.6\php.exe [EMPTY]\empty.php' for PHP
+	 * '[LIBS]\Php\5.3.6\php.exe -r ""' for PHP not running by script
+	 * '' for command line program
+	 *
+	 * Templates substitutions:
+	 * [EMPTY] = path of directory containing empty scripts
+	 * [PROCESSORS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 * [LIBS] = path of Libs directory
+	 *
+	 * @return string
+	 */
+	abstract public function getEmptyCommandTemplate();
+
+
+	/**
 	 * Full name of processor (with version)
 	 *
 	 * @return string

@@ -73,6 +73,32 @@ class Saxon655ProcessorDriver extends AProcessorDriver
 
 
 	/**
+	 * Return empty command.
+	 *
+	 * Templates substitutions:
+	 * [EMPTY] = path of directory containing empty scripts
+	 * [PROCESSORS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 * [LIBS] = path of Libs directory
+	 *
+	 * @return string
+	 */
+	public function getEmptyCommandTemplate()
+	{
+		switch (PHP_OS)
+		{
+			case self::OS_WIN:
+				return '[LIBS]\Java\1.6.0_29\java.exe -jar [EMPTY]\empty.jar';
+				break;
+
+//			case self::OS_LINUX:
+//				return '[LIBS]/Java/1.6.0_29/java.exe -jar [EMPTY]/empty.java';
+//				break;
+
+		}
+	}
+
+
+	/**
 	 * Full name of processor (with version)
 	 *
 	 * @return string
