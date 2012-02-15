@@ -143,4 +143,15 @@ class Microtime
 	}
 
 
+	/**
+	 * Get zero with sufficient precision
+	 *
+	 * @return string
+	 */
+	public static function zero()
+	{
+		return '0.' . str_repeat('0', self::SCALE);
+	}
+
+
 }
