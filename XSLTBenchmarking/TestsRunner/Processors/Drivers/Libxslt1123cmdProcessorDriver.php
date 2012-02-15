@@ -57,11 +57,11 @@ class Libxslt1123cmdProcessorDriver extends AProcessorDriver
 		switch (PHP_OS)
 		{
 			case self::OS_WIN:
-				$commandTemplate = '[LIBS]\libxslt\1.1.23\xsltproc\xsltproc.exe -o "[OUTPUT]" "[XSLT]" "[INPUT]" 2> "[ERROR]"';
+				$commandTemplate = '[PROCESSORS]\libxslt\1.1.23\xsltproc\xsltproc.exe -o "[OUTPUT]" "[XSLT]" "[INPUT]" 2> "[ERROR]"';
 				break;
 
 //			case self::OS_LINUX:
-//				$commandTemplate = '[LIBS]/libxslt/1.1.23/xsltproc -o [OUTPUT] [XSLT] [INPUT] 2> [ERROR]';
+//				$commandTemplate = '[PROCESSORS]/libxslt/1.1.23/xsltproc -o [OUTPUT] [XSLT] [INPUT] 2> [ERROR]';
 //				break;
 		}
 

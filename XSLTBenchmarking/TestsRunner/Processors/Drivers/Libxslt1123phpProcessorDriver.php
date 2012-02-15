@@ -57,13 +57,13 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 		switch (PHP_OS)
 		{
 			case self::OS_WIN:
-				$extension = '[LIBS]\libxslt\1.1.23\php_xsl.dll';
-				$prefix = '[LIBS]\..\Php\5.3.6\php.exe';
+				$extension = '[PROCESSORS]\libxslt\1.1.23\php_xsl.dll';
+				$prefix = '[LIBS]\Php\5.3.6\php.exe';
 				break;
 
 //			case self::OS_LINUX:
-//				$extension = '[LIBS]/libxslt/1.1.23/xsl.so';
-//				$prefix = '[LIBS]/../Php/?????/php';
+//				$extension = '[PROCESSORS]/libxslt/1.1.23/xsl.so';
+//				$prefix = '[LIBS]/Php/?????/php';
 //				break;
 
 		}

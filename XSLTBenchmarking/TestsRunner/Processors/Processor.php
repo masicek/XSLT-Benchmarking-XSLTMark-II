@@ -263,7 +263,8 @@ class Processor
 	 * [INPUT] = path of input XML file
 	 * [OUTPUT] = path of generated output XML file
 	 * [ERROR] = path of file for eventual generated error message
-	 * [LIBS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 * [PROCESSORS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 * [LIBS] = path of Libs directory
 	 *
 	 * @param string $commandTemplate Template of command
 	 * @param string $templatePath Path of XSLT template for transformation
@@ -282,7 +283,8 @@ class Processor
 		$command = str_replace('[INPUT]', $xmlInputPath, $command);
 		$command = str_replace('[OUTPUT]', $outputPath, $command);
 		$command = str_replace('[ERROR]', $errorPath, $command);
-		$command = str_replace('[LIBS]', P::m(LIBS, 'Processors'), $command);
+		$command = str_replace('[PROCESSORS]', P::m(LIBS, 'Processors'), $command);
+		$command = str_replace('[LIBS]', P::m(LIBS), $command);
 
 		return $command;
 	}

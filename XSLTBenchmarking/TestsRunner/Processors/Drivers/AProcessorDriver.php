@@ -82,7 +82,8 @@ abstract class AProcessorDriver
 	 * [INPUT] = path of input XML file
 	 * [OUTPUT] = path of generated output XML file
 	 * [ERROR] = path of file for eventual generated error message
-	 * [LIBS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 * [PROCESSORS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 * [LIBS] = path of Libs directory
 	 *
 	 * @return string
 	 */
@@ -100,7 +101,8 @@ abstract class AProcessorDriver
 	 * [INPUT] = path of input XML file
 	 * [OUTPUT] = path of generated output XML file
 	 * [ERROR] = path of file for eventual generated error message
-	 * [LIBS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 * [PROCESSORS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 * [LIBS] = path of Libs directory
 	 *
 	 * @return string
 	 */
@@ -139,7 +141,8 @@ abstract class AProcessorDriver
 	 * [INPUT] = path of input XML file
 	 * [OUTPUT] = path of generated output XML file
 	 * [ERROR] = path of file for eventual generated error message
-	 * [LIBS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 * [PROCESSORS] = path of directory containing XSLT processors (libraries, command-line program etc.)
+	 * [LIBS] = path of Libs directory
 	 *
 	 * @return string
 	 */
