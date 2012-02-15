@@ -260,10 +260,10 @@ class Runner
 				->defaults('html')
 				->description('Type of report converting');
 
-			$optionsList[] = Option::file('Convert reports', $baseDir)
+			// @HACK
+			//$optionsList[] = Option::file('Convert reports', $baseDir)
+			$optionsList[] = Option::make('Convert reports')
 				->value(FALSE)
-				// @HACK for detect default value (it have to be file)
-				->defaults(__FILE__)
 				->description(
 					'Convert set report of tests into selected output ' .
 					'set by "' . $convertType->getOptions() . '". ' .
@@ -559,7 +559,7 @@ class Runner
 		$convertType = $options->get('Convert type');
 		$tmpDir = $options->get('Tmp');
 
-		if ($reportFile == __FILE__)
+		if ($reportFile === TRUE)
 		{
 			$latestFile = $this->latestFile($reportsDir, 'files', '.xml');
 			if (!$latestFile)
