@@ -191,7 +191,7 @@ class RunTest extends TestCase
 
 	public function testXmlAndXsltSeparately()
 	{
-		$this->markTestSkipped();
+		$this->markTestSkippedCondition();
 
 		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorOK->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
@@ -236,7 +236,7 @@ class RunTest extends TestCase
 
 	public function testXsltInXml()
 	{
-		$this->markTestSkipped();
+		$this->markTestSkippedCondition();
 
 		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorOK->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
@@ -292,7 +292,7 @@ class RunTest extends TestCase
 
 	public function testBeforeAndAfterCommand()
 	{
-		$this->markTestSkipped();
+		$this->markTestSkippedCondition();
 
 		$controleOutputPath = $this->setDirSep(__DIR__ . '/controleOutput');
 		file_put_contents($controleOutputPath, '');

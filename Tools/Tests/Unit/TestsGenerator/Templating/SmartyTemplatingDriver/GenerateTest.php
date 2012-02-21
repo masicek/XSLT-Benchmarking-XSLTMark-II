@@ -77,7 +77,7 @@ class GenerateTest extends TestCase
 
 	public function testUnknownVariable()
 	{
-		$this->markTestSkipped();
+		$this->markTestSkippedCondition();
 
 		$tmpDirPath = __DIR__;
 		$driver = new SmartyTemplatingDriver($tmpDirPath);
