@@ -68,6 +68,7 @@ class Report
 	 * @param string $success 'OK' or error message
 	 * @param bool $correctness Flag of correcness transformation
 	 * @param array $spendTimes Spended times by transformations
+	 * @param array $memoryUsage
 	 * @param int $repeating Number of repeating tranformation
 	 *
 	 * @return void
@@ -80,6 +81,7 @@ class Report
 		$success,
 		$correctness,
 		array $spendTimes,
+		array $memoryUsage,
 		$repeating
 	)
 	{
@@ -90,6 +92,9 @@ class Report
 		$record['output'] = $outputPath;
 		$record['success'] = $success;
 		$record['correctness'] = $correctness;
+		$record['repeating'] = $repeating;
+
+		// times
 		if (count($spendTimes) > 0)
 		{
 			$record['sumTime'] = Microtime::sum($spendTimes);
@@ -100,7 +105,19 @@ class Report
 			$record['sumTime'] = '';
 			$record['avgTime'] = '';
 		}
-		$record['repeating'] = $repeating;
+
+		// memory usage
+		// HACK - using Microtime instead of class with another name
+		if (count($memoryUsage) > 0)
+		{
+			$record['sumMemory'] = Microtime::sum($memoryUsage, 0);
+			$record['avgMemory'] = Microtime::divide($record['sumMemory'], count($memoryUsage), 0);
+		}
+		else
+		{
+			$record['sumMemory'] = '';
+			$record['avgMemory'] = '';
+		}
 
 		if (!isset($this->records[$processorName]))
 		{

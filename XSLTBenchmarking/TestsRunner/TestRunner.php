@@ -167,12 +167,14 @@ class TestRunner
 				if (is_array($result))
 				{
 					$success = TRUE;
-					$spendTimes = $result;
+					$spendTimes = $result['times'];
+					$memoryUsage = $result['memory'];
 				}
 				else
 				{
 					$success = $result;
 					$spendTimes = array();
+					$memoryUsage = array();
 				}
 
 				// set correctness
@@ -191,6 +193,7 @@ class TestRunner
 					$success,
 					$correctness,
 					$spendTimes,
+					$memoryUsage,
 					$this->repeating
 				);
 			}

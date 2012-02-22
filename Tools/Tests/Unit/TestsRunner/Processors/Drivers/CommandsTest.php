@@ -13,6 +13,7 @@ use \Tests\XSLTBenchmarking\TestCase;
 use \XSLTBenchmarking\TestsRunner\Processor;
 
 require_once ROOT_TOOLS . '/TestsRunner/Processors/Processor.php';
+require_once ROOT_TOOLS . '/TestsRunner/Processors/MemoryUsage/MemoryUsage.php';
 
 /**
  * CommandsTest
@@ -28,7 +29,8 @@ class CommandsTest extends TestCase
 	 */
 	public function testCountAndNames()
 	{
-		$processor = new Processor(__DIR__);
+		$memoryUsage = new \XSLTBenchmarking\TestsRunner\MemoryUsage(__DIR__);
+		$processor = new Processor(__DIR__, $memoryUsage);
 		$processors = $processor->getAvailable();
 
 		switch (PHP_OS)
@@ -63,14 +65,15 @@ class CommandsTest extends TestCase
 		$expectedOutputPath = $this->setDirSep(__DIR__ . '/Fixtures/expectedOutput.xml');
 		$errorPath = $this->setDirSep(__DIR__ . '/err.tmp');
 
-		$processor = new Processor(__DIR__);
+		$memoryUsage = new \XSLTBenchmarking\TestsRunner\MemoryUsage(__DIR__);
+		$processor = new Processor(__DIR__, $memoryUsage);
 		$processorsDrivers = $processor->getAvailable();
 		foreach ($processorsDrivers as $processorDriver)
 		{
 			$message = 'Error during transformation by "' . $processorDriver->getFullName() . '"';
 
 			// make command from template
-			$processor = new Processor(__DIR__);
+			$processor = new Processor(__DIR__, $memoryUsage);
 			$method = new \ReflectionMethod('\XSLTBenchmarking\TestsRunner\Processor', 'getCommand');
 			$method->setAccessible(TRUE);
 			$command = $method->invokeArgs($processor, array(
@@ -109,14 +112,15 @@ class CommandsTest extends TestCase
 		$outputPath = $this->setDirSep(__DIR__ . '/output.xml');
 		$errorPath = $this->setDirSep(__DIR__ . '/err.tmp');
 
-		$processor = new Processor(__DIR__);
+		$memoryUsage = new \XSLTBenchmarking\TestsRunner\MemoryUsage(__DIR__);
+		$processor = new Processor(__DIR__, $memoryUsage);
 		$processorsDrivers = $processor->getAvailable();
 		foreach ($processorsDrivers as $processorDriver)
 		{
 			$message = 'Error during transformation by "' . $processorDriver->getFullName() . '"';
 
 			// make command from template
-			$processor = new Processor(__DIR__);
+			$processor = new Processor(__DIR__, $memoryUsage);
 			$method = new \ReflectionMethod('\XSLTBenchmarking\TestsRunner\Processor', 'getCommand');
 			$method->setAccessible(TRUE);
 			$command = $method->invokeArgs($processor, array(

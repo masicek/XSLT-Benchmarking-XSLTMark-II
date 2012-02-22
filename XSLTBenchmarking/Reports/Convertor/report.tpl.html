@@ -82,8 +82,8 @@ XSLT Benchmarking
 					<th>Output</th>
 					<th>Success</th>
 					<th>Correctness</th>
-					<th>SUM Time</th>
-					<th>AVG Time</th>
+					<th>AVG Time (sec)</th>
+					<th>AVG Memory (bytes)</th>
 					<th>Repeating</th>
 				</tr>
 
@@ -104,8 +104,8 @@ XSLT Benchmarking
 							<td class="path"><a href="{$input['output']}">{$input['output']|pathEnd:2}</a></td>
 							<td class="alignLeft{if $input['success'] != '1'} error_column{/if}">{if $input['success'] == '1'}OK{else}$input['success']{/if}</td>
 							<td class="alignRight{if ($input['correctness'] == '0') && ($input['success'] == '1')} error_column{/if}">{if $input['correctness'] == '1'}YES{else}NO{/if}</td>
-							<td class="alignRight">{$input['sumTime']}</td>
 							<td class="alignRight">{$input['avgTime']}</td>
+							<td class="alignRight">{$input['avgMemory']}</td>
 							<td class="alignRight">{$input['repeating']}</td>
 						</tr>
 					{/foreach}

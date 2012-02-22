@@ -73,6 +73,7 @@ class RunTest extends TestCase
 					'Error 11',
 					FALSE,
 					array(),
+					array(),
 					123
 				);
 				$report->shouldReceive('addRecord')->once()->with(
@@ -83,6 +84,7 @@ class RunTest extends TestCase
 					TRUE,
 					FALSE,
 					array('Spend times 12'),
+					array('Memory usage 12'),
 					123
 				);
 				$report->shouldReceive('addRecord')->once()->with(
@@ -93,6 +95,7 @@ class RunTest extends TestCase
 					TRUE,
 					TRUE,
 					array('Spend times 13'),
+					array('Memory usage 13'),
 					123
 				);
 				$report->shouldReceive('addRecord')->once()->with(
@@ -102,6 +105,7 @@ class RunTest extends TestCase
 					'#^' . str_replace('\\', '\\\\', __DIR__ . DIRECTORY_SEPARATOR . 'out2') . '-[0-9]+-[0-9]+$#',
 					'Error 14',
 					FALSE,
+					array(),
 					array(),
 					123
 				);
@@ -121,6 +125,7 @@ class RunTest extends TestCase
 					'Error 21',
 					FALSE,
 					array(),
+					array(),
 					123
 				);
 				$report->shouldReceive('addRecord')->once()->with(
@@ -130,6 +135,7 @@ class RunTest extends TestCase
 					'#^' . str_replace('\\', '\\\\', __DIR__ . DIRECTORY_SEPARATOR . 'out2') . '-[0-9]+-[0-9]+$#',
 					'Error 22',
 					FALSE,
+					array(),
 					array(),
 					123
 				);
@@ -141,6 +147,7 @@ class RunTest extends TestCase
 					TRUE,
 					TRUE,
 					array('Spend times 23'),
+					array('Memory usage 23'),
 					123
 				);
 				$report->shouldReceive('addRecord')->once()->with(
@@ -151,6 +158,7 @@ class RunTest extends TestCase
 					TRUE,
 					TRUE,
 					array('Spend times 24'),
+					array('Memory usage 24'),
 					123
 				);
 				return $report;
@@ -173,10 +181,10 @@ class RunTest extends TestCase
 			->andReturn('Error 11');
 		$processor->shouldReceive('run')->once()
 			->with('processor1', 'Test template path 1', 'dir1/in2', $out2Regexp, 123)
-			->andReturn(array('Spend times 12'));
+			->andReturn(array('times' => array('Spend times 12'), 'memory' => array('Memory usage 12')));
 		$processor->shouldReceive('run')->once()
 			->with('processor2', 'Test template path 1', 'dir1/in1', $out1Regexp, 123)
-			->andReturn(array('Spend times 13'));
+			->andReturn(array('times' => array('Spend times 13'), 'memory' => array('Memory usage 13')));
 		$processor->shouldReceive('run')->once()
 			->with('processor2', 'Test template path 1', 'dir1/in2', $out2Regexp, 123)
 			->andReturn('Error 14');
@@ -189,10 +197,10 @@ class RunTest extends TestCase
 			->andReturn('Error 22');
 		$processor->shouldReceive('run')->once()
 			->with('processor2', 'Test template path 2', 'dir2/in1', $out1Regexp, 123)
-			->andReturn(array('Spend times 23'));
+			->andReturn(array('times' => array('Spend times 23'), 'memory' => array('Memory usage 23')));
 		$processor->shouldReceive('run')->once()
 			->with('processor2', 'Test template path 2', 'dir2/in2', $out2Regexp, 123)
-			->andReturn(array('Spend times 24'));
+			->andReturn(array('times' => array('Spend times 24'), 'memory' => array('Memory usage 24')));
 		$this->setPropertyValue($runner, 'processor', $processor);
 
 		// controlor

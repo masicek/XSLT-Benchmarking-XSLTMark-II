@@ -15,6 +15,7 @@ use \XSLTBenchmarking\TestsRunner\AProcessorDriver;
 
 require_once ROOT_TOOLS . '/TestsRunner/Processors/Processor.php';
 require_once ROOT_TOOLS . '/TestsRunner/Processors/Drivers/AProcessorDriver.php';
+require_once ROOT_TOOLS . '/TestsRunner/Processors/MemoryUsage/MemoryUsage.php';
 
 /**
  * KernelsTest
@@ -27,7 +28,8 @@ class KernelsTest extends TestCase
 
 	public function test()
 	{
-		$processor = new Processor(__DIR__);
+		$memoryUsage = new \XSLTBenchmarking\TestsRunner\MemoryUsage(__DIR__);
+		$processor = new Processor(__DIR__, $memoryUsage);
 		$processorsDrivers = $processor->getAvailable();
 		$possibleKernels = array(
 			AProcessorDriver::KERNEL_LIBXSLT,
