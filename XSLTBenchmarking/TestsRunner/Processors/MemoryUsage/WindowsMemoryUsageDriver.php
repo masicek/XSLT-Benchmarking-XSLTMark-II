@@ -37,7 +37,7 @@ class WindowsMemoryUsageDriver extends AMemoryUsageDriver
 	/**
 	 * Maximum iterations in waiting loops
 	 */
-	const WAITING_MAX_LOOPS = 1000;
+	const WAITING_MAX_LOOPS = 10000;
 
 
 	/**
@@ -80,7 +80,6 @@ class WindowsMemoryUsageDriver extends AMemoryUsageDriver
 	 */
 	public function run($command)
 	{
-
 		// wait for deleting log file by before process
 		$loopCounter = 0;
 		while (is_file($this->logPathMain))
