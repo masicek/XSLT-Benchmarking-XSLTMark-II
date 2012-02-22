@@ -41,10 +41,16 @@ if (xslt.parseError.errorCode != 0)
 // transformation
 try
 {
-	createFile(outputFile, xml.transformNode(xslt));
+	// it have to generate output this way for preserve encoding
+	var stream = WScript.createObject("ADODB.Stream");
+	stream.open();
+	stream.type = 1;
+	xml.transformNodeToObject(xslt, stream );
+	stream.saveToFile(outputFile);
+	stream.close();
 }
 catch(err)
 {
-	createFile(errorFile, "Transformation Error : " + err.number + "*" + err.description);
+	createFile(errorFile, "Transformation Error: " + err.number + ": " + err.description);
 }
 
