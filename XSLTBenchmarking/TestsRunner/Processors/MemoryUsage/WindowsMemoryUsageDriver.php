@@ -117,21 +117,28 @@ class WindowsMemoryUsageDriver extends AMemoryUsageDriver
 
 		if (!$content)
 		{
-			throw new \XSLTBenchmarking\Exception('Empty log for checking memory usage of process');
+			//throw new \XSLTBenchmarking\Exception('Empty log for checking memory usage of process');
+			$maxMemory = 0;
 		}
-
-		$lines = explode(PHP_EOL, $content);
-		array_walk($lines, function (&$item, $key) {$item = (int)$item;});
-		$lines = array_filter($lines);
-		if (count($lines) == 0)
+		else
 		{
-			throw new \XSLTBenchmarking\Exception('Log for checking memory usage of process has no relevant value');
-		}
-		rsort($lines, SORT_NUMERIC);
-		$maxMemory = $lines[0];
+			$lines = explode(PHP_EOL, $content);
+			array_walk($lines, function (&$item, $key) {$item = (int)$item;});
+			$lines = array_filter($lines);
+			if (count($lines) == 0)
+			{
+				//throw new \XSLTBenchmarking\Exception('Log for checking memory usage of process has no relevant value');
+				$maxMemory = 0;
+			}
+			else
+			{
+				rsort($lines, SORT_NUMERIC);
+				$maxMemory = $lines[0];
 
-		// units corrections (Kilobytes -> Bytes)
-		$maxMemory = $maxMemory * 1000;
+				// units corrections (Kilobytes -> Bytes)
+				$maxMemory = $maxMemory * 1000;
+			}
+		}
 
 		return $maxMemory;
 	}
@@ -244,7 +251,7 @@ class WindowsMemoryUsageDriver extends AMemoryUsageDriver
 		$info = trim($contentEnd[0]);
 		if ($info == 'LONG_LOOP_BEFORE')
 		{
-			throw new \XSLTBenchmarking\LongLoopException('Loop in background process was too long - before running');
+			//throw new \XSLTBenchmarking\LongLoopException('Loop in background process was too long - before running');
 		}
 		if ($info == 'LONG_LOOP_RUNNING')
 		{
