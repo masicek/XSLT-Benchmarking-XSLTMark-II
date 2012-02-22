@@ -57,7 +57,7 @@ class Sablotron103cmdProcessorDriver extends AProcessorDriver
 		switch (PHP_OS)
 		{
 			case self::OS_WIN:
-				$commandTemplate = '[PROCESSORS]\Sablotron\1.0.3\sabcmd.exe "file:///[XSLT]" "file:///[INPUT]" "file:///[OUTPUT]" 2> "[ERROR]"';
+				$commandTemplate = '"[PROCESSORS]\Sablotron\1.0.3\sabcmd.exe" "file:///[XSLT]" "file:///[INPUT]" "file:///[OUTPUT]" 2> "[ERROR]"';
 				break;
 
 //			case self::OS_LINUX:

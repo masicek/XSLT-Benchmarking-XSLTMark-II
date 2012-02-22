@@ -57,7 +57,7 @@ class SaxonHE9402ProcessorDriver extends AProcessorDriver
 		switch (PHP_OS)
 		{
 			case self::OS_WIN:
-				$prefix = '[LIBS]\Java\1.6.0_29\java.exe';
+				$prefix = '"[LIBS]\Java\1.6.0_29\java.exe"';
 				break;
 
 //			case self::OS_LINUX:
@@ -66,7 +66,7 @@ class SaxonHE9402ProcessorDriver extends AProcessorDriver
 
 		}
 
-		$commandTemplate = $prefix . ' -jar [PROCESSORS]\Saxon\HE-9.4.0.2\saxon9he.jar -o:"[OUTPUT]" -s:"[INPUT]" -xsl:"[XSLT]" -versionmsg:off 2> "[ERROR]"';
+		$commandTemplate = $prefix . ' -jar "[PROCESSORS]\Saxon\HE-9.4.0.2\saxon9he.jar" -o:"[OUTPUT]" -s:"[INPUT]" -xsl:"[XSLT]" -versionmsg:off 2> "[ERROR]"';
 		$commandTemplate = str_replace('\\', DIRECTORY_SEPARATOR, $commandTemplate);
 		return $commandTemplate;
 	}

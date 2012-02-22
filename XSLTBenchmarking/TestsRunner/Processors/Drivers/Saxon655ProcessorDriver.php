@@ -57,7 +57,7 @@ class Saxon655ProcessorDriver extends AProcessorDriver
 		switch (PHP_OS)
 		{
 			case self::OS_WIN:
-				$prefix = '[LIBS]\Java\1.6.0_29\java.exe';
+				$prefix = '"[LIBS]\Java\1.6.0_29\java.exe"';
 				break;
 
 //			case self::OS_LINUX:
@@ -66,7 +66,7 @@ class Saxon655ProcessorDriver extends AProcessorDriver
 
 		}
 
-		$commandTemplate = $prefix . ' -jar [PROCESSORS]\Saxon\6.5.5\saxon.jar -o "[OUTPUT]" "[INPUT]" "[XSLT]" 2> "[ERROR]"';
+		$commandTemplate = $prefix . ' -jar "[PROCESSORS]\Saxon\6.5.5\saxon.jar" -o "[OUTPUT]" "[INPUT]" "[XSLT]" 2> "[ERROR]"';
 		$commandTemplate = str_replace('\\', DIRECTORY_SEPARATOR, $commandTemplate);
 		return $commandTemplate;
 	}
