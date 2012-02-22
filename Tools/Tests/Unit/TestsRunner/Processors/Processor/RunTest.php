@@ -13,6 +13,7 @@ use \Tests\XSLTBenchmarking\TestCase;
 use \XSLTBenchmarking\TestsRunner\Processor;
 
 require_once ROOT_TOOLS . '/TestsRunner/Processors/Processor.php';
+require_once ROOT_TOOLS . '/TestsRunner/Processors/MemoryUsage/MemoryUsage.php';
 
 /**
  * ProcessorTest
@@ -32,11 +33,18 @@ class RunTest extends TestCase
 
 	public function setUp()
 	{
+		$memoryUsage = new \XSLTBenchmarking\TestsRunner\MemoryUsage(__DIR__);
 		$this->processor = new Processor(
 			__DIR__,
+			$memoryUsage,
 			__DIR__ . '/FixtureDrivers',
 			'\Tests\XSLTBenchmarking\TestsRunner\Processor\\'
 		);
+
+		$memoryUsage = $this->getMock('\XSLTBenchmarking\TestsRunner\MemoryUsage', array('run', 'get'), array(), '', FALSE);
+		$memoryUsage->expects($this->never())->method('run');
+		$memoryUsage->expects($this->never())->method('get');
+		$this->setPropertyValue($this->processor, 'memoryUsage', $memoryUsage);
 	}
 
 
@@ -180,6 +188,11 @@ class RunTest extends TestCase
 
 		$this->setPropertyValue($this->processor, 'available', $available);
 
+		$memoryUsage = $this->getMock('\XSLTBenchmarking\TestsRunner\MemoryUsage', array('run', 'get'), array(), '', FALSE);
+		$memoryUsage->expects($this->once())->method('run')->with('php -r "echo \'Test error\';" > ' . $this->setDirSep(__DIR__ . '/transformation.err'));
+		$memoryUsage->expects($this->once())->method('get')->will($this->returnValue('123456789'));
+		$this->setPropertyValue($this->processor, 'memoryUsage', $memoryUsage);
+
 		$filesBefore = scandir(__DIR__);
 		$return = $this->processor->run('processorError', __FILE__, __FILE__, 'output', 111);
 		$filesAfter = scandir(__DIR__);
@@ -218,19 +231,36 @@ class RunTest extends TestCase
 
 		$this->setPropertyValue($this->processor, 'available', $available);
 
+		$memoryUsage = $this->getMock('\XSLTBenchmarking\TestsRunner\MemoryUsage', array('run', 'get'), array(), '', FALSE);
+		$memoryUsage->expects($this->exactly(3))->method('run')->with('php -r "sleep(1);"');
+		$memoryUsage->expects($this->exactly(3))->method('get')->will($this->returnValue('123456789'));
+		$this->setPropertyValue($this->processor, 'memoryUsage', $memoryUsage);
+
 		$filesBefore = scandir(__DIR__);
-		$returnTimes = $this->processor->run('processorOK', __FILE__, $this->setDirSep(__DIR__ . '/FixtureRun/input.xml'), 'output', 3);
+		$return = $this->processor->run('processorOK', __FILE__, $this->setDirSep(__DIR__ . '/FixtureRun/input.xml'), 'output', 3);
 		$filesAfter = scandir(__DIR__);
 
 		$this->assertEquals($filesBefore, $filesAfter);
 
+		$this->assertArrayHasKey('times', $return);
+		$this->assertArrayHasKey('memory', $return);
+		$returnTimes = $return['times'];
+		$returnMemory = $return['memory'];
+
 		$this->assertTrue(is_array($returnTimes));
 		$this->assertEquals(3, count($returnTimes));
+		$this->assertTrue(is_array($returnMemory));
+		$this->assertEquals(3, count($returnMemory));
 
 		// all times are greated then one second
 		$this->assertGreaterOneSecondInMicrotime($returnTimes[0]);
 		$this->assertGreaterOneSecondInMicrotime($returnTimes[1]);
 		$this->assertGreaterOneSecondInMicrotime($returnTimes[2]);
+
+		// all memory usage will be set same
+		$this->assertEquals('123456789', $returnMemory[0]);
+		$this->assertEquals('123456789', $returnMemory[1]);
+		$this->assertEquals('123456789', $returnMemory[2]);
 	}
 
 
@@ -263,8 +293,13 @@ class RunTest extends TestCase
 
 		$this->setPropertyValue($this->processor, 'available', $available);
 
+		$memoryUsage = $this->getMock('\XSLTBenchmarking\TestsRunner\MemoryUsage', array('run', 'get'), array(), '', FALSE);
+		$memoryUsage->expects($this->exactly(3))->method('run')->with('php -r "sleep(1);"');
+		$memoryUsage->expects($this->exactly(3))->method('get')->will($this->returnValue('123456789'));
+		$this->setPropertyValue($this->processor, 'memoryUsage', $memoryUsage);
+
 		$filesBefore = scandir(__DIR__);
-		$returnTimes = $this->processor->run('processorOK', __FILE__, $this->setDirSep(__DIR__ . '/FixtureRun/input.xml'), 'output', 3);
+		$return = $this->processor->run('processorOK', __FILE__, $this->setDirSep(__DIR__ . '/FixtureRun/input.xml'), 'output', 3);
 		$filesAfter = scandir(__DIR__);
 
 		$this->assertNotEquals($filesBefore, $filesAfter);
@@ -278,15 +313,27 @@ class RunTest extends TestCase
 		// delete generated file
 		unlink($generatedPath);
 
+		$this->assertArrayHasKey('times', $return);
+		$this->assertArrayHasKey('memory', $return);
+		$returnTimes = $return['times'];
+		$returnMemory = $return['memory'];
+
 		$filesAfter2 = scandir(__DIR__);
 		$this->assertEquals($filesBefore, $filesAfter2);
 		$this->assertTrue(is_array($returnTimes));
 		$this->assertEquals(3, count($returnTimes));
+		$this->assertTrue(is_array($returnMemory));
+		$this->assertEquals(3, count($returnMemory));
 
 		// all times are greated then one second
 		$this->assertGreaterOneSecondInMicrotime($returnTimes[0]);
 		$this->assertGreaterOneSecondInMicrotime($returnTimes[1]);
 		$this->assertGreaterOneSecondInMicrotime($returnTimes[2]);
+
+		// all memory usage will be set same
+		$this->assertEquals('123456789', $returnMemory[0]);
+		$this->assertEquals('123456789', $returnMemory[1]);
+		$this->assertEquals('123456789', $returnMemory[2]);
 	}
 
 
@@ -328,7 +375,12 @@ class RunTest extends TestCase
 
 		$this->setPropertyValue($this->processor, 'available', $available);
 
-		$returnTimes = $this->processor->run('processorOK', __FILE__, $this->setDirSep(__DIR__ . '/FixtureRun/input.xml'), 'output', 3);
+		$memoryUsage = $this->getMock('\XSLTBenchmarking\TestsRunner\MemoryUsage', array('run', 'get'), array(), '', FALSE);
+		$memoryUsage->expects($this->exactly(3))->method('run')->with('php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test command;\');"');
+		$memoryUsage->expects($this->exactly(3))->method('get')->will($this->returnValue('123456789'));
+		$this->setPropertyValue($this->processor, 'memoryUsage', $memoryUsage);
+
+		$return = $this->processor->run('processorOK', __FILE__, $this->setDirSep(__DIR__ . '/FixtureRun/input.xml'), 'output', 3);
 
 		$this->assertStringEqualsFile($controleOutputPath,
 			'Test of before command;Test command;Test of after command;' .

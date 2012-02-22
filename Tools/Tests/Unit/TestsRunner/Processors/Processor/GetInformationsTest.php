@@ -13,6 +13,7 @@ use \Tests\XSLTBenchmarking\TestCase;
 use \XSLTBenchmarking\TestsRunner\Processor;
 
 require_once ROOT_TOOLS . '/TestsRunner/Processors/Processor.php';
+require_once ROOT_TOOLS . '/TestsRunner/Processors/MemoryUsage/MemoryUsage.php';
 
 /**
  * ProcessorTest
@@ -29,8 +30,10 @@ class GetInformationsTest extends TestCase
 
 	public function test()
 	{
+		$memoryUsage = new \XSLTBenchmarking\TestsRunner\MemoryUsage(__DIR__);
 		$processor = new Processor(
 			__DIR__,
+			$memoryUsage,
 			__DIR__ . '/FixtureDrivers',
 			'\Tests\XSLTBenchmarking\TestsRunner\Processor\\'
 		);

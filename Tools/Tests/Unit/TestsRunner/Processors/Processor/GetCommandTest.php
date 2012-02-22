@@ -13,6 +13,7 @@ use \Tests\XSLTBenchmarking\TestCase;
 use \XSLTBenchmarking\TestsRunner\Processor;
 
 require_once ROOT_TOOLS . '/TestsRunner/Processors/Processor.php';
+require_once ROOT_TOOLS . '/TestsRunner/Processors/MemoryUsage/MemoryUsage.php';
 
 /**
  * GetCommandTest
@@ -27,7 +28,8 @@ class GetCommandTest extends TestCase
 
 	public function test()
 	{
-		$processor = new Processor(__DIR__);
+		$memoryUsage = new \XSLTBenchmarking\TestsRunner\MemoryUsage(__DIR__);
+		$processor = new Processor(__DIR__, $memoryUsage);
 		$method = new \ReflectionMethod('\XSLTBenchmarking\TestsRunner\Processor', 'getCommand');
 		$method->setAccessible(TRUE);
 		$command = $method->invokeArgs($processor, array(

@@ -25,6 +25,7 @@ require_once ROOT . '/TestsRunner/Runner.php';
 require_once ROOT . '/TestsRunner/Params/Params.php';
 require_once ROOT . '/TestsRunner/TestRunner.php';
 require_once ROOT . '/TestsRunner/Processors/Processor.php';
+require_once ROOT . '/TestsRunner/Processors/MemoryUsage/MemoryUsage.php';
 require_once ROOT . '/TestsRunner/Controlor.php';
 
 require_once ROOT . '/Reports/Printer.php';
@@ -442,7 +443,8 @@ class Runner
 		$repeating = $options->get('Repeating');
 		$tmpDir = $options->get('Tmp');
 
-		$processor = new \XSLTBenchmarking\TestsRunner\Processor($tmpDir);
+		$memoryUsage = new \XSLTBenchmarking\TestsRunner\MemoryUsage($tmpDir);
+		$processor = new \XSLTBenchmarking\TestsRunner\Processor($tmpDir, $memoryUsage);
 		$runner = new \XSLTBenchmarking\TestsRunner\Runner(
 			$this->factory,
 			new \XSLTBenchmarking\TestsRunner\Params(),

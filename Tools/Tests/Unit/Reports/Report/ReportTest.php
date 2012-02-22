@@ -52,6 +52,7 @@ class ReportTest extends TestCase
 			'OK',
 			TRUE,
 			array('123.456'),
+			array('123456789'),
 			111
 		);
 
@@ -66,6 +67,8 @@ class ReportTest extends TestCase
 					'correctness' => TRUE,
 					'sumTime' => '123.456',
 					'avgTime' => '123.456',
+					'sumMemory' => '123456789',
+					'avgMemory' => '123456789',
 					'repeating' => '111',
 				),
 			),
@@ -90,6 +93,7 @@ class ReportTest extends TestCase
 			'OK',
 			TRUE,
 			array('123.456'),
+			array('123456789'),
 			111
 		);
 		$report->addRecord(
@@ -99,6 +103,7 @@ class ReportTest extends TestCase
 			'output path 2',
 			'Error 1',
 			FALSE,
+			array(),
 			array(),
 			222
 		);
@@ -110,6 +115,7 @@ class ReportTest extends TestCase
 			'OK',
 			TRUE,
 			array('555.666', '444.555', '666.777'),
+			array('123456789', '987654321'),
 			333
 		);
 
@@ -124,6 +130,8 @@ class ReportTest extends TestCase
 					'correctness' => TRUE,
 					'sumTime' => '123.456',
 					'avgTime' => '123.456',
+					'sumMemory' => '123456789',
+					'avgMemory' => '123456789',
 					'repeating' => '111',
 				),
 				array(
@@ -134,6 +142,8 @@ class ReportTest extends TestCase
 					'correctness' => FALSE,
 					'sumTime' => '',
 					'avgTime' => '',
+					'sumMemory' => '',
+					'avgMemory' => '',
 					'repeating' => '222',
 				),
 			),
@@ -149,6 +159,8 @@ class ReportTest extends TestCase
 					'correctness' => TRUE,
 					'sumTime' => '1666.998000',
 					'avgTime' => '555.666',
+					'sumMemory' => '1111111110',
+					'avgMemory' => '555555555',
 					'repeating' => '333',
 				),
 			),
@@ -171,6 +183,7 @@ class ReportTest extends TestCase
 			'OK',
 			TRUE,
 			array('123.456'),
+			array('123456789'),
 			111
 		);
 

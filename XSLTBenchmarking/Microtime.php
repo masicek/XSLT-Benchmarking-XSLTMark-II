@@ -18,7 +18,7 @@ class Microtime
 {
 
 	/**
-	 * Scale of time decimal precision
+	 * Default scale of time decimal precision
 	 */
 	const SCALE = 6;
 
@@ -36,12 +36,14 @@ class Microtime
 	/**
 	 * Get current time stamp with sufficient precision
 	 *
+	 * @param int $scale Scale of time decimal precision
+	 *
 	 * @return string
 	 */
-	public static function now()
+	public static function now($scale = self::SCALE)
 	{
 		list($usec, $sec) = explode(' ', microtime());
-		return bcadd($sec, $usec, self::SCALE);
+		return bcadd($sec, $usec, $scale);
 	}
 
 
@@ -95,12 +97,13 @@ class Microtime
 	 *
 	 * @param string $leftOperand Left operand
 	 * @param string $rightOperand Right operand
+	 * @param int $scale Scale of time decimal precision
 	 *
 	 * @return string = $leftOperand - $rightOperand
 	 */
-	public static function substract($leftOperand, $rightOperand)
+	public static function substract($leftOperand, $rightOperand, $scale = self::SCALE)
 	{
-		return bcsub($leftOperand, $rightOperand, self::SCALE);
+		return bcsub($leftOperand, $rightOperand, $scale);
 	}
 
 
@@ -108,21 +111,22 @@ class Microtime
 	 * Sum all arguments
 	 *
 	 * @param array $operands List of operands for sum
+	 * @param int $scale Scale of time decimal precision
 	 *
 	 * @return string
 	 */
-	public static function sum($operands)
+	public static function sum($operands, $scale = self::SCALE)
 	{
 		if (count($operands) <= 0)
 		{
-			return '0.' . str_repeat('0', self::SCALE);
+			return '0.' . str_repeat('0', $scale);
 		}
 
 		$result = array_shift($operands);
 
 		foreach ($operands as $operand)
 		{
-			$result = bcadd($result, $operand, self::SCALE);
+			$result = bcadd($result, $operand, $scale);
 		}
 
 		return $result;
@@ -134,12 +138,13 @@ class Microtime
 	 *
 	 * @param string $leftOperand Left operand
 	 * @param string $rightOperand Right operand
+	 * @param int $scale Scale of time decimal precision
 	 *
 	 * @return string = $leftOperand / $rightOperand
 	 */
-	public static function divide($leftOperand, $rightOperand)
+	public static function divide($leftOperand, $rightOperand, $scale = self::SCALE)
 	{
-		return bcdiv($leftOperand, $rightOperand, self::SCALE);
+		return bcdiv($leftOperand, $rightOperand, $scale);
 	}
 
 

@@ -48,6 +48,13 @@ class Processor
 	private $tmpDir;
 
 	/**
+	 * Class for measure memory usage of run command
+	 *
+	 * @var MemoryUsage
+	 */
+	private $memoryUsage;
+
+	/**
 	 * List of available names of processors
 	 *
 	 * @var array
@@ -66,10 +73,16 @@ class Processor
 	 * Configure object
 	 *
 	 * @param string $tmpDir Path of temporary directory
+	 * @param MemoryUsage $memoryUsage Class for measure memory usage of run command
 	 * @param string $driversDir Path of dirctory containing processor drivers
 	 * @param string $driversNamespace Namespace of processors drivers
 	 */
-	public function __construct($tmpDir, $driversDir = NULL, $driversNamespace = '\XSLTBenchmarking\TestsRunner\\')
+	public function __construct(
+		$tmpDir,
+		MemoryUsage $memoryUsage,
+		$driversDir = NULL,
+		$driversNamespace = '\XSLTBenchmarking\TestsRunner\\'
+	)
 	{
 		if (is_null($driversDir))
 		{
@@ -77,6 +90,7 @@ class Processor
 		}
 
 		$this->tmpDir = P::mcd($tmpDir);
+		$this->memoryUsage = $memoryUsage;
 		$this->driversDir = P::mcd($driversDir);
 		$this->driversNamespace = $driversNamespace;
 	}
@@ -148,6 +162,7 @@ class Processor
 		$afterCommand = $this->getCommand($processor->getAfterCommandTemplate(), $templatePath, $xmlInputPath, $outputPath, $errorPath);
 
 		$times = array();
+		$memoryList = array();
 		for ($repeatingIdx = 0; $repeatingIdx < $repeating; $repeatingIdx++)
 		{
 			if (is_file($errorPath))
@@ -161,10 +176,16 @@ class Processor
 				exec($beforeCommand);
 			}
 
+			// memore usage - run
+			$this->memoryUsage->run($command);
+
 			// transformation command
 			$timeStart = Microtime::now();
 			exec($command);
 			$timeEnd = Microtime::now();
+
+			// memore usage - get
+			$memoryList[] = (string)$this->memoryUsage->get();
 
 			// concluding comand
 			if ($afterCommand)
@@ -198,7 +219,10 @@ class Processor
 		}
 		else
 		{
-			return $times;
+			return array(
+				'times' => $times,
+				'memory' => $memoryList
+			);
 		}
 	}
 
