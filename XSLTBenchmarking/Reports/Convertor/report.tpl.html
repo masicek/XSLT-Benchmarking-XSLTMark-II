@@ -20,10 +20,20 @@ XSLT Benchmarking
 			.test_table {
 				border-collapse: collapse;
 			}
+			.test_table tr:hover {
+				background-color: skyblue;
+			}
 			.test_table th, .test_table td {
 				border: solid 1px black;
 				padding-left: 3px;
 				padding-right: 3px;
+			}
+			.test_table th {
+				background-color: silver;
+			}
+			.test_table .topBorder {
+				border-top-style: solid;
+				border-top-color: black;
 			}
 
 			/* highlite error rows */
@@ -89,9 +99,16 @@ XSLT Benchmarking
 
 				{foreach from=$test['processors'] item=processor key=processorName}
 					{foreach from=$processor item=input name=input}
+						{if $smarty.foreach.input.first}
+							{$class='topBorder'}
+						{else}
+							{$class=''}
+						{/if}
 						<tr
 							{if $input['success'] != '1' || $input['correctness'] == '0'}
-								class="error_line"
+								class="error_line {$class}"
+							{else}
+								class="{$class}"
 							{/if}
 						>
 							{if $smarty.foreach.input.first}
