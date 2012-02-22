@@ -14,11 +14,11 @@ require_once __DIR__ . '/AProcessorDriver.php';
 // @codeCoverageIgnoreEnd
 
 /**
- * Driver for "libxslt 1.1.26 - command-line"
+ * Driver for "xsltproc 1.1.23"
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class Libxslt1126cmdProcessorDriver extends AProcessorDriver
+class Xsltproc1123ProcessorDriver extends AProcessorDriver
 {
 
 
@@ -57,11 +57,11 @@ class Libxslt1126cmdProcessorDriver extends AProcessorDriver
 		switch (PHP_OS)
 		{
 			case self::OS_WIN:
-				$commandTemplate = '"[PROCESSORS]\libxslt\1.1.26\xsltproc\xsltproc.exe" -o "[OUTPUT]" "[XSLT]" "[INPUT]" 2> "[ERROR]"';
+				$commandTemplate = '"[PROCESSORS]\libxslt\1.1.23\xsltproc\xsltproc.exe" -o "[OUTPUT]" "[XSLT]" "[INPUT]" 2> "[ERROR]"';
 				break;
 
 //			case self::OS_LINUX:
-//				$commandTemplate = '[PROCESSORS]/libxslt/1.1.26/xsltproc -o [OUTPUT] [XSLT] [INPUT] 2> [ERROR]';
+//				$commandTemplate = '[PROCESSORS]/libxslt/1.1.23/xsltproc -o [OUTPUT] [XSLT] [INPUT] 2> [ERROR]';
 //				break;
 		}
 
@@ -76,7 +76,7 @@ class Libxslt1126cmdProcessorDriver extends AProcessorDriver
 	 */
 	public function getFullName()
 	{
-		return 'libxslt 1.1.26 - command-line - xsltproc';
+		return 'xsltproc 1.1.23';
 	}
 
 

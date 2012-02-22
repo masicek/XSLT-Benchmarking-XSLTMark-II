@@ -38,10 +38,10 @@ class CommandsTest extends TestCase
 			case 'WINNT':
 				$this->assertEquals(8, count($processors));
 
-				$this->assertArrayHasKey('libxslt1123cmd', $processors);
-				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Libxslt1123cmdProcessorDriver', $processors['libxslt1123cmd']);
-				$this->assertArrayHasKey('libxslt1126cmd', $processors);
-				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Libxslt1126cmdProcessorDriver', $processors['libxslt1126cmd']);
+				$this->assertArrayHasKey('xsltproc1123', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Xsltproc1123ProcessorDriver', $processors['xsltproc1123']);
+				$this->assertArrayHasKey('xsltproc1126', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Xsltproc1126ProcessorDriver', $processors['xsltproc1126']);
 				$this->assertArrayHasKey('libxslt1123php', $processors);
 				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Libxslt1123phpProcessorDriver', $processors['libxslt1123php']);
 				$this->assertArrayHasKey('sablotron103cmd', $processors);
