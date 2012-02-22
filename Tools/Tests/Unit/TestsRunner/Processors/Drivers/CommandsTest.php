@@ -36,10 +36,12 @@ class CommandsTest extends TestCase
 		switch (PHP_OS)
 		{
 			case 'WINNT':
-				$this->assertEquals(7, count($processors));
+				$this->assertEquals(8, count($processors));
 
 				$this->assertArrayHasKey('libxslt1123cmd', $processors);
 				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Libxslt1123cmdProcessorDriver', $processors['libxslt1123cmd']);
+				$this->assertArrayHasKey('libxslt1126cmd', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Libxslt1126cmdProcessorDriver', $processors['libxslt1126cmd']);
 				$this->assertArrayHasKey('libxslt1123php', $processors);
 				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Libxslt1123phpProcessorDriver', $processors['libxslt1123php']);
 				$this->assertArrayHasKey('sablotron103cmd', $processors);
