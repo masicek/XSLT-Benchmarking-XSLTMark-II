@@ -27,7 +27,7 @@ class WindowsMemoryUsageDriver extends AMemoryUsageDriver
 	/**
 	 * Length of substring of command that will by getted for filtering in 'wmic'
 	 */
-	const COMMAND_SUBSTR_LENGTH = 50;
+	const COMMAND_SUBSTR_LENGTH = 150;
 
 	/**
 	 * Microsecods waitig intervail in waiting loops
