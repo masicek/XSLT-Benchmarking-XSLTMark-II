@@ -144,7 +144,10 @@ class CommandsTest extends TestCase
 			$this->assertStringNotEqualsFile($errorPath, '', $message);
 			unlink($errorPath);
 
-			$this->assertFileNotExists($outputPath, $message);
+			if (is_file($outputPath))
+			{
+				unlink($outputPath);
+			}
 		}
 	}
 
