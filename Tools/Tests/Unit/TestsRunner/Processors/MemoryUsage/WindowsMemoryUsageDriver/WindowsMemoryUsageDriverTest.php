@@ -39,7 +39,8 @@ class WindowsMemoryUsageDriverTest extends TestCase
 	public function testOk()
 	{
 		$memoryUsage = new WindowsMemoryUsageDriver(__DIR__);
-		$command = 'php -r "sleep(1);"';
+		$phpPath = $this->setDirSep(LIBS_TOOLS . '/Php/5.3.6/php.exe');
+		$command = $phpPath . ' -r "sleep(1);"';
 		$logFile = $this->setDirSep(__DIR__ . '/windowsMemoryUsage.log');
 
 		$this->assertFileNotExists($logFile);

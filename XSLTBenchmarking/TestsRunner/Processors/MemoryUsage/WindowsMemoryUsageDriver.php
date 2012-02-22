@@ -190,6 +190,9 @@ class WindowsMemoryUsageDriver extends AMemoryUsageDriver
 			$command = $commandBegin . ' ' . $commandEnd;
 		}
 
+		// escape all backslashes (\)
+		$command = str_replace('\\', '\\\\', $command);
+
 		return $command;
 	}
 
