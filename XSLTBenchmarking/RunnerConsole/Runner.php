@@ -340,7 +340,8 @@ class Runner
 	private function printAvailableProcessors()
 	{
 		$tmpDir = $this->options->get('Tmp');
-		$processor = new \XSLTBenchmarking\TestsRunner\Processor($tmpDir);
+		$memoryUsage = new \XSLTBenchmarking\TestsRunner\MemoryUsage($tmpDir);
+		$processor = new \XSLTBenchmarking\TestsRunner\Processor($tmpDir, $memoryUsage);
 		$processorsDrivers = $processor->getAvailable();
 
 		// get max lengtho of each parts
