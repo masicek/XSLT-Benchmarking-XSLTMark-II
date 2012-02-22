@@ -61,3 +61,10 @@ class CollisionException extends Exception
 class InvalidStateException extends Exception
 {
 }
+
+/**
+ * Loop have to many iteratins
+ */
+class LongLoopException extends Exception
+{
+}
