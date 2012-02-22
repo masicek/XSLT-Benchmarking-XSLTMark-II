@@ -35,6 +35,7 @@ class KernelsTest extends TestCase
 			AProcessorDriver::KERNEL_LIBXSLT,
 			AProcessorDriver::KERNEL_SABLOTRON,
 			AProcessorDriver::KERNEL_SAXON,
+			AProcessorDriver::KERNEL_XALAN,
 		);
 
 		foreach ($processorsDrivers as $processorDriver)

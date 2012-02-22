@@ -36,7 +36,7 @@ class CommandsTest extends TestCase
 		switch (PHP_OS)
 		{
 			case 'WINNT':
-				$this->assertEquals(5, count($processors));
+				$this->assertEquals(6, count($processors));
 
 				$this->assertArrayHasKey('libxslt1123cmd', $processors);
 				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Libxslt1123cmdProcessorDriver', $processors['libxslt1123cmd']);
@@ -48,6 +48,8 @@ class CommandsTest extends TestCase
 				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Saxon655ProcessorDriver', $processors['saxon655']);
 				$this->assertArrayHasKey('saxonhe9402', $processors);
 				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\SaxonHE9402ProcessorDriver', $processors['saxonhe9402']);
+				$this->assertArrayHasKey('xalan271', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Xalan271ProcessorDriver', $processors['xalan271']);
 				break;
 
 			case 'Linux':

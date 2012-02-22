@@ -21,19 +21,12 @@ abstract class AProcessorDriver
 {
 
 	/**
-	 * Saxon kernel name
+	 * Saxon kernel names
 	 */
 	const KERNEL_SAXON = 'Saxon';
-
-	/**
-	 * libxslt kernel name
-	 */
 	const KERNEL_LIBXSLT = 'libxslt';
-
-	/**
-	 * Sablotron kernel name
-	 */
 	const KERNEL_SABLOTRON = 'Sablotron';
+	const KERNEL_XALAN = 'Xalan';
 
 	/**
 	 * Value of PHP_OS for Windows
