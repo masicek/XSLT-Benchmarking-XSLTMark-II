@@ -247,6 +247,12 @@ class Processor
 				continue;
 			}
 
+			// driver have to be php file
+			if (substr($driverFile, -4) !== '.php')
+			{
+				continue;
+			}
+
 			require_once P::m($this->driversDir, $driverFile);
 			$className = $this->driversNamespace . substr($driverFile, 0, -4);
 			$driver = new $className;

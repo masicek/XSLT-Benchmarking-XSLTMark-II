@@ -28,6 +28,7 @@ abstract class AProcessorDriver
 	const KERNEL_SABLOTRON = 'Sablotron';
 	const KERNEL_XALAN = 'Xalan';
 	const KERNEL_XT = 'XT';
+	const KERNEL_MSXML = 'MSXML';
 
 	/**
 	 * Value of PHP_OS for Windows
