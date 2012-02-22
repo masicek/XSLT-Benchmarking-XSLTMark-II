@@ -147,13 +147,13 @@ class Runner
 		$testsRun = 0;
 		foreach ($this->tests as $name => $test)
 		{
-			$report = $this->testRunner->run($test);
-			$this->reportsPrinter->addReport($report);
 			$testsRun++;
 			if ($verbose)
 			{
-				Printer::info($testsRun . '/' . $testCount . ' - Runnig of the test "' . $test->getName() . '" done.');
+				Printer::info($testsRun . '/' . $testCount . ' - Runnig of the test "' . $test->getName() . '"');
 			}
+			$report = $this->testRunner->run($test, $verbose);
+			$this->reportsPrinter->addReport($report);
 		}
 
 		$reportFilePath = $this->reportsPrinter->printAll();

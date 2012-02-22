@@ -12,8 +12,10 @@ namespace XSLTBenchmarking\TestsRunner;
 require_once ROOT . '/Microtime.php';
 require_once ROOT . '/Exceptions.php';
 require_once LIBS . '/PhpPath/PhpPath.min.php';
+require_once ROOT . '/Printer.php';
 
 use PhpPath\P;
+use XSLTBenchmarking\Printer;
 
 
 /**
@@ -129,10 +131,11 @@ class TestRunner
 	 * Run one test
 	 *
 	 * @param \XSLTBenchmarking\TestsRunner\Test $test
+	 * @param bool $verbose Print information about each run test
 	 *
 	 * @return \XSLTBenchmarking\Reports\Report
 	 */
-	public function run(\XSLTBenchmarking\TestsRunner\Test $test)
+	public function run(\XSLTBenchmarking\TestsRunner\Test $test, $verbose = FALSE)
 	{
 		$templatePath = $test->getTemplatePath();
 		$couplesPaths = $test->getCouplesPaths();
@@ -143,6 +146,11 @@ class TestRunner
 
 		foreach ($this->processorsNames as $processorName)
 		{
+			if ($verbose)
+			{
+				Printer::info('    ' . $processorName);
+			}
+
 			foreach ($couplesPaths as $xmlInputPath => $expectedOutputPath)
 			{
 				// unique filename
