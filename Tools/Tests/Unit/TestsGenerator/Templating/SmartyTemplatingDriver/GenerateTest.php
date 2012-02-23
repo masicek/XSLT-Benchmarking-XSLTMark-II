@@ -43,7 +43,10 @@ class GenerateTest extends TestCase
 		));
 
 		$this->assertFileExists($generatedPath);
-		$this->assertFileEquals($generatedExpectedPath, $generatedPath);
+
+		$generatedExpected = str_replace("\r\n", PHP_EOL, file_get_contents($generatedExpectedPath));
+		$generated = file_get_contents($generatedPath);
+		$this->assertEquals($generatedExpected, $generated);
 
 		// remove copy of file
 		unlink($generatedPath);

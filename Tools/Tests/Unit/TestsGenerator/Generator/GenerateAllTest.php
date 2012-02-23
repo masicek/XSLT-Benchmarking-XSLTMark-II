@@ -155,7 +155,7 @@ class GenerateAllTest extends TestCase
 	}
 
 
-	public function providerOk($verbose)
+	public function providerOk()
 	{
 		return array(
 			'verbose' => array(TRUE),

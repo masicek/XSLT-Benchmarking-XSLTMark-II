@@ -35,7 +35,7 @@ class Saxon655ProcessorDriver extends AProcessorDriver
 		}
 		else
 		{
-			return FALSE;
+			return TRUE;
 		}
 	}
 
@@ -60,9 +60,9 @@ class Saxon655ProcessorDriver extends AProcessorDriver
 				$prefix = '"[LIBS]\Java\1.6.0_29\java.exe"';
 				break;
 
-//			case self::OS_LINUX:
-//				$prefix = '[LIBS]/Java/??????/java';
-//				break;
+			case self::OS_LINUX:
+				$prefix = 'java';
+				break;
 
 		}
 

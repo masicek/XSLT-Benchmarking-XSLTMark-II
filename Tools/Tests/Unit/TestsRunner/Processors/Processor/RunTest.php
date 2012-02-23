@@ -308,7 +308,13 @@ class RunTest extends TestCase
 		$generatedFiles = array_values(array_diff($filesAfter, $filesBefore));
 		$this->assertEquals(1, count($generatedFiles));
 		$generatedPath = $this->setDirSep(__DIR__ . '/' . $generatedFiles[0]);
-		$this->assertXmlFileEqualsXmlFile($generatedPath, $this->setDirSep(__DIR__ . '/FixtureRun/inputWithTemplatePath.xml'));
+
+		file_put_contents(
+			$this->setDirSep(__DIR__ . '/FixtureRun/inputWithTemplatePath.tmp.xml'),
+			str_replace('###FILE###', __FILE__, file_get_contents($this->setDirSep(__DIR__ . '/FixtureRun/inputWithTemplatePath.xml')))
+		);
+		$this->assertXmlFileEqualsXmlFile($generatedPath, $this->setDirSep(__DIR__ . '/FixtureRun/inputWithTemplatePath.tmp.xml'));
+		unlink($this->setDirSep(__DIR__ . '/FixtureRun/inputWithTemplatePath.tmp.xml'));
 
 		// delete generated file
 		unlink($generatedPath);

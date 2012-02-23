@@ -71,8 +71,10 @@ class TestTest extends TestCase
 	 * @dataProvider providerTemplatePathWrong
 	 *
 	 * @covers XSLTBenchmarking\TestsRunner\Test::setTemplatePath
+	 *
+	 * @todo remove default value (it is for linux version)
 	 */
-	public function testTemplatePathWrong($name)
+	public function testTemplatePathWrong($name = 'Lorem ipsum')
 	{
 		file_put_contents($this->setDirSep(__DIR__ . '/' . $name), '');
 
@@ -90,7 +92,7 @@ class TestTest extends TestCase
 
 
 	/**
-	 * provider for testTemplatePathWrong1
+	 * provider for testTemplatePathWrong
 	 */
 	public function providerTemplatePathWrong()
 	{

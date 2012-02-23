@@ -29,6 +29,10 @@ class InfoTest extends TestCase
 	{
 		$printerPath = $this->setDirSep(ROOT_TOOLS . '/Printer.php');
 		$command = 'php -r "require_once \'' . $printerPath . '\'; \XSLTBenchmarking\Printer::$mode = \XSLTBenchmarking\Printer::MODE_PRODUCTION; \XSLTBenchmarking\Printer::info(\'Test info\');"';
+		if (PHP_OS == 'Linux')
+		{
+			$command = str_replace('$', '\\$', $command);
+		}
 
 		exec($command, $output);
 

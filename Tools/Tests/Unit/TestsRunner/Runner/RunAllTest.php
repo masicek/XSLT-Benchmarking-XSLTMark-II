@@ -51,8 +51,8 @@ class RunAllTest extends TestCase
 		);
 
 		$testRunner = \Mockery::mock('\XSLTBenchmarking\TestsRunner\TestRunner');
-		$testRunner->shouldReceive('run')->once()->with($tests[0])->andReturn($reports[0]);
-		$testRunner->shouldReceive('run')->once()->with($tests[1])->andReturn($reports[1]);
+		$testRunner->shouldReceive('run')->once()->with($tests[0], $verbose)->andReturn($reports[0]);
+		$testRunner->shouldReceive('run')->once()->with($tests[1], $verbose)->andReturn($reports[1]);
 
 		$printer = \Mockery::mock('\XSLTBenchmarking\Reports\Printer');
 		$printer->shouldReceive('addReport')->once()->with($reports[0]);
@@ -85,7 +85,7 @@ class RunAllTest extends TestCase
 	}
 
 
-	public function provider($verbose)
+	public function provider()
 	{
 		return array(
 			'verbose' => array(TRUE),

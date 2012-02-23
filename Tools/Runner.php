@@ -184,8 +184,7 @@ class Runner
 		$coverage = P::m(DATA_TOOLS, '/Coverage');
 		$tests = P::m(TESTS_TOOLS);
 		$this->setArguments('boot.php',
-			'--strict
-			--coverage-html ' . $coverage . '
+			'--coverage-html ' . $coverage . '
 			' . $tests
 		);
 		\PHPUnit_TextUI_Command::main(FALSE);
@@ -209,8 +208,7 @@ class Runner
 		$coverage = P::m(DATA_TOOLS, '/Coverage');
 		$tests = P::m(TESTS_TOOLS, '/Unit');
 		$this->setArguments('boot.php',
-			'--strict
-			--coverage-html ' . $coverage . '
+			'--coverage-html ' . $coverage . '
 			' . $tests
 		);
 		\PHPUnit_TextUI_Command::main(FALSE);
@@ -234,8 +232,7 @@ class Runner
 		$coverage = P::m(DATA_TOOLS, '/Coverage');
 		$tests = P::m(TESTS_TOOLS, '/Regression');
 		$this->setArguments('boot.php',
-			'--strict
-			--coverage-html ' . $coverage . '
+			'--coverage-html ' . $coverage . '
 			' . $tests
 		);
 		\PHPUnit_TextUI_Command::main(FALSE);

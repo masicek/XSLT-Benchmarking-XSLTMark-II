@@ -18,6 +18,9 @@ interface IXmlGeneratorDriver
 {
 
 
+	public function __construct();
+
+
 	/**
 	 * Generate xml file
 	 *
