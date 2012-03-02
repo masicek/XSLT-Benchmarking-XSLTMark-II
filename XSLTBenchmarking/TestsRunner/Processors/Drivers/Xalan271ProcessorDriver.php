@@ -29,13 +29,28 @@ class Xalan271ProcessorDriver extends AProcessorDriver
 	 */
 	public function isAvailable()
 	{
-		if (PHP_OS == self::OS_WIN)
+		switch (PHP_OS)
 		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
+			case self::OS_WIN:
+				return TRUE;
+				break;
+
+			case self::OS_LINUX:
+				// java is needed
+				exec('java -version 2>&1 | grep \'java version\' | wc -l', $output);
+				if ($output[0] == '0')
+				{
+					return FALSE;
+				}
+				else
+				{
+					return TRUE;
+				}
+				break;
+
+			default:
+				return FALSE;
+				break;
 		}
 	}
 
@@ -60,10 +75,10 @@ class Xalan271ProcessorDriver extends AProcessorDriver
 				$prefix = '"[LIBS]\Java\1.6.0_29\java.exe"';
 				break;
 
-//			case self::OS_LINUX:
-//				$prefix = '[LIBS]/Java/??????/java';
-//				break;
-
+			case self::OS_LINUX:
+				// we assume installing java
+				$prefix = 'java';
+				break;
 		}
 
 		$commandTemplate = $prefix . ' -jar "[PROCESSORS]\Xalan\2.7.1\xalan.jar" -XSL "[XSLT]" -IN "[INPUT]" -OUT "[OUTPUT]" 2> "[ERROR]"';

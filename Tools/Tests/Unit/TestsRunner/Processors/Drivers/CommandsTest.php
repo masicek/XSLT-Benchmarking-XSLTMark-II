@@ -38,32 +38,62 @@ class CommandsTest extends TestCase
 			case 'WINNT':
 				$this->assertEquals(10, count($processors));
 
-				$this->assertArrayHasKey('xsltproc1123', $processors);
-				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Xsltproc1123ProcessorDriver', $processors['xsltproc1123']);
-				$this->assertArrayHasKey('xsltproc1126', $processors);
-				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Xsltproc1126ProcessorDriver', $processors['xsltproc1126']);
 				$this->assertArrayHasKey('libxslt1123php', $processors);
 				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Libxslt1123phpProcessorDriver', $processors['libxslt1123php']);
-				$this->assertArrayHasKey('sablotron103cmd', $processors);
-				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Sablotron103cmdProcessorDriver', $processors['sablotron103cmd']);
-				$this->assertArrayHasKey('saxon655', $processors);
-				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Saxon655ProcessorDriver', $processors['saxon655']);
-				$this->assertArrayHasKey('saxonhe9402', $processors);
-				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\SaxonHE9402ProcessorDriver', $processors['saxonhe9402']);
-				$this->assertArrayHasKey('xalan271', $processors);
-				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Xalan271ProcessorDriver', $processors['xalan271']);
-				$this->assertArrayHasKey('xt20051206', $processors);
-				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\XT20051206ProcessorDriver', $processors['xt20051206']);
+				$this->assertArrayNotHasKey('libxslt1126php', $processors);
+
 				$this->assertArrayHasKey('msxml60', $processors);
 				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\MSXML60ProcessorDriver', $processors['msxml60']);
 				$this->assertArrayHasKey('msxml30', $processors);
 				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\MSXML30ProcessorDriver', $processors['msxml30']);
+
+				$this->assertArrayHasKey('sablotron103cmd', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Sablotron103cmdProcessorDriver', $processors['sablotron103cmd']);
+
+				$this->assertArrayHasKey('saxon655', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Saxon655ProcessorDriver', $processors['saxon655']);
+				$this->assertArrayHasKey('saxonhe9402', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\SaxonHE9402ProcessorDriver', $processors['saxonhe9402']);
+
+				$this->assertArrayHasKey('xt20051206', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\XT20051206ProcessorDriver', $processors['xt20051206']);
+
+				$this->assertArrayHasKey('xalan271', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Xalan271ProcessorDriver', $processors['xalan271']);
+
+				$this->assertArrayHasKey('xsltproc1123', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Xsltproc1123ProcessorDriver', $processors['xsltproc1123']);
+				$this->assertArrayHasKey('xsltproc1126', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Xsltproc1126ProcessorDriver', $processors['xsltproc1126']);
 				break;
 
 			case 'Linux':
-				$this->assertEquals(1, count($processors));
+				$this->assertEquals(7, count($processors));
+
+				$this->assertArrayNotHasKey('libxslt1123php', $processors);
+				$this->assertArrayHasKey('libxslt1126php', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Libxslt1126phpProcessorDriver', $processors['libxslt1126php']);
+
+				$this->assertArrayNotHasKey('msxml60', $processors);
+				$this->assertArrayNotHasKey('msxml30', $processors);
+
+				$this->assertArrayHasKey('sablotron103cmd', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Sablotron103cmdProcessorDriver', $processors['sablotron103cmd']);
+
 				$this->assertArrayHasKey('saxon655', $processors);
 				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Saxon655ProcessorDriver', $processors['saxon655']);
+				$this->assertArrayHasKey('saxonhe9402', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\SaxonHE9402ProcessorDriver', $processors['saxonhe9402']);
+
+				$this->assertArrayHasKey('xt20051206', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\XT20051206ProcessorDriver', $processors['xt20051206']);
+
+				$this->assertArrayHasKey('xalan271', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Xalan271ProcessorDriver', $processors['xalan271']);
+
+				$this->assertArrayNotHasKey('xsltproc1123', $processors);
+				$this->assertArrayHasKey('xsltproc1126', $processors);
+				$this->assertInstanceOf('\XSLTBenchmarking\TestsRunner\Xsltproc1126ProcessorDriver', $processors['xsltproc1126']);
 				break;
 		}
 	}

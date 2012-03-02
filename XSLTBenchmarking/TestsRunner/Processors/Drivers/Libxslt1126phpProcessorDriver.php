@@ -14,11 +14,11 @@ require_once __DIR__ . '/AProcessorDriver.php';
 // @codeCoverageIgnoreEnd
 
 /**
- * Driver for "xsltproc 1.1.23"
+ * Driver for "libxslt 1.1.26 - PHP"
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
-class Xsltproc1123ProcessorDriver extends AProcessorDriver
+class Libxslt1126phpProcessorDriver extends AProcessorDriver
 {
 
 
@@ -32,19 +32,36 @@ class Xsltproc1123ProcessorDriver extends AProcessorDriver
 		switch (PHP_OS)
 		{
 			case self::OS_WIN:
-				return TRUE;
+				return FALSE;
 				break;
 
 			case self::OS_LINUX:
-				exec('xsltproc --version 2> /dev/null | grep \'libxslt 10123\' | wc -l', $output);
-				if ($output[0] == '0')
+				$available = FALSE;
+
+				// php is needed
+				exec('php -v 2> /dev/null | grep \'PHP\' | wc -l', $output);
+				if ($output[0] != '0')
 				{
-					return FALSE;
+					$available = TRUE;
 				}
-				else
+
+				if ($available)
 				{
-					return TRUE;
+					// xsl extension is needed
+					$output = NULL;
+					exec('php --ri xsl | grep -P \'(libxslt Version => 1.1.26)|(XSL => enabled)\' | wc -l', $output);
+					if ($output[0] == '2')
+					{
+						$available = TRUE;
+					}
+					else
+					{
+						$available = FALSE;
+					}
 				}
+
+				return $available;
+
 				break;
 
 			default:
@@ -70,15 +87,33 @@ class Xsltproc1123ProcessorDriver extends AProcessorDriver
 	{
 		switch (PHP_OS)
 		{
-			case self::OS_WIN:
-				$commandTemplate = '"[PROCESSORS]\libxslt\1.1.23\xsltproc\xsltproc.exe" -o "[OUTPUT]" "[XSLT]" "[INPUT]" 2> "[ERROR]"';
+			case self::OS_LINUX:
+				$prefix = 'php';
 				break;
 
-			case self::OS_LINUX:
-				// we assume installing xsltproc 1.1.23
-				$commandTemplate = 'xsltproc -o [OUTPUT] [XSLT] [INPUT] 2> [ERROR]';
-				break;
 		}
+
+		$phpScript = 'try {' .
+			'	libxml_use_internal_errors(TRUE);' .
+			'	$processor = new \XSLTProcessor();' .
+			'	$processor->importStylesheet(new \SimpleXMLElement(\'[XSLT]\', 0, TRUE));' .
+			'	$outputXml = $processor->transformToXml(new \SimpleXMLElement(\'[INPUT]\', 0, TRUE));' .
+			'	file_put_contents(\'[OUTPUT]\', $outputXml);' .
+			'}' .
+			'catch (\Exception $e)' .
+			'{' .
+			'	$error = libxml_get_last_error();' .
+			'	$errorMessage = $error->message . \': line \' . $error->line . \', column \' . $error->column . \', file \' . $error->file;' .
+			'	file_put_contents(\'[ERROR]\', $errorMessage);' .
+			'}';
+
+		if (PHP_OS == self::OS_LINUX)
+		{
+			$phpScript = str_replace('\\', '\\\\', $phpScript);
+			$phpScript = str_replace('$', '\\$', $phpScript);
+		}
+
+		$commandTemplate = $prefix . ' -r "' . $phpScript . '"';
 
 		return $commandTemplate;
 	}
@@ -91,7 +126,7 @@ class Xsltproc1123ProcessorDriver extends AProcessorDriver
 	 */
 	public function getFullName()
 	{
-		return 'xsltproc 1.1.23';
+		return 'libxslt 1.1.26 - PHP';
 	}
 
 

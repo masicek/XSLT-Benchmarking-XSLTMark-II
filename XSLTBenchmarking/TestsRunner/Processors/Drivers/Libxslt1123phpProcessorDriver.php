@@ -29,13 +29,44 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 	 */
 	public function isAvailable()
 	{
-		if (PHP_OS == self::OS_WIN)
+		switch (PHP_OS)
 		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
+			case self::OS_WIN:
+				return TRUE;
+				break;
+
+			case self::OS_LINUX:
+				$available = FALSE;
+
+				// php is needed
+				exec('php -v 2> /dev/null | grep \'PHP\' | wc -l', $output);
+				if ($output[0] != '0')
+				{
+					$available = TRUE;
+				}
+
+				if ($available)
+				{
+					// xsl extension is needed
+					$output = NULL;
+					exec('php --ri xsl | grep -P \'(libxslt Version => 1.1.23)|(XSL => enabled)\' | wc -l', $output);
+					if ($output[0] == '2')
+					{
+						$available = TRUE;
+					}
+					else
+					{
+						$available = FALSE;
+					}
+				}
+
+				return $available;
+
+				break;
+
+			default:
+				return FALSE;
+				break;
 		}
 	}
 
@@ -57,14 +88,12 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 		switch (PHP_OS)
 		{
 			case self::OS_WIN:
-				$extension = '"[PROCESSORS]\libxslt\1.1.23\php_xsl.dll"';
-				$prefix = '"[LIBS]\Php\5.3.6\php.exe"';
+				$prefix = '"[LIBS]\Php\5.3.6\php.exe" -d extension="[PROCESSORS]\libxslt\1.1.23\php_xsl.dll"';
 				break;
 
-//			case self::OS_LINUX:
-//				$extension = '[PROCESSORS]/libxslt/1.1.23/xsl.so';
-//				$prefix = '[LIBS]/Php/?????/php';
-//				break;
+			case self::OS_LINUX:
+				$prefix = 'php';
+				break;
 
 		}
 
@@ -82,7 +111,13 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 			'	file_put_contents(\'[ERROR]\', $errorMessage);' .
 			'}';
 
-		$commandTemplate = $prefix . ' -d extension=' . $extension . ' -r "' . $phpScript . '"';
+		if (PHP_OS == self::OS_LINUX)
+		{
+			$phpScript = str_replace('\\', '\\\\', $phpScript);
+			$phpScript = str_replace('$', '\\$', $phpScript);
+		}
+
+		$commandTemplate = $prefix . ' -r "' . $phpScript . '"';
 
 		return $commandTemplate;
 	}

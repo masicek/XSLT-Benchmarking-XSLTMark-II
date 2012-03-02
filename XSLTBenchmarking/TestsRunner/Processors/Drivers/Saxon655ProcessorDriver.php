@@ -29,13 +29,28 @@ class Saxon655ProcessorDriver extends AProcessorDriver
 	 */
 	public function isAvailable()
 	{
-		if (PHP_OS == self::OS_WIN)
+		switch (PHP_OS)
 		{
-			return TRUE;
-		}
-		else
-		{
-			return TRUE;
+			case self::OS_WIN:
+				return TRUE;
+				break;
+
+			case self::OS_LINUX:
+				// java is needed
+				exec('java -version 2>&1 | grep \'java version\' | wc -l', $output);
+				if ($output[0] == '0')
+				{
+					return FALSE;
+				}
+				else
+				{
+					return TRUE;
+				}
+				break;
+
+			default:
+				return FALSE;
+				break;
 		}
 	}
 
@@ -61,9 +76,9 @@ class Saxon655ProcessorDriver extends AProcessorDriver
 				break;
 
 			case self::OS_LINUX:
+				// we assume installing java
 				$prefix = 'java';
 				break;
-
 		}
 
 		$commandTemplate = $prefix . ' -jar "[PROCESSORS]\Saxon\6.5.5\saxon.jar" -o "[OUTPUT]" "[INPUT]" "[XSLT]" 2> "[ERROR]"';

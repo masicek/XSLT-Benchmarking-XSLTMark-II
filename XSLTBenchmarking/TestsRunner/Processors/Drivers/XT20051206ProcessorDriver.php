@@ -29,13 +29,28 @@ class XT20051206ProcessorDriver extends AProcessorDriver
 	 */
 	public function isAvailable()
 	{
-		if (PHP_OS == self::OS_WIN)
+		switch (PHP_OS)
 		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
+			case self::OS_WIN:
+				return TRUE;
+				break;
+
+			case self::OS_LINUX:
+				// java is needed
+				exec('java -version 2>&1 | grep \'java version\' | wc -l', $output);
+				if ($output[0] == '0')
+				{
+					return FALSE;
+				}
+				else
+				{
+					return TRUE;
+				}
+				break;
+
+			default:
+				return FALSE;
+				break;
 		}
 	}
 
@@ -57,17 +72,15 @@ class XT20051206ProcessorDriver extends AProcessorDriver
 		switch (PHP_OS)
 		{
 			case self::OS_WIN:
-				$prefix = '"[LIBS]\Java\1.6.0_29\java.exe"';
+				$commandTemplate = '"[LIBS]\Java\1.6.0_29\java.exe" -cp "[PROCESSORS]\XT\20051206\xt20051206.jar";"[PROCESSORS]\XT\20051206\xp.jar";"[PROCESSORS]\XT\20051206\sax2r2.jar" com.jclark.xsl.sax.Driver "[INPUT]" "[XSLT]" "[OUTPUT]" 2> "[ERROR]"';
 				break;
 
-//			case self::OS_LINUX:
-//				$prefix = '[LIBS]/Java/??????/java';
-//				break;
-
+			case self::OS_LINUX:
+				// we assume installing java
+				$commandTemplate = 'java -cp [PROCESSORS]/XT/20051206/xt20051206.jar:[PROCESSORS]/XT/20051206/xp.jar:[PROCESSORS]/XT/20051206/sax2r2.jar com.jclark.xsl.sax.Driver [INPUT] [XSLT] [OUTPUT] 2> [ERROR]';
+				break;
 		}
 
-		$commandTemplate = $prefix . ' -cp "[PROCESSORS]\XT\20051206\xt20051206.jar";"[PROCESSORS]\XT\20051206\xp.jar";"[PROCESSORS]\XT\20051206\sax2r2.jar" com.jclark.xsl.sax.Driver "[INPUT]" "[XSLT]" "[OUTPUT]" 2> "[ERROR]"';
-		$commandTemplate = str_replace('\\', DIRECTORY_SEPARATOR, $commandTemplate);
 		return $commandTemplate;
 	}
 

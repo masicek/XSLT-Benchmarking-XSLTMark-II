@@ -29,13 +29,27 @@ class Sablotron103cmdProcessorDriver extends AProcessorDriver
 	 */
 	public function isAvailable()
 	{
-		if (PHP_OS == self::OS_WIN)
+		switch (PHP_OS)
 		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
+			case self::OS_WIN:
+				return TRUE;
+				break;
+
+			case self::OS_LINUX:
+				exec('sabcmd --version 2> /dev/null | grep \'sabcmd 1.0.3\' | wc -l', $output);
+				if ($output[0] == '0')
+				{
+					return FALSE;
+				}
+				else
+				{
+					return TRUE;
+				}
+				break;
+
+			default:
+				return FALSE;
+				break;
 		}
 	}
 
@@ -60,9 +74,9 @@ class Sablotron103cmdProcessorDriver extends AProcessorDriver
 				$commandTemplate = '"[PROCESSORS]\Sablotron\1.0.3\sabcmd.exe" "file:///[XSLT]" "file:///[INPUT]" "file:///[OUTPUT]" 2> "[ERROR]"';
 				break;
 
-//			case self::OS_LINUX:
-//				$commandTemplate = '[PROCESSORS]/Sablotron/1.0.3/sabcmd [XSLT] [INPUT] [OUTPUT] 2> [ERROR]';
-//				break;
+			case self::OS_LINUX:
+				$commandTemplate = 'sabcmd [XSLT] [INPUT] [OUTPUT] 2> [ERROR]';
+				break;
 		}
 
 		return $commandTemplate;

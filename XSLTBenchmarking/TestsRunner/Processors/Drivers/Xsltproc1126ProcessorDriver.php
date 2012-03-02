@@ -29,13 +29,27 @@ class Xsltproc1126ProcessorDriver extends AProcessorDriver
 	 */
 	public function isAvailable()
 	{
-		if (PHP_OS == self::OS_WIN)
+		switch (PHP_OS)
 		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
+			case self::OS_WIN:
+				return TRUE;
+				break;
+
+			case self::OS_LINUX:
+				exec('xsltproc --version 2> /dev/null | grep \'libxslt 10126\' | wc -l', $output);
+				if ($output[0] == '0')
+				{
+					return FALSE;
+				}
+				else
+				{
+					return TRUE;
+				}
+				break;
+
+			default:
+				return FALSE;
+				break;
 		}
 	}
 
@@ -60,9 +74,10 @@ class Xsltproc1126ProcessorDriver extends AProcessorDriver
 				$commandTemplate = '"[PROCESSORS]\libxslt\1.1.26\xsltproc\xsltproc.exe" -o "[OUTPUT]" "[XSLT]" "[INPUT]" 2> "[ERROR]"';
 				break;
 
-//			case self::OS_LINUX:
-//				$commandTemplate = '[PROCESSORS]/libxslt/1.1.26/xsltproc -o [OUTPUT] [XSLT] [INPUT] 2> [ERROR]';
-//				break;
+			case self::OS_LINUX:
+				// we assume installing xsltproc 1.1.26
+				$commandTemplate = 'xsltproc -o [OUTPUT] [XSLT] [INPUT] 2> [ERROR]';
+				break;
 		}
 
 		return $commandTemplate;
