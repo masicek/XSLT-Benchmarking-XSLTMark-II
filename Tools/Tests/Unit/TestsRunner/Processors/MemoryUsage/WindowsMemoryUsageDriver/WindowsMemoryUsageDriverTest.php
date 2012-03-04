@@ -22,8 +22,6 @@ require_once ROOT_TOOLS . '/TestsRunner/Processors/MemoryUsage/WindowsMemoryUsag
  * @covers \XSLTBenchmarking\TestsRunner\WindowsMemoryUsageDriver::__construct
  * @covers \XSLTBenchmarking\TestsRunner\WindowsMemoryUsageDriver::run
  * @covers \XSLTBenchmarking\TestsRunner\WindowsMemoryUsageDriver::get
- * @covers \XSLTBenchmarking\TestsRunner\WindowsMemoryUsageDriver::getCommandSubstr
- * @covers \XSLTBenchmarking\TestsRunner\WindowsMemoryUsageDriver::getLogComplete
  */
 class WindowsMemoryUsageDriverTest extends TestCase
 {
@@ -42,12 +40,11 @@ class WindowsMemoryUsageDriverTest extends TestCase
 	public function testOk()
 	{
 		$memoryUsage = new WindowsMemoryUsageDriver(__DIR__);
-		$phpPath = $this->setDirSep(LIBS_TOOLS . '/Php/5.3.6/php.exe');
-		$command = $phpPath . ' -r "sleep(1);"';
+		$command = 'php -r "sleep(1);"';
 		$logFile = $this->setDirSep(__DIR__ . '/windowsMemoryUsage.log');
 
 		$this->assertFileNotExists($logFile);
-		$memoryUsage->run($command);
+		$command = $memoryUsage->run($command);
 
 		exec($command);
 
@@ -59,82 +56,55 @@ class WindowsMemoryUsageDriverTest extends TestCase
 	}
 
 
-	public function testWithoutRunnigCommand_LongWaitingForEndBackgroudProcess()
+	public function testStderr_WithQuotes()
 	{
-		$this->markTestSkipped('TODO correction of sleeping');
-
 		$memoryUsage = new WindowsMemoryUsageDriver(__DIR__);
-		$command = 'php -r "sleep(1);"';
+		$command = 'php -r "echo aaa\';" 2> "' . __FILE__ . '.error"';
 		$logFile = $this->setDirSep(__DIR__ . '/windowsMemoryUsage.log');
 
 		$this->assertFileNotExists($logFile);
-		$memoryUsage->run($command);
-
-		sleep(1);
-
-		$this->assertFileExists($logFile);
-
-		try {
-			$memory = $memoryUsage->get();
-			$this->fail();
-		} catch (\XSLTBenchmarking\LongLoopException $e) {
-			$this->assertEquals('Loop waiting for end of background process have to many iteratins', $e->getMessage());
-			sleep(10);
-			unlink($logFile);
-			unlink($logFile . '.end');
-		}
-	}
-
-
-	public function testWithoutRunnigCommand_LongWaitingForStartOfCommandInBackgroudProcess()
-	{
-		$this->markTestSkipped('Tested exception is commented in code');
-
-		$memoryUsage = new WindowsMemoryUsageDriver(__DIR__);
-		$command = 'php -r "sleep(1);"';
-		$logFile = $this->setDirSep(__DIR__ . '/windowsMemoryUsage.log');
-
-		$this->assertFileNotExists($logFile);
-		$memoryUsage->run($command);
-
-		sleep(10);
-
-		$this->assertFileExists($logFile);
-
-		try {
-			$memory = $memoryUsage->get();
-			$this->fail();
-		} catch (\XSLTBenchmarking\LongLoopException $e) {
-			$this->assertEquals('Loop in background process was too long - before running', $e->getMessage());
-			unlink($logFile);
-			unlink($logFile . '.end');
-		}
-	}
-
-
-	public function testWithoutRunnigCommand_LongWaitingForLongCommandInBackgroudProcess()
-	{
-		$this->markTestSkippedCondition();
-
-		$memoryUsage = new WindowsMemoryUsageDriver(__DIR__);
-		$command = 'php -r "sleep(150);"';
-		$logFile = $this->setDirSep(__DIR__ . '/windowsMemoryUsage.log');
-
-		$this->assertFileNotExists($logFile);
-		$memoryUsage->run($command);
+		$this->assertFileNotExists(__FILE__ . '.error');
+		$command = $memoryUsage->run($command);
 
 		exec($command);
 
 		$this->assertFileExists($logFile);
+		$memory = $memoryUsage->get();
+		$this->assertFileNotExists($logFile);
 
-		try {
-			$memory = $memoryUsage->get();
-			$this->fail();
-		} catch (\XSLTBenchmarking\LongLoopException $e) {
-			$this->assertEquals('Loop in background process was too long - running', $e->getMessage());
-			unlink($logFile);
-			unlink($logFile . '.end');
-		}
+		$this->assertFileExists(__FILE__ . '.error');
+		$error = file_get_contents(__FILE__ . '.error');
+		unlink(__FILE__ . '.error');
+		$this->assertNotRegExp('/Peak Working Set Size \(kbytes\):/', $error);
+		$this->assertRegExp('/PHP Parse error:/', $error);
+
+		$this->assertGreaterThan(1000, $memory);
+	}
+
+
+	public function testStderr_WithoutQuotes()
+	{
+		$memoryUsage = new WindowsMemoryUsageDriver(__DIR__);
+		$command = 'php -r "echo aaa\';" 2> ' . __FILE__ . '.error';
+		$logFile = $this->setDirSep(__DIR__ . '/windowsMemoryUsage.log');
+
+		$this->assertFileNotExists($logFile);
+		$this->assertFileNotExists(__FILE__ . '.error');
+		$command = $memoryUsage->run($command);
+
+		exec($command);
+
+		$this->assertFileExists($logFile);
+		$memory = $memoryUsage->get();
+		$this->assertFileNotExists($logFile);
+
+		$this->assertFileExists(__FILE__ . '.error');
+		$error = file_get_contents(__FILE__ . '.error');
+		unlink(__FILE__ . '.error');
+		$this->assertNotRegExp('/Peak Working Set Size \(kbytes\):/', $error);
+		$this->assertRegExp('/PHP Parse error:/', $error);
+
+		$this->assertGreaterThan(1000, $memory);
 	}
 
 

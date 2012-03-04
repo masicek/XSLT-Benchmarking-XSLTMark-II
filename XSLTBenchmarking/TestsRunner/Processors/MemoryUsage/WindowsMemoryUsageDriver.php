@@ -16,7 +16,7 @@ require_once LIBS . '/PhpPath/PhpPath.min.php';
 use PhpPath\P;
 
 /**
- * Windows driver for geting maximum memory usage of command excuteb by 'exec'
+ * Windows driver for geting maximum memory usage of command excuteb by 'timemem.exe'
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
@@ -25,34 +25,25 @@ class WindowsMemoryUsageDriver extends AMemoryUsageDriver
 
 
 	/**
-	 * Length of substring of command that will by getted for filtering in 'wmic'
-	 */
-	const COMMAND_SUBSTR_LENGTH = 150;
-
-	/**
-	 * Microsecods waitig intervail in waiting loops
-	 */
-	const WAITING_MICROSECONDS = 1000;
-
-	/**
-	 * Maximum iterations in waiting loops
-	 */
-	const WAITING_MAX_LOOPS = 10000;
-
-
-	/**
-	 * Path of log file for reporting measured PeakWorkingSetSize from 'wmic'
+	 * Path of log file for reporting measured PeakWorkingSetSize from '/usr/bin/time'
 	 *
 	 * @var string
 	 */
-	private $logPathMain;
+	private $logPath;
 
 	/**
-	 * Path of log file for reporting end of background process for measured PeakWorkingSetSize from 'wmic'
+	 * Path of command 'timemem.exe' for measure memory usage
 	 *
 	 * @var string
 	 */
-	private $logPathEnd;
+	private $timememPath;
+
+	/**
+	 * Helpful variable for saving path of file for redirecting stderr in input command
+	 *
+	 * @var string
+	 */
+	private $errorOutputPath;
 
 
 	/**
@@ -64,43 +55,48 @@ class WindowsMemoryUsageDriver extends AMemoryUsageDriver
 	{
 		parent::__construct($tmpDir);
 
-		$this->logPathMain = P::m($this->tmpDir, 'windowsMemoryUsage.log');
-		$this->logPathEnd = $this->logPathMain . '.end';
+		$this->logPath = P::m($this->tmpDir, 'windowsMemoryUsage.log');
+		$this->timememPath = P::m(LIBS, 'Timemem', 'timemem.exe');
 	}
 
 
 	/**
-	 * Run command on backend, that checking memory usage of getted command.
-	 * After ending of set command, run command have to end to.
-	 * Input command are returned.
+	 * Save command into scrit and return command for running set command and
+	 * checking its memory usage.
 	 *
 	 * @param string $command Checked command
 	 *
-	 * @throws \XSLTBenchmarking\LongLoopException Long waiting for deletenig main log file
+	 * @throws \XSLTBenchmarking\InvalidArgumentException Log/Script file exist
 	 * @return string
 	 */
 	public function run($command)
 	{
-		// wait for deleting log file by before process
-		$loopCounter = 0;
-		while (is_file($this->logPathMain))
+		if (is_file($this->logPath))
 		{
-			if ($loopCounter >= self::WAITING_MAX_LOOPS)
-			{
-				throw new \XSLTBenchmarking\LongLoopException('Loop waiting for deleting log file have to many iteratins');
-			}
-
-			$loopCounter++;
-			usleep(self::WAITING_MICROSECONDS);
+			throw new \XSLTBenchmarking\InvalidArgumentException('Windows memory usage log file exist.');
 		}
 
-		$commandSubstr = $this->getCommandSubstr($command);
+		// error output
+		preg_match('/2> *"([^"]*)"/', $command, $matches);
+		$this->errorOutputPath = NULL;
+		if (isset($matches[1]))
+		{
+			$command = str_replace($matches[0], '', $command);
+			$this->errorOutputPath = $matches[1];
+		}
+		else
+		{
+			preg_match('/2> *([^ ]*)/', $command, $matches);
+			if (isset($matches[1]))
+			{
+				$command = str_replace($matches[0], '', $command);
+				$this->errorOutputPath = $matches[1];
+			}
+		}
 
-		// run batch file in background
-		$batPath = P::m(__DIR__, 'windowsMemoryUsage.bat');
-		$commandBackground = 'cmd /C ' . $batPath . ' "' . $commandSubstr . '" "' . $this->logPathMain . '" "' . $this->logPathEnd . '"';
-		$WshShell = new \COM("WScript.Shell");
-		$oExec = $WshShell->Run($commandBackground, 0, FALSE);
+		$command = str_replace('>', '^>', $command);
+		$command = str_replace('"', '\\"', $command);
+		$command = $this->timememPath . ' "' . $command . '" 2> ' . $this->logPath;
 
 		return $command;
 	}
@@ -109,164 +105,30 @@ class WindowsMemoryUsageDriver extends AMemoryUsageDriver
 	/**
 	 * Return maximum memory usage (in bytes) last checked command by self::run().
 	 *
-	 * @throws \XSLTBenchmarking\Exception Empty main log
-	 * @throws \XSLTBenchmarking\Exception Long has no relevant value
 	 * @return integer
 	 */
 	public function get()
 	{
-		$content = $this->getLogComplete();
+		$log = trim(file_get_contents($this->logPath));
 
-		if (!$content)
+		// error output of command
+		$errorEndPos = strpos($log, 'Process ID:');
+		if ($errorEndPos)
 		{
-			//throw new \XSLTBenchmarking\Exception('Empty log for checking memory usage of process');
-			$maxMemory = 0;
+			$error = substr($log, 0, $errorEndPos);
+			$log = substr($log, $errorEndPos);
+			file_put_contents($this->errorOutputPath, $error);
 		}
-		else
-		{
-			$lines = explode(PHP_EOL, $content);
-			array_walk($lines, function (&$item, $key) {$item = (int)$item;});
-			$lines = array_filter($lines);
-			if (count($lines) == 0)
-			{
-				//throw new \XSLTBenchmarking\Exception('Log for checking memory usage of process has no relevant value');
-				$maxMemory = 0;
-			}
-			else
-			{
-				rsort($lines, SORT_NUMERIC);
-				$maxMemory = $lines[0];
 
-				// units corrections (Kilobytes -> Bytes)
-				$maxMemory = $maxMemory * 1000;
-			}
-		}
+		$log = preg_match('/Peak Working Set Size \(kbytes\): ([0-9]*)/', $log, $matches);
+		$maxMemory = $matches[1];
+
+		unlink($this->logPath);
+
+		// units corrections (Kilobytes -> Bytes)
+		$maxMemory = $maxMemory * 1000;
 
 		return $maxMemory;
-	}
-
-
-	/**
-	 * Return substring of command that can be used for selecting process from process list.
-	 * Substring cannot include quotes (").
-	 *
-	 * @param string $command Parsed command
-	 *
-	 * @return string
-	 */
-	private function getCommandSubstr($command)
-	{
-		$command = trim($command);
-		if ($command[0] == '"')
-		{
-			$command = substr($command, 1);
-		}
-		$command = trim($command);
-
-		$endIndexApostrophe = strpos($command, '"');
-		$endIndexEol = strpos($command, "\n");
-
-		if (!$endIndexApostrophe && !$endIndexEol)
-		{
-			$endIndex = 0;
-		}
-		elseif (!$endIndexApostrophe && $endIndexEol)
-		{
-			$endIndex = $endIndexEol;
-		}
-		elseif ($endIndexApostrophe && !$endIndexEol)
-		{
-			$endIndex = $endIndexApostrophe;
-		}
-		else
-		{
-			$endIndex = min(array($endIndexApostrophe, $endIndexEol));
-		}
-
-		if (!$endIndex || $endIndex > self::COMMAND_SUBSTR_LENGTH)
-		{
-			$endIndex = self::COMMAND_SUBSTR_LENGTH;
-		}
-
-		$command = substr($command, 0, $endIndex);
-
-		// add space between first and second parts - wmic behavior
-		$spaceIndex = strpos($command, ' ');
-		if ($spaceIndex !== FALSE)
-		{
-			$commandBegin = substr($command, 0, $spaceIndex);
-			$commandEnd = substr($command, $spaceIndex);
-			$command = $commandBegin . ' ' . $commandEnd;
-		}
-
-		// escape all backslashes (\)
-		$command = str_replace('\\', '\\\\', $command);
-
-		return $command;
-	}
-
-
-	/**
-	 * Return content of main log after its completition.
-	 *
-	 * @throws \XSLTBenchmarking\LongLoopException Too long waiting for complete log
-	 * @throws \XSLTBenchmarking\LongLoopException Background process run too long
-	 * @return string
-	 */
-	private function getLogComplete()
-	{
-		// waiting for end of background process
-		$loopCounter = 0;
-		while (!is_file($this->logPathEnd))
-		{
-			if ($loopCounter >= self::WAITING_MAX_LOOPS)
-			{
-				throw new \XSLTBenchmarking\LongLoopException('Loop waiting for end of background process have to many iteratins');
-			}
-
-			$loopCounter++;
-			usleep(self::WAITING_MICROSECONDS);
-		}
-
-		// waiting for complete end file
-		$endIsComplete = FALSE;
-		$loopCounter = 0;
-		while (!$endIsComplete)
-		{
-			if ($loopCounter >= self::WAITING_MAX_LOOPS)
-			{
-				throw new \XSLTBenchmarking\LongLoopException('Loop waiting for completle end file of background process have to many iteratins');
-			}
-			$loopCounter++;
-			usleep(self::WAITING_MICROSECONDS);
-
-			$contentEnd = file_get_contents($this->logPathEnd);
-			$contentEnd = explode(PHP_EOL, trim($contentEnd));
-			$info = trim(end($contentEnd));
-			if ($info == 'END')
-			{
-				$endIsComplete = TRUE;
-			}
-		}
-
-		// backgroud process end premature
-		$info = trim($contentEnd[0]);
-		if ($info == 'LONG_LOOP_BEFORE')
-		{
-			//throw new \XSLTBenchmarking\LongLoopException('Loop in background process was too long - before running');
-		}
-		if ($info == 'LONG_LOOP_RUNNING')
-		{
-			throw new \XSLTBenchmarking\LongLoopException('Loop in background process was too long - running');
-		}
-		unlink($this->logPathEnd);
-
-		// get content of main log
-		$content = file_get_contents($this->logPathMain);
-		$content = mb_convert_encoding($content, 'UTF-8', 'UNICODE');
-		unlink($this->logPathMain);
-
-		return $content;
 	}
 
 
