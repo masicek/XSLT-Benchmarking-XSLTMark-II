@@ -19,8 +19,11 @@ require_once ROOT_TOOLS . '/TestsRunner/Processors/MemoryUsage/WindowsMemoryUsag
  *
  * @author Viktor Mašíček <viktor@masicek.net>
  *
+ * @covers \XSLTBenchmarking\TestsRunner\WindowsMemoryUsageDriver::__construct
  * @covers \XSLTBenchmarking\TestsRunner\WindowsMemoryUsageDriver::run
  * @covers \XSLTBenchmarking\TestsRunner\WindowsMemoryUsageDriver::get
+ * @covers \XSLTBenchmarking\TestsRunner\WindowsMemoryUsageDriver::getCommandSubstr
+ * @covers \XSLTBenchmarking\TestsRunner\WindowsMemoryUsageDriver::getLogComplete
  */
 class WindowsMemoryUsageDriverTest extends TestCase
 {
