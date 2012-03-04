@@ -43,12 +43,12 @@ abstract class AMemoryUsageDriver
 
 
 	/**
-	 * Run command on backend, that checking memory usage of getted command.
-	 * After ending of set command, run command have to end to.
+	 * Prepare checking memory usage of set command.
+	 * Drivers can return modified commad for better checking.
 	 *
 	 * @param string $command Checked command
 	 *
-	 * @return void
+	 * @return string
 	 */
 	abstract public function run($command);
 

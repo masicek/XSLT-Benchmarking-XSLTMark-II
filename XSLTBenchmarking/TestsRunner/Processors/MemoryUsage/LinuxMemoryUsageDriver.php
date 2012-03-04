@@ -18,12 +18,25 @@ use PhpPath\P;
 /**
  * Linux driver for geting maximum memory usage of command excuteb by 'exec'
  *
- * HACK - not implemented now
- *
  * @author Viktor Mašíček <viktor@masicek.net>
  */
 class LinuxMemoryUsageDriver extends AMemoryUsageDriver
 {
+
+
+	/**
+	 * Path of log file for reporting measured PeakWorkingSetSize from '/usr/bin/time'
+	 *
+	 * @var string
+	 */
+	private $logPath;
+
+	/**
+	 * Path of script included running command for running in '/usr/bin/time'
+	 *
+	 * @var string
+	 */
+	private $scriptPath;
 
 
 	/**
@@ -33,19 +46,42 @@ class LinuxMemoryUsageDriver extends AMemoryUsageDriver
 	 */
 	public function __construct($tmpDir)
 	{
+		parent::__construct($tmpDir);
+
+		$this->logPath = P::m($this->tmpDir, 'linuxMemoryUsage.log');
+		$this->scriptPath = P::m($this->tmpDir, 'linuxMemoryUsage.sh');
 	}
 
 
 	/**
-	 * Run command on backend, that checking memory usage of getted command.
-	 * After ending of set command, run command have to end to.
+	 * Save command into scrit and return command for running set command and
+	 * checking its memory usage.
 	 *
 	 * @param string $command Checked command
 	 *
-	 * @return void
+	 * @throws \XSLTBenchmarking\InvalidArgumentException Log/Script file exist
+	 * @return string
 	 */
 	public function run($command)
 	{
+		if (is_file($this->logPath))
+		{
+			throw new \XSLTBenchmarking\InvalidArgumentException('Linux memory usage log file exist.');
+		}
+		if (is_file($this->scriptPath))
+		{
+			throw new \XSLTBenchmarking\InvalidArgumentException('Linux memory usage script file exist.');
+		}
+
+		file_put_contents($this->scriptPath, $command);
+		chmod($this->scriptPath, 0777);
+
+		$command =
+			'/usr/bin/time -v ' . $this->scriptPath . ' 2>&1 | ' .
+			'grep \'Maximum resident set size (kbytes):\' | ' .
+			'sed \'s/^.*: //\' > ' . $this->logPath;
+
+		return $command;
 	}
 
 
@@ -56,7 +92,16 @@ class LinuxMemoryUsageDriver extends AMemoryUsageDriver
 	 */
 	public function get()
 	{
-		return 0;
+		$maxMemory = file_get_contents($this->logPath);
+		$maxMemory = trim($maxMemory);
+
+		unlink($this->logPath);
+		unlink($this->scriptPath);
+
+		// units corrections (Kilobytes -> Bytes)
+		$maxMemory = $maxMemory * 1000;
+
+		return $maxMemory;
 	}
 
 

@@ -189,7 +189,9 @@ class RunTest extends TestCase
 		$this->setPropertyValue($this->processor, 'available', $available);
 
 		$memoryUsage = $this->getMock('\XSLTBenchmarking\TestsRunner\MemoryUsage', array('run', 'get'), array(), '', FALSE);
-		$memoryUsage->expects($this->once())->method('run')->with('php -r "echo \'Test error\';" > ' . $this->setDirSep(__DIR__ . '/transformation.err'));
+		$memoryUsage->expects($this->once())->method('run')
+			->with('php -r "echo \'Test error\';" > ' . $this->setDirSep(__DIR__ . '/transformation.err'))
+			->will($this->returnValue('php -r "echo \'Test error\';" > ' . $this->setDirSep(__DIR__ . '/transformation.err')));
 		$memoryUsage->expects($this->once())->method('get')->will($this->returnValue('123456789'));
 		$this->setPropertyValue($this->processor, 'memoryUsage', $memoryUsage);
 
@@ -232,7 +234,7 @@ class RunTest extends TestCase
 		$this->setPropertyValue($this->processor, 'available', $available);
 
 		$memoryUsage = $this->getMock('\XSLTBenchmarking\TestsRunner\MemoryUsage', array('run', 'get'), array(), '', FALSE);
-		$memoryUsage->expects($this->exactly(3))->method('run')->with('php -r "sleep(1);"');
+		$memoryUsage->expects($this->exactly(3))->method('run')->with('php -r "sleep(1);"')->will($this->returnValue('php -r "sleep(1);"'));
 		$memoryUsage->expects($this->exactly(3))->method('get')->will($this->returnValue('123456789'));
 		$this->setPropertyValue($this->processor, 'memoryUsage', $memoryUsage);
 
@@ -294,7 +296,7 @@ class RunTest extends TestCase
 		$this->setPropertyValue($this->processor, 'available', $available);
 
 		$memoryUsage = $this->getMock('\XSLTBenchmarking\TestsRunner\MemoryUsage', array('run', 'get'), array(), '', FALSE);
-		$memoryUsage->expects($this->exactly(3))->method('run')->with('php -r "sleep(1);"');
+		$memoryUsage->expects($this->exactly(3))->method('run')->with('php -r "sleep(1);"')->will($this->returnValue('php -r "sleep(1);"'));
 		$memoryUsage->expects($this->exactly(3))->method('get')->will($this->returnValue('123456789'));
 		$this->setPropertyValue($this->processor, 'memoryUsage', $memoryUsage);
 
@@ -382,7 +384,9 @@ class RunTest extends TestCase
 		$this->setPropertyValue($this->processor, 'available', $available);
 
 		$memoryUsage = $this->getMock('\XSLTBenchmarking\TestsRunner\MemoryUsage', array('run', 'get'), array(), '', FALSE);
-		$memoryUsage->expects($this->exactly(3))->method('run')->with('php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test command;\');"');
+		$memoryUsage->expects($this->exactly(3))->method('run')
+			->with('php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test command;\');"')
+			->will($this->returnValue('php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test command;\');"'));
 		$memoryUsage->expects($this->exactly(3))->method('get')->will($this->returnValue('123456789'));
 		$this->setPropertyValue($this->processor, 'memoryUsage', $memoryUsage);
 

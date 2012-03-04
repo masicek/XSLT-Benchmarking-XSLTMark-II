@@ -177,7 +177,7 @@ class Processor
 			}
 
 			// memore usage - run
-			$this->memoryUsage->run($command);
+			$command = $this->memoryUsage->run($command);
 
 			// transformation command
 			$timeStart = Microtime::now();

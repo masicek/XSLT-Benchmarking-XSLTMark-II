@@ -42,17 +42,17 @@ class MemoryUsage extends \XSLTBenchmarking\DriversContainer
 
 
 	/**
-	 * Run command on backend, that checking memory usage of getted command.
-	 * After ending of set command, run command have to end to.
+	 * Prepare checking memory usage of set command.
+	 * Drivers can return modified commad for better checking.
 	 *
 	 * @param string $command Checked command
 	 *
-	 * @return void
+	 * @return string
 	 */
 	public function run($command)
 	{
 		$this->setDriver($this->driversNames[PHP_OS]);
-		parent::run($command);
+		return parent::run($command);
 	}
 
 

@@ -72,11 +72,12 @@ class WindowsMemoryUsageDriver extends AMemoryUsageDriver
 	/**
 	 * Run command on backend, that checking memory usage of getted command.
 	 * After ending of set command, run command have to end to.
+	 * Input command are returned.
 	 *
 	 * @param string $command Checked command
 	 *
 	 * @throws \XSLTBenchmarking\LongLoopException Long waiting for deletenig main log file
-	 * @return void
+	 * @return string
 	 */
 	public function run($command)
 	{
@@ -97,9 +98,11 @@ class WindowsMemoryUsageDriver extends AMemoryUsageDriver
 
 		// run batch file in background
 		$batPath = P::m(__DIR__, 'windowsMemoryUsage.bat');
-		$command = 'cmd /C ' . $batPath . ' "' . $commandSubstr . '" "' . $this->logPathMain . '" "' . $this->logPathEnd . '"';
+		$commandBackground = 'cmd /C ' . $batPath . ' "' . $commandSubstr . '" "' . $this->logPathMain . '" "' . $this->logPathEnd . '"';
 		$WshShell = new \COM("WScript.Shell");
-		$oExec = $WshShell->Run($command, 0, FALSE);
+		$oExec = $WshShell->Run($commandBackground, 0, FALSE);
+
+		return $command;
 	}
 
 
