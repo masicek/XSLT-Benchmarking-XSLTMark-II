@@ -119,7 +119,7 @@ XSLT Benchmarking
 							<td class="path"><a href="{$input['input']}">{$input['input']|pathEnd:3}</a></td>
 							<td class="path"><a href="{$input['expectedOutput']}">{$input['expectedOutput']|pathEnd:3}</a></td>
 							<td class="path"><a href="{$input['output']}">{$input['output']|pathEnd:2}</a></td>
-							<td class="alignLeft{if $input['success'] != '1'} error_column{/if}">{if $input['success'] == '1'}OK{else}$input['success']{/if}</td>
+							<td class="alignLeft{if $input['success'] != '1'} error_column{/if}">{if $input['success'] == '1'}OK{else}{$input['success']}{/if}</td>
 							<td class="alignRight{if ($input['correctness'] == '0') && ($input['success'] == '1')} error_column{/if}">{if $input['correctness'] == '1'}YES{else}NO{/if}</td>
 							<td class="alignRight">{$input['avgTime']}</td>
 							<td class="alignRight">{$input['avgMemory']}</td>
