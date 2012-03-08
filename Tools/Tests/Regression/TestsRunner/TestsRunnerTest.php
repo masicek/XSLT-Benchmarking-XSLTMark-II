@@ -34,7 +34,15 @@ class TestsRunnerTest extends TestCase
 		$baseDir = __DIR__;
 		$tests = $this->setDirSep($baseDir . '/Tests');
 		$reports = $this->setDirSep($baseDir . '/ReportsGenerated');
-		$reportsExpected = $this->setDirSep($baseDir . '/reportsExpected.xml');
+		switch (PHP_OS)
+		{
+			case 'WINNT':
+				$reportsExpected = $this->setDirSep($baseDir . '/reportsExpectedWindows.xml');
+				break;
+			case 'Linux':
+				$reportsExpected = $this->setDirSep($baseDir . '/reportsExpectedLinux.xml');
+				break;
+		}
 		$tmp = $this->setDirSep($baseDir . '/Tmp');
 
 		// simulate arguments for generating tests
@@ -42,8 +50,8 @@ class TestsRunnerTest extends TestCase
 			'-r ' .
 			'--tests "./Tests" ' .
 			'--reports "./ReportsGenerated" ' .
-			'--processors saxon655,xsltproc1123,sablotron103cmd ' .
-			'--processors-exclude xsltproc1123 ' .
+			'--processors saxon655,xsltproc1126,sablotron103cmd ' .
+			'--processors-exclude xsltproc1126 ' .
 			'--repeating 5 ' .
 			'--tmp "./Tmp" '
 		);
@@ -64,7 +72,9 @@ class TestsRunnerTest extends TestCase
 		$this->assertEquals(1, count($reports));
 		$reportFile = $this->setDirSep($reports . '/' . array_shift($reportsFiles));
 
-		$this->assertRegExp('/Reports of tests are in "' . str_replace('\\', '\\\\', $reportFile) . '"/', $output);
+		$path = str_replace('\\', '\\\\', $reportFile);
+		$path = str_replace('/', '\\/', $path);
+		$this->assertRegExp('/Reports of tests are in "' . $path . '"/', $output);
 
 		$report = file_get_contents($reportFile);
 
