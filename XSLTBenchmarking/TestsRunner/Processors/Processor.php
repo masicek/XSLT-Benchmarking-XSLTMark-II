@@ -158,7 +158,7 @@ class Processor
 		$errorPath = P::m($this->tmpDir, 'transformation.err');
 
 		$beforeCommand = $this->getCommand($processor->getBeforeCommandTemplate(), $templatePath, $xmlInputPath, $outputPath, $errorPath);
-		$command = $this->getCommand($processor->getCommandTemplate(), $templatePath, $xmlInputPath, $outputPath, $errorPath);
+		$commandBase = $this->getCommand($processor->getCommandTemplate(), $templatePath, $xmlInputPath, $outputPath, $errorPath);
 		$afterCommand = $this->getCommand($processor->getAfterCommandTemplate(), $templatePath, $xmlInputPath, $outputPath, $errorPath);
 
 		$times = array();
@@ -177,7 +177,7 @@ class Processor
 			}
 
 			// memore usage - run
-			$command = $this->memoryUsage->run($command);
+			$command = $this->memoryUsage->run($commandBase);
 
 			// transformation command
 			$timeStart = Microtime::now();

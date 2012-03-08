@@ -22,7 +22,7 @@ use \Tests\XSLTBenchmarking\TestCase;
  * @covers XSLTBenchmarking\RunnerConsole\Runner::defineOptions
  * @covers XSLTBenchmarking\RunnerConsole\Runner::run
  * @covers XSLTBenchmarking\RunnerConsole\Runner::runTests
- * @covers XSLTBenchmarking\RunnerConsole\Runner::getDirs
+ * @covers XSLTBenchmarking\RunnerConsole\Runner::getSubresources
  */
 class TestsRunnerTest extends TestCase
 {
@@ -42,8 +42,8 @@ class TestsRunnerTest extends TestCase
 			'-r ' .
 			'--tests "./Tests" ' .
 			'--reports "./ReportsGenerated" ' .
-			'--processors saxon655,libxslt1123cmd,sablotron103cmd ' .
-			'--processors-exclude libxslt1123cmd ' .
+			'--processors saxon655,xsltproc1123,sablotron103cmd ' .
+			'--processors-exclude xsltproc1123 ' .
 			'--repeating 5 ' .
 			'--tmp "./Tmp" '
 		);
@@ -93,9 +93,29 @@ class TestsRunnerTest extends TestCase
 			}
 		}
 
-		$report = preg_replace('/Time="[^"]+"/', 'Time="..."', $report);
-		$this->assertXmlStringEqualsXmlFile($reportsExpected, $report);
+		// check memory (between), check that 'sumMemory' >= 'avgMemory'
+		preg_match_all('/sumMemory="[^"]+"/', $report, $sumMemory);
+		preg_match_all('/avgMemory="[^"]+"/', $report, $avgMemory);
 
+		$sumMemory = $sumMemory[0];
+		$avgMemory = $avgMemory[0];
+
+		$this->assertEquals(count($sumMemory), count($avgMemory));
+
+		for ($memoryIdx = 0; $memoryIdx < count($sumMemory); $memoryIdx++)
+		{
+			$sumMemory = str_replace('sumMemory="', '', $sumMemory[$memoryIdx]);
+			$sumMemory = str_replace('"', '', $sumMemory);
+			$avgMemory = str_replace('avgMemory="', '', $avgMemory[$memoryIdx]);
+			$avgMemory = str_replace('"', '', $avgMemory);
+
+			$this->assertGreaterThan($avgMemory, $sumMemory, $sumMemory . ' is not greater then ' . $avgMemory . ' (idx="' . $memoryIdx . '")');
+		}
+
+		$report = preg_replace('/Time="[^"]+"/', 'Time="..."', $report);
+		$report = preg_replace('/Memory="[^"]+"/', 'Memory="..."', $report);
+		$report = preg_replace('/-[0-9]{10}-[0-9]{6}.xml"/', '-..........-.......xml"', $report);
+		$this->assertXmlStringEqualsXmlFile($reportsExpected, $report);
 
 		// remove generated report
 		unlink($reportFile);

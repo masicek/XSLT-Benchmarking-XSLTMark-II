@@ -22,7 +22,7 @@ use \Tests\XSLTBenchmarking\TestCase;
  * @covers XSLTBenchmarking\RunnerConsole\Runner::defineOptions
  * @covers XSLTBenchmarking\RunnerConsole\Runner::run
  * @covers XSLTBenchmarking\RunnerConsole\Runner::generateTests
- * @covers XSLTBenchmarking\RunnerConsole\Runner::getDirs
+ * @covers XSLTBenchmarking\RunnerConsole\Runner::getSubresources
  */
 class TestsGeneratorTest extends TestCase
 {
