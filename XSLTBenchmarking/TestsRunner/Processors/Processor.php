@@ -170,6 +170,15 @@ class Processor
 				throw new \XSLTBenchmarking\InvalidStateException('Error tmp file should not exist "' . $errorPath . '"');
 			}
 
+			$command = $commandBase;
+
+			// each transformation generate into separate file
+			if ($repeatingIdx != 0)
+			{
+				$outputPathNew = preg_replace('/[.]xml$/', '-' . $repeatingIdx . '.xml', $outputPath);
+				$command = str_replace($outputPath, $outputPathNew, $command);
+			}
+
 			// preparing command
 			if ($beforeCommand)
 			{
@@ -177,7 +186,7 @@ class Processor
 			}
 
 			// memore usage - run
-			$command = $this->memoryUsage->run($commandBase);
+			$command = $this->memoryUsage->run($command);
 
 			// transformation command
 			$timeStart = Microtime::now();
@@ -191,6 +200,20 @@ class Processor
 			if ($afterCommand)
 			{
 				exec($afterCommand);
+			}
+
+			// difference between two same transformation
+			if ($repeatingIdx != 0)
+			{
+				if (file_get_contents($outputPath) == file_get_contents($outputPathNew))
+				{
+					unlink($outputPathNew);
+				}
+				else
+				{
+					$error = 'Difference between two same transformation: (' . $outputPath . ') != (' . $outputPathNew . ')';
+					break;
+				}
 			}
 
 			// detect error

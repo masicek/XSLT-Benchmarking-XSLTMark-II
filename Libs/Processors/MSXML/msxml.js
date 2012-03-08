@@ -45,7 +45,7 @@ try
 	var stream = WScript.createObject("ADODB.Stream");
 	stream.open();
 	stream.type = 1;
-	xml.transformNodeToObject(xslt, stream );
+	xml.transformNodeToObject(xslt, stream);
 	stream.saveToFile(outputFile);
 	stream.close();
 }
