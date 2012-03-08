@@ -157,7 +157,7 @@ class Printer
 					$inputEl->addAttribute('input', $data['input']);
 					$inputEl->addAttribute('expectedOutput', $data['expectedOutput']);
 					$inputEl->addAttribute('output', $data['output']);
-					$inputEl->addAttribute('success', $data['success']);
+					$inputEl->addAttribute('success', mb_convert_encoding($data['success'], 'UTF-8'));
 					$inputEl->addAttribute('correctness', (int)$data['correctness']);
 					$inputEl->addAttribute('sumTime', $data['sumTime']);
 					$inputEl->addAttribute('avgTime', $data['avgTime']);
