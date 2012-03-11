@@ -35,4 +35,14 @@ class XmlGeneratorTest extends TestCase
 	}
 
 
+	public function testToxgene()
+	{
+		$generator = new XmlGenerator(__DIR__);
+		$generator->setDriver('toxgene');
+		$driver = $this->getPropertyValue($generator, 'driver');
+		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\IXmlGeneratorDriver', $driver);
+		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\ToxgeneXmlGeneratorDriver', $driver);
+	}
+
+
 }

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tox-template SYSTEM 'http://www.cs.toronto.edu/tox/toxgene/ToXgene2.dtd'>
+<tox-template>
+
+	<!-- types and lists -->
+	<simpleType name="id_type">
+		<restriction base="string">
+			<pattern value="[0-9]{10}"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="movie_name_type">
+		<restriction base="string">
+			<minLength value="5"/>
+			<maxLength value="100"/>
+			<tox-string type="text"/>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="year_type">
+		<restriction base="date">
+			<minInclusive value="1950-01-01"/>
+			<maxInclusive value="2010-31-12"/>
+			<tox-format value="yyyy"/>
+		</restriction>
+	</simpleType>
+
+	<tox-list name="name_list" unique="name/fname,name/lname">
+		<element name="name" minOccurs="1000" maxOccurs="1000">
+			<complexType>
+				<element name="fname">
+					<simpleType>
+						<restriction base="string">
+							<tox-string type="fname"></tox-string>
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="lname">
+					<simpleType>
+						<restriction base="string">
+							<tox-string type="lname"></tox-string>
+						</restriction>
+					</simpleType>
+				</element>
+			</complexType>
+		</element>
+	</tox-list>
+
+
+	<!-- main movie type -->
+	<complexType name="movie_type">
+		<attribute name="id">
+			<tox-expr value="~id_type"/>
+		</attribute>
+
+		<attribute name="name">
+			<tox-expr value="~movie_name_type"/>
+		</attribute>
+
+		<attribute name="year">
+			<tox-expr value="~year_type"/>
+		</attribute>
+
+		<!-- directories -->
+		<tox-alternatives>
+			<tox-option odds="70">
+				<element name="directory" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-sample path="[name_list/name]" duplicates="no">
+								<tox-expr value="[fname]#' '#[lname]"/>
+							</tox-sample>
+						</restriction>
+					</simpleType>
+				</element>
+			</tox-option>
+			<tox-option odds="20">
+				<element name="directory" minOccurs="2" maxOccurs="2">
+					<simpleType>
+						<restriction base="string">
+							<tox-sample path="[name_list/name]" duplicates="no">
+								<tox-expr value="[fname]#' '#[lname]"/>
+							</tox-sample>
+						</restriction>
+					</simpleType>
+				</element>
+			</tox-option>
+			<tox-option odds="10">
+				<element name="directory" minOccurs="3" maxOccurs="3">
+					<simpleType>
+						<restriction base="string">
+							<tox-sample path="[name_list/name]" duplicates="no">
+								<tox-expr value="[fname]#' '#[lname]"/>
+							</tox-sample>
+						</restriction>
+					</simpleType>
+				</element>
+			</tox-option>
+		</tox-alternatives>
+
+		<!-- actors -->
+		<element name="actor" minOccurs="1" maxOccurs="15">
+			<complexType>
+				<element name="name" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-sample path="[name_list/name]" duplicates="no">
+								<tox-expr value="[fname]#' '#[lname]"/>
+							</tox-sample>
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="character" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-sample path="[name_list/name]" duplicates="no">
+								<tox-expr value="[fname]#' '#[lname]"/>
+							</tox-sample>
+						</restriction>
+					</simpleType>
+				</element>
+			</complexType>
+		</element>
+	</complexType>
+
+
+
+	<!-- ############# -->
+	<!-- main document -->
+	<!-- ############# -->
+	<tox-document name="movies">
+		<element name="movies" minOccurs="1" maxOccurs="1">
+			<complexType>
+				<element name="film" minOccurs="10" maxOccurs="10" type="movie_type"/>
+				<element name="serial" minOccurs="10" maxOccurs="10">
+					<complexType>
+						<element name="serie" minOccurs="1" maxOccurs="10">
+							<complexType>
+								<element name="episode" minOccurs="1" maxOccurs="24" type="movie_type"/>
+							</complexType>
+						</element>
+					</complexType>
+				</element>
+			</complexType>
+		</element>
+	</tox-document>
+</tox-template>
