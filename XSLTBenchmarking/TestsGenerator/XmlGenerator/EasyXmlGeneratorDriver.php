@@ -21,7 +21,12 @@ class EasyXmlGeneratorDriver implements IXmlGeneratorDriver
 {
 
 
-	public function __construct()
+	/**
+	 * Object configuration
+	 *
+	 * @param string $tmpDirectory The path of the temporary directory
+	 */
+	public function __construct($tmpDirectory)
 	{
 	}
 
@@ -34,7 +39,7 @@ class EasyXmlGeneratorDriver implements IXmlGeneratorDriver
 	 *
 	 * @return void
 	 */
-	public function generate($outputPath, array $settings)
+	public function generate($outputPath, $templateDir, array $settings)
 	{
 		$xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><root></root>');
 

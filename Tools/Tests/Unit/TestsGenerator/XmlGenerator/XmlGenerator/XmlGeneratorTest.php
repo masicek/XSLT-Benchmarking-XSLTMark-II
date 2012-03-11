@@ -27,7 +27,7 @@ class XmlGeneratorTest extends TestCase
 
 	public function testEasy()
 	{
-		$generator = new XmlGenerator();
+		$generator = new XmlGenerator(__DIR__);
 		$generator->setDriver('easy');
 		$driver = $this->getPropertyValue($generator, 'driver');
 		$this->assertInstanceOf('\XSLTBenchmarking\TestsGenerator\IXmlGeneratorDriver', $driver);

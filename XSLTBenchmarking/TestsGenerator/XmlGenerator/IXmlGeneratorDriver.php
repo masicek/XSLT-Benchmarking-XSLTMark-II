@@ -18,7 +18,12 @@ interface IXmlGeneratorDriver
 {
 
 
-	public function __construct();
+	/**
+	 * Object configuration
+	 *
+	 * @param string $tmpDirectory The path of the temporary directory
+	 */
+	public function __construct($tmpDirectory);
 
 
 	/**
@@ -29,7 +34,7 @@ interface IXmlGeneratorDriver
 	 *
 	 * @return void
 	 */
-	public function generate($outputPath, array $settings);
+	public function generate($outputPath, $templateDir, array $settings);
 
 
 }

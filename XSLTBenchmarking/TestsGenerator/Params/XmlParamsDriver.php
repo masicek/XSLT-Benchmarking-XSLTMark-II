@@ -259,7 +259,7 @@ class XmlParamsDriver implements IParamsDriver
 			$type = (string)$generated['generator'];
 			$outputPath = P::m($this->tmpDirectoryPath, (string)$generated['output']);
 			$this->xmlGenerator->setDriver($type);
-			$this->xmlGenerator->generate($outputPath, $settings);
+			$this->xmlGenerator->generate($outputPath, $this->rootDirectory, $settings);
 
 			// add generated file into list of files
 			$files[(string)$generated['id']] = $outputPath;

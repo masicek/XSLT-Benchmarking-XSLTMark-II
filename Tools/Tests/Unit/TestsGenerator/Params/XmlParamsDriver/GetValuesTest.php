@@ -74,10 +74,12 @@ class GetValuesTest extends TestCase
 		$generator->shouldReceive('setDriver')->twice()->with('easy');
 		$generator->shouldReceive('generate')->once()->with(
 			$this->setDirSep(__DIR__ . '/manyElements.xml'),
+			__DIR__,
 			array('testName' => 20, 'testName2' => 3)
 		);
 		$generator->shouldReceive('generate')->once()->with(
 			$this->setDirSep(__DIR__ . '/manyNewElements.xml'),
+			__DIR__,
 			array('testNewName' => 20, 'testName2' => 3)
 		);
 

@@ -26,12 +26,12 @@ class GenerateTest extends TestCase
 
 	public function test()
 	{
-		$generator = new \XSLTBenchmarking\TestsGenerator\EasyXmlGeneratorDriver();
+		$generator = new \XSLTBenchmarking\TestsGenerator\EasyXmlGeneratorDriver(__DIR__);
 		$outputPath = $this->setDirSep(__DIR__ . '/foo.xml');
 		$expectedOutputPath = $this->setDirSep(__DIR__ . '/expected.xml');
 
 		$this->assertFileNotExists($outputPath);
-		$generator->generate($outputPath, array('first' => 3, 'second' => 2));
+		$generator->generate($outputPath, __DIR__, array('first' => 3, 'second' => 2));
 		$this->assertFileExists($outputPath);
 
 		$this->assertXmlFileEqualsXmlFile($expectedOutputPath, $outputPath);

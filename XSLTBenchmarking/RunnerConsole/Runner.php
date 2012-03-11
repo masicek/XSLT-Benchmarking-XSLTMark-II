@@ -390,7 +390,7 @@ class Runner
 		$generator = new \XSLTBenchmarking\TestsGenerator\Generator(
 			$this->factory,
 			new \XSLTBenchmarking\TestsGenerator\Params(
-				new \XSLTBenchmarking\TestsGenerator\XmlGenerator(),
+				new \XSLTBenchmarking\TestsGenerator\XmlGenerator($tmpDir),
 				$tmpDir),
 			new \XSLTBenchmarking\TestsGenerator\Templating($tmpDir),
 			new \XSLTBenchmarking\TestsRunner\Params(),
