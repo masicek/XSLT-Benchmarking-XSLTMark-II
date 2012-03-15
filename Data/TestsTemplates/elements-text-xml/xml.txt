@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+		Test string
+Not indented test string
+		Escaped characters &lt; &amp;
+		Test string in element textEscaped characters in element text &lt; &amp;Not escaped characters in element text < &
+			Element text
+			with text
+			on more lines
+		Many text elements - 1Many text elements - 2Many text elements - 3Many text elements - 4Many text elements - 5Many text elements - 6Many text elements - 7Many text elements - 8Many text elements - 9Many text elements - 10

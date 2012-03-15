@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Elements text - text" template="text.tpl.xslt" templatingType="simple">
+	<files>
+		<file id="empty">empty.xml</file>
+		<file id="text">text.txt</file>
+	</files>
+	<test name="output">
+		<file input="empty" output="text" />
+	</test>
+</tests>
