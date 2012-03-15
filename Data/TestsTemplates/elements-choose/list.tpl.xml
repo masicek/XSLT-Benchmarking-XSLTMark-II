@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<values>
+	{for $numberIdx=1 to $number}
+		{for $lengthIdx=1 to $length}
+			<value>Element {$numberIdx} - {$lengthIdx}</value>
+		{/for}
+	{/for}
+</values>

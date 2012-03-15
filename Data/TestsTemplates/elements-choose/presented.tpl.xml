@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<presentedValues>
+	{for $numberIdx=1 to $number}
+		{for $lengthIdx=1 to $length}
+			<presented>{$numberIdx},{$lengthIdx}</presented>
+		{/for}
+	{/for}
+</presentedValues>

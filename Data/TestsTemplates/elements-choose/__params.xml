@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Elements choose" template="choose.tpl.xslt" templatingType="smarty">
+	<files>
+		<generated id="list" generator="smarty" output="list.xml">
+			<setting name="template">list.tpl.xml</setting>
+			<setting name="number">30</setting>
+			<setting name="length">20</setting>
+		</generated>
+		<generated id="listShort" generator="smarty" output="listShort.xml">
+			<setting name="template">list.tpl.xml</setting>
+			<setting name="number">5</setting>
+			<setting name="length">5</setting>
+		</generated>
+		<generated id="shortPresented" generator="smarty" output="shortPresented.xml">
+			<setting name="template">presented.tpl.xml</setting>
+			<setting name="number">1</setting>
+			<setting name="length">1</setting>
+		</generated>
+		<generated id="longPresented" generator="smarty" output="longPresented.xml">
+			<setting name="template">presented.tpl.xml</setting>
+			<setting name="number">10</setting>
+			<setting name="length">1</setting>
+		</generated>
+		<generated id="middlePresented" generator="smarty" output="middlePresented.xml">
+			<setting name="template">presented.tpl.xml</setting>
+			<setting name="number">5</setting>
+			<setting name="length">1</setting>
+		</generated>
+	</files>
+	<test name="Short">
+		<file input="list" output="shortPresented" />
+		<file input="listShort" output="shortPresented" />
+		<setting name="number">1</setting>
+		<setting name="length">1</setting>
+	</test>
+	<test name="Long">
+		<file input="list" output="longPresented" />
+		<file input="listShort" output="middlePresented" />
+		<setting name="number">10</setting>
+		<setting name="length">10</setting>
+		<setting name="lengthDummy">5</setting>
+	</test>
+	<test name="Longs with not presented">
+		<file input="list" output="longPresented" />
+		<file input="listShort" output="middlePresented" />
+		<setting name="number">10</setting>
+		<setting name="length">10</setting>
+		<setting name="lengthDummy">30</setting>
+		<setting name="numberNot">10</setting>
+		<setting name="lengthNot">10</setting>
+	</test>
+</tests>
