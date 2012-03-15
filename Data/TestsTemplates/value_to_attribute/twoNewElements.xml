@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<root>
-	<testName value="Easy element 1" />
-	<testName value="Easy element 2" />
-	<testName2>Easy element 1</testName2>
-	<testName2>Easy element 2</testName2>
-	<testName2>Easy element 3</testName2>
-</root>
