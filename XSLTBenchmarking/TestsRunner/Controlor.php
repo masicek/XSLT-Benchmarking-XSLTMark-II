@@ -44,8 +44,15 @@ class Controlor
 		$extension1 = strtolower(pathinfo($filePath1, PATHINFO_EXTENSION));
 		$extension2 = strtolower(pathinfo($filePath2, PATHINFO_EXTENSION));
 
-		$content1 = $this->normalizeXml($content1);
-		$content2 = $this->normalizeXml($content2);
+		if ($extension1 == 'xml')
+		{
+			$content1 = $this->normalizeXml($content1);
+		}
+
+		if ($extension2 == 'xml')
+		{
+			$content2 = $this->normalizeXml($content2);
+		}
 
 		return $content1 == $content2;
 	}
