@@ -202,6 +202,13 @@ class Processor
 				exec($afterCommand);
 			}
 
+			// check exitence of generated file
+			if (!is_file($outputPath))
+			{
+				$error = 'Output file was not be generated (' . $outputPath . ')';
+				break;
+			}
+
 			// difference between two same transformation
 			if ($repeatingIdx != 0)
 			{
