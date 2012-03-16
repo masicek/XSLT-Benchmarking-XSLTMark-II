@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Elements template" template="common.tpl.xslt" templatingType="smarty">
+	<files>
+		<file id="input">input.xml</file>
+		<file id="default">default.txt</file>
+		<file id="empty">empty.txt</file>
+	</files>
+	<test name="Default">
+		<file input="input" output="default" />
+			<setting name="type">default</setting>
+	</test>
+	<test name="Empty">
+		<file input="input" output="empty" />
+		<setting name="type">empty</setting>
+	</test>
+</tests>

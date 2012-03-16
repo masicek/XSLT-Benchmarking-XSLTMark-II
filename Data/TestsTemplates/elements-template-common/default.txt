@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+	
+	Text root
+	First element text
+		
+		Subelement text
+	
+	Second-1 element text
+	Second-2 element text
+	Second-3 element text
+
+	
+		Second sub -1 element text
+		Second sub -2 element text
+		Second sub -3 element text
+	

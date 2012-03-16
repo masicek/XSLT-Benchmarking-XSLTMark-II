@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<!-- first comment -->
+	Text root
+	<element1 att1="AAA" att2="BBB">First element text
+		<!-- second comment -->
+		<subelement att3="XXX" att4="YYY">Subelement text</subelement>
+	</element1>
+	<element2>Second-1 element text</element2>
+	<element2>Second-2 element text</element2>
+	<element2>Second-3 element text</element2>
+
+	<element3>
+		<subelement2>Second sub -1 element text</subelement2>
+		<subelement2>Second sub -2 element text</subelement2>
+		<subelement2>Second sub -3 element text</subelement2>
+	</element3>
+</root>
