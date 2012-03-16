@@ -41,17 +41,31 @@ class Controlor
 		$content1 = file_get_contents($filePath1);
 		$content2 = file_get_contents($filePath2);
 
-		$extension1 = strtolower(pathinfo($filePath1, PATHINFO_EXTENSION));
-		$extension2 = strtolower(pathinfo($filePath2, PATHINFO_EXTENSION));
+		// unify EOL
+		$content1 = str_replace("\r\n", "\n", $content1);
+		$content2 = str_replace("\r\n", "\n", $content2);
 
+		// normalize
+		$extension1 = strtolower(pathinfo($filePath1, PATHINFO_EXTENSION));
 		if ($extension1 == 'xml')
 		{
 			$content1 = $this->normalizeXml($content1);
 		}
+		else
+		{
+			// unify possible declaration in "non XML files"
+			$content1 = $this->unifyDeclaration($content1);
+		}
 
+		$extension2 = strtolower(pathinfo($filePath2, PATHINFO_EXTENSION));
 		if ($extension2 == 'xml')
 		{
 			$content2 = $this->normalizeXml($content2);
+		}
+		else
+		{
+			// unify possible declaration in "non XML files"
+			$content2 = $this->unifyDeclaration($content2);
 		}
 
 		return $content1 == $content2;
@@ -94,12 +108,30 @@ class Controlor
 		// sort attributes
 		$outputContent = preg_replace_callback('#<[^/?][^>]*>#', array($this, 'sortAttributes'), $outputContent);
 
-		// unify declaration
+		$outputContent = $this->unifyDeclaration($outputContent);
+
+		return $outputContent;
+	}
+
+
+	/**
+	 * Unify declaration of content. If any declaration are not in content, return unchanged it.
+	 *
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	private function unifyDeclaration($content)
+	{
+		$outputContent = $content;
 		$declarationLast = strpos($outputContent, '?>');
-		$declaration = substr($outputContent, 0, $declarationLast);
-		$declarationUnify = trim($declaration);
-		$declarationUnify = strtolower($declarationUnify);
-		$outputContent = $declarationUnify . substr($outputContent, $declarationLast);
+		if ($declarationLast !== FALSE)
+		{
+			$declaration = substr($outputContent, 0, $declarationLast);
+			$declarationUnify = trim($declaration);
+			$declarationUnify = strtolower($declarationUnify);
+			$outputContent = $declarationUnify . substr($outputContent, $declarationLast);
+		}
 
 		return $outputContent;
 	}
