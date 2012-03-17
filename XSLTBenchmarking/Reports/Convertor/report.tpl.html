@@ -76,6 +76,9 @@ XSLT Benchmarking
 			.alignLeft {
 				text-align: left;
 			}
+			.alignCenter {
+				text-align: center;
+			}
 
 		</style>
 	</head>
@@ -114,11 +117,11 @@ XSLT Benchmarking
 					<th>Input</th>
 					<th>Expected Output</th>
 					<th>Output</th>
-					<th>Success</th>
-					<th>Correctness</th>
-					<th>AVG Time (sec)</th>
-					<th>AVG Memory (bytes)</th>
-					<th>Repeating</th>
+					<th>Succ.</th>
+					<th>Correct.</th>
+					<th style="width: 70px;">Time</th>
+					<th style="width: 65px;">Memory</th>
+					<th>Rep.</th>
 				</tr>
 
 				{foreach from=$test['processors'] item=processor key=processorName}
@@ -144,9 +147,9 @@ XSLT Benchmarking
 							<td class="path"><a href="{$input['expectedOutput']}">{$input['expectedOutput']|pathEnd:3}</a></td>
 							<td class="path"><a href="{$input['output']}">{$input['output']|pathEnd:2}</a></td>
 							<td class="alignLeft{if $input['success'] != '1'} error_column{/if}">{if $input['success'] == '1'}OK{else}{$input['success']}{/if}</td>
-							<td class="alignRight{if ($input['correctness'] == '0') && ($input['success'] == '1')} error_column{/if}">{if $input['correctness'] == '1'}YES{else}NO{/if}</td>
-							<td class="alignRight">{$input['avgTime']}</td>
-							<td class="alignRight">{$input['avgMemory']}</td>
+							<td class="alignCenter{if ($input['correctness'] == '0') && ($input['success'] == '1')} error_column{/if}">{if $input['correctness'] == '1'}YES{else}NO{/if}</td>
+							<td class="alignRight">{$input['avgTime']|timeNicer}</td>
+							<td class="alignRight">{$input['avgMemory']|memoryNicer}</td>
 							<td class="alignRight">{$input['repeating']}</td>
 						</tr>
 					{/foreach}

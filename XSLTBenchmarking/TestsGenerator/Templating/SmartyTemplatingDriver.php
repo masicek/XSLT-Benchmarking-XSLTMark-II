@@ -39,6 +39,8 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 		$this->compile_dir = P::mcd($tmpDirectory, '/');
 
 		$this->registerPlugin('modifier', 'pathEnd', array($this, 'pathEnd'));
+		$this->registerPlugin('modifier', 'timeNicer', array($this, 'timeNicer'));
+		$this->registerPlugin('modifier', 'memoryNicer', array($this, 'memoryNicer'));
 	}
 
 
@@ -139,6 +141,58 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 		}
 		$parts = array_slice($parts, -$partsNumber);
 		return implode($separator, $parts);
+	}
+
+
+	/**
+	 * Return round time.
+	 *
+	 * @param string $time Modified time
+	 *
+	 * @return string
+	 */
+	public function timeNicer($time)
+	{
+		if ($time === '')
+		{
+			return '';
+		}
+		return substr($time, 0, -3) . ' sec';
+	}
+
+
+	/**
+	 * Return round memory with unit.
+	 *
+	 * @param string $memory Modified memory in bytes
+	 *
+	 * @return string
+	 */
+	public function memoryNicer($memory)
+	{
+		if ($memory === '')
+		{
+			return '';
+		}
+
+		$units = array(
+			'GB' => 1000000000,
+			'MB' => 1000000,
+			'KB' => 1000,
+			'B' => 1,
+		);
+
+		$number = (int)$memory;
+		foreach ($units as $unit => $limit)
+		{
+			if ($number > $limit)
+			{
+				$rounded = number_format($number / $limit, 1) . ' ' . $unit;
+				break;
+			}
+		}
+
+		return $rounded;
 	}
 
 
