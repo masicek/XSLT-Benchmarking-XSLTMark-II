@@ -206,6 +206,13 @@ class Processor
 			if (!is_file($outputPath))
 			{
 				$error = 'Output file was not be generated (' . $outputPath . ')';
+				// detect generated error
+				if (is_file($errorPath))
+				{
+					$error .= '; ' . file_get_contents($errorPath);
+					unlink($errorPath);
+				}
+
 				break;
 			}
 
