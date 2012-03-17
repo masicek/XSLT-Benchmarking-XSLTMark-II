@@ -17,7 +17,8 @@ Not indented test string
 		</xsl:text>
 
 		<xsl:text>Many text elements - 1</xsl:text>
-		<xsl:text>Many text elements - 2</xsl:text>
+		<xsl:text> </xsl:text>
+		<xsl:text>Many text elements - 2</xsl:text><xsl:text> </xsl:text>
 		<xsl:text>Many text elements - 3</xsl:text>
 		<xsl:text>Many text elements - 4</xsl:text>
 		<xsl:text>Many text elements - 5</xsl:text>

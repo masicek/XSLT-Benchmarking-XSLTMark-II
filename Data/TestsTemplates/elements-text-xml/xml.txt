@@ -7,4 +7,4 @@ Not indented test string
 			Element text
 			with text
 			on more lines
-		Many text elements - 1Many text elements - 2Many text elements - 3Many text elements - 4Many text elements - 5Many text elements - 6Many text elements - 7Many text elements - 8Many text elements - 9Many text elements - 10
+		Many text elements - 1 Many text elements - 2 Many text elements - 3Many text elements - 4Many text elements - 5Many text elements - 6Many text elements - 7Many text elements - 8Many text elements - 9Many text elements - 10
