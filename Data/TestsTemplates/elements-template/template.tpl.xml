@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tox-template SYSTEM 'http://www.cs.toronto.edu/tox/toxgene/ToXgene2.dtd'>
+<tox-template>
+
+	<!-- address type -->
+	<complexType name="address_type">
+		<element name="street" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<tox-string type="text" minLength="5" maxLength="30" />
+				</restriction>
+			</simpleType>
+		</element>
+		<element name="number" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="positiveInteger">
+					<minInclusive value="1"/>
+					<maxInclusive value="50"/>
+				</restriction>
+			</simpleType>
+		</element>
+		<element name="city" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<tox-string type="city" minLength="2" maxLength="20" />
+				</restriction>
+			</simpleType>
+		</element>
+		<element name="postcode" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<pattern value="[0-9]{5}" />
+				</restriction>
+			</simpleType>
+		</element>
+	</complexType>
+
+
+	<!-- employee type -->
+	<complexType name="employee_type">
+		<element name="name" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<tox-string type="fname" />
+				</restriction>
+			</simpleType>
+		</element>
+		<element name="surname" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<tox-string type="lname" />
+				</restriction>
+			</simpleType>
+		</element>
+		<element name="pay" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="positiveInteger">
+					<minInclusive value="20000"/>
+					<maxInclusive value="100000"/>
+				</restriction>
+			</simpleType>
+		</element>
+		<element name="address" minOccurs="1" maxOccurs="1" type="address_type"/>
+	</complexType>
+
+
+	<!-- company type -->
+	<complexType name="company_type">
+		<element name="name" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<tox-string type="text" minLength="10" maxLength="30" />
+				</restriction>
+			</simpleType>
+		</element>
+		<element name="description" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<tox-string type="text" minLength="50" maxLength="100" />
+				</restriction>
+			</simpleType>
+		</element>
+		<element name="address" minOccurs="1" maxOccurs="1" type="address_type"/>
+		<element name="employee" minOccurs="5" maxOccurs="50" type="employee_type"/>
+	</complexType>
+
+
+	<!-- COMPANIES list -->
+	<tox-list name="companies_list">
+		<element name="company" minOccurs="80" maxOccurs="80" type="company_type" />
+	</tox-list>
+
+
+	<!-- DOCUMENTS -->
+	<tox-document name="companies">
+		<element name="companies" minOccurs="1" maxOccurs="1">
+			<complexType>
+				<element name="company" minOccurs="80" maxOccurs="80">
+					<complexType>
+						<tox-scan path="[companies_list/company]"  name="c">
+							<attribute name="name">
+								<tox-expr value="[name]" />
+							</attribute>
+							<element name="description" >
+								<tox-expr value="[description]" />
+							</element>
+							<tox-expr value="[address]" />
+							<tox-expr value="[employee]" />
+						</tox-scan>
+					</complexType>
+				</element>
+			</complexType>
+		</element>
+	</tox-document>
+
+	<tox-document name="payment">
+		<element name="companies" minOccurs="1" maxOccurs="1">
+			<complexType>
+				<element name="company" minOccurs="80" maxOccurs="80">
+					<complexType>
+						<tox-scan path="[companies_list/company]" name="c">
+							<element name="address" >
+								<tox-expr value="[name]#', '#[address/street]#' '#[address/number]#', '#[address/city]#', '#[address/postcode]" />
+							</element>
+							<tox-foreach path="[$c/employee]" name="$e">
+								<element name="employee" minOccurs="1" maxOccurs="1">
+									<tox-expr value="[name]#' '#[surname]#' - '#[pay]#',-'" />
+								</element>
+							</tox-foreach>
+						</tox-scan>
+					</complexType>
+				</element>
+			</complexType>
+		</element>
+	</tox-document>
+
+	<tox-document name="payment_hash">
+		<element name="companies" minOccurs="1" maxOccurs="1">
+			<complexType>
+				<element name="company" minOccurs="80" maxOccurs="80">
+					<complexType>
+						<tox-scan path="[companies_list/company]" name="c">
+							<element name="address" >
+								<tox-expr value="[name]#', '#[address/street]#'#'#[address/number]#', '#[address/city]#', '#[address/postcode]" />
+							</element>
+							<tox-foreach path="[$c/employee]" name="$e">
+								<element name="employee" minOccurs="1" maxOccurs="1">
+									<tox-expr value="[name]#'#'#[surname]#' - '#[pay]#',-'" />
+								</element>
+							</tox-foreach>
+						</tox-scan>
+					</complexType>
+				</element>
+			</complexType>
+		</element>
+	</tox-document>
+
+</tox-template>

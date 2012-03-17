@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Elements template" template="template.tpl.xslt" templatingType="smarty">
+	<files>
+		<!-- first collestion -->
+		<generated id="companies1" generator="toxgene" output="companies1.xml">
+			<setting name="template">template.tpl.xml</setting>
+			<setting name="document">companies</setting>
+			<setting name="seed">123</setting>
+		</generated>
+		<generated id="payment1" generator="toxgene" output="payment1.xml">
+			<setting name="template">template.tpl.xml</setting>
+			<setting name="document">payment</setting>
+			<setting name="seed">123</setting>
+		</generated>
+		<generated id="payment1hash" generator="toxgene" output="payment1hash.xml">
+			<setting name="template">template.tpl.xml</setting>
+			<setting name="document">payment_hash</setting>
+			<setting name="seed">123</setting>
+		</generated>
+		<!-- second collestion -->
+		<generated id="companies2" generator="toxgene" output="companies2.xml">
+			<setting name="template">template.tpl.xml</setting>
+			<setting name="document">companies</setting>
+			<setting name="seed">99999</setting>
+		</generated>
+		<generated id="payment2" generator="toxgene" output="payment2.xml">
+			<setting name="template">template.tpl.xml</setting>
+			<setting name="document">payment</setting>
+			<setting name="seed">99999</setting>
+		</generated>
+		<generated id="payment2hash" generator="toxgene" output="payment2hash.xml">
+			<setting name="template">template.tpl.xml</setting>
+			<setting name="document">payment_hash</setting>
+			<setting name="seed">99999</setting>
+		</generated>
+	</files>
+	<test name="Procedural">
+		<file input="companies1" output="payment1" />
+		<setting name="type">procedural</setting>
+		<setting name="delimiter"> </setting>
+	</test>
+	<test name="Nonprocedural">
+		<file input="companies1" output="payment1" />
+		<setting name="type">nonprocedural</setting>
+		<setting name="delimiter"> </setting>
+	</test>
+	<test name="Procedural - hash">
+		<file input="companies2" output="payment2hash" />
+		<setting name="type">procedural</setting>
+		<setting name="delimiter">#</setting>
+	</test>
+	<test name="Nonprocedural - hash">
+		<file input="companies2" output="payment2hash" />
+		<setting name="type">nonprocedural</setting>
+		<setting name="delimiter">#</setting>
+	</test>
+</tests>
