@@ -107,8 +107,15 @@ XSLT Benchmarking
 		<!-- List of tests -->
 		<h2>Tests</h2>
 
+		<!-- content -->
+		<ul>
+			{foreach from=$tests item=test key=testName}
+				<li><a href="#test_{$testName}">{$testName}</a></li>
+			{/foreach}
+		</ul>
+
 		{foreach from=$tests item=test key=testName}
-			<h3>{$testName}</h3>
+			<h3><a name="test_{$testName}">{$testName}</a></h3>
 			<a href="{$test['template']}" class="path">{$test['template']|pathEnd:3}</a>
 
 			<table class="test_table">
