@@ -11,9 +11,31 @@ XSLT Benchmarking
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 		<style type="text/css">
+			/* headers */
+			h3 {
+				margin-bottom: 0;
+			}
+
 			/* path of files */
 			.path{
 				font-family: monospace;
+			}
+
+			/* processors table */
+			.processor_table {
+				border-collapse: collapse;
+			}
+			.processor_table th, .processor_table td{
+				text-align: left;
+				border: solid 1px black;
+				padding-left: 3px;
+				padding-right: 3px;
+			}
+			.processor_table th {
+				background-color: silver;
+			}
+			.processor_table tr:hover {
+				background-color: skyblue;
 			}
 
 			/* table of inputs for one test */
@@ -62,18 +84,20 @@ XSLT Benchmarking
 
 		<!-- List of processors -->
 		<h2>Processors</h2>
-		<ul>
+		<table class="processor_table">
+			<tr>
+				<th>Name</th>
+				<th>Kernel</th>
+				<th>Short Name</th>
+			</tr>
 			{foreach from=$processors item=processor key=name}
-				<li>
-					<h3><a name="processor_{$name}">{$processorsFullNames[$name]}</a></h3>
-					<ul>
-						{foreach from=$processors[$name] item=informationValue key=informationName}
-							<li>{$informationName} - {$informationValue}</li>
-						{/foreach}
-					</ul>
-				</li>
+				<tr>
+					<td><a name="processor_{$name}">{$processorsFullNames[$name]}</a></td>
+					<td>{$processors[$name]['kernel']}</td>
+					<td>{$name}</td>
+				</tr>
 			{/foreach}
-		</ul>
+		</table>
 
 		<hr/>
 
