@@ -59,6 +59,7 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 		P::cf($templatePath);
 
 		// set variables
+		$this->assign('templateDir', pathinfo($templatePath, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR);
 		foreach ($settings as $name => $value)
 		{
 			$this->assign($name, $value);
