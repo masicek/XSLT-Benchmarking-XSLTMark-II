@@ -74,7 +74,13 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 		}
 		$content = ob_get_clean();
 
-		$content = $this->repareIndent($content);
+		// make indent (default 'yes')
+		$indent = FALSE;
+		if (!isset($settings['indent']) || $settings['indent'] === '1')
+		{
+			$indent = TRUE;
+		}
+		$content = $this->repareIndent($content, $indent);
 
 		if (!file_put_contents($outputPath, $content))
 		{// @codeCoverageIgnoreStart
@@ -86,14 +92,20 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 	/**
 	 * Repare indent of output content, for better human reading.
 	 *
-	 * @param string $content
+	 * @param string $content Repared content
+	 * @param bool $indent Flag, if we want indent or linearize the content
 	 *
 	 * @return string
 	 */
-	public function repareIndent($content)
+	public function repareIndent($content, $indent)
 	{
 		// linearize
 		$content = preg_replace('/>[\s]*</', '><', $content);
+
+		if (!$indent)
+		{
+			return $content;
+		}
 
 		// make indent
 		$contentSimpleXml = new \SimpleXMLElement($content);
