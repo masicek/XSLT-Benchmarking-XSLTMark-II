@@ -175,7 +175,7 @@ class Processor
 			// each transformation generate into separate file
 			if ($repeatingIdx != 0)
 			{
-				$outputPathNew = preg_replace('/[.]xml$/', '-' . $repeatingIdx . '.xml', $outputPath);
+				$outputPathNew = preg_replace('/[.]([^.]*)$/', '-' . $repeatingIdx . '.$1', $outputPath);
 				$command = str_replace($outputPath, $outputPathNew, $command);
 			}
 
