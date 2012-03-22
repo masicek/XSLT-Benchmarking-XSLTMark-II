@@ -29,7 +29,7 @@
 	<!-- template without "apply-templates" -->
 	<xsl:template match="address">
 		<xsl:value-of select="street" />
-		<xsl:text>{$delimiter}</xsl:text>
+		<xsl:text> </xsl:text>
 		<xsl:value-of select="number" />
 		<xsl:text>, </xsl:text>
 		<xsl:value-of select="city" />
@@ -40,7 +40,7 @@
 	<xsl:template match="employee">
 		<employee>
 			<xsl:value-of select="name" />
-			<xsl:text>{$delimiter}</xsl:text>
+			<xsl:text> </xsl:text>
 			<xsl:value-of select="surname" />
 			<xsl:text> - </xsl:text>
 			<xsl:value-of select="pay" />
@@ -84,7 +84,7 @@
 		<xsl:param name="address"/>
 
 		<xsl:value-of select="$address/street" />
-		<xsl:text>{$delimiter}</xsl:text>
+		<xsl:text> </xsl:text>
 		<xsl:value-of select="$address/number" />
 		<xsl:text>, </xsl:text>
 		<xsl:value-of select="$address/city" />
@@ -96,7 +96,7 @@
 		<xsl:param name="employee"/>
 		<employee>
 			<xsl:value-of select="$employee/name" />
-			<xsl:text>{$delimiter}</xsl:text>
+			<xsl:text> </xsl:text>
 			<xsl:value-of select="$employee/surname" />
 			<xsl:text> - </xsl:text>
 			<xsl:value-of select="$employee/pay" />

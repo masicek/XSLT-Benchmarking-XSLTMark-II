@@ -134,25 +134,4 @@
 		</element>
 	</tox-document>
 
-	<tox-document name="payment_hash">
-		<element name="companies" minOccurs="1" maxOccurs="1">
-			<complexType>
-				<element name="company" minOccurs="80" maxOccurs="80">
-					<complexType>
-						<tox-scan path="[companies_list/company]" name="c">
-							<element name="address" >
-								<tox-expr value="[name]#', '#[address/street]#'#'#[address/number]#', '#[address/city]#', '#[address/postcode]" />
-							</element>
-							<tox-foreach path="[$c/employee]" name="$e">
-								<element name="employee" minOccurs="1" maxOccurs="1">
-									<tox-expr value="[name]#'#'#[surname]#' - '#[pay]#',-'" />
-								</element>
-							</tox-foreach>
-						</tox-scan>
-					</complexType>
-				</element>
-			</complexType>
-		</element>
-	</tox-document>
-
 </tox-template>
