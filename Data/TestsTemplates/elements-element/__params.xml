@@ -13,8 +13,20 @@
 			<setting name="maxAttributeValueLength">100</setting>
 		</generated>
 	</files>
-	<test name="Random">
+	<test name="Indent template">
 		<file input="empty" output="elements" />
+		<setting name="indent">1</setting>
+		<setting name="type">xslt</setting>
+		<setting name="seed">99999</setting>
+		<setting name="maxDepth">6</setting>
+		<setting name="maxChildren">6</setting>
+		<setting name="maxAttributes">10</setting>
+		<setting name="maxNameLength">15</setting>
+		<setting name="maxAttributeValueLength">100</setting>
+	</test>
+	<test name="Not indent template">
+		<file input="empty" output="elements" />
+		<setting name="indent">0</setting>
 		<setting name="type">xslt</setting>
 		<setting name="seed">99999</setting>
 		<setting name="maxDepth">6</setting>
