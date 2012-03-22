@@ -7,7 +7,7 @@
 	</files>
 	<test name="Default">
 		<file input="input" output="default" />
-			<setting name="type">default</setting>
+		<setting name="type">default</setting>
 	</test>
 	<test name="Empty">
 		<file input="input" output="empty" />
