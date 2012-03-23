@@ -1,52 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests name="Elements choose" template="choose.tpl.xslt" templatingType="smarty">
 	<files>
-		<generated id="list" generator="smarty" output="list.xml">
+		<generated id="listShort" generator="smarty" output="listShort.xml">
+			<setting name="template">list.tpl.xml</setting>
+			<setting name="number">3</setting>
+			<setting name="length">2</setting>
+		</generated>
+		<generated id="listLong" generator="smarty" output="listLong.xml">
 			<setting name="template">list.tpl.xml</setting>
 			<setting name="number">30</setting>
 			<setting name="length">20</setting>
 		</generated>
-		<generated id="listShort" generator="smarty" output="listShort.xml">
-			<setting name="template">list.tpl.xml</setting>
-			<setting name="number">5</setting>
-			<setting name="length">5</setting>
-		</generated>
 		<generated id="shortPresented" generator="smarty" output="shortPresented.xml">
 			<setting name="template">presented.tpl.xml</setting>
-			<setting name="number">1</setting>
+			<setting name="number">2</setting>
 			<setting name="length">1</setting>
 		</generated>
 		<generated id="longPresented" generator="smarty" output="longPresented.xml">
 			<setting name="template">presented.tpl.xml</setting>
-			<setting name="number">10</setting>
+			<setting name="number">20</setting>
 			<setting name="length">1</setting>
 		</generated>
-		<generated id="middlePresented" generator="smarty" output="middlePresented.xml">
+		<generated id="middle1Presented" generator="smarty" output="middle1Presented.xml">
 			<setting name="template">presented.tpl.xml</setting>
-			<setting name="number">5</setting>
+			<setting name="number">2</setting>
+			<setting name="length">1</setting>
+		</generated>
+		<generated id="middle2Presented" generator="smarty" output="middle2Presented.xml">
+			<setting name="template">presented.tpl.xml</setting>
+			<setting name="number">3</setting>
 			<setting name="length">1</setting>
 		</generated>
 	</files>
 	<test name="Short">
-		<file input="list" output="shortPresented" />
 		<file input="listShort" output="shortPresented" />
-		<setting name="number">1</setting>
-		<setting name="length">1</setting>
+		<file input="listLong" output="middle1Presented" />
+		<setting name="number">2</setting>
+		<setting name="length">5</setting>
+		<setting name="lengthDummy">3</setting>
 	</test>
 	<test name="Long">
-		<file input="list" output="longPresented" />
-		<file input="listShort" output="middlePresented" />
-		<setting name="number">10</setting>
-		<setting name="length">10</setting>
-		<setting name="lengthDummy">5</setting>
+		<file input="listShort" output="middle2Presented" />
+		<file input="listLong" output="longPresented" />
+		<setting name="number">20</setting>
+		<setting name="length">50</setting>
+		<setting name="lengthDummy">30</setting>
+	</test>
+	<test name="Short with not presented">
+		<file input="listShort" output="shortPresented" />
+		<file input="listLong" output="middle1Presented" />
+		<setting name="number">2</setting>
+		<setting name="length">5</setting>
+		<setting name="lengthDummy">3</setting>
+		<setting name="numberNot">1</setting>
+		<setting name="lengthNot">2</setting>
 	</test>
 	<test name="Longs with not presented">
-		<file input="list" output="longPresented" />
-		<file input="listShort" output="middlePresented" />
-		<setting name="number">10</setting>
-		<setting name="length">10</setting>
+		<file input="listShort" output="middle2Presented" />
+		<file input="listLong" output="longPresented" />
+		<setting name="number">20</setting>
+		<setting name="length">50</setting>
 		<setting name="lengthDummy">30</setting>
 		<setting name="numberNot">10</setting>
-		<setting name="lengthNot">10</setting>
+		<setting name="lengthNot">20</setting>
 	</test>
 </tests>
