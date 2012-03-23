@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Elements if" template="if.tpl.xslt" templatingType="smarty">
+	<files>
+		<generated id="listShort" generator="smarty" output="listShort.xml">
+			<setting name="template">list.tpl.xml</setting>
+			<setting name="number">5</setting>
+		</generated>
+		<generated id="listLong" generator="smarty" output="listLong.xml">
+			<setting name="template">list.tpl.xml</setting>
+			<setting name="number">1100</setting>
+		</generated>
+		<generated id="shortPresented" generator="smarty" output="shortPresented.xml">
+			<setting name="template">presented.tpl.xml</setting>
+			<setting name="number">5</setting>
+		</generated>
+		<generated id="middlePresented" generator="smarty" output="middlePresented.xml">
+			<setting name="template">presented.tpl.xml</setting>
+			<setting name="number">10</setting>
+		</generated>
+		<generated id="longPresented" generator="smarty" output="longPresented.xml">
+			<setting name="template">presented.tpl.xml</setting>
+			<setting name="number">1000</setting>
+		</generated>
+	</files>
+	<test name="Short">
+		<file input="listShort" output="shortPresented" />
+		<file input="listLong" output="middlePresented" />
+		<setting name="number">10</setting>
+	</test>
+	<test name="Long">
+		<file input="listShort" output="shortPresented" />
+		<file input="listLong" output="longPresented" />
+		<setting name="number">1000</setting>
+	</test>
+	<test name="Short with not presented">
+		<file input="listShort" output="shortPresented" />
+		<file input="listLong" output="middlePresented" />
+		<setting name="number">10</setting>
+		<setting name="numberNot">5</setting>
+	</test>
+	<test name="Long with not presented">
+		<file input="listShort" output="shortPresented" />
+		<file input="listLong" output="longPresented" />
+		<setting name="number">1000</setting>
+		<setting name="numberNot">500</setting>
+	</test>
+</tests>
