@@ -10,7 +10,41 @@ XSLT Benchmarking
 		<title>XSLT Benchmarking - Report</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+		<script>
+			function showHide(name)
+			{
+				var elements = document.getElementsByName(name);
+				for (idx = 0; idx < elements.length; idx++)
+				{
+					if (!elements[idx].style.display)
+					{
+						elements[idx].style.display = 'none';
+					}
+					else
+					{
+						elements[idx].style.display = '';
+					}
+				}
+			}
+			function changeCheckbox(name)
+			{
+				var checkboxes = document.getElementsByName(name);
+				var checkbox = checkboxes[0];
+				if (checkbox.checked)
+				{
+					checkbox.checked = false;
+				}
+				else
+				{
+					checkbox.checked = true;
+				}
+			}
+		</script>
+
 		<style type="text/css">
+			.hand {
+				cursor: pointer;
+			}
 			/* headers */
 			h3 {
 				margin-bottom: 0;
@@ -79,7 +113,6 @@ XSLT Benchmarking
 			.alignCenter {
 				text-align: center;
 			}
-
 		</style>
 	</head>
 	<body>
@@ -92,12 +125,14 @@ XSLT Benchmarking
 				<th>Name</th>
 				<th>Kernel</th>
 				<th>Short Name</th>
+				<th></th>
 			</tr>
 			{foreach from=$processors item=processor key=name}
 				<tr>
 					<td><a name="processor_{$name}">{$processorsFullNames[$name]}</a></td>
 					<td>{$processors[$name]['kernel']}</td>
 					<td>{$name}</td>
+					<td><input type="checkbox" checked="checked" onClick="showHide('test_table_procesor_{$name}');"/></td>
 				</tr>
 			{/foreach}
 		</table>
@@ -106,19 +141,23 @@ XSLT Benchmarking
 
 		<!-- List of tests -->
 		<h2>Tests</h2>
-
 		<!-- content -->
 		<ul>
 			{foreach from=$tests item=test key=testName}
-				<li><a href="#test_{$testName}">{$testName}</a></li>
+				<li>
+					<input type="checkbox" checked="checked" name="test_checkbox_{$testName}" onClick="showHide('test_table_{$testName}');"/>
+					<a href="#test_{$testName}">{$testName}</a>
+				</li>
 			{/foreach}
 		</ul>
 
 		{foreach from=$tests item=test key=testName}
-			<h3><a name="test_{$testName}">{$testName}</a></h3>
-			<a href="{$test['template']}" class="path">{$test['template']|pathEnd:3}</a>
+			<h3>
+				<a name="test_{$testName}" class="hand" onClick="showHide('test_table_{$testName}'); changeCheckbox('test_checkbox_{$testName}');">{$testName}</a>
+			</h3>
+			<a href="{$test['template']}" class="path" name="test_table_{$testName}">{$test['template']|pathEnd:3}</a>
 
-			<table class="test_table">
+			<table class="test_table" name="test_table_{$testName}">
 				<tr>
 					<th style="width: 100px;">Procesor</th>
 					<th>Input</th>
@@ -144,6 +183,7 @@ XSLT Benchmarking
 							{else}
 								class="{$class}"
 							{/if}
+							name="test_table_procesor_{$processorName}"
 						>
 							{if $smarty.foreach.input.first}
 								<td rowspan="{count($processor)}" class="test_table_processor_name">
@@ -164,5 +204,7 @@ XSLT Benchmarking
 			</table>
 		{/foreach}
 
+		<hr/>
+		Converted: {$smarty.now|date_format:"Y-m-d H:i:s"}
 	</body>
 </html>

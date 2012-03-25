@@ -103,6 +103,7 @@ class HtmlConvertorDriver implements IConvertorDriver
 		$settings['processors'] = $processorsList;
 		$settings['processorsFullNames'] = $processorsFullNames;
 		$settings['tests'] = $tests;
+		$settings['outputFiler'] = 'nothing';
 
 		$templating = new SmartyTemplatingDriver($this->tmpDir);
 		$templating->generate(P::m(__DIR__, 'report.tpl.html'), $outputFile, $settings);
