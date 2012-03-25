@@ -245,6 +245,18 @@ class XmlParamsDriver implements IParamsDriver
 			$files[(string)$file['id']] = P::m($this->rootDirectory, (string)$file);
 		}
 
+		// make tmp subdirectory for generating files
+		if (count($this->tests->files->generated) > 0)
+		{
+			$tmpSubdirectory = strtolower(trim($this->getTemplateName()));
+			$tmpSubdirectory = preg_replace('/[^a-z0-9-_]/', '-', $tmpSubdirectory);
+			$tmpSubdirectory = preg_replace('/-+/', '-', $tmpSubdirectory);
+			$tmpSubdirectoryPath = P::m($this->tmpDirectoryPath, $tmpSubdirectory);
+			if (!is_dir($tmpSubdirectoryPath))
+			{
+				mkdir($tmpSubdirectoryPath);
+			}
+		}
 		// generated xml files
 		foreach ($this->tests->files->generated as $generated)
 		{
@@ -257,7 +269,7 @@ class XmlParamsDriver implements IParamsDriver
 
 			// generate file into TMP
 			$type = (string)$generated['generator'];
-			$outputPath = P::m($this->tmpDirectoryPath, (string)$generated['output']);
+			$outputPath = P::m($this->tmpDirectoryPath, $tmpSubdirectory, (string)$generated['output']);
 			$this->xmlGenerator->setDriver($type);
 			$this->xmlGenerator->generate($outputPath, $this->rootDirectory, $settings);
 
