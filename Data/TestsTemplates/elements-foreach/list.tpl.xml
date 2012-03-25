@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<elements>
+	{for $numberIdx=1 to $number}
+		{for $countIdx=1 to $count}
+			<subelement_{$numberIdx}/>
+		{/for}
+	{/for}
+</elements>

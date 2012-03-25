@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Elements foreach" template="foreach.tpl.xslt" templatingType="smarty">
+	<files>
+		<generated id="listShort" generator="smarty" output="listShort.xml">
+			<setting name="template">list.tpl.xml</setting>
+			<setting name="number">5</setting>
+			<setting name="count">2</setting>
+		</generated>
+		<generated id="listLong" generator="smarty" output="listLong.xml">
+			<setting name="template">list.tpl.xml</setting>
+			<setting name="number">500</setting>
+			<setting name="count">20</setting>
+		</generated>
+		<generated id="shortModified" generator="smarty" output="shortModified.xml">
+			<setting name="template">modified.tpl.xml</setting>
+			<setting name="number">3</setting>
+			<setting name="count">2</setting>
+		</generated>
+		<generated id="middle1Modified" generator="smarty" output="middle1Modified.xml">
+			<setting name="template">modified.tpl.xml</setting>
+			<setting name="number">3</setting>
+			<setting name="count">20</setting>
+		</generated>
+		<generated id="middle2Modified" generator="smarty" output="middle2Modified.xml">
+			<setting name="template">modified.tpl.xml</setting>
+			<setting name="number">5</setting>
+			<setting name="count">2</setting>
+		</generated>
+		<generated id="longModified" generator="smarty" output="longModified.xml">
+			<setting name="template">modified.tpl.xml</setting>
+			<setting name="number">300</setting>
+			<setting name="count">20</setting>
+		</generated>
+	</files>
+	<test name="Short">
+		<file input="listShort" output="shortModified" />
+		<file input="listLong" output="middle1Modified" />
+		<setting name="number">3</setting>
+	</test>
+	<test name="Long">
+		<file input="listShort" output="middle2Modified" />
+		<file input="listLong" output="longModified" />
+		<setting name="number">300</setting>
+	</test>
+	<test name="Short with not presented">
+		<file input="listShort" output="shortModified" />
+		<file input="listLong" output="middle1Modified" />
+		<setting name="number">3</setting>
+		<setting name="numberNot">1</setting>
+	</test>
+	<test name="Long with not presented">
+		<file input="listShort" output="middle2Modified" />
+		<file input="listLong" output="longModified" />
+		<setting name="number">300</setting>
+		<setting name="numberNot">100</setting>
+	</test>
+</tests>
