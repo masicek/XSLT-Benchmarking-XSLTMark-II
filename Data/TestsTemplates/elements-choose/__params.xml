@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests name="Elements choose" template="choose.tpl.xslt" templatingType="smarty">
 	<files>
+		<!-- inputs -->
 		<generated id="listShort" generator="smarty" output="listShort.xml">
 			<setting name="template">list.tpl.xml</setting>
 			<setting name="number">3</setting>
@@ -11,6 +12,7 @@
 			<setting name="number">30</setting>
 			<setting name="length">20</setting>
 		</generated>
+		<!-- outputs -->
 		<generated id="shortPresented" generator="smarty" output="shortPresented.xml">
 			<setting name="template">presented.tpl.xml</setting>
 			<setting name="number">2</setting>
@@ -30,6 +32,35 @@
 			<setting name="template">presented.tpl.xml</setting>
 			<setting name="number">3</setting>
 			<setting name="length">1</setting>
+		</generated>
+		<!-- outputs with otherwise -->
+		<generated id="shortPresentedOtherwise" generator="smarty" output="shortPresentedOtherwise.xml">
+			<setting name="template">presented.tpl.xml</setting>
+			<setting name="number">2</setting>
+			<setting name="length">1</setting>
+			<setting name="otherwiseValue">0</setting>
+			<setting name="otherwiseValueNot">1</setting>
+		</generated>
+		<generated id="longPresentedOtherwise" generator="smarty" output="longPresentedOtherwise.xml">
+			<setting name="template">presented.tpl.xml</setting>
+			<setting name="number">20</setting>
+			<setting name="length">1</setting>
+			<setting name="otherwiseValue">0</setting>
+			<setting name="otherwiseValueNot">10</setting>
+		</generated>
+		<generated id="middle1PresentedOtherwise" generator="smarty" output="middle1PresentedOtherwise.xml">
+			<setting name="template">presented.tpl.xml</setting>
+			<setting name="number">2</setting>
+			<setting name="length">1</setting>
+			<setting name="otherwiseValue">0</setting>
+			<setting name="otherwiseValueNot">1</setting>
+		</generated>
+		<generated id="middle2PresentedOtherwise" generator="smarty" output="middle2PresentedOtherwise.xml">
+			<setting name="template">presented.tpl.xml</setting>
+			<setting name="number">3</setting>
+			<setting name="length">1</setting>
+			<setting name="otherwiseValue">17</setting>
+			<setting name="otherwiseValueNot">10</setting>
 		</generated>
 	</files>
 	<test name="Short">
@@ -55,7 +86,7 @@
 		<setting name="numberNot">1</setting>
 		<setting name="lengthNot">2</setting>
 	</test>
-	<test name="Longs with not presented">
+	<test name="Long with not presented">
 		<file input="listShort" output="middle2Presented" />
 		<file input="listLong" output="longPresented" />
 		<setting name="number">20</setting>
@@ -63,5 +94,27 @@
 		<setting name="lengthDummy">30</setting>
 		<setting name="numberNot">10</setting>
 		<setting name="lengthNot">20</setting>
+	</test>
+	<test name="Short with not presented and otherwise">
+		<file input="listShort" output="shortPresentedOtherwise" />
+		<file input="listLong" output="middle1PresentedOtherwise" />
+		<setting name="number">2</setting>
+		<setting name="length">5</setting>
+		<setting name="lengthDummy">3</setting>
+		<setting name="numberNot">1</setting>
+		<setting name="lengthNot">2</setting>
+		<setting name="otherwise">1</setting>
+		<setting name="otherwiseNot">1</setting>
+	</test>
+	<test name="Long with not presented and otherwise">
+		<file input="listShort" output="middle2PresentedOtherwise" />
+		<file input="listLong" output="longPresentedOtherwise" />
+		<setting name="number">20</setting>
+		<setting name="length">50</setting>
+		<setting name="lengthDummy">30</setting>
+		<setting name="numberNot">10</setting>
+		<setting name="lengthNot">20</setting>
+		<setting name="otherwise">1</setting>
+		<setting name="otherwiseNot">1</setting>
 	</test>
 </tests>

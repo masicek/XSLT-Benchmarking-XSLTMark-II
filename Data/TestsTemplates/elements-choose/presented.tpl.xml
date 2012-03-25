@@ -5,4 +5,14 @@
 			<presented>{$numberIdx},{$lengthIdx}</presented>
 		{/for}
 	{/for}
+	{if isset($otherwiseValue)}
+		{for $idx=1 to $otherwiseValue}
+			<presented>Any presened by "value"</presented>
+		{/for}
+	{/if}
+	{if isset($otherwiseValueNot)}
+		{for $idx=1 to $otherwiseValueNot}
+			<presented>Any presened by "valueNot"</presented>
+		{/for}
+	{/if}
 </presentedValues>

@@ -20,6 +20,11 @@
 							<presented>{$numberIdx},{$lengthIdx}</presented>
 						</xsl:when>
 					{/for}
+					{if isset($otherwise) && $otherwise}
+						<xsl:otherwise>
+							<presented>Any presened by "value"</presented>
+						</xsl:otherwise>
+					{/if}
 				</xsl:choose>
 			{/for}
 			{if isset($numberNot) && isset($lengthNot)}
@@ -30,6 +35,11 @@
 								<presented>{$numberIdx},{$lengthIdx}</presented>
 							</xsl:when>
 						{/for}
+						{if isset($otherwiseNot) && $otherwiseNot}
+							<xsl:otherwise>
+								<presented>Any presened by "valueNot"</presented>
+							</xsl:otherwise>
+						{/if}
 					</xsl:choose>
 				{/for}
 			{/if}
