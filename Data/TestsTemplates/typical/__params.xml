@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Typical" template="budget.tpl.xslt" templatingType="simple">
+	<files>
+		<generated id="is" generator="toxgene" output="is.xml">
+			<setting name="template">is.tpl.xml</setting>
+			<setting name="document">is</setting>
+			<setting name="seed">2517</setting>
+		</generated>
+		<generated id="budget" generator="toxgene" output="budget.xml">
+			<setting name="template">is.tpl.xml</setting>
+			<setting name="document">budget</setting>
+			<setting name="seed">2517</setting>
+		</generated>
+	</files>
+	<test name="Budget">
+		<file input="is" output="budget" />
+	</test>
+</tests>

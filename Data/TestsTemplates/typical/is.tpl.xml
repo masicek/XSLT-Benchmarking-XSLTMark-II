@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tox-template SYSTEM 'http://www.cs.toronto.edu/tox/toxgene/ToXgene2.dtd'>
+<tox-template>
+
+	<!-- Company name type -->
+	<simpleType name="company_name_type">
+		<restriction base="string">
+			<tox-string type="text" minLength="5" maxLength="30" />
+		</restriction>
+	</simpleType>
+
+	<!-- List of generated names -->
+	<tox-list name="name_list">
+		<element name="name" minOccurs="3000" maxOccurs="3000">
+			<complexType>
+				<element name="fname" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-string type="fname" />
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="lname" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-string type="lname" />
+						</restriction>
+					</simpleType>
+				</element>
+			</complexType>
+		</element>
+	</tox-list>
+
+	<!-- Responsible person type -->
+	<complexType name="responsible_person_type">
+		<!-- name -->
+		<tox-scan path="[name_list/name]" name="n">
+			<element name="name" minOccurs="1" maxOccurs="1">
+				<tox-expr value="[lname]#' '#[fname]" />
+			</element>
+		</tox-scan>
+		<!-- mobil -->
+		<element name="mobil" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<pattern value="[0-9]{9}"/>
+				</restriction>
+			</simpleType>
+		</element>
+		<!-- email -->
+		<element name="email" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<tox-string type="email" />
+				</restriction>
+			</simpleType>
+		</element>
+	</complexType>
+
+	<!-- Price type -->
+	<complexType name="price_type">
+		<tox-alternatives>
+			<tox-option odds="20">
+				<element name="currency" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-value>USD</tox-value>
+						</restriction>
+					</simpleType>
+				</element>
+			</tox-option>
+			<tox-option odds="30">
+				<element name="currency" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-value>EURO</tox-value>
+						</restriction>
+					</simpleType>
+				</element>
+			</tox-option>
+			<tox-option odds="10">
+				<element name="currency" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-value>GPB</tox-value>
+						</restriction>
+					</simpleType>
+				</element>
+			</tox-option>
+			<tox-option odds="40">
+				<element name="currency" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-value>CZK</tox-value>
+						</restriction>
+					</simpleType>
+				</element>
+			</tox-option>
+		</tox-alternatives>
+		<element name="value" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="positiveInteger">
+					<minInclusive value="1000" />
+					<maxInclusive value="800000" />
+				</restriction>
+			</simpleType>
+		</element>
+	</complexType>
+
+	<!-- Order type -->
+	<complexType name="order_type">
+
+		<!-- date of order -->
+		<element name="date" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="date">
+					<minInclusive value="1998-01-01"/>
+					<maxInclusive value="2012-01-01"/>
+					<tox-format value="dd.MM.yyyy" />
+				</restriction>
+			</simpleType>
+		</element>
+
+		<!-- description -->
+		<element name="description" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<tox-string type="text" minLength="20" maxLength="100" />
+				</restriction>
+			</simpleType>
+		</element>
+
+		<!-- contractor|subscriber -->
+		<tox-alternatives>
+			<tox-option odds="50">
+				<element name="contractor" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<!-- contractor name -->
+						<element name="name" minOccurs="1" maxOccurs="1" type="company_name_type" />
+						<!-- price -->
+						<element name="price" minOccurs="1" maxOccurs="1" type="price_type" />
+					</complexType>
+				</element>
+			</tox-option>
+			<tox-option odds="50">
+				<element name="subscriber" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<!-- subscriber name -->
+						<element name="name" minOccurs="1" maxOccurs="1" type="company_name_type" />
+						<!-- price -->
+						<element name="price" minOccurs="1" maxOccurs="1" type="price_type" />
+					</complexType>
+				</element>
+			</tox-option>
+		</tox-alternatives>
+	</complexType>
+
+	<!-- Company type -->
+	<complexType name="company_type">
+		<element name="name" minOccurs="1" maxOccurs="1" type="company_name_type" />
+		<element name="responsiblePerson" minOccurs="1" maxOccurs="1" type="responsible_person_type" />
+		<element name="order" minOccurs="40" maxOccurs="100" type="order_type" />
+	</complexType>
+
+
+	<!-- MAIN 'IS' LIST -->
+	<tox-list name="is_list">
+		<element name="company" minOccurs="30" maxOccurs="60" type="company_type" />
+	</tox-list>
+
+
+	<!-- ############## -->
+	<!-- main documents -->
+	<!-- ############## -->
+
+	<!-- 'is' document = list of companies -->
+	<tox-document name="is">
+		<element name="is" minOccurs="1" maxOccurs="1">
+			<complexType>
+				<tox-foreach path="[is_list/company]" name="c">
+					<element name="company" >
+						<complexType>
+							<!-- company name -->
+							<element name="name" >
+								<tox-expr value="[name]" />
+							</element>
+							<!-- responsible person -->
+							<tox-expr value="[responsiblePerson]" />
+
+							<!-- order -->
+							<tox-foreach path="[$c/order]" name="o">
+								<element name="order">
+									<complexType>
+										<!-- date -->
+										<attribute name="date" >
+											<tox-expr value="[$o/date]" />
+										</attribute>
+
+										<!-- contractor|subscriber -->
+										<tox-if expr="EXISTS([$o/contractor])">
+											<tox-then>
+												<element name="contractor" >
+													<complexType>
+														<!-- contractor name -->
+														<attribute name="name">
+															<tox-expr value="[$o/contractor/name]" />
+														</attribute>
+														<!-- price -->
+														<element name="price">
+															<complexType>
+																<attribute name="currency">
+																	<tox-expr value="[$o/contractor/price/currency]" />
+																</attribute>
+																<tox-expr value="[$o/contractor/price/value]" />
+															</complexType>
+														</element>
+													</complexType>
+												</element>
+											</tox-then>
+											<tox-else>
+												<element name="subscriber" >
+													<complexType>
+														<!-- subscriber name -->
+														<attribute name="name">
+															<tox-expr value="[$o/subscriber/name]" />
+														</attribute>
+														<!-- price -->
+														<element name="price">
+															<complexType>
+																<attribute name="currency">
+																	<tox-expr value="[$o/subscriber/price/currency]" />
+																</attribute>
+																<tox-expr value="[$o/subscriber/price/value]" />
+															</complexType>
+														</element>
+													</complexType>
+												</element>
+											</tox-else>
+										</tox-if>
+										<!-- description -->
+										<element name="description" >
+											<tox-expr value="[$o/description]" />
+										</element>
+									</complexType>
+								</element>
+							</tox-foreach>
+
+						</complexType>
+					</element>
+				</tox-foreach>
+			</complexType>
+		</element>
+	</tox-document>
+
+	<!-- 'budgets' document = list of budgets of companies -->
+	<tox-document name="budget">
+		<element name="budgets" minOccurs="1" maxOccurs="1">
+			<complexType>
+				<attribute name="parentCompanyName">
+					<simpleType>
+						<restriction base="string">
+							<tox-value>Big Company Co.</tox-value>
+						</restriction>
+					</simpleType>
+				</attribute>
+				<tox-foreach path="[is_list/company]" name="c">
+					<element name="budget" >
+						<complexType>
+							<!-- company name -->
+							<attribute name="companyName" >
+								<tox-expr value="[name]" />
+							</attribute>
+							<!-- responsible person -->
+							<tox-expr value="[responsiblePerson]" />
+
+							<!-- value -->
+							<tox-foreach path="[$c/order]" name="o">
+								<tox-if expr="EXISTS([$o/contractor])">
+									<!-- contractor values -->
+									<tox-then>
+										<tox-if expr="EQ([$o/contractor/price/currency],'USD')">
+											<tox-then>
+												<element name="value">
+													<tox-expr value="([$o/contractor/price/value]*(18.40))" format="'-'#' Kc'"/>
+												</element>
+											</tox-then>
+										</tox-if>
+										<tox-if expr="EQ([$o/contractor/price/currency],'EURO')">
+											<tox-then>
+												<element name="value">
+													<tox-expr value="([$o/contractor/price/value]*(24.40))" format="'-'#' Kc'"/>
+												</element>
+											</tox-then>
+										</tox-if>
+										<tox-if expr="EQ([$o/contractor/price/currency],'GPB')">
+											<tox-then>
+												<element name="value">
+													<tox-expr value="([$o/contractor/price/value]*(29.00))" format="'-'#' Kc'"/>
+												</element>
+											</tox-then>
+										</tox-if>
+										<tox-if expr="EQ([$o/contractor/price/currency],'CZK')">
+											<tox-then>
+												<element name="value">
+													<tox-expr value="[$o/contractor/price/value]" format="'-'#' Kc'"/>
+												</element>
+											</tox-then>
+										</tox-if>
+									</tox-then>
+									<!-- subscribe values -->
+									<tox-else>
+										<tox-if expr="EQ([$o/subscriber/price/currency],'USD')">
+											<tox-then>
+												<element name="value">
+													<tox-expr value="([$o/subscriber/price/value]*(18.40))" format="'+'#' Kc'"/>
+												</element>
+											</tox-then>
+										</tox-if>
+										<tox-if expr="EQ([$o/subscriber/price/currency],'EURO')">
+											<tox-then>
+												<element name="value">
+													<tox-expr value="([$o/subscriber/price/value]*(24.40))" format="'+'#' Kc'"/>
+												</element>
+											</tox-then>
+										</tox-if>
+										<tox-if expr="EQ([$o/subscriber/price/currency],'GPB')">
+											<tox-then>
+												<element name="value">
+													<tox-expr value="([$o/subscriber/price/value]*(29.00))" format="'+'#' Kc'"/>
+												</element>
+											</tox-then>
+										</tox-if>
+										<tox-if expr="EQ([$o/subscriber/price/currency],'CZK')">
+											<tox-then>
+												<element name="value">
+													<tox-expr value="[$o/subscriber/price/value]" format="'+'#' Kc'"/>
+												</element>
+											</tox-then>
+										</tox-if>
+									</tox-else>
+								</tox-if>
+							</tox-foreach>
+
+						</complexType>
+					</element>
+				</tox-foreach>
+			</complexType>
+		</element>
+	</tox-document>
+
+</tox-template>
