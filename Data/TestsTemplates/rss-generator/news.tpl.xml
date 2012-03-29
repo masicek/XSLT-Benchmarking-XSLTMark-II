@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tox-template SYSTEM 'http://www.cs.toronto.edu/tox/toxgene/ToXgene2.dtd'>
+<tox-template>
+
+	<!-- date type -->
+	<simpleType name="date_type">
+		<restriction base="date">
+			<minInclusive value="1998-01-01"/>
+			<maxInclusive value="2012-01-01"/>
+			<tox-format value="dd.MM.yyyy" />
+		</restriction>
+	</simpleType>
+
+	<!-- List of generated names -->
+	<tox-list name="name_list">
+		<element name="name" minOccurs="3000" maxOccurs="3000">
+			<complexType>
+				<element name="fname" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-string type="fname" />
+						</restriction>
+					</simpleType>
+				</element>
+				<element name="lname" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-string type="lname" />
+						</restriction>
+					</simpleType>
+				</element>
+			</complexType>
+		</element>
+	</tox-list>
+
+	<!-- report type -->
+	<complexType name="report_type">
+		<!-- source -->
+		<element name="source" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<minLength value="5" />
+					<maxLength value="25" />
+					<tox-string type="text" />
+				</restriction>
+			</simpleType>
+		</element>
+		<!-- author -->
+		<tox-scan path="[name_list/name]" name="n">
+			<element name="author" minOccurs="1" maxOccurs="1">
+				<tox-expr value="[lname]#' '#[fname]" />
+			</element>
+		</tox-scan>
+		<!-- date -->
+		<element name="date" minOccurs="1" maxOccurs="1" type="date_type" />
+		<!-- id -->
+		<element name="id" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="positiveInteger">
+					<minInclusive value="200" />
+					<maxInclusive value="10000" />
+				</restriction>
+			</simpleType>
+		</element>
+		<!-- title -->
+		<element name="title" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<minLength value="10" />
+					<maxLength value="50" />
+					<tox-string type="text" />
+				</restriction>
+			</simpleType>
+		</element>
+		<!-- abstract -->
+		<element name="abstract" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<minLength value="60" />
+					<maxLength value="140" />
+					<tox-string type="text" />
+				</restriction>
+			</simpleType>
+		</element>
+		<!-- mainText -->
+		<element name="mainText" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<minLength value="200" />
+					<maxLength value="500" />
+					<tox-string type="text" />
+				</restriction>
+			</simpleType>
+		</element>
+	</complexType>
+
+	<!-- MAIN 'NEWS' LIST -->
+	<tox-list name="news_list">
+		<element name="news" minOccurs="1" maxOccurs="1">
+			<complexType>
+				<!-- section -->
+				<element name="section" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-string type="word" />
+						</restriction>
+					</simpleType>
+				</element>
+				<!-- link -->
+				<element name="link" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-value>http://www.some.news.com</tox-value>
+						</restriction>
+					</simpleType>
+				</element>
+				<!-- date -->
+				<element name="date" minOccurs="1" maxOccurs="1" type="date_type" />
+				<!-- about -->
+				<element name="about" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<minLength value="40" />
+							<maxLength value="100" />
+							<tox-string type="text" />
+						</restriction>
+					</simpleType>
+				</element>
+				<!-- composer -->
+				<tox-scan path="[name_list/name]" name="n">
+					<element name="composer" minOccurs="1" maxOccurs="1">
+						<tox-expr value="[lname]#' '#[fname]" />
+					</element>
+				</tox-scan>
+				<!-- reports -->
+				<element name="reports" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<element name="report" minOccurs="30" maxOccurs="50" type="report_type" />
+					</complexType>
+				</element>
+			</complexType>
+		</element>
+	</tox-list>
+
+
+	<!-- ############## -->
+	<!-- main documents -->
+	<!-- ############## -->
+
+	<!-- 'news' document = list of news -->
+	<tox-document name="news">
+		<element name="news" minOccurs="1" maxOccurs="1">
+			<complexType>
+				<tox-foreach path="[news_list/news]" name="n">
+					<!-- section -->
+					<attribute name="section">
+						<tox-expr value="[section]" />
+					</attribute>
+					<!-- link -->
+					<attribute name="link">
+						<tox-expr value="[link]" />
+					</attribute>
+					<!-- date -->
+					<attribute name="date">
+						<tox-expr value="[date]" />
+					</attribute>
+					<!-- about -->
+					<element name="about">
+						<tox-expr value="[about]" />
+					</element>
+					<!-- composer -->
+					<element name="composer">
+						<tox-expr value="[composer]" />
+					</element>
+
+					<!-- reports -->
+					<element name="reports">
+						<complexType>
+							<!-- link -->
+							<attribute name="link">
+								<tox-expr value="[link]#'/'#[section]" />
+							</attribute>
+
+							<!-- lists of reposrts -->
+							<tox-foreach path="[$n/reports/report]" name="r">
+								<element name="report">
+									<complexType>
+										<!-- source -->
+										<attribute name="source">
+											<tox-expr value="[$r/source]" />
+										</attribute>
+										<!-- author -->
+										<attribute name="author">
+											<tox-expr value="[$r/author]" />
+										</attribute>
+										<!-- date -->
+										<attribute name="date">
+											<tox-expr value="[$r/date]" />
+										</attribute>
+										<!-- id -->
+										<attribute name="id">
+											<tox-expr value="[$r/id]" />
+										</attribute>
+										<!-- title -->
+										<attribute name="title">
+											<tox-expr value="[$r/title]" />
+										</attribute>
+										<!-- abstract -->
+										<element name="abstract">
+											<tox-expr value="[$r/abstract]" />
+										</element>
+										<!-- mainText -->
+										<element name="mainText">
+											<tox-expr value="[$r/mainText]" />
+										</element>
+									</complexType>
+								</element>
+							</tox-foreach>
+						</complexType>
+					</element>
+
+				</tox-foreach>
+			</complexType>
+		</element>
+	</tox-document>
+
+	<!-- 'rss' document = list rss items -->
+	<tox-document name="rss">
+		<element name="rss" minOccurs="1" maxOccurs="1">
+			<complexType>
+				<!-- version -->
+				<attribute name="version">
+					<simpleType>
+						<restriction base="string">
+							<tox-value>2.0</tox-value>
+						</restriction>
+					</simpleType>
+				</attribute>
+				<!-- channel -->
+				<element name="channel" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<tox-foreach path="[news_list/news]" name="n">
+							<!-- title -->
+							<element name="title">
+								<tox-expr value="[section]" />
+							</element>
+							<!-- link -->
+							<element name="link">
+								<tox-expr value="[link]" />
+							</element>
+							<!-- description -->
+							<element name="description">
+								<tox-expr value="[about]" />
+							</element>
+							<!-- language -->
+							<element name="language">
+								<simpleType>
+									<restriction base="string">
+										<tox-value>en</tox-value>
+									</restriction>
+								</simpleType>
+							</element>
+							<!-- pubDate -->
+							<element name="pubDate">
+								<tox-expr value="[date]" />
+							</element>
+							<!-- generator -->
+							<element name="generator">
+								<simpleType>
+									<restriction base="string">
+										<tox-value>Best News</tox-value>
+									</restriction>
+								</simpleType>
+							</element>
+
+							<!-- lists of items -->
+							<tox-foreach path="[$n/reports/report]" name="r">
+								<element name="item">
+									<complexType>
+										<!-- title -->
+										<element name="title">
+											<tox-expr value="[$r/title]" />
+										</element>
+										<!-- link -->
+										<element name="link">
+											<tox-expr value="[$n/link]#'/'#[$n/section]#'/?id='#[$r/id]" />
+										</element>
+										<!-- description -->
+										<element name="description">
+											<tox-expr value="[$r/abstract]" />
+										</element>
+										<!-- pubDate -->
+										<element name="pubDate">
+											<tox-expr value="[$r/date]" />
+										</element>
+										<!-- guid -->
+										<element name="guid">
+											<tox-expr value="[$r/id]" />
+										</element>
+									</complexType>
+								</element>
+							</tox-foreach>
+						</tox-foreach>
+					</complexType>
+				</element>
+			</complexType>
+		</element>
+	</tox-document>
+
+</tox-template>

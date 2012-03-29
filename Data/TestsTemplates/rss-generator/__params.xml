@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="RSS generator" template="rss.tpl.xslt" templatingType="smarty">
+	<files>
+		<generated id="news" generator="toxgene" output="news.xml">
+			<setting name="template">news.tpl.xml</setting>
+			<setting name="document">news</setting>
+			<setting name="seed">2517</setting>
+		</generated>
+		<generated id="rss" generator="toxgene" output="rss.xml">
+			<setting name="template">news.tpl.xml</setting>
+			<setting name="document">rss</setting>
+			<setting name="seed">2517</setting>
+		</generated>
+	</files>
+	<test name="apply-templates">
+		<file input="news" output="rss" />
+		<setting name="itemPrintMethod">apply-templates</setting>
+	</test>
+	<test name="for-each">
+		<file input="news" output="rss" />
+		<setting name="itemPrintMethod">for-each</setting>
+	</test>
+</tests>
