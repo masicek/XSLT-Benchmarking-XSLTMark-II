@@ -84,6 +84,12 @@ class Controlor
 	 */
 	private function normalizeXml($inputContent)
 	{
+		// add declaration, if not presented
+		if (preg_match('/<\?xml[^?]+\?>/', $inputContent) === 0)
+		{
+			$inputContent = '<?xml version="1.0" encoding="UTF-8" ?>' . $inputContent;
+		}
+
 		try
 		{
 			$inputXml = new \SimpleXMLElement($inputContent);
