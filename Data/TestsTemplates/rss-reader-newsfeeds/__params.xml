@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="RSS reader" template="newsfeeds.tpl.xslt" templatingType="simple">
+	<files>
+		<generated id="rss" generator="toxgene" output="rss.xml">
+			<setting name="template">rss.tpl.xml</setting>
+			<setting name="document">rss</setting>
+			<setting name="seed">2517</setting>
+		</generated>
+		<generated id="div" generator="toxgene" output="div.xml">
+			<setting name="omitXmlDeclaration">1</setting>
+			<setting name="template">rss.tpl.xml</setting>
+			<setting name="document">div</setting>
+			<setting name="seed">2517</setting>
+		</generated>
+	</files>
+	<test name="newsfeeds">
+		<file input="rss" output="div" />
+	</test>
+</tests>
