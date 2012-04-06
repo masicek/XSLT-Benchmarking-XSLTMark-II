@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tests name="RSS reader" template="rss.tpl.xslt" templatingType="simple">
 	<files>
-		<generated id="rss" generator="toxgene" output="rss.xml">
+		<generated id="rss" generator="toxgene" output="rss2.xml">
 			<setting name="template">rss.tpl.xml</setting>
 			<setting name="document">rss</setting>
 			<setting name="seed">2517</setting>
