@@ -47,9 +47,9 @@ class Controlor
 
 		// normalize
 		$extension1 = strtolower(pathinfo($filePath1, PATHINFO_EXTENSION));
-		if ($extension1 == 'xml')
+		if ($extension1 == 'xml' || $extension1 == 'html')
 		{
-			$content1 = $this->normalizeXml($content1);
+			$content1 = $this->normalizeXml($content1, $extension1);
 		}
 		else
 		{
@@ -58,9 +58,9 @@ class Controlor
 		}
 
 		$extension2 = strtolower(pathinfo($filePath2, PATHINFO_EXTENSION));
-		if ($extension2 == 'xml')
+		if ($extension2 == 'xml' || $extension2 == 'html')
 		{
-			$content2 = $this->normalizeXml($content2);
+			$content2 = $this->normalizeXml($content2, $extension2);
 		}
 		else
 		{
@@ -79,37 +79,49 @@ class Controlor
 	 * If content is not XML, return input content.
 	 *
 	 * @param string $inputContent Normalizing content
+	 * @param string $extension Extension of file from withc is content
 	 *
 	 * @return string
 	 */
-	private function normalizeXml($inputContent)
+	private function normalizeXml($inputContent, $extension)
 	{
-		// add declaration, if not presented
-		if (preg_match('/<\?xml[^?]+\?>/', $inputContent) === 0)
+		// add declaration, if not presented for XML
+		if ($extension == 'xml' && preg_match('/<\?xml[^?]+\?>/', $inputContent) === 0)
 		{
 			$inputContent = '<?xml version="1.0" encoding="UTF-8" ?>' . $inputContent;
 		}
-
-		try
-		{
-			$inputXml = new \SimpleXMLElement($inputContent);
-		}
-		catch (\Exception $e)
-		{
-			// input is not XML
-			return $inputContent;
-		}
-
-		// normalize empty atribute ('att' => 'att=""')
-		// TODO
 
 		// remove insignificant whitespaces
 		// simplier empty elements ('<el></el>' => '<el/>')
 		// simplier attributes ('att   =  "aaa"    att2="bbb"' => 'att="aaa" att2="bbb"')
 		$dom = new \DOMDocument();
 		$dom->preserveWhiteSpace = FALSE;
-		$dom->loadXml($inputContent);
+		// catch error/warning/notice during reading content as XML or HTML
+		set_error_handler(array($this, 'errorHandler'));
+		try
+		{
+			if ($extension == 'xml')
+			{
+				$dom->loadXml($inputContent);
+			}
+			if ($extension == 'html')
+			{
+				$dom->loadHTML($inputContent);
+				$outputContent = $dom->saveXML();
+				$dom->loadXml($outputContent);
+			}
+		}
+		catch (\Exception $e)
+		{
+			restore_error_handler();
+			// input is not XML or HTML
+			return $inputContent;
+		}
+		restore_error_handler();
 		$outputContent = $dom->saveXML();
+
+		// normalize empty atribute ('att' => 'att=""')
+		// TODO
 
 		// sort attributes
 		$outputContent = preg_replace_callback('#<[^/?][^>]*>#', array($this, 'sortAttributes'), $outputContent);
@@ -190,6 +202,20 @@ class Controlor
 		}
 
 		return $output;
+	}
+
+
+	/**
+	 * Handling of error during reading XML or HTML file.
+	 *
+	 * @param type $errno
+	 * @param type $errstr
+	 *
+	 * @return void
+	 */
+	public function errorHandler($errno, $errstr)
+	{
+		throw new \Exception('Error handler');
 	}
 
 
