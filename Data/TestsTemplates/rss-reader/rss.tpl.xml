@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tox-template SYSTEM 'http://www.cs.toronto.edu/tox/toxgene/ToXgene2.dtd'>
+<tox-template>
+
+	<!-- date type -->
+	<simpleType name="date_type">
+		<restriction base="date">
+			<minInclusive value="1998-01-01"/>
+			<maxInclusive value="2012-01-01"/>
+			<tox-format value="dd.MM.yyyy" />
+		</restriction>
+	</simpleType>
+
+	<!-- item type -->
+	<complexType name="item_type">
+		<!-- title -->
+		<element name="title" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<minLength value="10" />
+					<maxLength value="50" />
+					<tox-string type="text" />
+				</restriction>
+			</simpleType>
+		</element>
+		<!-- link -->
+		<element name="link" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<tox-value>http://www.some.news.com/some_category</tox-value>
+				</restriction>
+			</simpleType>
+		</element>
+		<!-- description -->
+		<element name="description" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<minLength value="60" />
+					<maxLength value="140" />
+					<tox-string type="text" />
+				</restriction>
+			</simpleType>
+		</element>
+		<!-- author -->
+		<element name="author" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="string">
+					<tox-string type="email" />
+				</restriction>
+			</simpleType>
+		</element>
+		<!-- pubDate -->
+		<element name="pubDate" minOccurs="1" maxOccurs="1" type="date_type" />
+		<!-- guid -->
+		<element name="guid" minOccurs="1" maxOccurs="1">
+			<simpleType>
+				<restriction base="positiveInteger">
+					<minInclusive value="200" />
+					<maxInclusive value="10000" />
+				</restriction>
+			</simpleType>
+		</element>
+	</complexType>
+
+	<!-- MAIN 'RSS' LIST -->
+	<tox-list name="rss_list">
+		<element name="rss" minOccurs="1" maxOccurs="1">
+			<complexType>
+				<!-- title -->
+				<element name="title" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<minLength value="10" />
+							<maxLength value="50" />
+							<tox-string type="text" />
+						</restriction>
+					</simpleType>
+				</element>
+				<!-- link -->
+				<element name="link" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-value>http://www.some.news.com</tox-value>
+						</restriction>
+					</simpleType>
+				</element>
+				<!-- description -->
+				<element name="description" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<minLength value="40" />
+							<maxLength value="100" />
+							<tox-string type="text" />
+						</restriction>
+					</simpleType>
+				</element>
+				<!-- language -->
+				<element name="language" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-value>en</tox-value>
+						</restriction>
+					</simpleType>
+				</element>
+				<!-- pubDate -->
+				<element name="pubDate" minOccurs="1" maxOccurs="1" type="date_type" />
+				<!-- generator -->
+				<element name="generator" minOccurs="1" maxOccurs="1">
+					<simpleType>
+						<restriction base="string">
+							<tox-value>Best News</tox-value>
+						</restriction>
+					</simpleType>
+				</element>
+
+				<!-- items -->
+				<element name="item" minOccurs="30" maxOccurs="40" type="item_type" />
+			</complexType>
+		</element>
+	</tox-list>
+
+
+	<!-- ############## -->
+	<!-- main documents -->
+	<!-- ############## -->
+
+	<!-- 'rss' document = list rss items -->
+	<tox-document name="rss">
+		<element name="rss" minOccurs="1" maxOccurs="1">
+			<complexType>
+				<!-- version -->
+				<attribute name="version">
+					<simpleType>
+						<restriction base="string">
+							<tox-value>2.0</tox-value>
+						</restriction>
+					</simpleType>
+				</attribute>
+				<!-- channel -->
+				<element name="channel" minOccurs="1" maxOccurs="1">
+					<complexType>
+						<tox-foreach path="[rss_list/rss]" name="r">
+							<!-- title -->
+							<element name="title">
+								<tox-expr value="[title]" />
+							</element>
+							<!-- link -->
+							<element name="link">
+								<tox-expr value="[link]" />
+							</element>
+							<!-- description -->
+							<element name="description">
+								<tox-expr value="[description]" />
+							</element>
+							<!-- language -->
+							<element name="language">
+								<tox-expr value="[language]" />
+							</element>
+							<!-- pubDate -->
+							<element name="pubDate">
+								<tox-expr value="[pubDate]" />
+							</element>
+							<!-- generator -->
+							<element name="generator">
+								<tox-expr value="[generator]" />
+							</element>
+
+							<!-- lists of items -->
+							<tox-foreach path="[$r/item]" name="i">
+								<element name="item">
+									<complexType>
+										<!-- title -->
+										<element name="title">
+											<tox-expr value="[$i/title]" />
+										</element>
+										<!-- link -->
+										<element name="link">
+											<tox-expr value="[$i/link]#'/?id='#[$i/guid]" />
+										</element>
+										<!-- description -->
+										<element name="description">
+											<tox-expr value="[$i/description]" />
+										</element>
+										<!-- author -->
+										<element name="author">
+											<tox-expr value="[author]" />
+										</element>
+										<!-- pubDate -->
+										<element name="pubDate">
+											<tox-expr value="[$i/pubDate]" />
+										</element>
+										<!-- guid -->
+										<element name="guid">
+											<tox-expr value="[$i/guid]" />
+										</element>
+									</complexType>
+								</element>
+							</tox-foreach>
+						</tox-foreach>
+					</complexType>
+				</element>
+			</complexType>
+		</element>
+	</tox-document>
+
+
+	<!-- 'html' document = transformed RSS into HTML page -->
+	<tox-document name="html">
+		<element name="html">
+			<complexType>
+				<tox-sample path="[rss_list/rss]" name="r">
+					<element name="head">
+						<complexType>
+							<element name="meta">
+								<complexType>
+									<attribute name="http-equiv">
+										<simpleType>
+											<restriction base="string">
+												<tox-value>Content-Type</tox-value>
+											</restriction>
+										</simpleType>
+									</attribute>
+									<attribute name="content">
+										<simpleType>
+											<restriction base="string">
+												<tox-value>text/html; charset=UTF-8</tox-value>
+											</restriction>
+										</simpleType>
+									</attribute>
+								</complexType>
+							</element>
+							<element name="title">
+								<tox-expr value="'RSS for channel '#[title]" />
+							</element>
+						</complexType>
+					</element>
+					<element name="body">
+						<complexType>
+							<element name="h1">
+								<complexType>
+									<element name="a">
+										<complexType>
+											<attribute name="href">
+												<tox-expr value="[link]" />
+											</attribute>
+											<tox-expr value="[title]" />
+										</complexType>
+									</element>
+								</complexType>
+							</element>
+							<element name="p">
+								<tox-expr value="[description]" />
+							</element>
+							<tox-foreach path="[$r/item]" name="i">
+								<element name="h2">
+									<complexType>
+										<element name="a">
+											<complexType>
+												<attribute name="href">
+													<tox-expr value="[$i/link]#'/?id='#[$i/guid]" />
+												</attribute>
+												<tox-expr value="[$i/title]" />
+											</complexType>
+										</element>
+									</complexType>
+								</element>
+								<element name="p">
+									<tox-expr value="[$i/description]" />
+								</element>
+							</tox-foreach>
+						</complexType>
+					</element>
+				</tox-sample>
+			</complexType>
+		</element>
+	</tox-document>
+
+</tox-template>
