@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Google Search Appliance" template="gsa-xhtml.en.tpl.xslt" templatingType="simple">
+	<files>
+		<file id="gsaResutls">gsaResults.xml</file>
+		<file id="output">output.html</file>
+	</files>
+	<test name="Main">
+		<file input="gsaResutls" output="output" />
+	</test>
+</tests>
