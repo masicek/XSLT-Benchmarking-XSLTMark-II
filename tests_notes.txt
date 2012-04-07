@@ -1,0 +1,297 @@
+POZNAMKY:
+---------
+* Jeste by sla urcite udelat zajimava kategorie SVG, jen to okomentovat v praci.
+* Moc jsme neresili xsl:include a xsl:import. To by mozna taky stalo za analyzu.
+* Zminit se, ze nas program je mozno pak pouzit napriklad pro testovani (podobne jako PHPUnit)
+  pri vytvareni XSLT sablon, aplikaci atd.
+* Zminit se o GitHubu a ze na nem jsou tasky, na kterych by se dalo pokracovat dal.
+  Taky to, ze to je teda otevreny projekt.
+* V prubehu vytvareni testu, jsme samozrejmne obcas udelali chybu a neketere procesory se s nimy vyporadali lepe
+  a nektere hure. Chtelo by to udelat analyzu toho, jak se jednotlive procesory vyporadavaji s error
+  a jak je dokazi srozumitelne reportovat uzivateli.
+* Napsat u ketereych testu, ze jsme predpokladali, ze processory sablony korektne zpracuji.
+  Slo nam spis o rychlost a pamet. Nic mene, pokud by napriklad nekdo chtel vytvaret vlastni
+  XSLT procesot, muse tyto jednoduche testy pouzit i pro testovani korektnosti implementace.
+  Nebo pokud bychom chteli pridat nejaky novy XSLT procesor, muze to odhalit ventuelni zasadni problemy v implementaci.
+* Nektere testy by sly vyresil jednoduzsi sablonou, ale jso o otestovani urcitych elementu apd.
+  Napriklad "xsl:foreach" (nejdpis by slo resit transformaci lepe, ale jde o pouziti vetsiho mnozstvi 
+  elemnru xsl:foreach).
+* Vetsina vytvorenych testu by mela prochazet. Jde nam u nich hlavne o rychlost a pamet
+  (vyjmennovat je, nebo spis ktere nemusi projit).
+  Pokud by nekdo pridal processor driver, pak by tyto testy mely projit.
+* Az pobezim testy, tak vsechny programy vypnout, nic jineho nepoustet a odpojit se od internetu.
+  Aby to nebylo ovlivneno zadnimy vlivy.
+  "--repeating" nastavit klidne na nejakou vetsi hosnotu (30), aby ten prumer byl nejak rozumny.
+* Sehnat testy XsltMark a pouzit je jako samostatnou sadu testu.
+  Negenerovali by se, jen by se spustili.
+  Poku by nemeli k sobe "expectedOutput", koukal bych jen na rychlost a vyuziti pameti.
+  Pokud je nesezenu, tak napsat, ze nebylo mozne je sehnat, ale ze by je melo jit pouzit v nasem benchmarku.
+* Nektere testy jsou zavysle na slozitosti a spravne implementaci XPath.
+  To rozebirat nebudeme, to je velka samostatna kapitola. Proto jsme se znazili pouzit pouze jednoduche XPath.
+  S temi by procesory nemeli mit problemy.
+* Vetsina testu je parametrizovatelna. My pouzijeme nastaveni dle analyzy stazenych dokumentu.
+  Je mozne si nechat vygenerovat testy s jinymy nastavenimy dle svych konkretnich potreb a spustit benchmark.
+* Smarty bylo pouzito, protoze je primocarejsi na generovani pozadovanych sablon.
+  Bylo by mozne pouzit i "XSLT driver", ale v nem by vytvareni sablon bylo hodne komplikovane.
+  Neni problem ho vsak pridat.
+  ToxGene jsme pouzili mene casto nex bylo zamysleno. Generovani  vstupniho XML i vystupniho XML opovidajiciho
+  ocekavanemu vystupu nekdy bylo nemozne nebo prilis komplikovane. Smarty bylo pro tento ucel v mnoha pripadech pouzitelnejsi.
+* Udelat si sablonu odstavece popisujici jednotlive testy.
+  Kazdy by mel obsahovat
+  	-> co sledujeme testujeme timto testem
+  	-> co bylo problematicke a netipicke pri jeho vytvareni
+  	-> jake jsou vysledky testu
+* Popsat, ze jsme se pokouseli vychazet pri sestavovani testu z normy http://www.w3.org/TR/xslt
+* Vygenerovany HTML report pak nekde zverejnit
+  Dva reporty (pro Linux a Windows)
+    - seznam testu skovavaci
+       - kazdy nazev testu muze skovat/zobrazit tabulku
+       - kliknuti na vse skovat, vse zobrazit
+       - defaultne vse zobrazene
+* Defaultni XML output je pouzit ve vetsine testech
+* Generatory
+  	ToxGene
+		vyhody: staci zmenit seed a uz mam jina data, takze je vetsi moznost vytvoreni ruznych testu
+		nevyhody: nekdy je dost slozite vytvorit pozadovana data (vstup + ocekavany vystup)
+	Smarty
+		vyhody: jednoducha primocara tvorba testu, lehke vytvirit kombinaci "vstup + ocekavany vystup"
+		nevyhody: temer vse si musim vytvorit rucne a testy jsou mene variabilni
+* Srovnat nejake testy, ktere maji "velke XSLT + male XML" vs. "male XSLT + velke XML"
+   -> co bude rychlejsi a co zere vic pameti.
+* Obecne me zajima srovnani rychlosti mezi processory pro jednotlive testy pro kategorie.
+  Stejne tak pro typicky dokument.
+  A navic napriklad srovnani vramci jedne sablony testu (=> vysledne testy) pro kazdy processor zvlast
+  (rss-generator => rss-generatro-apply-templates vs. rss-generator-call-template)
+
+
+
+TESTY:
+------
+Vytvorene: (jednotlive sekce asi budou odpovidat kapitolam)
+----------
+-----------------------------
+---- FEATURES - ELEMENTS ----
+-----------------------------
+* element-value-of
+	Nebudu delat -> je to hodne zavysle na XPath
+	Ale "value-of" je pouzite prubezne v jinych testech, takze je vlastne pokrito dostatecne.
+	(napriklad v "elements-template")
+* element-choose
+  Zahrnuje i elementy "when" a "otherwise"
+  Bylo jesdnoduzsi pouzit smarty nez toxgene (s nim by to bylo prilis komplikovane).
+  Short (with not presented (with otherwise)) vs. Long (with not presented (with otherwise)) -- stejne vystupy, ale ruzne narocne zpracovani
+  (Short|Long) vs. (Short|Long) with not presented -- stejne vystupy, ale navic zbytecne "choose"
+  (Short|Long) with not presented vs. (Short|Long) with not presented and otherwise -- podobne vystupy, ale navic zbytecne "otherwise"
+* element-element
+	Zahrnuje i element "attribute".
+	Testuje
+	   -> element "element"
+	   -> vliv odsazeni XSLT na rychlost z pracovani a pouzitou pamet
+* elements-foreach
+  Obdoba "elements-choose" ... okomentovat asi dohromady
+* elements-if
+  Obdoba "elements-choose" ... okomentovat asi dohromady
+* element-template(-common)
+	Zahrnuje i dalsi elementy ("apply-templates", "with-param", "call-template", "param").
+	"elements-template-procedural" vs "elements-template-noprocedural" - oba delaji to same jinou cestou
+	   - srovnani rychlosti a vyuzite pameti vramci kazdeho procesoru
+	Elements template - Empty
+		=> libxslt 1.1.23 - PHP => vynechano <? ... ?>
+		=> xsltproc 1.1.?? => nevygeneruje nic -> patrne to same
+		  ---> proste kdyz nic neni na vystupu, bere to jako ze to neni nic --> je to OK?
+		=> XT => pridal navic prazdnu radek
+		  ---> to je vlastne OK
+* element-text-(text|xml)
+	Bylo potreba rozdelit na dva samostatne testy, generovani by bylo komplikovane (tohle je vyjmecny pripad).
+	Testy co neprosli, jsou vlastne OK (EOL, radek navic na konci).
+------------------
+---- FEATURES ----
+------------------
+* typical
+  ("format-number" bylo pouzito hlavne kvuli jednotnemu vystupu -> pokud nebude vsude fungovat, tak zrusit -- kouknout na normu, jake je defaultni nastaveni formatu)
+  Odchylili jsme se jen v maximalni hloubce z 5 na 6, coz neni tak zasadni problem.
+  Uspech je, ze jsme pouzili vsechny tipicke elementy najednou v relativne neumelem testu.
+  		- max 10kB									-> ano
+  		- max depth 5								-> ma 6 :-(
+  		- if,choose,foreach - bez zanoreni	-> ano
+  		- bez rekurze								-> ano
+  		- output = default XML					-> ano
+  		- fanout (avg 1, max 0-40)				-> ano avg = 1, max = 5; (5+0+0+1+1+3+1+0+0+0+1+3+1+0+1+0+2+0+0+5+0+0+0+0+4+1+1+1+1+0+0+0+0 / 33)
+  		- 16 tipickych elementu					-> pouzite vsechny (ne sice v pomeru v grafu, ale to by nejspis neslo v jednom dokumentu)
+  			- value-of
+  			- text
+  			- apply-templates
+  			- when
+  			- temaplte
+  			- with-param
+  			- if
+  			- call-template
+  			- attribute
+  			- variable
+  			- choose
+  			- for-each
+  			- param
+  			- otherwise
+  			- copy-of
+  			- element
+--------------------
+---- CATEGORIES ----
+--------------------
+* RSS - generator
+	- sleduju jak rychlost a pamet vuci jinym testum, tak mezi obema testy
+	- typical -> tyhle zjistene vlastnoti napsat k popisu testu v praci
+		- pouze jeden kanal (element "channel"), i kdyz by jich mohlo byt vic
+		- version: 2.0=5
+		- root: rss
+		- template: match
+		- pro vypis "items" => udelat 2 testy
+			"foreach"=6
+			"apply-templates select"=6
+		- <xsl:output method="xml" encoding="utf-8" indent="yes"/> = prurez nejcasteji pouzitymi
+		- generovat primo (ne pomoci xsl:element, xsl:attribute)
+		- channel: 
+			*title (string / cteny: value-of)
+			*link (cteny: value-of)
+			*description (nejaky delsi string, cteny omoci value-of)
+			@language (en) = 5
+			pubDate (cteny: value-of) = 3
+			generator (nejaky string) = 3
+		- item: 
+			*title
+			*link
+			*description
+			*pubDate (nekdy prazdne)
+			@guid (obcas stejne jako link) -- vse ctene: value-of
+			lang
+* RSS - reader
+	- typical
+		- set output: xml=5, html=4, "nic"=1
+		- real output: xml=1 ,html=11
+		- omit-xml-declaration: yes=6, no=6 -- oboji
+		- rss=8, rdf:RDF=1
+		- match-(channel i item)=7 , match+foreach=3
+		- "primo"=11, xsl:element=1
+		- xsl:attribute=6 , "primo + {...}"=5 -- vyskouseno uz v "newsfeeds"
+		- channel (porovnat s celkovim poctem dokumentu)
+			@- title=9/12=75%
+			@- description=5/12=41%
+			@- link=4/14=33%
+			- image=3/12=25%
+		- item (porovnat s celkovim poctem dokumentu)
+			@- link=12(3)/12=100%
+			@- title=10(2)/12=83%
+			@- description=6(3)/12=50%
+			- pubDate=3/12=25%
+			- "foreach--position()"=2/12=10%
+			- category=1/12=8%
+		- Saxon pridava do vygenerovaneho HTML nove radky. Ve vystupu to nevadi, diky tomu, ze to je HTML.
+		  Ale jde o to co rika norma: je to povoleno (http://www.w3.org/TR/xslt#section-HTML-Output-Method)
+		  Aby to nedelelo problem, pridali jsme indent="no" (i kdyz v analyzovanych datech bylo pouzito indent="yes")
+	- newsfeeds.xslt --- pokus nepujde pouzit, tak skrtnou zminku v kategorii RSS
+		- Generovane elementy napovidaji na vystup HTML, ale vystupem neni cele HTML.
+		  Takze jde o soucast nejake vetsi XSLT sablony, ale v nasich stazenych sablonach nikde neni
+		  'newsfeeds.xslt' vkladana pomoci "xsl:include" nebo "xsl:inport".
+		  Ze se nejedna o celek, nam nevadi.
+		  Proste vygenerujeme vystup a overime oproti ocekavanemu vystupu.
+		  Soucasti 'newsfeeds.xslt' je i pouziti slozenych zavorek pro vyplneni hodnoty atributu
+		  (viz http://www.w3.org/TR/xslt#dt-attribute-value-template)
+		  Protoze to je jen cast finalniho vystupu, je pouzito 'omit-xml-declaration="yes"'.
+		  Museli jsme pridat "output@encoding", jinak to dela problem s kontrolou obsahu.
+		  Stejne tak dela problem i "output@indent".
+		  Na kodovani a indent mame vlastni testy.
+* GSA
+	- template with default value
+	- customer-onebox.xsl ... to jsme zakomentovali, protoze to neni tak zasadni
+		vystup je vytvoren i tak
+	- bylo potreba sehnat testovaci vstup (http://code.google.com/p/gsa-parser/source/browse/GSA/xslt/1.xml?r=2)
+	- Vygenrovany vystup z XSLTPROC jsme pouzili jako "expectedOutput".
+	  Vystupy se u jednotlivych procesoru lisi v drobnostech. Zjistovat jaky je skutecne ocekavany vystup by bylo prilis narocne vzhledem ke slozitocti sablony.
+	  Jelikoz je vystup HTML, postaci nam se podivat na vygenerovany vystup "rucne".
+	  Vsechny zvladli vygenerovat sabloblony vzasade vporadku. Az na:
+	  		- Sabloztron -- vystup vygenerovat, ale zahlasil hodne Warningu (drobny problem)
+	  		- XT - nevygenerovalo vubec nic -- velky problem -- testejm neprosel
+	  		- krome MSXML 3 i 6 - vsechny ostatni procesory meli problem s vypsanim "ReportsÂ® is" .. vypsaly "ReportsĂ‚Â® is"
+	  Sablona ma ale problem s kodovanim, coz muze byt pircina prblemu s "ReportsĂ‚Â® is". I kdyz nastavime <xsl:output encoding="UTF-8">,
+	  vygenerovany vystup nema zadne kodovani. Pruzkum ukazal, ze klodovani si sablona resi sama, coz neni uplne idelani.
+	  V kazdem pripade nezohledneni nastevenho kodovani, je chyba.
+	  Ve vysledku je tedy vetsina procesoru pro GSA pouzitelne (krome XT), ale je nutne si vystup odladit (naprikald kodovani) pro konkretni pouziti.
+
+
+Dodelat:
+--------
+* elements-copy-of
+  Dost zavysle na XPath, ale chtelo by to pousit v jinych testech (neco jako "value-of")
+* fan-out
+  Test, kde bude mozne urcit velikost fan-out
+  Podbne jako v "elements-element" => "fan-out-3", "fan-out-10" a "fan-out-40"
+  -> nastvit jestli chci z "xsl:element", "xsl:attribute", "xsl:tmpalte", "xsl:choose"
+  Vetsina testu splnuje hlavni rozmezi mezi 3-6 (viz graf).
+  Tohle je specializovany test.
+* size
+  Moznost nastavit jakou chci priblizne velikost vystupu a podle toho mi to vygeneruje test.
+  Pouzit nastaveni pro "10 kB"
+  Ale vetsina testu splnuje tohle kriterium.
+* output-html
+  HTML je taky velke procento vystupu. XML je ve vetsine testech.
+  Udelat test na HTML vystup.
+  --> Mozna nebude potreba, HTML by melo byt pouzito v nekterych testech detekovanych kategoriich.
+* elements-variable
+* output-indent
+  Tetuje zohledneni odsazeni vystupniho XML podle "<xsl:output indent="yes" ... />"
+  Nejspis bude nutne zkontrolovat rucne, protoze trida Controlor nam automaticky normalizuje porovnavane XML
+  Indent muze byt v ruznimy procesory chpan ruzne (mezera, dve mezery, tabulator, dalsi bile znaky (odradkovani mezi templates) => nutno porovnar rucne)
+* encoding
+  Nastaveny na UTF-8 --> musi ho dodrzet
+  Nenastaveny --> mel by byt UTF-8 nebo UTF-16 (nebo error)
+  ??? je povine nastavit u generovaneho XML encoding ??? (co kdyz neni nastaveno => jake je defaultni encoding ???)
+  Vytvorit jednoduchou transformaci. Jen nastavit ruzne kodovani.
+  Mozna by slo napasovat na "typical".
+  Asi by slo testnout tak, ze budu ocekabvat neodsazeny vystup a expected output nechan v ruznem kodovani.
+
+
+
+
+Category: (vetsinou jednoduchy testy ... simple generator)
+---------
+* GraphML ... pozna pujde vystup z jedne sablony puzit do dalsich (pokud to je nahodne generovany, pouziju jeden vygenerovany)
+	- tri sablony ze stranek (ty co generuji nahodne se budou pekne blbe testovat ... asi castecne rucne, nebo je spis nepouzit)
+	- ...
+	- ...
+* XGMML
+	- typical (na zaklade 8 podobnych ze sranek)
+* DocBook - reader
+	- typical
+	- "frequent XSLT"
+* DocBook - generator
+	- base test
+* RDFS - reader
+	- typical (na zaklade 6)
+* RDFS - generator
+	- simple test
+* RDF - reader
+	- pouze RDF
+	- pouze RDF + HTML zacatek
+	- RDF + jiny format
+* RDF - generator
+	- "dostatek testu" (smarty generator)
+
+
+Mozna udelat, kdyz bude cas:
+----------------------------
+* empty vs. big input XML
+  		--IN-- vs. --XSLT--
+  		empty      big (viz elements-element)
+  		big        big (??????)
+  		big        emtpy (jen copy outputu pomoci par jednoduchych sablon)
+* nesting
+  Nemelo by byt zadne, coz je splneno ve vetsine testech.
+* recursion
+  Nemelo by byt zadne, coz je splneno ve vetsine testech.
+  Napad na test: vystup v HTML - stromova struktura pomoci <ul> a <li>
+* XSLT 2.0
+  Test na nektere zajimave elementy z XSLT 2.0
+* max-depth
+  Parametrizovatelny test, kde si nastavim pozadovanou hloubku.
+  Pouzit nastaveni pro 5, 3 a 10 (viz graf).
+  Vetsina testu ma maximalni hloubku cca mezi 3-5.
+
