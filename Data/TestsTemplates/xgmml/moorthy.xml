@@ -1,0 +1,1984 @@
+<?xml version="1.0"?>
+<graph directed="1" Rootnode="1">
+<node id="214" label="http://java.sun.com/java.sun.com/newdocs.html" weight="-1">
+</node>
+<node id="213" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/Assembler/java_assembler.tar.gz" weight="297217">
+<att name="title" value="No title"/>
+<att name="mime" value="application/x-tar"/>
+<att name="size" value="297217"/>
+<att name="date" value="Wed Feb 17 08:26:14 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="212" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/Assembler/examples.html" weight="7607">
+<att name="title" value="Java Bytecode Assembler Examples"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="7607"/>
+<att name="date" value="Fri Jun 14 11:08:38 1996"/>
+<att name="code" value="200"/>
+</node>
+<node id="211" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/Assembler/features.html" weight="4299">
+<att name="title" value="Java(tm) Bytecode Assembler Features"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="4299"/>
+<att name="date" value="Fri Jun 14 11:08:38 1996"/>
+<att name="code" value="200"/>
+</node>
+<node id="210" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/Assembler/jasm.html" weight="13740">
+<att name="title" value="Java Assembly Language"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="13740"/>
+<att name="date" value="Fri Jun 14 11:08:38 1996"/>
+<att name="code" value="200"/>
+</node>
+<node id="209" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/Pthreads/Java/" weight="1948">
+<att name="title" value="Index of /~moorthy/Courses/os98/Pgms/Pthreads/Java"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1948"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="208" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/Pthreads/" weight="1357">
+<att name="title" value="Index of /~moorthy/Courses/os98/Pgms/Pthreads"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1357"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="207" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/sampletest983/sampletest983.html" weight="13270">
+<att name="title" value="No Title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="13270"/>
+<att name="date" value="Wed Nov 25 16:43:35 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="206" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/sampletest2/sampletest2.html" weight="11777">
+<att name="title" value="No Title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="11777"/>
+<att name="date" value="Sun Nov  1 14:33:05 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="205" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/test1/test1.html" weight="9127">
+<att name="title" value="No Title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="9127"/>
+<att name="date" value="Fri Sep 18 11:19:58 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="204" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/p398/p398.html" weight="8934">
+<att name="title" value="No Title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="8934"/>
+<att name="date" value="Wed Oct 21 09:26:51 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="203" label="http://cbl.leeds.ac.uk/nikos/personal.html" weight="-1">
+</node>
+<node id="202" label="http://www-dsed.llnl.gov/files/programs/unix/latex2html/manual/" weight="-1">
+</node>
+<node id="201" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/98p1/98p1.html" weight="13575">
+<att name="title" value="No Title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="13575"/>
+<att name="date" value="Fri Aug 28 09:41:10 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="200" label="http://www.cs.rpi.edu/~moorthy/MyResearch/Papers/www6.ps" weight="886692">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="886692"/>
+<att name="date" value="Tue Aug  5 10:38:38 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="199" label="http://www.cs.rpi.edu/~moorthy/MyResearch/Papers/sv.ps" weight="857999">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="857999"/>
+<att name="date" value="Tue Aug  5 10:32:57 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="198" label="http://www.cs.rpi.edu/~moorthy/MyResearch/Papers/dimacs.ps" weight="167860">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="167860"/>
+<att name="date" value="Fri Oct  3 15:19:05 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="197" label="http://hytropes.inrialpes.fr/java/graphdraw/" weight="-1">
+</node>
+<node id="196" label="http://www.cs.rpi.edu/~moorthy/MyResearch/Papers/deg.ps" weight="499035">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="499035"/>
+<att name="date" value="Tue Aug  5 10:34:00 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="195" label="http://www.cs.rpi.edu/~moorthy/MyResearch/Papers/sched.ps" weight="550995">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="550995"/>
+<att name="date" value="Mon Jun 10 20:11:31 1996"/>
+<att name="code" value="200"/>
+</node>
+<node id="194" label="http://www.cs.rpi.edu/~moorthy/MyResearch/Papers/joop.ps" weight="263570">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="263570"/>
+<att name="date" value="Tue Aug  5 10:36:59 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="193" label="http://www.cs.rpi.edu/~moorthy/MyResearch/Papers/jolly.ps" weight="199710">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="199710"/>
+<att name="date" value="Tue Aug  5 10:29:49 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="192" label="http://www.cs.rpi.edu/~moorthy/MyResearch/Papers/triangle.ps" weight="170318">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="170318"/>
+<att name="date" value="Tue Aug  5 10:31:54 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="191" label="http://www.cs.rpi.edu/~moorthy/MyResearch/Papers/tuple.ps" weight="5507266">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="5507266"/>
+<att name="date" value="Tue Aug  5 10:28:58 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="190" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/ws7.html" weight="395">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="395"/>
+<att name="date" value="Mon Mar  1 09:31:06 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="189" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/lec7.html" weight="671">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="671"/>
+<att name="date" value="Mon Mar  1 09:25:50 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="188" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/ws6.html" weight="1354">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1354"/>
+<att name="date" value="Mon Feb 22 09:12:22 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="187" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/lec6.html" weight="1420">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1420"/>
+<att name="date" value="Mon Feb 22 09:40:11 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="186" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/ws5.html" weight="1243">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1243"/>
+<att name="date" value="Wed Feb 17 09:16:59 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="185" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/lec5.html" weight="883">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="883"/>
+<att name="date" value="Wed Feb 17 09:16:30 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="184" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/ws4.html" weight="530">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="530"/>
+<att name="date" value="Mon Feb  8 08:53:44 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="183" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/lec4.html" weight="1181">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1181"/>
+<att name="date" value="Mon Feb  8 08:37:17 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="182" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/ws3.html" weight="519">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="519"/>
+<att name="date" value="Mon Feb  1 09:08:08 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="181" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/lec3.html" weight="1800">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1800"/>
+<att name="date" value="Mon Feb  1 09:02:16 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="180" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/ws2.html" weight="617">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="617"/>
+<att name="date" value="Sat Jan 23 16:39:09 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="179" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/lec2.html" weight="815">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="815"/>
+<att name="date" value="Sat Jan 23 15:54:49 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="178" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler98/Lectures/lecturesinppt/" weight="2764">
+<att name="title" value="Index of /~moorthy/Courses/compiler98/Lectures/lecturesinppt"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2764"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="177" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler98/Lectures/lectures/" weight="2796">
+<att name="title" value="Index of /~moorthy/Courses/compiler98/Lectures/lectures"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2796"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="176" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/Test3/" weight="1838">
+<att name="title" value="Index of /~moorthy/Courses/compiler99/Test3"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1838"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="175" label="ftp://ftp.cs.rpi.edu/pub/moorthy/java_assembler.tar.gz" weight="-1">
+</node>
+<node id="174" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/Assembler/" weight="1325">
+<att name="title" value="Java(tm) Bytecode Assembler"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1325"/>
+<att name="date" value="Wed Feb 17 08:36:19 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="173" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler/javacompiler_s96/code/" weight="2979">
+<att name="title" value="Index of /~moorthy/Courses/compiler/javacompiler_s96/code"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2979"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="172" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler/JB/" weight="3227">
+<att name="title" value="Index of /~moorthy/Courses/compiler/JB"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="3227"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="171" label="http://java.sun.com/JDK-beta2/" weight="-1">
+</node>
+<node id="170" label="http://java.sun.com/tutorial/TOC.html" weight="-1">
+</node>
+<node id="168" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/Pthreads/Java/lib" weight="1920">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="1920"/>
+<att name="date" value="Tue Nov 10 09:56:17 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="166" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/Pthreads/pthreads_interface.ps" weight="118265">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="118265"/>
+<att name="date" value="Tue Nov 10 09:38:03 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="165" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/Pthread/book.ps.gz" weight="-1">
+<att name="code" value="404"/>
+</node>
+<node id="164" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/Java/JavaNet/" weight="3849">
+<att name="title" value="Index of /~moorthy/Courses/os98/Pgms/Java/JavaNet"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="3849"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="163" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/Java/Socket/" weight="1375">
+<att name="title" value="Index of /~moorthy/Courses/os98/Pgms/Java/Socket"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1375"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="162" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/Java/Conc/" weight="1028">
+<att name="title" value="Index of /~moorthy/Courses/os98/Pgms/Java/Conc"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1028"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="161" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/server2.c" weight="2150">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="2150"/>
+<att name="date" value="Mon Sep 14 08:47:00 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="160" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/connect.txt" weight="5618">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="5618"/>
+<att name="date" value="Mon Sep 14 08:09:57 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="159" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/sockaddr" weight="297">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="297"/>
+<att name="date" value="Mon Sep 14 08:10:37 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="158" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/write.txt" weight="4917">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="4917"/>
+<att name="date" value="Mon Sep 14 08:09:58 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="157" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/read.txt" weight="5920">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="5920"/>
+<att name="date" value="Mon Sep 14 08:09:58 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="156" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/listen.txt" weight="1151">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="1151"/>
+<att name="date" value="Mon Sep 14 08:09:58 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="155" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/bind.txt" weight="3249">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="3249"/>
+<att name="date" value="Mon Sep 14 08:09:57 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="154" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/byteorder.txt" weight="103">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="103"/>
+<att name="date" value="Mon Sep 14 08:09:57 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="153" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.txt" weight="6518">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="6518"/>
+<att name="date" value="Mon Sep 14 08:09:58 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="152" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/fd.txt" weight="688">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="688"/>
+<att name="date" value="Mon Sep 14 08:09:57 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="151" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/perror.txt" weight="1571">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="1571"/>
+<att name="date" value="Mon Sep 14 08:09:58 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="150" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/in.h" weight="5366">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="5366"/>
+<att name="date" value="Mon Sep 14 08:08:38 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="149" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.h" weight="5041">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="5041"/>
+<att name="date" value="Mon Sep 14 08:08:38 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="148" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/client.c" weight="1393">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="1393"/>
+<att name="date" value="Tue Oct  6 12:45:25 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="147" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/server.c" weight="1423">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="1423"/>
+<att name="date" value="Mon Sep 14 08:00:35 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="146" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/sampletest983/node1.html" weight="2231">
+<att name="title" value="About this document ... "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2231"/>
+<att name="date" value="Wed Nov 25 16:43:35 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="145" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/sampletest2/node1.html" weight="2211">
+<att name="title" value="About this document ... "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2211"/>
+<att name="date" value="Sun Nov  1 14:33:05 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="144" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/test1/node1.html" weight="2157">
+<att name="title" value="About this document ... "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2157"/>
+<att name="date" value="Fri Sep 18 11:19:58 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="143" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/p398/node1.html" weight="2150">
+<att name="title" value="About this document ... "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2150"/>
+<att name="date" value="Wed Oct 21 09:26:51 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="142" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/proj2/node1.html" weight="2157">
+<att name="title" value="About this document ... "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2157"/>
+<att name="date" value="Fri Sep 18 09:18:47 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="141" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/98p1/node1.html" weight="2148">
+<att name="title" value="About this document ... "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2148"/>
+<att name="date" value="Fri Aug 28 09:41:11 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="140" label="http://www.cs.rpi.edu/~moorthy/MyResearch/graphdraw.html" weight="2403">
+<att name="title" value="Graph Drawing: "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2403"/>
+<att name="date" value="Wed Aug  6 08:02:21 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="139" label="http://www.cs.rpi.edu/~moorthy/MyResearch/compgt.html" weight="925">
+<att name="title" value=" Compiler Design Theory and Implementation "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="925"/>
+<att name="date" value="Wed Aug  6 07:57:24 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="138" label="http://www.cs.rpi.edu/~moorthy/MyResearch/appgt.html" weight="841">
+<att name="title" value=" Applications of Graph Theory "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="841"/>
+<att name="date" value="Wed Aug  6 08:03:34 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="137" label="http://www.cs.rpi.edu/~moorthy/MyResearch/Problemsolving.html" weight="921">
+<att name="title" value=" Problem Solving "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="921"/>
+<att name="date" value="Wed Aug  6 07:54:50 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="136" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/ws7.html" weight="395">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="395"/>
+<att name="date" value="Mon Mar  1 09:31:06 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="135" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/lec7.html" weight="671">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="671"/>
+<att name="date" value="Mon Mar  1 09:25:50 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="134" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/ws6.html" weight="1354">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1354"/>
+<att name="date" value="Mon Feb 22 09:12:22 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="133" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/lec6.html" weight="1420">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1420"/>
+<att name="date" value="Mon Feb 22 09:40:11 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="132" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/ws5.html" weight="1243">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1243"/>
+<att name="date" value="Wed Feb 17 09:16:59 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="131" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/lec5.html" weight="883">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="883"/>
+<att name="date" value="Wed Feb 17 09:16:30 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="130" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/ws4.html" weight="530">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="530"/>
+<att name="date" value="Mon Feb  8 08:53:44 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="129" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/lec4.html" weight="1181">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1181"/>
+<att name="date" value="Mon Feb  8 08:37:17 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="128" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/ws3.html" weight="519">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="519"/>
+<att name="date" value="Mon Feb  1 09:08:08 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="127" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/lec3.html" weight="1800">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1800"/>
+<att name="date" value="Mon Feb  1 09:02:16 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="126" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/ws2.html" weight="617">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="617"/>
+<att name="date" value="Sat Jan 23 16:39:09 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="125" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/lec2.html" weight="815">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="815"/>
+<att name="date" value="Sat Jan 23 15:54:49 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="124" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/" weight="2676">
+<att name="title" value="labview"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2676"/>
+<att name="date" value="Mon Mar  1 09:33:47 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="123" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler/java.ps" weight="901398">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="901398"/>
+<att name="date" value="Thu Apr 11 09:22:40 1996"/>
+<att name="code" value="200"/>
+</node>
+<node id="120" label="http://microsoft.com/mspowerpoint/default.htm" weight="-1">
+</node>
+<node id="119" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/JavaP/" weight="1148">
+<att name="title" value="Index of /~moorthy/Courses/compiler99/JavaP"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1148"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="118" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler/Pgms/yaccpgms/" weight="3537">
+<att name="title" value="Index of /~moorthy/Courses/compiler/Pgms/yaccpgms"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="3537"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="117" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/backup.zip" weight="297348">
+<att name="title" value="No title"/>
+<att name="mime" value="application/zip"/>
+<att name="size" value="297348"/>
+<att name="date" value="Tue Mar 16 10:25:51 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="116" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/project3.html" weight="891">
+<att name="title" value="Project 3"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="891"/>
+<att name="date" value="Mon Mar  8 16:50:53 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="115" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/project2.html" weight="857">
+<att name="title" value="Project 2"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="857"/>
+<att name="date" value="Wed Feb 17 08:37:44 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="114" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/project1.html" weight="1824">
+<att name="title" value="Project1"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1824"/>
+<att name="date" value="Tue Jan 19 14:23:20 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="113" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/WS/ws1.html" weight="159">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="159"/>
+<att name="date" value="Thu Jan 14 10:03:44 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="112" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/contact.html" weight="508">
+<att name="title" value="Contact and Office hours"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="508"/>
+<att name="date" value="Sat Jan 16 17:44:05 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="111" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/rsvp.html" weight="3245">
+<att name="title" value="Compiler Design Syllabus"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="3245"/>
+<att name="date" value="Thu Jan  7 09:24:32 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="110" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/students.html" weight="-1">
+<att name="code" value="404"/>
+</node>
+<node id="109" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview/" weight="3145">
+<att name="title" value="labview"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="3145"/>
+<att name="date" value="Fri Nov  6 09:17:04 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="108" label="mailto:zhuj@rpi.edu" weight="-1">
+</node>
+<node id="107" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/notes.html" weight="1043">
+<att name="title" value=" Threads "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1043"/>
+<att name="date" value="Tue Nov 10 09:50:09 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="106" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/P3" weight="-1">
+<att name="code" value="301"/>
+</node>
+<node id="105" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/maple.c" weight="1336">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="1336"/>
+<att name="date" value="Fri Sep 18 11:30:15 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="104" label="http://www.rsvp.rpi.edu/courses/f98/os/index.html" weight="-1">
+</node>
+<node id="103" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/Profile/" weight="1922">
+<att name="title" value="Index of /~moorthy/Courses/os98/Pgms/Profile"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1922"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="102" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/P3/" weight="1509">
+<att name="title" value="Index of /~moorthy/Courses/os98/Pgms/P3"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1509"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="101" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/test5.c" weight="800">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="800"/>
+<att name="date" value="Thu Oct 22 12:43:37 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="100" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/92198/" weight="1224">
+<att name="title" value="Index of /~moorthy/Courses/os98/Pgms/92198"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1224"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="96" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html" weight="25984">
+<att name="title" value=" Sockets Tutorial"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="25984"/>
+<att name="date" value="Mon Sep 14 15:49:37 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="95" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/sem.c" weight="2180">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="2180"/>
+<att name="date" value="Wed Sep  9 12:03:01 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="94" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/" weight="4647">
+<att name="title" value="Index of /~moorthy/Courses/os98/Pgms"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="4647"/>
+<att name="date" value="Wed Dec 31 18:59:59 1969"/>
+<att name="code" value="200"/>
+</node>
+<node id="93" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/w14_17sol.html" weight="10439">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="10439"/>
+<att name="date" value="Wed Dec  2 08:49:20 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="92" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws17.html" weight="397">
+<att name="title" value=" Work Sheet 17 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="397"/>
+<att name="date" value="Mon Nov 30 10:34:05 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="91" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws16.html" weight="372">
+<att name="title" value=" Work Sheet 16 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="372"/>
+<att name="date" value="Wed Nov 18 09:36:56 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="90" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws15.html" weight="327">
+<att name="title" value=" Work Sheet 15 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="327"/>
+<att name="date" value="Mon Nov 16 10:24:07 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="89" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws14.html" weight="521">
+<att name="title" value=" Work Sheet 14 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="521"/>
+<att name="date" value="Wed Nov 11 09:41:44 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="88" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/w11_13sol.txt" weight="11252">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="11252"/>
+<att name="date" value="Thu Oct 29 13:55:34 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="87" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws13.html" weight="1075">
+<att name="title" value=" Work Sheet 13 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1075"/>
+<att name="date" value="Wed Oct 28 13:06:26 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="86" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws12.html" weight="384">
+<att name="title" value=" Work Sheet 12 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="384"/>
+<att name="date" value="Mon Oct 26 09:38:24 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="85" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws11.html" weight="596">
+<att name="title" value=" Work Sheet 11 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="596"/>
+<att name="date" value="Mon Oct 19 08:23:45 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="84" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/w10sol.txt" weight="5025">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="5025"/>
+<att name="date" value="Thu Oct 29 10:29:26 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="83" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws10.html" weight="478">
+<att name="title" value=" Work Sheet 10 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="478"/>
+<att name="date" value="Wed Oct 14 08:59:20 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="82" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/w7_9.txt" weight="8099">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="8099"/>
+<att name="date" value="Tue Oct 13 08:18:57 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="81" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws9.html" weight="358">
+<att name="title" value=" Work Sheet 9 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="358"/>
+<att name="date" value="Wed Oct  7 07:08:09 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="80" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws8.html" weight="438">
+<att name="title" value=" Work Sheet 8 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="438"/>
+<att name="date" value="Mon Oct  5 07:28:26 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="79" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws7.html" weight="309">
+<att name="title" value=" Work Sheet 7 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="309"/>
+<att name="date" value="Wed Sep 30 07:11:41 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="78" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/worksheetsoln.txt" weight="17641">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="17641"/>
+<att name="date" value="Wed Sep 23 15:32:00 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="77" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws6.html" weight="483">
+<att name="title" value=" Work Sheet 6 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="483"/>
+<att name="date" value="Wed Sep 16 07:52:52 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="76" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws5.html" weight="747">
+<att name="title" value=" Work Sheet 5 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="747"/>
+<att name="date" value="Mon Sep 14 09:36:14 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="75" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws4.html" weight="560">
+<att name="title" value=" Work Sheet 4 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="560"/>
+<att name="date" value="Wed Sep  9 09:51:10 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="74" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws3.html" weight="467">
+<att name="title" value=" Work Sheet 3 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="467"/>
+<att name="date" value="Wed Sep  9 09:51:19 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="73" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws2.html" weight="312">
+<att name="title" value=" Work Sheet 2 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="312"/>
+<att name="date" value="Mon Aug 31 07:54:44 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="72" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws1.html" weight="1245">
+<att name="title" value=" Work Sheet 1 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1245"/>
+<att name="date" value="Wed Aug 26 09:35:47 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="71" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/WS/ws0.html" weight="907">
+<att name="title" value=" Work Sheet 0 "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="907"/>
+<att name="date" value="Mon Aug 24 15:07:00 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="70" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/samplefinal.sol" weight="2367">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2367"/>
+<att name="date" value="Wed Dec  9 08:46:35 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="69" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/sampletest983/" weight="13250">
+<att name="title" value="No Title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="13250"/>
+<att name="date" value="Wed Nov 25 16:44:12 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="68" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/sampletest983.pdf" weight="93425">
+<att name="title" value="No title"/>
+<att name="mime" value="application/pdf"/>
+<att name="size" value="93425"/>
+<att name="date" value="Wed Nov 25 16:42:36 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="67" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/sampletest983.ps" weight="82150">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="82150"/>
+<att name="date" value="Wed Nov 25 16:42:29 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="66" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/sampleans.t2" weight="1538">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1538"/>
+<att name="date" value="Mon Nov 16 13:10:59 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="65" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/sampleans.samplet2" weight="3163">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="3163"/>
+<att name="date" value="Wed Nov  4 10:23:02 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="64" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/sampletest2/" weight="11757">
+<att name="title" value="No Title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="11757"/>
+<att name="date" value="Sun Nov  1 14:33:48 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="63" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/stest2.pdf" weight="67315">
+<att name="title" value="No title"/>
+<att name="mime" value="application/pdf"/>
+<att name="size" value="67315"/>
+<att name="date" value="Thu Oct 29 09:35:41 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="62" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/stest2.ps" weight="53234">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="53234"/>
+<att name="date" value="Thu Oct 29 09:34:49 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="61" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/ans.t1" weight="2326">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="2326"/>
+<att name="date" value="Mon Oct  5 08:18:49 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="60" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/test1/" weight="9037">
+<att name="title" value="No Title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="9037"/>
+<att name="date" value="Mon Sep 21 08:43:13 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="59" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/test1.ps" weight="60291">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="60291"/>
+<att name="date" value="Fri Sep 18 11:19:50 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="58" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/extra2.html" weight="3907">
+<att name="title" value=" Extra Credit Project 2&gt; "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="3907"/>
+<att name="date" value="Thu Nov 12 14:06:25 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="57" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/extra1.html" weight="2836">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2836"/>
+<att name="date" value="Fri Aug 28 10:59:36 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="56" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/p398/index.html" weight="8975">
+<att name="title" value="No Title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="8975"/>
+<att name="date" value="Tue Nov 10 13:36:12 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="55" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/p398.pdf" weight="76811">
+<att name="title" value="No title"/>
+<att name="mime" value="application/pdf"/>
+<att name="size" value="76811"/>
+<att name="date" value="Tue Oct 20 11:28:30 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="54" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/p398.ps" weight="77370">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="77370"/>
+<att name="date" value="Tue Oct 20 11:23:19 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="53" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/proj2/proj2.html" weight="5990">
+<att name="title" value="No Title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="5990"/>
+<att name="date" value="Sat Sep 26 08:54:43 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="52" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/proj2.ps" weight="38589">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="38589"/>
+<att name="date" value="Sat Sep 26 08:53:32 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="51" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/98p1.ps" weight="57648">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="57648"/>
+<att name="date" value="Fri Aug 28 09:41:40 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="50" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/98p1/index.html" weight="13545">
+<att name="title" value="No Title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="13545"/>
+<att name="date" value="Mon Aug 31 07:31:38 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="49" label="http://www.cs.rpi.edu/~tangr/faq_e2.html" weight="-1">
+</node>
+<node id="48" label="http://www.cs.rpi.edu/~shenx/os98f/faq3.html" weight="-1">
+</node>
+<node id="47" label="http://www.cs.rpi.edu/~gaol/faq_p2.htm" weight="-1">
+</node>
+<node id="46" label="http://www.cs.rpi.edu/~shenx/os98f/faq2.html" weight="-1">
+</node>
+<node id="45" label="http://www.cs.rpi.edu/~jiangj/os/faq1.html" weight="-1">
+</node>
+<node id="44" label="http://www.cs.rpi.edu/~gaol/rsvplist.html" weight="-1">
+</node>
+<node id="43" label="http://www.cs.rpi.edu/~gaol/group.html" weight="-1">
+</node>
+<node id="42" label="http://www.cs.rpi.edu/~gaol/slist.html" weight="-1">
+</node>
+<node id="41" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/syl.html" weight="4651">
+<att name="title" value=" Operating System Fundamentals Fall 1998 -- Syllabus"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="4651"/>
+<att name="date" value="Mon Aug 24 06:14:45 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="40" label="mailto:shenx@cs.rpi.edu" weight="-1">
+</node>
+<node id="39" label="mailto:jiangj@cs.rpi.edu" weight="-1">
+</node>
+<node id="38" label="mailto:gaol@cs.rpi.edu" weight="-1">
+</node>
+<node id="37" label="http://www.cs.rpi.edu/~moorthy" weight="-1">
+</node>
+<node id="36" label="http://cgi.cs.rpi.edu/~moorthy/Fuzzy/InitFC.html" weight="-1">
+</node>
+<node id="35" label="http://www.cs.rpi.edu/~moorthy/Fuzzy/docs/UsersGuide.html" weight="11630">
+<att name="title" value="User s Guide"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="11630"/>
+<att name="date" value="Sun Aug 10 11:30:59 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="34" label="http://www.cs.rpi.edu/~moorthy/Fuzzy/docs/WriteUp.html" weight="23124">
+<att name="title" value="The Fuzzy Clustering Applet"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="23124"/>
+<att name="date" value="Sun Aug 10 11:31:06 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="33" label="http://www.cs.rpi.edu/~moorthy/Sierpinski/S.java" weight="1860">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="1860"/>
+<att name="date" value="Wed Sep 24 09:08:21 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="32" label="http://www.cs.rpi.edu/~moorthy/MyResearch/Papers/subh.ps" weight="121731">
+<att name="title" value="No title"/>
+<att name="mime" value="application/postscript"/>
+<att name="size" value="121731"/>
+<att name="date" value="Tue Aug  5 10:27:51 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="31" label="http://www.cs.rpi.edu/~moorthy/Subh/Subh1.java" weight="23571">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="23571"/>
+<att name="date" value="Fri Mar 26 09:40:42 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="30" label="http://www.cs.rpi.edu/~moorthy/SciAmer/guess.java" weight="5133">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="5133"/>
+<att name="date" value="Thu Apr  9 10:51:10 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="29" label="mailto:puninj@cs.rpi.edu" weight="-1">
+</node>
+<node id="28" label="file:/amd/momentum/projects/webgraph/WORG/THIRD/FOURTH/WWWPAL/graphs/CSAUG99/csaug99br.html" weight="-1">
+</node>
+<node id="27" label="http://www.cs.rpi.edu/~moorthy/videopi/juggle_pi_28k.rm" weight="175564">
+<att name="title" value="No title"/>
+<att name="mime" value="audio/x-pn-realaudio"/>
+<att name="size" value="175564"/>
+<att name="date" value="Fri May 21 16:40:48 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="26" label="http://www.cs.rpi.edu/~moorthy/videopi/juggle_pi_28k.asf" weight="188349">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="188349"/>
+<att name="date" value="Fri May 21 16:40:48 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="25" label="http://www.cs.rpi.edu/~moorthy/videopi/juggle_pi_100k.rm" weight="1294694">
+<att name="title" value="No title"/>
+<att name="mime" value="audio/x-pn-realaudio"/>
+<att name="size" value="1294694"/>
+<att name="date" value="Fri May 21 16:40:47 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="24" label="http://www.cs.rpi.edu/~moorthy/videopi/juggle_pi_100k.asf" weight="857472">
+<att name="title" value="No title"/>
+<att name="mime" value="text/plain"/>
+<att name="size" value="857472"/>
+<att name="date" value="Fri May 21 16:40:39 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="23" label="http://www.cs.rpi.edu/~moorthy/videopi/juggle_pi2.avi" weight="23199948">
+<att name="title" value="No title"/>
+<att name="mime" value="video/x-msvideo"/>
+<att name="size" value="23199948"/>
+<att name="date" value="Fri May 21 16:40:35 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="22" label="http://www.cs.rpi.edu/~moorthy/xy.wav" weight="1243402">
+<att name="title" value="No title"/>
+<att name="mime" value="audio/x-wav"/>
+<att name="size" value="1243402"/>
+<att name="date" value="Wed Apr 28 14:28:00 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="21" label="http://www.cs.rpi.edu/~moorthy/xx.au" weight="621711">
+<att name="title" value="No title"/>
+<att name="mime" value="audio/basic"/>
+<att name="size" value="621711"/>
+<att name="date" value="Wed Apr 28 14:27:47 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="20" label="http://www.cs.rpi.edu/~moorthy/MyResearch/index.html" weight="314">
+<att name="title" value="Research "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="314"/>
+<att name="date" value="Wed Sep 10 15:44:52 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="19" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView99/index.html" weight="2676">
+<att name="title" value="labview"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2676"/>
+<att name="date" value="Mon Mar  1 09:33:47 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="18" label="http://www.cs.rpi.edu/~moorthy/Courses/compiler99/index.html" weight="1808">
+<att name="title" value="Compiler Design "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1808"/>
+<att name="date" value="Sat Apr 24 07:38:26 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="17" label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/LabView/index.html" weight="3145">
+<att name="title" value="labview"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="3145"/>
+<att name="date" value="Fri Nov  6 09:17:04 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="16" label="http://www.cs.rpi.edu/~moorthy/Courses/os98/index.html" weight="12165">
+<att name="title" value=" Operating System Fundamentals Fall 1998"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="12165"/>
+<att name="date" value="Tue Dec  8 10:12:42 1998"/>
+<att name="code" value="200"/>
+</node>
+<node id="15" label="http://www.cs.rpi.edu/~moorthy/Fuzzy/index.html" weight="1124">
+<att name="title" value="The Fuzzy Clustering Applet Usage Instructions"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1124"/>
+<att name="date" value="Fri Aug 29 13:26:31 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="14" label="http://www.cs.rpi.edu/~moorthy/Sierpinski/S.html" weight="304">
+<att name="title" value="The Sierepenski&apos;s Curve "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="304"/>
+<att name="date" value="Thu Apr 17 16:01:20 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="13" label="http://www.cs.rpi.edu/~moorthy/Subh/index.html" weight="1402">
+<att name="title" value=" Game of Subh "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1402"/>
+<att name="date" value="Fri Mar 26 12:12:45 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="12" label="http://www.cs.rpi.edu/~moorthy/SciAmer/g.html" weight="330">
+<att name="title" value="The Picking Game"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="330"/>
+<att name="date" value="Thu Mar 27 16:26:04 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="11" label="http://www.cs.rpi.edu/~moorthy/Work/xhtml.csh" weight="18">
+<att name="title" value="No title"/>
+<att name="mime" value="application/x-csh"/>
+<att name="size" value="18"/>
+<att name="date" value="Thu Apr  6 08:05:37 1995"/>
+<att name="code" value="200"/>
+</node>
+<node id="10" label="http://www.cs.rpi.edu/~moorthy/brokenlinks.html" weight="863">
+<att name="title" value=" Broken Links "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="863"/>
+<att name="date" value="Thu Jul 29 13:38:57 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="9" label="http://www.cs.rpi.edu/~moorthy/moorthyjug.html" weight="1155">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1155"/>
+<att name="date" value="Tue May 25 11:05:02 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="8" label="http://www.cs.rpi.edu/~moorthy/Research.html" weight="1831">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="1831"/>
+<att name="date" value="Wed Sep 10 15:53:25 1997"/>
+<att name="code" value="200"/>
+</node>
+<node id="7" label="http://www.cs.rpi.edu/projects/pb/jgb/index.html" weight="-1">
+</node>
+<node id="6" label="http://www.cs.rpi.edu/projects/pb/graphdraw/index.html" weight="-1">
+</node>
+<node id="5" label="http://www.cs.rpi.edu/~moorthy/Courses/index.html" weight="522">
+<att name="title" value=" Courses "/>
+<att name="mime" value="text/html"/>
+<att name="size" value="522"/>
+<att name="date" value="Thu Jan  7 09:27:17 1999"/>
+<att name="code" value="200"/>
+</node>
+<node id="4" label="http://www.cs.rpi.edu/~moorthy/contactinfo.html" weight="583">
+<att name="title" value="No title"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="583"/>
+<att name="date" value="Wed Feb 23 13:22:50 2000"/>
+<att name="code" value="200"/>
+</node>
+<node id="3" label="mailto:msk@cisco.com" weight="-1">
+</node>
+<node id="2" label="mailto:moorthy@cs.rpi.edu" weight="-1">
+</node>
+<node id="1" label="http://www.cs.rpi.edu/~moorthy/" weight="2149">
+<att name="title" value=" Mukkai S. Krishnamoorthy"/>
+<att name="mime" value="text/html"/>
+<att name="size" value="2149"/>
+<att name="date" value="Wed Feb 23 13:23:47 2000"/>
+<att name="code" value="200"/>
+</node>
+<edge label="constant" source="212" target="210">
+</edge>
+<edge label="named local variables" source="212" target="211">
+</edge>
+<edge label="Java Virtual%0AMachine specification" source="211" target="214">
+</edge>
+<edge label="Java assembly language" source="211" target="210">
+</edge>
+<edge label="Java Virtual%0AMachine Specification" source="210" target="214">
+</edge>
+<edge label="lib" source="209" target="168">
+</edge>
+<edge label="Parent Directory" source="209" target="208">
+</edge>
+<edge label="pthreads_interface.ps" source="208" target="166">
+</edge>
+<edge label="Java/" source="208" target="209">
+</edge>
+<edge label="Parent Directory" source="208" target="94">
+</edge>
+<edge label="About this document ..." source="207" target="146">
+</edge>
+<edge label="IMG next" source="207" target="146">
+</edge>
+<edge label="About this document ... " source="207" target="146">
+</edge>
+<edge label="About this document ..." source="207" target="146">
+</edge>
+<edge label="IMG next" source="207" target="146">
+</edge>
+<edge label="About this document ..." source="206" target="145">
+</edge>
+<edge label="IMG next" source="206" target="145">
+</edge>
+<edge label="About this document ... " source="206" target="145">
+</edge>
+<edge label="About this document ..." source="206" target="145">
+</edge>
+<edge label="IMG next" source="206" target="145">
+</edge>
+<edge label="About this document ..." source="205" target="144">
+</edge>
+<edge label="IMG next" source="205" target="144">
+</edge>
+<edge label="About this document ... " source="205" target="144">
+</edge>
+<edge label="About this document ..." source="205" target="144">
+</edge>
+<edge label="IMG next" source="205" target="144">
+</edge>
+<edge label="About this document ..." source="204" target="143">
+</edge>
+<edge label="IMG next" source="204" target="143">
+</edge>
+<edge label="About this document ... " source="204" target="143">
+</edge>
+<edge label="About this document ..." source="204" target="143">
+</edge>
+<edge label="IMG next" source="204" target="143">
+</edge>
+<edge label="About this document ..." source="201" target="141">
+</edge>
+<edge label="IMG next" source="201" target="141">
+</edge>
+<edge label="About this document ... " source="201" target="141">
+</edge>
+<edge label="About this document ..." source="201" target="141">
+</edge>
+<edge label="IMG next" source="201" target="141">
+</edge>
+<edge label="downloaded" source="174" target="213">
+</edge>
+<edge label="Examples" source="174" target="212">
+</edge>
+<edge label="features" source="174" target="211">
+</edge>
+<edge label="Java Assembly Language" source="174" target="210">
+</edge>
+<edge label="Nikos Drakos" source="146" target="203">
+</edge>
+<edge label="LaTeX2HTML" source="146" target="202">
+</edge>
+<edge label="No Title" source="146" target="207">
+</edge>
+<edge label="No Title" source="146" target="207">
+</edge>
+<edge label="IMG previous" source="146" target="207">
+</edge>
+<edge label="IMG up" source="146" target="207">
+</edge>
+<edge label="Nikos Drakos" source="145" target="203">
+</edge>
+<edge label="LaTeX2HTML" source="145" target="202">
+</edge>
+<edge label="No Title" source="145" target="206">
+</edge>
+<edge label="No Title" source="145" target="206">
+</edge>
+<edge label="IMG previous" source="145" target="206">
+</edge>
+<edge label="IMG up" source="145" target="206">
+</edge>
+<edge label="Nikos Drakos" source="144" target="203">
+</edge>
+<edge label="LaTeX2HTML" source="144" target="202">
+</edge>
+<edge label="No Title" source="144" target="205">
+</edge>
+<edge label="No Title" source="144" target="205">
+</edge>
+<edge label="IMG previous" source="144" target="205">
+</edge>
+<edge label="IMG up" source="144" target="205">
+</edge>
+<edge label="Nikos Drakos" source="143" target="203">
+</edge>
+<edge label="LaTeX2HTML" source="143" target="202">
+</edge>
+<edge label="No Title" source="143" target="204">
+</edge>
+<edge label="No Title" source="143" target="204">
+</edge>
+<edge label="IMG previous" source="143" target="204">
+</edge>
+<edge label="IMG up" source="143" target="204">
+</edge>
+<edge label="Nikos Drakos" source="142" target="203">
+</edge>
+<edge label="LaTeX2HTML" source="142" target="202">
+</edge>
+<edge label="No Title" source="142" target="53">
+</edge>
+<edge label="No Title" source="142" target="53">
+</edge>
+<edge label="IMG previous" source="142" target="53">
+</edge>
+<edge label="IMG up" source="142" target="53">
+</edge>
+<edge label="Nikos Drakos" source="141" target="203">
+</edge>
+<edge label="LaTeX2HTML" source="141" target="202">
+</edge>
+<edge label="No Title" source="141" target="201">
+</edge>
+<edge label="No Title" source="141" target="201">
+</edge>
+<edge label="IMG previous" source="141" target="201">
+</edge>
+<edge label="IMG up" source="141" target="201">
+</edge>
+<edge label="www6" source="140" target="200">
+</edge>
+<edge label=" sv" source="140" target="199">
+</edge>
+<edge label=" dimacs" source="140" target="198">
+</edge>
+<edge label=" Application " source="140" target="197">
+</edge>
+<edge label=" deg3 " source="140" target="196">
+</edge>
+<edge label=" Graph Draw in Java " source="140" target="6">
+</edge>
+<edge source="139" target="195">
+</edge>
+<edge label=" Hicor " source="139" target="194">
+</edge>
+<edge label=" CreditCard" source="138" target="193">
+</edge>
+<edge label=" Triangle Graph" source="138" target="192">
+</edge>
+<edge label=" Tuple " source="138" target="191">
+</edge>
+<edge label=" Number Puzzle " source="137" target="12">
+</edge>
+<edge label=" Subh " source="137" target="32">
+</edge>
+<edge label=" Work Sheet 7 " source="124" target="190">
+</edge>
+<edge label=" Lecture 7 " source="124" target="189">
+</edge>
+<edge label=" Work Sheet 6 " source="124" target="188">
+</edge>
+<edge label=" Lecture 6 " source="124" target="187">
+</edge>
+<edge label=" Work Sheet 5 " source="124" target="186">
+</edge>
+<edge label=" Lecture 5 " source="124" target="185">
+</edge>
+<edge label=" Work Sheet 4 " source="124" target="184">
+</edge>
+<edge label=" Lecture 4 " source="124" target="183">
+</edge>
+<edge label=" Work Sheet 3 " source="124" target="182">
+</edge>
+<edge label=" Lecture 3 " source="124" target="181">
+</edge>
+<edge label=" Work Sheet 2 " source="124" target="180">
+</edge>
+<edge label=" Lecture 2 " source="124" target="179">
+</edge>
+<edge label="moorthy@cs.rpi.edu" source="124" target="2">
+</edge>
+<edge label=" Sample test " source="116" target="176">
+</edge>
+<edge label=" Java Assembl%0Aer by%0AJason Hunt " source="116" target="175">
+</edge>
+<edge label=" Java Assembler " source="115" target="174">
+</edge>
+<edge label=" Sample Code " source="115" target="173">
+</edge>
+<edge label=" java beautifier programs " source="114" target="172">
+</edge>
+<edge label=" LRM " source="114" target="171">
+</edge>
+<edge label=" Tutorial " source="114" target="170">
+</edge>
+<edge label=" LRM In Postscript (local copy)" source="114" target="123">
+</edge>
+<edge label="Moorthy&apos;s URL:" source="112" target="37">
+</edge>
+<edge label="zhuj@rpi.edu" source="109" target="108">
+</edge>
+<edge label="moorthy@cs.rpi.edu" source="109" target="2">
+</edge>
+<edge label=" Examples " source="107" target="209">
+</edge>
+<edge label=" Library " source="107" target="168">
+</edge>
+<edge label=" Examples " source="107" target="208">
+</edge>
+<edge label=" Library " source="107" target="166">
+</edge>
+<edge label=" book " source="107" target="165">
+</edge>
+<edge label="Parent Directory" source="103" target="94">
+</edge>
+<edge label="Parent Directory" source="102" target="94">
+</edge>
+<edge label="Parent Directory" source="100" target="94">
+</edge>
+<edge label="SRC IMG redball.gif Click here " source="96" target="161">
+</edge>
+<edge label=" SRC IMG redball.gif Click here " source="96" target="160">
+</edge>
+<edge label="struct sockaddr_in" source="96" target="159">
+</edge>
+<edge label=" SRC IMG redball.gif Click here " source="96" target="158">
+</edge>
+<edge label=" SRC IMG redball.gif Click here" source="96" target="157">
+</edge>
+<edge label=" SRC IMG redball.gif%0AClick here " source="96" target="156">
+</edge>
+<edge label=" SRC IMG redball.gif Click here " source="96" target="155">
+</edge>
+<edge label="network byte order " source="96" target="154">
+</edge>
+<edge label=" SRC IMG redball.gif Click here " source="96" target="153">
+</edge>
+<edge label="file descriptor table " source="96" target="152">
+</edge>
+<edge label="SRC IMG redball.gif Click here " source="96" target="151">
+</edge>
+<edge label="netinet/in.h" source="96" target="150">
+</edge>
+<edge label=" socket.h " source="96" target="149">
+</edge>
+<edge label="SRC IMG redball.gif Click here for%0Athe client program " source="96" target="148">
+</edge>
+<edge label="SRC IMG redball.gif Click here for%0Athe server program " source="96" target="147">
+</edge>
+<edge label="write.txt" source="94" target="158">
+</edge>
+<edge label="test5.c" source="94" target="101">
+</edge>
+<edge label="socket.txt" source="94" target="153">
+</edge>
+<edge label="socket.html" source="94" target="96">
+</edge>
+<edge label="socket.h" source="94" target="149">
+</edge>
+<edge label="sockaddr" source="94" target="159">
+</edge>
+<edge label="server2.c" source="94" target="161">
+</edge>
+<edge label="server.c" source="94" target="147">
+</edge>
+<edge label="sem.c" source="94" target="95">
+</edge>
+<edge label="read.txt" source="94" target="157">
+</edge>
+<edge label="perror.txt" source="94" target="151">
+</edge>
+<edge label="listen.txt" source="94" target="156">
+</edge>
+<edge label="in.h" source="94" target="150">
+</edge>
+<edge label="fd.txt" source="94" target="152">
+</edge>
+<edge label="connect.txt" source="94" target="160">
+</edge>
+<edge label="client.c" source="94" target="148">
+</edge>
+<edge label="byteorder.txt" source="94" target="154">
+</edge>
+<edge label="bind.txt" source="94" target="155">
+</edge>
+<edge label="Pthreads/" source="94" target="208">
+</edge>
+<edge label="Profile/" source="94" target="103">
+</edge>
+<edge label="P3/" source="94" target="102">
+</edge>
+<edge label="92198/" source="94" target="100">
+</edge>
+<edge label="About this document ..." source="69" target="146">
+</edge>
+<edge label="IMG next" source="69" target="146">
+</edge>
+<edge label="About this document ... " source="69" target="146">
+</edge>
+<edge label="About this document ..." source="69" target="146">
+</edge>
+<edge label="IMG next" source="69" target="146">
+</edge>
+<edge label="About this document ..." source="64" target="145">
+</edge>
+<edge label="IMG next" source="64" target="145">
+</edge>
+<edge label="About this document ... " source="64" target="145">
+</edge>
+<edge label="About this document ..." source="64" target="145">
+</edge>
+<edge label="IMG next" source="64" target="145">
+</edge>
+<edge label="About this document ..." source="60" target="144">
+</edge>
+<edge label="IMG next" source="60" target="144">
+</edge>
+<edge label="About this document ... " source="60" target="144">
+</edge>
+<edge label="About this document ..." source="60" target="144">
+</edge>
+<edge label="IMG next" source="60" target="144">
+</edge>
+<edge label="About this document ..." source="56" target="143">
+</edge>
+<edge label="IMG next" source="56" target="143">
+</edge>
+<edge label="About this document ... " source="56" target="143">
+</edge>
+<edge label="About this document ..." source="56" target="143">
+</edge>
+<edge label="IMG next" source="56" target="143">
+</edge>
+<edge label="About this document ..." source="53" target="142">
+</edge>
+<edge label="IMG next" source="53" target="142">
+</edge>
+<edge label="About this document ... " source="53" target="142">
+</edge>
+<edge label="About this document ..." source="53" target="142">
+</edge>
+<edge label="IMG next" source="53" target="142">
+</edge>
+<edge label="About this document ..." source="50" target="141">
+</edge>
+<edge label="IMG next" source="50" target="141">
+</edge>
+<edge label="About this document ... " source="50" target="141">
+</edge>
+<edge label="About this document ..." source="50" target="141">
+</edge>
+<edge label="IMG next" source="50" target="141">
+</edge>
+<edge label=" Graph Drawing " source="20" target="140">
+</edge>
+<edge label=" Compiler Technology" source="20" target="139">
+</edge>
+<edge label=" Applied Graph Theory " source="20" target="138">
+</edge>
+<edge label=" Problem Solving " source="20" target="137">
+</edge>
+<edge label=" Work Sheet 7 " source="19" target="136">
+</edge>
+<edge label=" Lecture 7 " source="19" target="135">
+</edge>
+<edge label=" Work Sheet 6 " source="19" target="134">
+</edge>
+<edge label=" Lecture 6 " source="19" target="133">
+</edge>
+<edge label=" Work Sheet 5 " source="19" target="132">
+</edge>
+<edge label=" Lecture 5 " source="19" target="131">
+</edge>
+<edge label=" Work Sheet 4 " source="19" target="130">
+</edge>
+<edge label=" Lecture 4 " source="19" target="129">
+</edge>
+<edge label=" Work Sheet 3 " source="19" target="128">
+</edge>
+<edge label=" Lecture 3 " source="19" target="127">
+</edge>
+<edge label=" Work Sheet 2 " source="19" target="126">
+</edge>
+<edge label=" Lecture 2 " source="19" target="125">
+</edge>
+<edge label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview99/" source="19" target="124">
+</edge>
+<edge label="moorthy@cs.rpi.edu" source="19" target="2">
+</edge>
+<edge label="Mukkai Krishnamoorthy" source="18" target="2">
+</edge>
+<edge label=" Java Programming Language Reference Manual " source="18" target="123">
+</edge>
+<edge label=" Lectures in powerpoint " source="18" target="178">
+</edge>
+<edge label=" Lectures in postscript " source="18" target="177">
+</edge>
+<edge label=" powerpoint viewer " source="18" target="120">
+</edge>
+<edge label=" Examples " source="18" target="119">
+</edge>
+<edge label=" Sample Yacc Programs - given in the handouts " source="18" target="118">
+</edge>
+<edge label=" Java Assembler " source="18" target="117">
+</edge>
+<edge label=" Project3" source="18" target="116">
+</edge>
+<edge label=" Project2" source="18" target="115">
+</edge>
+<edge label=" Project1" source="18" target="114">
+</edge>
+<edge label=" Worksheet 1" source="18" target="113">
+</edge>
+<edge label=" Contact Persons " source="18" target="112">
+</edge>
+<edge label="Syllabus and First Day Handout" source="18" target="111">
+</edge>
+<edge label="students taking this class" source="18" target="110">
+</edge>
+<edge label="http://www.cs.rpi.edu/~moorthy/Courses/CompLang/Labview/" source="17" target="109">
+</edge>
+<edge label="zhuj@rpi.edu" source="17" target="108">
+</edge>
+<edge label="moorthy@cs.rpi.edu" source="17" target="2">
+</edge>
+<edge label=" Notes and Examples" source="16" target="107">
+</edge>
+<edge label=" Event Driven Simulation Program" source="16" target="106">
+</edge>
+<edge label=" DIR and file size " source="16" target="101">
+</edge>
+<edge source="16" target="53">
+</edge>
+<edge label="Project 2(in postscript)" source="16" target="52">
+</edge>
+<edge label=" Simple Pipe program that calls maple " source="16" target="105">
+</edge>
+<edge label=" Use of Sockets in Network Programming in Java" source="16" target="164">
+</edge>
+<edge label=" Sockets in Java " source="16" target="163">
+</edge>
+<edge label=" Concurrent Java " source="16" target="162">
+</edge>
+<edge label=" sockets " source="16" target="96">
+</edge>
+<edge label=" Pgms " source="16" target="94">
+</edge>
+<edge label="Pgms" source="16" target="94">
+</edge>
+<edge label=" RSVP OS Home Page " source="16" target="104">
+</edge>
+<edge label="Examples of Binary Search Profiling on 11/23/98 " source="16" target="103">
+</edge>
+<edge label=" Event Driven Simulation Program on 10/21/98 " source="16" target="102">
+</edge>
+<edge label=" C program to list dir and file size on 10/21/98 " source="16" target="101">
+</edge>
+<edge label=" Sample programs on 9/21/98 " source="16" target="100">
+</edge>
+<edge label=" Use of Sockets in Network Programming in Java " source="16" target="164">
+</edge>
+<edge label=" Sockets in Java " source="16" target="163">
+</edge>
+<edge label=" Concurrent and Network Programs in Java on 9/14/98 " source="16" target="162">
+</edge>
+<edge label=" Socket Programs and Notes on 9/14/98 " source="16" target="96">
+</edge>
+<edge label=" Sample C semaphore program on 9/9/98 " source="16" target="95">
+</edge>
+<edge label=" Sample C programs on 8/31/98 " source="16" target="94">
+</edge>
+<edge label=" Solution to Work Sheets 14 to 17. " source="16" target="93">
+</edge>
+<edge label=" Work Sheet 17 for 11/30/98 " source="16" target="92">
+</edge>
+<edge label=" Work Sheet 16 for 11/18/98 " source="16" target="91">
+</edge>
+<edge label=" Work Sheet 15 for 11/16/98 " source="16" target="90">
+</edge>
+<edge label=" Work Sheet 14 for 11/11/98 " source="16" target="89">
+</edge>
+<edge label=" Solution to Work Sheets 11 to 13. " source="16" target="88">
+</edge>
+<edge label=" Work Sheet 13 for 10/28/98 " source="16" target="87">
+</edge>
+<edge label=" Work Sheet 12 for 10/26/98 " source="16" target="86">
+</edge>
+<edge label=" Work Sheet 11 for 10/19/98 " source="16" target="85">
+</edge>
+<edge label=" Solution to Work Sheet 10. " source="16" target="84">
+</edge>
+<edge label=" Work Sheet 10 for 10/14/98 " source="16" target="83">
+</edge>
+<edge label=" Solution for Worksheets 7 thru 9 " source="16" target="82">
+</edge>
+<edge label=" Work Sheet 9 for 10/7/98 " source="16" target="81">
+</edge>
+<edge label=" Work Sheet 8 for 10/5/98 " source="16" target="80">
+</edge>
+<edge label=" Work Sheet 7 for 9/30/98 " source="16" target="79">
+</edge>
+<edge label=" Solution of all the Work Sheets " source="16" target="78">
+</edge>
+<edge label=" Work Sheet 6 for 9/16/98 " source="16" target="77">
+</edge>
+<edge label=" Work Sheet 5 for 9/14/98 " source="16" target="76">
+</edge>
+<edge label=" Work Sheet 4 for 9/9/98 " source="16" target="75">
+</edge>
+<edge label=" Work Sheet 3 for 9/2/98 " source="16" target="74">
+</edge>
+<edge label=" Work Sheet 2 for 8/31/98 " source="16" target="73">
+</edge>
+<edge label=" Work Sheet 1 for 8/26/98 " source="16" target="72">
+</edge>
+<edge label=" Work Sheet 0 for 8/24/98 " source="16" target="71">
+</edge>
+<edge label=" Sample Final Sample Solutin to Sample Questions " source="16" target="70">
+</edge>
+<edge label=" Sample Final in HTML " source="16" target="69">
+</edge>
+<edge label=" Sample Final in pdf" source="16" target="68">
+</edge>
+<edge label="Sample Final in post script " source="16" target="67">
+</edge>
+<edge label=" sample answers for test 2" source="16" target="66">
+</edge>
+<edge label=" sample answers for sample test 2" source="16" target="65">
+</edge>
+<edge source="16" target="64">
+</edge>
+<edge label=" Sample Test 2 (in PDF) " source="16" target="63">
+</edge>
+<edge label=" Sample Test 2 (in postscript) " source="16" target="62">
+</edge>
+<edge label=" Sample Answer sheet for the first exam" source="16" target="61">
+</edge>
+<edge label=" Sample Test 1 (in HTML) " source="16" target="60">
+</edge>
+<edge label=" Sample Test 1 (in postscript) " source="16" target="59">
+</edge>
+<edge label=" Extra Credit 2 in HTML " source="16" target="58">
+</edge>
+<edge label=" Extra Credit 1 in HTML " source="16" target="57">
+</edge>
+<edge label="Project 3(in HTML)" source="16" target="56">
+</edge>
+<edge source="16" target="55">
+</edge>
+<edge source="16" target="54">
+</edge>
+<edge source="16" target="53">
+</edge>
+<edge label="Project 2(in postscript)" source="16" target="52">
+</edge>
+<edge label=" Project 1 in postscript " source="16" target="51">
+</edge>
+<edge label=" Project 1 in HTML " source="16" target="50">
+</edge>
+<edge label=" Faq for%0AExtra Credit Project 2 " source="16" target="49">
+</edge>
+<edge label=" Faq for Project 3" source="16" target="48">
+</edge>
+<edge label=" Faq for project 2" source="16" target="47">
+</edge>
+<edge label=" Faq for Extra Credit project 1" source="16" target="46">
+</edge>
+<edge label=" Faq for project 1" source="16" target="45">
+</edge>
+<edge label=" RSVP Students " source="16" target="44">
+</edge>
+<edge label=" Groups " source="16" target="43">
+</edge>
+<edge label=" Students " source="16" target="42">
+</edge>
+<edge label="Syllabus" source="16" target="41">
+</edge>
+<edge label="shenx@cs.rpi.edu" source="16" target="40">
+</edge>
+<edge label="jiangj@cs.rpi.edu" source="16" target="39">
+</edge>
+<edge label="gaol@cs.rpi.edu" source="16" target="38">
+</edge>
+<edge label="moorthy@cs.rpi.edu" source="16" target="2">
+</edge>
+<edge source="16" target="37">
+</edge>
+<edge label=" %0AClick Here" source="15" target="36">
+</edge>
+<edge label=" Users Guide" source="15" target="35">
+</edge>
+<edge label=" Project Writeup" source="15" target="34">
+</edge>
+<edge label=" Source in Java " source="14" target="33">
+</edge>
+<edge label=" Copy of my paper" source="13" target="32">
+</edge>
+<edge label=" Game Source Program " source="13" target="31">
+</edge>
+<edge label=" source code " source="12" target="30">
+</edge>
+<edge label=" Puninj " source="10" target="29">
+</edge>
+<edge label=" Moorthy " source="10" target="2">
+</edge>
+<edge label="broken Links as of Jul 28" source="10" target="28">
+</edge>
+<edge label=" juggle in real audio/real video (0.2 M) " source="9" target="27">
+</edge>
+<edge label=" juggle in asf (.2 M) " source="9" target="26">
+</edge>
+<edge label=" juggle in real audio/real video (1.3 M) " source="9" target="25">
+</edge>
+<edge label=" juggle in asf (.8 M) " source="9" target="24">
+</edge>
+<edge label=" juggle in avi (23 M) " source="9" target="23">
+</edge>
+<edge label="Mukkai Krishnamoorthy" source="9" target="2">
+</edge>
+<edge label=" Microsoft sound " source="9" target="22">
+</edge>
+<edge label=" Sun audio " source="9" target="21">
+</edge>
+<edge label=" My Research " source="8" target="20">
+</edge>
+<edge label=" LabView home page " source="5" target="19">
+</edge>
+<edge label=" Compiler Design home page " source="5" target="18">
+</edge>
+<edge label=" LabView home page " source="5" target="17">
+</edge>
+<edge label=" Operating Systems home page " source="5" target="16">
+</edge>
+<edge label="msk@cisco.com" source="4" target="3">
+</edge>
+<edge label="moorthy@cs.rpi.edu" source="4" target="2">
+</edge>
+<edge label=" Fuzzy Clustering by Mary Anne Egan  Mike Kondorf " source="1" target="15">
+</edge>
+<edge label=" Space-filling Curve " source="1" target="14">
+</edge>
+<edge label=" Subh " source="1" target="13">
+</edge>
+<edge label="Mukkai Krishnamoorthy" source="1" target="2">
+</edge>
+<edge label=" Picking Game " source="1" target="12">
+</edge>
+<edge label="  ashe  " source="1" target="11">
+</edge>
+<edge label=" broken links. " source="1" target="10">
+</edge>
+<edge label=" My juggling and Pi." source="1" target="9">
+</edge>
+<edge label="Research " source="1" target="8">
+</edge>
+<edge label=" Generic Graph Package (Graph Base ) in Java " source="1" target="7">
+</edge>
+<edge label=" Graph Draw in Java " source="1" target="6">
+</edge>
+<edge label=" Courses" source="1" target="5">
+</edge>
+<edge label=" contactinfo " source="1" target="4">
+</edge>
+<edge label="My email address msk@cisco.com" source="1" target="3">
+</edge>
+<edge label="My email address moorthy@cs.rpi.edu" source="1" target="2">
+</edge>
+</graph>
+

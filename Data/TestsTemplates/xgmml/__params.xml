@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="XGMML" template="repblhtml.tpl.xslt" templatingType="simple">
+	<files>
+		<file id="moorthy">moorthy.xml</file>
+		<file id="mbl">mbl.html</file>
+	</files>
+	<test name="HTML">
+		<file input="moorthy" output="mbl" />
+	</test>
+</tests>
