@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="GraphML - SVG" template="graphml2svg.tpl.xslt" templatingType="simple">
+	<files>
+		<file id="randomGraphGNMWithData">randomGraphGNMWithData.xml</file>
+		<file id="randomGraphSVG">randomGraphSVG.xml</file>
+		<file id="exampleWithData">exampleWithData.xml</file>
+		<file id="exampleSVG">exampleSVG.xml</file>
+	</files>
+	<test name="Random and Example">
+		<file input="randomGraphGNMWithData" output="randomGraphSVG" />
+		<file input="exampleWithData" output="exampleSVG" />
+	</test>
+</tests>

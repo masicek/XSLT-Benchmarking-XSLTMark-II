@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="GraphML - Spring" template="spring.tpl.xslt" templatingType="simple">
+	<files>
+		<file id="randomGraphGNM">randomGraphGNM.xml</file>
+		<file id="randomGraphGNMWithData">randomGraphGNMWithData.xml</file>
+		<file id="example">example.xml</file>
+		<file id="exampleWithData">exampleWithData.xml</file>
+	</files>
+	<test name="Random and Example">
+		<file input="randomGraphGNM" output="randomGraphGNMWithData" />
+		<file input="example" output="exampleWithData" />
+	</test>
+</tests>

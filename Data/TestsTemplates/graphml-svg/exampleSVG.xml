@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg:svg xmlns:svg="http://www.w3.org/2000/svg" width="320" height="240">
+   <svg:line style="stroke:black; stroke-width:1px; fill:none;" x1="163.59106434778536" y1="194.75582089027873" x2="153.07761005706794" y2="175.14460830715046"/>
+   <svg:line style="stroke:black; stroke-width:1px; fill:none;" x1="139.78853946819135" y1="193.11301408696755" x2="153.07761005706794" y2="175.14460830715046"/>
+   <svg:line style="stroke:black; stroke-width:1px; fill:none;" x1="153.07761005706794" y1="175.14460830715046" x2="155.6645640542735" y2="143.91135470241164"/>
+   <svg:line style="stroke:black; stroke-width:1px; fill:none;" x1="155.6645640542735" y1="143.91135470241164" x2="165.45034259419643" y2="117.058409235771"/>
+   <svg:line style="stroke:black; stroke-width:1px; fill:none;" x1="155.6645640542735" y1="143.91135470241164" x2="147.43947452821087" y2="122.76745082931517"/>
+   <svg:line style="stroke:black; stroke-width:1px; fill:none;" x1="147.43947452821087" y1="122.76745082931517" x2="155.90564023357175" y2="99.518535014149"/>
+   <svg:line style="stroke:black; stroke-width:1px; fill:none;" x1="155.90564023357175" y1="99.518535014149" x2="165.45034259419643" y2="117.058409235771"/>
+   <svg:line style="stroke:black; stroke-width:1px; fill:none;" x1="165.45034259419643" y1="117.058409235771" x2="174.14413872388573" y2="93.99113274110101"/>
+   <svg:line style="stroke:black; stroke-width:1px; fill:none;" x1="155.90564023357175" y1="99.518535014149" x2="166.4865305364861" y2="73.19422155204956"/>
+   <svg:line style="stroke:black; stroke-width:1px; fill:none;" x1="166.4865305364861" y1="73.19422155204956" x2="174.14413872388573" y2="93.99113274110101"/>
+   <svg:line style="stroke:black; stroke-width:1px; fill:none;" x1="166.4865305364861" y1="73.19422155204956" x2="157.41398128630163" y2="51.69151636626963"/>
+   <svg:line style="stroke:black; stroke-width:1px; fill:none;" x1="166.4865305364861" y1="73.19422155204956" x2="181.0377802815286" y2="54.85386437981864"/>
+   <svg:circle r="3" style="stroke:black; fill:yellow;" cx="163.59106434778536" cy="194.75582089027873"/>
+   <svg:circle r="3" style="stroke:black; fill:yellow;" cx="139.78853946819135" cy="193.11301408696755"/>
+   <svg:circle r="3" style="stroke:black; fill:yellow;" cx="153.07761005706794" cy="175.14460830715046"/>
+   <svg:circle r="3" style="stroke:black; fill:yellow;" cx="155.6645640542735" cy="143.91135470241164"/>
+   <svg:circle r="3" style="stroke:black; fill:yellow;" cx="147.43947452821087" cy="122.76745082931517"/>
+   <svg:circle r="3" style="stroke:black; fill:yellow;" cx="165.45034259419643" cy="117.058409235771"/>
+   <svg:circle r="3" style="stroke:black; fill:yellow;" cx="155.90564023357175" cy="99.518535014149"/>
+   <svg:circle r="3" style="stroke:black; fill:yellow;" cx="174.14413872388573" cy="93.99113274110101"/>
+   <svg:circle r="3" style="stroke:black; fill:yellow;" cx="166.4865305364861" cy="73.19422155204956"/>
+   <svg:circle r="3" style="stroke:black; fill:yellow;" cx="157.41398128630163" cy="51.69151636626963"/>
+   <svg:circle r="3" style="stroke:black; fill:yellow;" cx="181.0377802815286" cy="54.85386437981864"/>
+</svg:svg>

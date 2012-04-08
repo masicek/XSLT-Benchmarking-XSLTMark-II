@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml>
+   <key id="x" for="node"/>
+   <key id="y" for="node"/>
+   <key id="width" for="graph"/>
+   <key id="height" for="graph"/>
+   <graph>
+      <data key="width">320</data>
+      <data key="height">240</data>
+      <node id="n0">
+         <data key="x">163.59106434778536</data>
+         <data key="y">194.75582089027873</data>
+      </node>
+      <node id="n1">
+         <data key="x">139.78853946819135</data>
+         <data key="y">193.11301408696755</data>
+      </node>
+      <node id="n2">
+         <data key="x">153.07761005706794</data>
+         <data key="y">175.14460830715046</data>
+      </node>
+      <node id="n3">
+         <data key="x">155.6645640542735</data>
+         <data key="y">143.91135470241164</data>
+      </node>
+      <node id="n4">
+         <data key="x">147.43947452821087</data>
+         <data key="y">122.76745082931517</data>
+      </node>
+      <node id="n5">
+         <data key="x">165.45034259419643</data>
+         <data key="y">117.058409235771</data>
+      </node>
+      <node id="n6">
+         <data key="x">155.90564023357175</data>
+         <data key="y">99.518535014149</data>
+      </node>
+      <node id="n7">
+         <data key="x">174.14413872388573</data>
+         <data key="y">93.99113274110101</data>
+      </node>
+      <node id="n8">
+         <data key="x">166.4865305364861</data>
+         <data key="y">73.19422155204956</data>
+      </node>
+      <node id="n9">
+         <data key="x">157.41398128630163</data>
+         <data key="y">51.69151636626963</data>
+      </node>
+      <node id="n10">
+         <data key="x">181.0377802815286</data>
+         <data key="y">54.85386437981864</data>
+      </node>
+      <edge source="n0" target="n2"/>
+      <edge source="n1" target="n2"/>
+      <edge source="n2" target="n3"/>
+      <edge source="n3" target="n5"/>
+      <edge source="n3" target="n4"/>
+      <edge source="n4" target="n6"/>
+      <edge source="n6" target="n5"/>
+      <edge source="n5" target="n7"/>
+      <edge source="n6" target="n8"/>
+      <edge source="n8" target="n7"/>
+      <edge source="n8" target="n9"/>
+      <edge source="n8" target="n10"/>
+   </graph>
+</graphml>

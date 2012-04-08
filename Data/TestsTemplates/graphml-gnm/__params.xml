@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="GraphML - GNM" template="gnm.tpl.xslt" templatingType="simple">
+	<files>
+		<file id="empty">empty.xml</file>
+		<file id="randomGraphGNM">randomGraphGNM.xml</file>
+	</files>
+	<test name="Random">
+		<file input="empty" output="randomGraphGNM" />
+	</test>
+</tests>
