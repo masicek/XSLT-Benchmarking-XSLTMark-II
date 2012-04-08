@@ -14,7 +14,7 @@ POZNAMKY:
   XSLT procesot, muse tyto jednoduche testy pouzit i pro testovani korektnosti implementace.
   Nebo pokud bychom chteli pridat nejaky novy XSLT procesor, muze to odhalit ventuelni zasadni problemy v implementaci.
 * Nektere testy by sly vyresil jednoduzsi sablonou, ale jso o otestovani urcitych elementu apd.
-  Napriklad "xsl:foreach" (nejdpis by slo resit transformaci lepe, ale jde o pouziti vetsiho mnozstvi 
+  Napriklad "xsl:foreach" (nejdpis by slo resit transformaci lepe, ale jde o pouziti vetsiho mnozstvi
   elemnru xsl:foreach).
 * Vetsina vytvorenych testu by mela prochazet. Jde nam u nich hlavne o rychlost a pamet
   (vyjmennovat je, nebo spis ktere nemusi projit).
@@ -149,14 +149,14 @@ Vytvorene: (jednotlive sekce asi budou odpovidat kapitolam)
 			"apply-templates select"=6
 		- <xsl:output method="xml" encoding="utf-8" indent="yes"/> = prurez nejcasteji pouzitymi
 		- generovat primo (ne pomoci xsl:element, xsl:attribute)
-		- channel: 
+		- channel:
 			*title (string / cteny: value-of)
 			*link (cteny: value-of)
 			*description (nejaky delsi string, cteny omoci value-of)
 			@language (en) = 5
 			pubDate (cteny: value-of) = 3
 			generator (nejaky string) = 3
-		- item: 
+		- item:
 			*title
 			*link
 			*description
@@ -215,6 +215,26 @@ Vytvorene: (jednotlive sekce asi budou odpovidat kapitolam)
 	  vygenerovany vystup nema zadne kodovani. Pruzkum ukazal, ze klodovani si sablona resi sama, coz neni uplne idelani.
 	  V kazdem pripade nezohledneni nastevenho kodovani, je chyba.
 	  Ve vysledku je tedy vetsina procesoru pro GSA pouzitelne (krome XT), ale je nutne si vystup odladit (naprikald kodovani) pro konkretni pouziti.
+* GraphML
+	- random -> spring -> svg ... jednotlive vystupy pouzity jako vstupy pro dalsi
+	- example -> spring -> svg ... ukazkovy graf pouzit jako stup a pak --""--
+		http://graphml.graphdrawing.org/primer/graphml-primer.html#BCfile
+	- posldoupnost prikazu
+		- vygeneruju nahodny graf
+			java -jar saxon.jar -o rndGraphGNM.xml empty.xml gnm.xsl
+		- pridam do nej data o umisteni pro hezke vykresleni pomoci Spring metody
+			java -jar saxon.jar -o rndGraphGNMWithData.xml rndGraphGNM.xml spring.xsl
+		- pretransformuju graf do vykresneni SVG
+			java -jar saxon.jar -o rndGraphSVG.xml rndGraphGNMWithData.xml graphml2svg.xsl
+	- Oneco vis se otesuje i XPath a vyuziti XSLT na vypocty.
+	- Nevyhoda -- potrebuje Javu na vypocty.
+	- Problem s xmlns="http://graphml.graphdrawing.org/xmlns/graphml" -- bylo potreba odstranit, jinak nevracelo to co melo
+		- zjitit proc ... mozna kvuli tomu, ze odkaz neexistuje, ale to by nemelo vadit
+	- Zmena kodovani vystupu na UTF-8
+	- xsltproc -- problem s version="2.0"
+		-> nastavim na 1.0 a je to OK
+		-> verzy testuje jiny test
+	- Zjistene uskali -> problem s matematickycmi finkcemi -> pak je zavysliost na procesoru
 
 
 Dodelat:
@@ -247,16 +267,14 @@ Dodelat:
   Vytvorit jednoduchou transformaci. Jen nastavit ruzne kodovani.
   Mozna by slo napasovat na "typical".
   Asi by slo testnout tak, ze budu ocekabvat neodsazeny vystup a expected output nechan v ruznem kodovani.
-
+* xsl:stylesheet -- xsl:version
+  Test na verzy XSLT. Jeden bez elementu v 2.0 a jeden s elementy z 2.0.
+  Zkusit pouzit elementy, ketere se objevili aspon v nejakych stazenych datech.
 
 
 
 Category: (vetsinou jednoduchy testy ... simple generator)
 ---------
-* GraphML ... pozna pujde vystup z jedne sablony puzit do dalsich (pokud to je nahodne generovany, pouziju jeden vygenerovany)
-	- tri sablony ze stranek (ty co generuji nahodne se budou pekne blbe testovat ... asi castecne rucne, nebo je spis nepouzit)
-	- ...
-	- ...
 * XGMML
 	- typical (na zaklade 8 podobnych ze sranek)
 * DocBook - reader
