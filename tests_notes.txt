@@ -1,5 +1,11 @@
 POZNAMKY:
 ---------
+* U nekterych testu (jako namespace, ...) sminit, ze jsme je vytvorili na zaklade zjisteni v prubehu vytvareni jinych testu.
+  Testovane vlastnoti se ukazali jako casto objevujici a tedy dulezite.
+  V uvodni kapitole se zminit, ze jsme neco vynechali (nesting, recursion), protoze jsou to extremni pirpady,
+  ktere se nevyskytuji. Ale udelali jsme testy na veci, vyskoumene v prubehu testovani.
+* Strana 48 -> vysvetleni "rdf" elementu pomoci footnote.
+* Prinos je take vytvoreni ToXGene sablony pro RSS a dalsi
 * Jeste by sla urcite udelat zajimava kategorie SVG, jen to okomentovat v praci.
 * Moc jsme neresili xsl:include a xsl:import. To by mozna taky stalo za analyzu.
 * Zminit se, ze nas program je mozno pak pouzit napriklad pro testovani (podobne jako PHPUnit)
@@ -235,11 +241,137 @@ Vytvorene: (jednotlive sekce asi budou odpovidat kapitolam)
 		-> nastavim na 1.0 a je to OK
 		-> verzy testuje jiny test
 	- Zjistene uskali -> problem s matematickycmi finkcemi -> pak je zavysliost na procesoru
+* XGMML
+	- typical (na zaklade 8 podobnych ze sranek)
+	- !!! opravit odkaz 38 na http://www.cs.rpi.edu/research/groups/pb/punin/public_html/XGMML/XSL/XSL_BL/
+	- do textu kapitoli o XGMML dopsat, ze toto neni sice zajimavy format, ale ukazal nam,
+	  ze relativne vporadku dokazeme vyfiltrovat pozadovane soubory (jsou tam nejake navic, to projdeme rucne,
+	  ale hlavne tam zadne nechybi), takze je to dalsi potvrzeni toho, ze jsme i u ostatnich kategorii,
+	  nejspis provedli filtry vporadku.
+	- pouzili jsme testovaci vstupni data ze stranek + ocekavany vystup (na strankach bylo, co ma XSLT sablona vytvorit)
+	- pridan "xsl:output@encoding" a "xsl:output@indent" aby to nedelalo problemy (podobne jako u RSS-read-typical)
+* RDF + RDFS - reader + generator
+	- V prubehu zkoumani sablon jsme zjistili, ze sablony nejsou vuci ostatnim testum nejak zajimave,
+      krome vetsiho mnozstvi pouziti nemaspace.
+	  Jednak exituji rosireni RDF (OWL, Dublin Core, FOAF, ...), druhak rdf obecne ocekava vlastni namespace.
+	- Proto nebudeme vytvaret zbytecne testy na RDF a RDFS, ale vytvorime specializovany test na namespace
+	  (viz. odkaz na kapitolu)
+	- Pokud by nekdo nutne potreboval, je mozne vytvorit specializovany test na RDF, RDFS, OWL, Dublin Core, ...
+
+	** RDFS - reader
+		- typical (na zaklade 6)
+	** RDFS - generator
+		- simple test
+	** RDF - reader
+		- pouze RDF
+		- pouze RDF + HTML zacatek
+		- RDF + jiny format
+	** RDF - generator
+		- "dostatek testu" (smarty generator)
+	RDFS
+		- je jich celkove malo --- vytvorim jeden test, kde se bude z jednoho ormatu prevadet do druhyho
+		- klidne zkusm RDFS <--> HTML (napriklad v tabulce) ... treba neco jako ma parser na webu
+		- pouzit - generator
+			- rdfs:class
+			- rdfs:subClassOf
+			- rdfs:comment ?? opravu jen z RDFS
+			- rdfs:isDefinedBy ?? co to je
+			- rdfs:label ?? co to je
+			- rdfs:range ?? co to je
+			- rdfs:subPropertyOf
+		- pouziti - reader
+			- @rdf:id 50 na 50
+			- vystup:HTML
+			- <xsl:template match="/"> pro vypsani uvodu HTML
+			- pro tridu/propertu/... vlastni sablona, ktera ji obali jako "<span><a>..." nebo "<h2> + <li> nebo <dt>"
+			- budu muset vyuzit i rdf:property ... to asi defunuje property tridy
+		- HTML tabulka
+			| class | subClassOf |  | comment |
+		- rdf:property ... PREDIKAT
+			- rdfs:domain ... jake tridy je SUBJEKT, ketremu prirazujeme tento predikat
+			- rdfs:range ... jake tridy je OBJEKT, ketremu prirazujeme tento predikat
+	RDF
+		Vytvorit vlastni sablonu + vstupni + vystupni data.
+		Jen se kouknout, ktera varianta se pouziva + jestli s pouziva BAG, SEQ a ALT.
+	-----
+	RDF - pomoci vlastnich elementu:
+	<rdf:rdf
+		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:[NAMESPACE]="[NAMESPACE_URI]"
+	>
+		<rdf:description rdf:about="[SUBJECT1]">
+			<[NAMESPACE]:[PREDICAT1]>[OBJECT1]</[NAMESPACE]:[PREDICAT1]>
+			<[NAMESPACE]:[PREDICAT2]>[OBJECT2]</[NAMESPACE]:[PREDICAT2]>
+		</rdf:description>
+		<rdf:description rdf:about="[SUBJECT2]">
+			<[NAMESPACE]:[PREDICAT3]>[OBJECT3]</[NAMESPACE]:[PREDICAT3]>
+			<[NAMESPACE]:[PREDICAT4]>[OBJECT4]</[NAMESPACE]:[PREDICAT4]>
+		</rdf:description>
+	</rdf>
+
+	RDF - pomoci vlastnich elementu s atributem "resource":
+	<rdf:rdf
+		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:[NAMESPACE]="[NAMESPACE_URI]"
+	>
+		<rdf:description rdf:about="[SUBJECT1]">
+			<[NAMESPACE]:[PREDICAT1] rdf:resource="[OBJECT1]"/>
+			<[NAMESPACE]:[PREDICAT2] rdf:resource="[OBJECT2]"/>
+		</rdf:description>
+		<rdf:description rdf:about="[SUBJECT2]">
+			<[NAMESPACE]:[PREDICAT3] rdf:resource="[OBJECT3]"/>
+			<[NAMESPACE]:[PREDICAT4] rdf:resource="[OBJECT4]"/>
+		</rdf:description>
+	</rdf>
+
+	RDF - pomoci vlastnich atributu:
+	<rdf:rdf
+		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+		xmlns:[NAMESPACE]="[NAMESPACE_URI]"
+	>
+		<rdf:description rdf:about="[SUBJECT1]"
+			[NAMESPACE]:[PREDICAT1]="[OBJECT1]"
+			[NAMESPACE]:[PREDICAT2]="[OBJECT2]"
+		/>
+		<rdf:description rdf:about="[SUBJECT2]"
+			[NAMESPACE]:[PREDICAT3]="[OBJECT3]"
+			[NAMESPACE]:[PREDICAT4]="[OBJECT4]"
+		/>
+	</rdf>
+	-----
+	match="/"
+		html...
+	match="rdfs:Class"
+		apply-templates select="rdfs:label" ... test kde to je a test kde to neni ... mozna ... priste to jde oddelat a hotovo
+		apply-templates select="rdfs:comment"
+		domain
+		range
+
+	match="rdfs:label"
+	match="rdfs:comment"
+	match="rdfs:domain"
+	match="rdfs:range"
+	-----
+* Namespace
+	- namesapce by sli urcite testovat vic, ale tohle odpovida jejich pouziti v datech, proto nam to staci
+	- aliasy
+		- Vetsina procesoru dela chybu (bud zobrazuje oba namesapce nebo misto ciloveho prefixu pouziva vychozi).
+		  Neni to moc velky prohresek (vysledek je funkcni). Ale neni to podle normy.
+			- http://www.w3.org/TR/xslt#section-Creating-Elements-and-Attributes
+				- Thus, the "stylesheet-prefix" attribute specifies the namespace URI that will appear in the stylesheet,
+				  and the "result-prefix" attribute specifies the corresponding namespace URI that will appear in the result tree.
+				- stylesheet-prefix = namespace URI pouzite v "sablone"
+				- result-prefix = namespace URI pouzite v "generovanem vysledku"
+				-- plati to i pro 2.0 -- http://www.w3.org/TR/xslt20/#dt-literal-namespace-uri
+					- ...is replaced by the prefix indicated by the result-prefix attribute of the xsl:namespace-alias declaration.
+			- kopirovani nastavenych namespace -> jen ten z "result-prefix"
+		rename:
+			- zkouma pouziti jineho prefixu pro XSLT nez je v XML
 
 
-Dodelat:
+Dodelat: (neco z toho napsat ze by to chtelo udelat, ale uz jsme to nedelali)
 --------
-* elements-copy-of
+* elements-copy-of + elements-variable
   Dost zavysle na XPath, ale chtelo by to pousit v jinych testech (neco jako "value-of")
 * fan-out
   Test, kde bude mozne urcit velikost fan-out
@@ -255,7 +387,6 @@ Dodelat:
   HTML je taky velke procento vystupu. XML je ve vetsine testech.
   Udelat test na HTML vystup.
   --> Mozna nebude potreba, HTML by melo byt pouzito v nekterych testech detekovanych kategoriich.
-* elements-variable
 * output-indent
   Tetuje zohledneni odsazeni vystupniho XML podle "<xsl:output indent="yes" ... />"
   Nejspis bude nutne zkontrolovat rucne, protoze trida Controlor nam automaticky normalizuje porovnavane XML
@@ -272,26 +403,15 @@ Dodelat:
   Zkusit pouzit elementy, ketere se objevili aspon v nejakych stazenych datech.
 
 
-
 Category: (vetsinou jednoduchy testy ... simple generator)
 ---------
-* XGMML
-	- typical (na zaklade 8 podobnych ze sranek)
 * DocBook - reader
 	- typical
 	- "frequent XSLT"
 * DocBook - generator
 	- base test
-* RDFS - reader
-	- typical (na zaklade 6)
-* RDFS - generator
-	- simple test
-* RDF - reader
-	- pouze RDF
-	- pouze RDF + HTML zacatek
-	- RDF + jiny format
-* RDF - generator
-	- "dostatek testu" (smarty generator)
+
+
 
 
 Mozna udelat, kdyz bude cas:
@@ -306,10 +426,7 @@ Mozna udelat, kdyz bude cas:
 * recursion
   Nemelo by byt zadne, coz je splneno ve vetsine testech.
   Napad na test: vystup v HTML - stromova struktura pomoci <ul> a <li>
-* XSLT 2.0
-  Test na nektere zajimave elementy z XSLT 2.0
 * max-depth
   Parametrizovatelny test, kde si nastavim pozadovanou hloubku.
   Pouzit nastaveni pro 5, 3 a 10 (viz graf).
   Vetsina testu ma maximalni hloubku cca mezi 3-5.
-
