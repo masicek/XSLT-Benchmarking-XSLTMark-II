@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<remap>
+	<rule from="article" to="html"/>
+	<rule from="name" to="h1"/>
+	<rule from="author" to="h2"/>
+	<rule from="para" to="p"/>
+	<rule from="perex" to="p"/>
+</remap>

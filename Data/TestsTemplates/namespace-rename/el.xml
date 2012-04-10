@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generatedRoot
+	xmlns:defaultXml="http://www.namespaces.net/defaultXml"
+	xmlns:anotherName="http://www.namespaces.net/defaultXslt"
+>
+	<el1>Element with namespace "defaultXml"</el1>
+	<el2>Element with namespace "defaultXslt"</el2>
+</generatedRoot>

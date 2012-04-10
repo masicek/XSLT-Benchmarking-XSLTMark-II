@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Namespace" template="rename.tpl.xslt" templatingType="simple">
+	<files>
+		<file id="element">element.xml</file>
+		<file id="el">el.xml</file>
+	</files>
+	<test name="Rename">
+		<file input="element" output="el" />
+	</test>
+</tests>

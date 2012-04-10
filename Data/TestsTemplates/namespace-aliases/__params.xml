@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Namespace" template="remap.tpl.xslt" templatingType="simple">
+	<files>
+		<file id="remap">remap.xml</file>
+		<file id="remapXslt">remapXslt.xml</file>
+	</files>
+	<test name="Aliases">
+		<file input="remap" output="remapXslt" />
+	</test>
+</tests>
