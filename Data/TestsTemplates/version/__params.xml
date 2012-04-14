@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Version" template="version.tpl.xslt" templatingType="smarty">
+	<files>
+		<file id="empty">empty.xml</file>
+		<file id="emptyGenerated">emptyGenerated.xml</file>
+		<file id="mapGenerated">mapGenerated.xml</file>
+	</files>
+	<test name="2.0 - Empty">
+		<file input="empty" output="emptyGenerated" />
+		<setting name="element"></setting>
+	</test>
+	<test name="2.0 - Character-map">
+		<file input="empty" output="mapGenerated" />
+		<setting name="element">character-map</setting>
+	</test>
+</tests>
