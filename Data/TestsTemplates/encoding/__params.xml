@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tests name="Encoding" template="encoding.tpl.xslt" templatingType="smarty">
+	<files>
+		<file id="utf8">UTF-8.xml</file>
+		<file id="utf16">UTF-16.xml</file>
+		<file id="iso88592">ISO-8859-2.xml</file>
+		<file id="win1250">Windows-1250.xml</file>
+	</files>
+	<test name="Default">
+		<file input="utf8" output="utf8" />
+		<file input="utf16" output="utf8" />
+		<file input="iso88592" output="utf8" />
+		<file input="win1250" output="utf8" />
+		<setting name="useEncoding">0</setting>
+	</test>
+	<test name="UTF-8">
+		<file input="utf8" output="utf8" />
+		<file input="utf16" output="utf8" />
+		<file input="iso88592" output="utf8" />
+		<file input="win1250" output="utf8" />
+		<setting name="useEncoding">1</setting>
+		<setting name="encoding">UTF-8</setting>
+	</test>
+	<test name="UTF-16">
+		<file input="utf8" output="utf16" />
+		<file input="utf16" output="utf16" />
+		<file input="iso88592" output="utf16" />
+		<file input="win1250" output="utf16" />
+		<setting name="useEncoding">1</setting>
+		<setting name="encoding">UTF-16</setting>
+	</test>
+	<test name="ISO-8859-2">
+		<file input="utf8" output="iso88592" />
+		<file input="utf16" output="iso88592" />
+		<file input="iso88592" output="iso88592" />
+		<file input="win1250" output="iso88592" />
+		<setting name="useEncoding">1</setting>
+		<setting name="encoding">ISO-8859-2</setting>
+	</test>
+	<test name="Windows-1252">
+		<file input="utf8" output="win1250" />
+		<file input="utf16" output="win1250" />
+		<file input="iso88592" output="win1250" />
+		<file input="win1250" output="win1250" />
+		<setting name="useEncoding">1</setting>
+		<setting name="encoding">Windows-1250</setting>
+	</test>
+</tests>
