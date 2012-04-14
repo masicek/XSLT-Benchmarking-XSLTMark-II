@@ -1,5 +1,23 @@
 POZNAMKY:
 ---------
+* V gitu nechat jen vytvorene sablony testu.
+  Vytvorit stranky projektu s pokecem ze to je diplomka, kde bude rozcetnik na
+	- popis stroju na jakych to bezelo
+	- GitHub
+	- odkaz na diplomku
+	- odkaz na stranky vedouci
+	- odkaz na report testu v HTML
+	- ZIP obsahujici
+		- /Data/Reports/???.xml
+		- /Data/Reports/???.html
+		- /Data/Tests/...
+		- /Data/TestsTemplates/...
+		- /Tmp/... --- asi vcetne absolutni cesty, aby to slo prokliknout ze stranky
+		- /log -- log z toho jak jsme pustil testy + na strankach napsat prikaz, kterym jsme to pustil
+		- /info -- popis na jakych strojich to bezelo
+		- /diplomku
+  V logu upravit absolutni cesty na nejae rozumne.
+  Zverejnit logy jak pro Windows tak pro Linux.
 * V analyze kategorii by slo udelat prozkum namespace, vyskytujicich se v datech a podle toho vybrat dalsi kategorie.
   To uz by bylo ale nad ramec a mohlo by vydat na vlastni praci, protoze kategorii by bylo asi opravdu hodne.
 * U nekterych testu (jako namespace, ...) zminit, ze jsme je vytvorili na zaklade zjisteni v prubehu vytvareni jinych testu.
@@ -443,16 +461,27 @@ Vytvorene: (jednotlive sekce asi budou odpovidat kapitolam)
 * output-html --> v nekterych testech pouzivam a neni s tim problem, takze OK
 * size --> vetsina testu splnuje (mohli by se v budoucnu dodelat specializovane testy)
   Moznost nastavit jakou chci priblizne velikost vystupu a podle toho mi to vygeneruje test.
+* xsl:stylesheet -- xsl:version
+  V prubehu testu jsme s tim meli probelm, proto jsme se rozhodli to otestovat.
+  Test na verzy XSLT. Jeden bez elementu v 2.0 a jeden s elementy z 2.0.
+  Zkusit pouzit elementy, ktere se objevili aspon v nejakych stazenych datech (viz graf).
+	-> xsltproc neumi XSLT 2.0 --> nedostatek
+	-> (ale podotkneme, ze libxslt (ze ktere xsltproc vychazi) jej umi)
+	-> Zkusili jsme cvicne prazdny XSLT a jeden s elementem z 2.0 vyskytujici se nejvice
+	   "output-character" (jestli procesory nekecaji a skutecne umi 2.0).
+	   Pro kompletni test 2.0 by to chtelo vic testu.
+	   V datech ale 2.0 moc pouzito nebylo, takze nam to staci takhle.
+  Prazdne XSLT delalo problem jen "xsltproc". Ale aspon nahlasil, ze numi 2.0.
+  Ostatni to u prazdneho nenahlasili, ale nas zkusebni element "output-character" umi jen "Saxon HE 9.4.0.2".
+  Ostatni jej igorovali. Takze jen u nej muzeme predpoklad, ze umi 2.0.
+  U "xsltproc" aspon ocenime, ze zahlasi error, ze neumi 2.0. Ostatni by to meli zahlasit, pokud jej neumi.
+  Jeste Sablotron dal vedet, ze neumi atribut @use-character-maps. Ostatni tise ignorovali nastaveni verze 2.0
+  a neznalost elementu "output-character".
 
 
 
 Dodelat:
 --------
-* xsl:stylesheet -- xsl:version
-  V prubehu testu jsme s tim meli probelm, proto jsme se rozhodli to otestovat.
-  Test na verzy XSLT. Jeden bez elementu v 2.0 a jeden s elementy z 2.0.
-  Zkusit pouzit elementy, ktere se objevili aspon v nejakych stazenych datech.
-
 
 Category: (vetsinou jednoduchy testy ... simple generator)
 ---------
