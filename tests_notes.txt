@@ -1,6 +1,8 @@
 POZNAMKY:
 ---------
-* U nekterych testu (jako namespace, ...) sminit, ze jsme je vytvorili na zaklade zjisteni v prubehu vytvareni jinych testu.
+* V analyze kategorii by slo udelat prozkum namespace, vyskytujicich se v datech a podle toho vybrat dalsi kategorie.
+  To uz by bylo ale nad ramec a mohlo by vydat na vlastni praci, protoze kategorii by bylo asi opravdu hodne.
+* U nekterych testu (jako namespace, ...) zminit, ze jsme je vytvorili na zaklade zjisteni v prubehu vytvareni jinych testu.
   Testovane vlastnoti se ukazali jako casto objevujici a tedy dulezite.
   V uvodni kapitole se zminit, ze jsme neco vynechali (nesting, recursion), protoze jsou to extremni pirpady,
   ktere se nevyskytuji. Ale udelali jsme testy na veci, vyskoumene v prubehu testovani.
@@ -68,7 +70,58 @@ POZNAMKY:
   Stejne tak pro typicky dokument.
   A navic napriklad srovnani vramci jedne sablony testu (=> vysledne testy) pro kazdy processor zvlast
   (rss-generator => rss-generatro-apply-templates vs. rss-generator-call-template)
-
+* Navrhy na rozsireni (ukazalo se, ze to bude potreba az v prubehu, na zaactku nas to nenapadlo).
+  Ted nejsou potreba (v testech nebyly tak ztezejni). Byly potreba jen malo a to se dalo vyresit rucne.
+	* Navrh jak rosirit moznosti testu o ocekavani vice vystupu (stacilo by, aby odpovidal vystup aspon jednomu)
+	  Je dulezite zachovat moznost nastavit jeden vystup pomoci atributu, kvuli zpetne kompatibilite.
+		<test name="Test">
+			<file input="input1">
+				<output>expectedOutput11</output>
+				<output>expectedOutput12</output>
+			</file>
+			<file input="input2" output="expectedOutput2" />
+			<setting name="neco">123</setting>
+		</test>
+	* Navrh jak rosirit moznosti testu o chytani erroru
+		<test name="Test">
+			<file input="input1" output="expectedOutput1">
+				<error>tento string chci aby tam byl</error>
+				<error>nebo tento string</error>
+			</file>
+			<file input="input2" output="expectedOutput2" />
+			<setting name="neco">123</setting>
+		</test>
+	* Konbinace ERROR a vice EXPECTED_OUTPUT -> bud jeden z vstupu nebo jeden z erroru
+		<test name="Test">
+			<file input="input1">
+				<output>expectedOutput11</output>
+				<output>expectedOutput12</output>
+				<error>tento string chci aby tam byl</error>
+				<error>nebo tento string</error>
+			</file>
+			<file input="input2" output="expectedOutput2" />
+			<setting name="neco">123</setting>
+		</test>
+	* Jeste by to chtelo domyslet, kdyz chci napriklad aby error obsahoval string a zaroven jiny
+	  (zatim je nastaveno na "nebo")
+	* Kdyz bych jen ocekaval error, ale nezajima me jaky, tak prazdny retezec v erroru
+		<test name="Test">
+			<file input="input1" output="expectedOutput1">
+				<error></error>
+			</file>
+			<file input="input2" output="expectedOutput2" />
+			<setting name="neco">123</setting>
+		</test>
+	* Pokud ocekavam jeden error, muze to byt stejne jako output pouzito jako atribut.
+	  Kdyz je error nemusi byt nastaven output.
+		<test name="Test">
+			<file input="input1" error="" /> --- musi vratit jakykoli error
+			<file input="input2" error="error2" /> --- musi vratit error obsahujici error2
+			<file input="input3" error="error3" output="expectedOutput3"/> --- musi vartit error obsahujici error3 nebo v poradku vygenerovat expectedOutput3
+			<file input="input4" output="expectedOutput4" /> --- musi vygenerovat expectedOutput4
+			<setting name="neco">123</setting>
+		</test>
+	* V textu vytvorit jeden ukazkovi priklad obsahujici vsechny moznosti a okomentovat tento navrh.
 
 
 TESTY:
@@ -82,6 +135,9 @@ Vytvorene: (jednotlive sekce asi budou odpovidat kapitolam)
 	Nebudu delat -> je to hodne zavysle na XPath
 	Ale "value-of" je pouzite prubezne v jinych testech, takze je vlastne pokrito dostatecne.
 	(napriklad v "elements-template")
+* elements-copy-of + elements-variable
+  Dost zavysle na XPath, pouzito v testech ... stejny komentar jako u "element-value-of"
+  U obojiho by bylo mozne dodelat specializovane testy
 * element-choose
   Zahrnuje i elementy "when" a "otherwise"
   Bylo jesdnoduzsi pouzit smarty nez toxgene (s nim by to bylo prilis komplikovane).
@@ -367,40 +423,35 @@ Vytvorene: (jednotlive sekce asi budou odpovidat kapitolam)
 			- kopirovani nastavenych namespace -> jen ten z "result-prefix"
 		rename:
 			- zkouma pouziti jineho prefixu pro XSLT nez je v XML
-
-
-Dodelat: (neco z toho napsat ze by to chtelo udelat, ale uz jsme to nedelali)
---------
-* elements-copy-of + elements-variable
-  Dost zavysle na XPath, ale chtelo by to pousit v jinych testech (neco jako "value-of")
-* fan-out
-  Test, kde bude mozne urcit velikost fan-out
-  Podbne jako v "elements-element" => "fan-out-3", "fan-out-10" a "fan-out-40"
-  -> nastvit jestli chci z "xsl:element", "xsl:attribute", "xsl:tmpalte", "xsl:choose"
-  Vetsina testu splnuje hlavni rozmezi mezi 3-6 (viz graf).
-  Tohle je specializovany test.
-* size
+* Encoding
+  V prubehu testu jsme s tim meli probelm, proto jsme se rozhodli to otestovat.
+	- musim vyresit kodovani v Controloru
+	- odkaz na normu http://www.w3.org/TR/xslt#section-XML-Output-Method
+		- musi respektovat utf-8 a utf-16
+		- pokud nastavim jine, musi pouzit, nebo zahlasit error nebo pouzit utf-8 nebo utf-16
+		- kdyz nic nenastavim, musi pouszit utf-8 nebo utf-16
+			- asi neni povinne pro default uvadet encoding v deklaraci
+  - vysledky --> JESTE DOZKONTROLOAVT
+	- XT -> ma problem s prectenim vstupniho kodovani jineho nex utf-8 a utf-16
+		 -> je to problem SAX XML parseru, mohl by byt pouzit jiny, ale na strankach je odkaz na tento,
+			takze povazujeme za chybu
+	- kodovani zadano -> krome XT je to vporadku
+	- pro UTF-16 jsme museli test spustit samostatne s drobnycm hackem v programu (nepridaval pri porovnavani na zaactek deklaraci)
+	  a vygenerovat report samostatne. Finalni report je merge s timto, aby byly vysledky OK (protoze maji byt).
+		--> !!! nezapomenout na zaver udelat merge s reportem "DataTest\ReportsTmp\2012-04-14-15-45-40-encoding-utf-16.xml"
+	- default -> nektere nastvi utf-8, nektere utf-16, nektere nic ale vse je OK
+* output-html --> v nekterych testech pouzivam a neni s tim problem, takze OK
+* size --> vetsina testu splnuje (mohli by se v budoucnu dodelat specializovane testy)
   Moznost nastavit jakou chci priblizne velikost vystupu a podle toho mi to vygeneruje test.
-  Pouzit nastaveni pro "10 kB"
-  Ale vetsina testu splnuje tohle kriterium.
-* output-html
-  HTML je taky velke procento vystupu. XML je ve vetsine testech.
-  Udelat test na HTML vystup.
-  --> Mozna nebude potreba, HTML by melo byt pouzito v nekterych testech detekovanych kategoriich.
-* output-indent
-  Tetuje zohledneni odsazeni vystupniho XML podle "<xsl:output indent="yes" ... />"
-  Nejspis bude nutne zkontrolovat rucne, protoze trida Controlor nam automaticky normalizuje porovnavane XML
-  Indent muze byt v ruznimy procesory chpan ruzne (mezera, dve mezery, tabulator, dalsi bile znaky (odradkovani mezi templates) => nutno porovnar rucne)
-* encoding
-  Nastaveny na UTF-8 --> musi ho dodrzet
-  Nenastaveny --> mel by byt UTF-8 nebo UTF-16 (nebo error)
-  ??? je povine nastavit u generovaneho XML encoding ??? (co kdyz neni nastaveno => jake je defaultni encoding ???)
-  Vytvorit jednoduchou transformaci. Jen nastavit ruzne kodovani.
-  Mozna by slo napasovat na "typical".
-  Asi by slo testnout tak, ze budu ocekabvat neodsazeny vystup a expected output nechan v ruznem kodovani.
+
+
+
+Dodelat:
+--------
 * xsl:stylesheet -- xsl:version
+  V prubehu testu jsme s tim meli probelm, proto jsme se rozhodli to otestovat.
   Test na verzy XSLT. Jeden bez elementu v 2.0 a jeden s elementy z 2.0.
-  Zkusit pouzit elementy, ketere se objevili aspon v nejakych stazenych datech.
+  Zkusit pouzit elementy, ktere se objevili aspon v nejakych stazenych datech.
 
 
 Category: (vetsinou jednoduchy testy ... simple generator)
@@ -416,6 +467,9 @@ Category: (vetsinou jednoduchy testy ... simple generator)
 
 Mozna udelat, kdyz bude cas:
 ----------------------------
+-- Co neudelam, zminit, ze by se mohlo udelat.
+-- Stejne tak u testu co mam nahore okomentovane, ze neni potreba udelat (napriklad HTML),
+   tak rict, ze by se mohli udelat specializovane testy.
 * empty vs. big input XML
   		--IN-- vs. --XSLT--
   		empty      big (viz elements-element)
@@ -430,3 +484,19 @@ Mozna udelat, kdyz bude cas:
   Parametrizovatelny test, kde si nastavim pozadovanou hloubku.
   Pouzit nastaveni pro 5, 3 a 10 (viz graf).
   Vetsina testu ma maximalni hloubku cca mezi 3-5.
+* output-indent
+  Tetuje zohledneni odsazeni vystupniho XML podle "<xsl:output indent="yes" ... />"
+  Nejspis bude nutne zkontrolovat rucne, protoze trida Controlor nam automaticky normalizuje porovnavane XML
+  Indent muze byt v ruznimy procesory chpan ruzne (mezera, dve mezery, tabulator, dalsi bile znaky (odradkovani mezi templates) => nutno porovnar rucne)
+* XPath
+  Velka kapitola, to by mozna vydalo na samostatnou praci. Je mozno pouzit nas program pro testy.
+* fan-out --> specializovany test, ktery by bylo mozno dodelat
+  Test, kde bude mozne urcit velikost fan-out
+  Podbne jako v "elements-element" => "fan-out-3", "fan-out-10" a "fan-out-40"
+  -> nastvit jestli chci z "xsl:element", "xsl:attribute", "xsl:tmpalte", "xsl:choose"
+  Vetsina testu splnuje hlavni rozmezi mezi 3-6 (viz graf).
+  Tohle je specializovany test.
+
+
+
+
