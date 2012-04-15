@@ -31,6 +31,10 @@ if (xml.parseError.errorCode != 0)
 var xslt = new ActiveXObject("MSXML2.DOMDocument." + version);
 xslt.validateOnParse = false;
 xslt.async = false;
+if (version == "6.0")
+{
+	xslt.resolveExternals = true;
+}
 xslt.load(xsltFile);
 if (xslt.parseError.errorCode != 0)
 {
