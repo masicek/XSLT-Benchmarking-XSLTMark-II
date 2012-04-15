@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test name="Docbook - HTML" template="html/docbook.xsl">
+	<couple input="refentry.007.ns.xml" output="refentry.007.ns.html"/>
+</test>
