@@ -320,7 +320,7 @@ Vytvorene: (jednotlive sekce asi budou odpovidat kapitolam)
 	- Zmena kodovani vystupu na UTF-8
 	- xsltproc -- problem s version="2.0"
 		-> nastavim na 1.0 a je to OK
-		-> verzy testuje jiny test
+		-> verzy testuje jiny test -> proto jsme prenastavili verzi na 1.0
 	- Zjistene uskali -> problem s matematickycmi finkcemi -> pak je zavysliost na procesoru
 * XGMML
 	- typical (na zaklade 8 podobnych ze sranek)
@@ -508,14 +508,20 @@ Vytvorene: (jednotlive sekce asi budou odpovidat kapitolam)
 		"XT"
 		"Xalan"
 		"xsltproc 1.1.26"
+* include
+  Specialni test na xsl:include. Inspirovano DocBook. Samotny DocBook nefunguje vsude.
+  Aspon otestujeme samotne include. DocBook by mohlo byt inspiraci pro dalsi testy.
+  Problem ma jen "MSXML 6.0", defaultne kvuli bezpecnosti nedovoluje.
+  Je potreba povolit explicitne http://msdn.microsoft.com/en-us/library/windows/desktop/ms763800(v=vs.85).aspx -- "Loading External Files Is Prohibited by Default"
+  Zminit, ze tento test musel byt (stejne jako DocBook) udelan primo,
+  protoze pres sablony by se tam nedostali "include1.xslt" a "include2.xslt".
+  Dalsi mozne rozsireni, aby bylo mozne pridat do sablon soubory, ketere se includuji z sablon
+  a nejsou primo odkazovany v tastu jako "input" nebo "expectedOutput".
 
 
 
 Dodelat:
 --------
-* include
-  Specialni test na xsl:include. Inspirovano DocBook. Samotny DocBook nefunguje vsude.
-  Aspon otestujeme samotne include. DocBook by mohlo byt inspiraci pro dalsi testy.
 
 
 Mozna udelat, kdyz bude cas:
