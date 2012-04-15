@@ -1,5 +1,7 @@
 POZNAMKY:
 ---------
+* Poznamka: neprosli jsme vsechny mozne kategorie (slo by zkoumat SVG, OWL, ...). Ale zkoumane kategorie
+  byly necim specialni (Docbook - includy, ...). Takze nam to dalo vzdy jine vysledky nez ostatni testy.
 * V gitu nechat jen vytvorene sablony testu.
   Vytvorit stranky projektu s pokecem ze to je diplomka, kde bude rozcetnik na
 	- popis stroju na jakych to bezelo
@@ -140,6 +142,11 @@ POZNAMKY:
 			<setting name="neco">123</setting>
 		</test>
 	* V textu vytvorit jeden ukazkovi priklad obsahujici vsechny moznosti a okomentovat tento navrh.
+* sel by zkoumat MathML, jestli ma nejaka svoje specifika
+* Licence:
+  Dodelat ve vsech souborech licenci.
+  Pokud mam nejake stazene soubory, pridat licenci k souboru, co tam ma byt (jako napriklad u DocBook).
+
 
 
 TESTY:
@@ -477,21 +484,38 @@ Vytvorene: (jednotlive sekce asi budou odpovidat kapitolam)
   U "xsltproc" aspon ocenime, ze zahlasi error, ze neumi 2.0. Ostatni by to meli zahlasit, pokud jej neumi.
   Jeste Sablotron dal vedet, ze neumi atribut @use-character-maps. Ostatni tise ignorovali nastaveni verze 2.0
   a neznalost elementu "output-character".
+* DocBook - generator
+	- base test
+	- nebudu delat zadny test, popsat to i v Categor podsekci
+	- nemelo by to cenu, delat neco jen na zaklade jedne sablony
+	- podobne to okomentovat asi i u RDF a RDFS
+* DocBook - reader
+  Upravit pokec o DocBook. Rict, ze vetsina dokumentu je z http://docbook.sourceforge.net/release/xsl/current/.
+  Vlastne jsou to ty sablony co jsme nasli (jednotlive casti).
+  Je to sada XSLT sablon urcenych pro transformaci urcitych typu dokumentu. V textech muzeme tedy rovnou vychazet z nich.
+  Ukazeme na tom, jak se da udelat test primo bez sablony (do /Tests/docbook nakopiruju ze stranek potrebnou
+  hromadu XSLT sablon + pridam __params.xml + pridam vstup + ocekavany vystup (museli jsme vytvorit)).
+  Dobry na tom testu je, ze obsahuje hodne includu a je to vcelku velka XSLT.
+  Takze zjistime jaky to ma vliv na memory a CPU narocnost.
+  Program by sel rozsirit na to, ze XSLT vygeneruje vice souboru. Testnout by to slo prave treba Docbook sablonamy "htmlhelp".
+  Stazeno z http://sourceforge.net/projects/docbook/files/docbook-xsl/1.76.1/
+  Testy:
+	- neco je OK, neco ne
+	- nahodne se generuje #id123456 -> nepodariolo se nam najit misto kde se generuje
+	- OK jsou od pohledu:
+		"Saxon 6.5.5"
+		"Saxon HE ..." (ten nas aspon upozronil, ze se neco vlklada vicekrat)
+		"XT"
+		"Xalan"
+		"xsltproc 1.1.26"
 
 
 
 Dodelat:
 --------
-
-Category: (vetsinou jednoduchy testy ... simple generator)
----------
-* DocBook - reader
-	- typical
-	- "frequent XSLT"
-* DocBook - generator
-	- base test
-
-
+* include
+  Specialni test na xsl:include. Inspirovano DocBook. Samotny DocBook nefunguje vsude.
+  Aspon otestujeme samotne include. DocBook by mohlo byt inspiraci pro dalsi testy.
 
 
 Mozna udelat, kdyz bude cas:
