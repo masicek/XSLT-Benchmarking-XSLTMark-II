@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<book xmlns="http://docbook.org/ns/docbook" version="5.0">
+<book xmlns="http://docbook.org/ns/docbook" version="5.0" id="book">
 <info><title>Unit Test: refentry.007</title>
 
 <releaseinfo role="CVS">$Id: refentry.007.xml 7282 2007-08-23 09:27:01Z xmldoc $</releaseinfo>
 <author><personname><firstname>Norman</firstname><surname>Walsh</surname></personname><affiliation><address><email>ndw@nwalsh.com</email></address></affiliation></author>
 </info>
-<reference><info><title>Reference</title></info>
+<reference id="reference1"><info><title>Reference</title></info>
 
-<refentry>
+<refentry id="refentry1">
   <info>
     <authorgroup>
       <author><personname><firstname>Norman</firstname><surname>Walsh</surname></personname><email>ndw@nwalsh.com</email><personblurb>
@@ -43,7 +43,7 @@
 
 <refsynopsisdiv>
   <?dbfunclist ?>
-  <funcsynopsis>
+  <funcsynopsis id="func1">
     <!-- * Yes, friend, Funcsynopsis is a verbatim -->
     <funcsynopsisinfo>#include &lt;varargs.h&gt;
 #include &lt;mouteyh.h&gt;
@@ -67,7 +67,7 @@
 
   <para>Another.</para>
 
-  <funcsynopsis>
+  <funcsynopsis id="func2">
     <funcprototype>
       <funcdef>void <function>qsort</function></funcdef>
       <paramdef>void *<parameter>dataptr</parameter>[]</paramdef>
@@ -78,7 +78,7 @@
     </funcprototype>
   </funcsynopsis>
 
-  <funcsynopsis>
+  <funcsynopsis id="func3">
     <funcprototype>
       <funcdef>int <function>foo_frob_something</function></funcdef>
       <paramdef>foo_sometype1 <parameter>foo_frob_parm1</parameter></paramdef>
@@ -103,7 +103,7 @@
   </funcsynopsis>
 </refsynopsisdiv>
 
-<refsection><info><title>Description</title></info>
+<refsection id="refsection1"><info><title>Description</title></info>
 
 <para>This is a minimal RefEntry.</para>
 
@@ -120,7 +120,7 @@
   </varlistentry>
 </variablelist>
 </para>
-<refsection><info><title>Subsection</title></info>
+<refsection id="refsection2"><info><title>Subsection</title></info>
 
 <para>This is a minimal RefEntry.</para>
 
@@ -149,14 +149,14 @@
   </glosslist>
 </para>
 
-<refsection><info><title>Sub-subsection</title></info>
+<refsection id="refsection3"><info><title>Sub-subsection</title></info>
 
 <para>This is a minimal RefEntry.</para>
 </refsection>
 </refsection>
 </refsection>
 
-<refsection><info><title>More Description</title></info>
+<refsection id="refsection4"><info><title>More Description</title></info>
 
 <para>This is a not-so minimal RefEntry.</para>
 <screen>
@@ -274,13 +274,13 @@ nested Varlistentry that contains multiple Terms
 </variablelist>
 </para>
 
-<refsection><info><title>Subsection</title></info>
+<refsection id="refsection5"><info><title>Subsection</title></info>
 
 <para>This is a minimal RefEntry.</para>
 </refsection>
 </refsection>
 
-<refsection><info><title>Even More Description</title></info>
+<refsection id="refsection6"><info><title>Even More Description</title></info>
 
 <para>This is an even less minimal RefEntry.</para>
 
@@ -315,7 +315,7 @@ paragraph. The next part of this same paragraph is an
 </para>
 
 <para>This is a para with a footnote
-  <footnote><para>Stuff here <programlisting>This is a program listing
+  <footnote id="footnote1"><para>Stuff here <programlisting>This is a program listing
 that's two lines long.</programlisting></para>
     and stuff after the
 footnote</footnote></para>
