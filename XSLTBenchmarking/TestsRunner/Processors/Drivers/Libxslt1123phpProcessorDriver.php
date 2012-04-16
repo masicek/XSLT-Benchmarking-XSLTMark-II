@@ -97,19 +97,37 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 
 		}
 
-		$phpScript = 'try {' .
+		$phpScript =
+			'function errorHandler($errno, $errstr)' .
+			'{' .
+			'	throw new \ErrorException(\'Transformation failed: \' . $errstr);' .
+			'}' .
+			'set_error_handler(\'errorHandler\');' .
+			'$errorMessage = \'\';' .
+			'try {' .
 			'	libxml_use_internal_errors(TRUE);' .
 			'	$processor = new \XSLTProcessor();' .
 			'	$processor->importStylesheet(new \SimpleXMLElement(\'[XSLT]\', 0, TRUE));' .
 			'	$outputXml = $processor->transformToXml(new \SimpleXMLElement(\'[INPUT]\', 0, TRUE));' .
 			'	file_put_contents(\'[OUTPUT]\', $outputXml);' .
 			'}' .
+			'catch (\ErrorException $e)' .
+			'{' .
+			'	restore_error_handler();' .
+			'	$errorMessage = $e->getMessage();' .
+			'}' .
 			'catch (\Exception $e)' .
 			'{' .
+			'	restore_error_handler();' .
 			'	$error = libxml_get_last_error();' .
 			'	$errorMessage = $error->message . \': line \' . $error->line . \', column \' . $error->column . \', file \' . $error->file;' .
+			'}' .
+			'restore_error_handler();' .
+			'if ($errorMessage)' .
+			'{' .
 			'	file_put_contents(\'[ERROR]\', $errorMessage);' .
-			'}';
+			'}'
+		;
 
 		if (PHP_OS == self::OS_LINUX)
 		{

@@ -203,9 +203,21 @@ class Processor
 			}
 
 			// check exitence of generated file
-			if (!is_file($outputPath))
+			if ($repeatingIdx == 0 && !is_file($outputPath))
 			{
 				$error = 'Output file was not be generated (' . $outputPath . ')';
+				// detect generated error
+				if (is_file($errorPath))
+				{
+					$error .= '; ' . file_get_contents($errorPath);
+					unlink($errorPath);
+				}
+
+				break;
+			}
+			if ($repeatingIdx != 0 && !is_file($outputPathNew))
+			{
+				$error = 'Output file (repeated) was not be generated (' . $outputPathNew . ')';
 				// detect generated error
 				if (is_file($errorPath))
 				{
