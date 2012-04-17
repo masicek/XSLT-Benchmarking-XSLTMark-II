@@ -1,2 +1,6 @@
 /Tmp/*
 /Tools/Data/*
+/Data/Tests/*
+!/Data/Tests/docbook-html
+!/Data/Tests/element-include
+/Data/Reports/*
