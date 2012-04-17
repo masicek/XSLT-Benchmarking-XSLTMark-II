@@ -86,9 +86,17 @@ class Controlor
 	private function normalizeXml($inputContent, $extension)
 	{
 		// add declaration, if not presented for XML
-		if ($extension == 'xml' && preg_match('/<\?xml[^?]+\?>/', $inputContent) === 0)
+		if ($extension == 'xml')
 		{
-			$inputContent = '<?xml version="1.0" encoding="UTF-8" ?>' . $inputContent;
+			// get begin with possible declaration
+			$beginEndIdx = strpos($inputContent, '>');
+			$begin = substr($inputContent, 0, $beginEndIdx + 1);
+			// clean begin (e.g. for UTF-16)
+			$begin = preg_replace('/[^ a-zA-Z0-9?"\'.=<>-]/', '', $begin);
+			if (preg_match('/<\?xml[^?]+\?>/', $begin) === 0)
+			{
+				$inputContent = '<?xml version="1.0" encoding="UTF-8" ?>' . $inputContent;
+			}
 		}
 
 		// remove insignificant whitespaces
