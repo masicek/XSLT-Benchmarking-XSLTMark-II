@@ -12,6 +12,7 @@ POZNAMKY:
 	- odkaz na diplomku
 	- odkaz na stranky vedouci
 	- odkaz na report testu v HTML
+	- odkaz na API dokumentaci
 	- ZIP obsahujici
 		- /Data/Reports/???.xml
 		- /Data/Reports/???.html
@@ -464,9 +465,6 @@ Vytvorene: (jednotlive sekce asi budou odpovidat kapitolam)
 		 -> je to problem SAX XML parseru, mohl by byt pouzit jiny, ale na strankach je odkaz na tento,
 			takze povazujeme za chybu
 	- kodovani zadano -> krome XT je to vporadku
-	- pro UTF-16 jsme museli test spustit samostatne s drobnycm hackem v programu (nepridaval pri porovnavani na zaactek deklaraci)
-	  a vygenerovat report samostatne. Finalni report je merge s timto, aby byly vysledky OK (protoze maji byt).
-		--> !!! nezapomenout na zaver udelat merge s reportem "DataTest\ReportsTmp\2012-04-14-15-45-40-encoding-utf-16.xml"
 	- default -> nektere nastvi utf-8, nektere utf-16, nektere nic ale vse je OK
 * output-html --> v nekterych testech pouzivam a neni s tim problem, takze OK
 * size --> vetsina testu splnuje (mohli by se v budoucnu dodelat specializovane testy)
@@ -529,10 +527,6 @@ Vytvorene: (jednotlive sekce asi budou odpovidat kapitolam)
   Dalsi mozne rozsireni, aby bylo mozne pridat do sablon soubory, ketere se includuji z sablon
   a nejsou primo odkazovany v tastu jako "input" nebo "expectedOutput".
 
-
-
-Dodelat:
---------
 
 
 Mozna udelat, kdyz bude cas:
