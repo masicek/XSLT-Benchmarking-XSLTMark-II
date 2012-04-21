@@ -21,6 +21,8 @@ define('VERSION', '0.2.0');
 define ('ROOT', __DIR__);
 define ('LIBS', ROOT . '/../Libs');
 
+// set default timezone
+date_default_timezone_set('Europe/Prague');
 
 // run XSLT Benchmarking
 if (isset($_SERVER['HTTP_USER_AGENT']))
