@@ -1,5 +1,9 @@
 POZNAMKY:
 ---------
+* Popsat, ze bud muzu pustit pres instalovane PHP a musim mit nainstalovany php_mbstring.dll
+  nebo muzu pres run.bat -- pro Windows.
+  Pro Linux musim mit nainstalovane PHP a musi mit tuto extension
+	- preci jen zkusit ulozit php do libs i pro linux + extesion mbstring.
 * Problem s normalizaci HTML - mela by se dodelat. Nektere whitespace nejsou signifikantni a nejsou odstraneny.
   V testech mame jen par HTML testu a postaci nam zkontrolovat vystup rucne.
   Pokud by nekdo chtel vytvaret vice HTML testu, musel by rozsirit "controlor.php".
