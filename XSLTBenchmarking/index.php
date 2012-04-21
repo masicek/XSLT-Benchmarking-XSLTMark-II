@@ -15,7 +15,7 @@
 /**
  * Version of XSLT Benchmarking
  */
-define('VERSION', '0.2.0');
+define('VERSION', '0.9.0');
 
 // define base constansts
 define ('ROOT', __DIR__);
