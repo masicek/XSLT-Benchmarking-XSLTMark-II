@@ -1,9 +1,35 @@
+Prikazy, ktermi jsme spustil testy:
+-----------------------------------
+- pri spusteni testu bylo odpojeno vsechno co slo (Internet, nebyla zapnuta zadna dalsi aplikace a
+  nic se na pocitaci nedelo)
+
+
+Zvazit zavyslost na PHP a Jave
+	- pokud to pujde lehce, tak aspon pro Windows nezavysle
+
+
+Minimalne je na Linux zavyslost na Sablotron, Java, Php + xslt.so, /usr/bin/time, xsltproc
+
+
+Debian ?? (GNU/Linux 6.0.4), 64bit
+AMD Opteron(TM) Processor 6234, 2.70GHz -- 132GB
+
+8.4.2012 8:33 martin.malek: 2x12 jader
+AMD Opteron(TM) Processor 6234
+cpu MHz		: 2700.277
+cache size	: 2048 KB
+bogomips	: 4799.94
+Pamet:
+MemTotal: 132025076 kB
+
+
 POZNAMKY:
 ---------
 * Popsat, ze bud muzu pustit pres instalovane PHP a musim mit nainstalovany php_mbstring.dll
   nebo muzu pres run.bat -- pro Windows.
   Pro Linux musim mit nainstalovane PHP a musi mit tuto extension
 	- preci jen zkusit ulozit php do libs i pro linux + extesion mbstring.
+* Poznamka, ze by se mohlo pridat vypnuti mereni casu (aby nebylo nutne instalovat /usr/bin/time)
 * Problem s normalizaci HTML - mela by se dodelat. Nektere whitespace nejsou signifikantni a nejsou odstraneny.
   V testech mame jen par HTML testu a postaci nam zkontrolovat vystup rucne.
   Pokud by nekdo chtel vytvaret vice HTML testu, musel by rozsirit "controlor.php".
