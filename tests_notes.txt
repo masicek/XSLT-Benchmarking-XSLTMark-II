@@ -81,9 +81,9 @@ POZNAMKY:
 * Vetsina vytvorenych testu by mela prochazet. Jde nam u nich hlavne o rychlost a pamet
   (vyjmennovat je, nebo spis ktere nemusi projit).
   Pokud by nekdo pridal processor driver, pak by tyto testy mely projit.
-* Az pobezim testy, tak vsechny programy vypnout, nic jineho nepoustet a odpojit se od internetu.
+* Az pobezim testy, tak vsechny programy vypnout, nic jineho nepoustet (a odpojit se od internetu -- tohle nebylo uplne vsude).
   Aby to nebylo ovlivneno zadnimy vlivy.
-  "--repeating" nastavit klidne na nejakou vetsi hosnotu (30), aby ten prumer byl nejak rozumny.
+  "--repeating" nastavit klidne na nejakou vetsi hosnotu (10), aby ten prumer byl nejak rozumny.
 * Sehnat testy XsltMark a pouzit je jako samostatnou sadu testu.
   Negenerovali by se, jen by se spustili.
   Poku by nemeli k sobe "expectedOutput", koukal bych jen na rychlost a vyuziti pameti.
