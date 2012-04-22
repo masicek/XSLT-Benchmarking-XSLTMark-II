@@ -23,6 +23,14 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 
 
 	/**
+	 * Prefix of command for running PHP on Linux with extension XSL.
+	 *
+	 * @var string
+	 */
+	static private $linuxCommandPrefix = '';
+
+
+	/**
 	 * Return flag, if the driver is available.
 	 *
 	 * @return bool
@@ -92,7 +100,7 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 				break;
 
 			case self::OS_LINUX:
-				$prefix = 'php';
+				$prefix = $this->getLinuxCommandPrefix();
 				break;
 
 		}
@@ -165,6 +173,30 @@ class Libxslt1123phpProcessorDriver extends AProcessorDriver
 	public function getKernel()
 	{
 		return self::KERNEL_LIBXSLT;
+	}
+
+
+	/**
+	 * Return prefix of command for running PHP on Linux with extension XSL.
+	 * It expected, that XSL extnesion is available as buildin extension or included.
+	 *
+	 * @return string
+	 */
+	private function getLinuxCommandPrefix()
+	{
+		if (!self::$linuxCommandPrefix)
+		{
+			exec('find /usr/lib/php5/ -type f | grep \'/xsl.so\'', $output);
+			if (isset($output[0]) || $output[0])
+			{
+				self::$linuxCommandPrefix = 'php -n -d extension="' . $output[0] . '"';
+			}
+			else
+			{
+				self::$linuxCommandPrefix = 'php -n';
+			}
+		}
+		return self::$linuxCommandPrefix;
 	}
 
 
