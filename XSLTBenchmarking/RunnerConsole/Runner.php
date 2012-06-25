@@ -82,8 +82,8 @@ class Runner
 	 * Run XSLT Benchmarking
 	 * - show help
 	 * - generate tests
-	 * @todo - run tests
-	 * @todo - print reports
+	 * - run tests
+	 * - print reports
 	 *
 	 * @return void
 	 */
