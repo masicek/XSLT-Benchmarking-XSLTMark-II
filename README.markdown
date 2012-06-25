@@ -28,48 +28,45 @@ Usage
 -----
 There are some examples of usages.
 
-
-```
-run.bat -h
-```
-
 Print help.
 
-
-```
-run.bat -g
-```
+>```
+>run.bat -h
+>```
 
 Generate tests from templates (use default directory for templates, tests and temporary files).
 
-
-```
-run.bat -g --templates-dirs "elements-choose,rss-reader"
-```
+>```
+>run.bat -g
+>```
 
 Generate test from temapltes ```elements-choose``` and ```rss-reader``` in default directory.
 
-```
-run.bat -r
-```
+>```
+>run.bat -g --templates-dirs "elements-choose,rss-reader"
+>```
 
 Run all tests (use default directory for tests, reports and temporary files).
 
-```
-run.bat -r --tests-dirs "elements-choose-long,rss-reader-html"
-```
+>```
+>run.bat -r
+>```
 
 Run tests "elements-choose-long" and "rss-reader-html" in default directory.
 
-```
-run.bat -g -r -v
-```
+>```
+>run.bat -r --tests-dirs "elements-choose-long,rss-reader-html"
+>```
 
-```
-run.bat -grv
-```
+Generate tests from all templates and run all generated test. Verbose mode is on. Finaly covert generated XML report into default (HTML) format.
 
-Generate tests from all templates and run all generated test. Verbose mode is on.
+>```
+>run.bat -g -r -v -c
+>```
+>
+>```
+>run.bat -grvc
+>```
 
 
 Generating Tests
