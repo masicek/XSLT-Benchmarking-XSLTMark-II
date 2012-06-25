@@ -22,6 +22,9 @@ Content
 		* [Generated Tests](#generated-tests)
 			* [Modify element - Rename](#modify-element---rename)
 			* [Modify element - Remove](#modify-element---remove)
+* [Running Tests](#running-tests)
+* [Reporting](#reporting)
+* [Convering](#converting)
 
 
 Usage
@@ -442,4 +445,58 @@ input and expected output files.
 </root>
 ```
 
+Running Tests
+-------------
 
+Print processors that are available on current machine to testing.
+
+>```
+>run.bat -a
+>```
+
+Run all tests (use default directory for tests, reports and temporary files).
+
+>```
+>run.bat -r
+>```
+
+Run all tests, but only in processors "Saxon 6.5.5" and "Xalan 2.7.1".
+
+>```
+>run.bat -r -p "saxon655,xalan271"
+>```
+
+Run test that are in direcotry ```../MyData/Tests/modify-elements-remove```. Test is run only in processors "Saxon 6.5.5" and "Xalan 2.7.1". Each transformation are repeated 10 times. Reports are genereted into directory ```../MyData/MyReports```
+
+>```
+>run.bat -r -p "saxon655,xalan271" --tests "../MyData/MyTests" --tests-dirs "modify-elements-remove" --repeating 10 --reports "../MyData/MyReports"
+>```
+
+Reporting
+---------
+
+Reports are generated into XML file after runnig tests. Generated file have name based on actual time with format ```[YYYY-MM-DD-HH-mm-ss].xml``` and saved in directory set by option ```--reports```.
+
+Merge repors ```2012-03-04-21-25-08.xml``` and ```myRenamedReposrts.xml``` into one report file ```2012-03-08-14-48-20-merge.xml```. Generated merged reports have name based on actual time with suffix ```-merge```.
+
+>```
+>run.but -m "2012-03-04-21-25-08.xml,myRenamedReposrts.xml" --reports "../MyData/MyReports"
+>```
+
+
+Converting
+----------
+
+Repors in XML format can be converted into HTML format.
+
+Convert the latest report in set directory ```../MyData/MyReports```.
+
+>```
+>run.bat -c --reports "../MyData/MyReports"
+>```
+
+Convert set report ```myReport.xml``` in set directory ```../MyData/MyReports```.
+
+>```
+>run.bat -c myReport.xml --reports "../MyData/MyReports"
+>```
