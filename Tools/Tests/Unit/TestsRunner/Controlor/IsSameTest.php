@@ -87,7 +87,7 @@ class IsSameTest extends TestCase
 	public function testXmlIsSame()
 	{
 		$file1 = $this->setDirSep(__DIR__ . '/file1.xml');
-		$file2 = $this->setDirSep(__DIR__ . '/file2.txt');
+		$file2 = $this->setDirSep(__DIR__ . '/file2.xml');
 
 		$xml1 = '<?xml version="1.0" encoding="utf-8"?>' . PHP_EOL .
 		'	<root rootAttribute1 =    "xxx    zzz"   rootAttribute2="yyy">' . PHP_EOL .

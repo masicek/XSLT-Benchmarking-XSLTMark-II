@@ -73,12 +73,12 @@ class GetValuesTest extends TestCase
 		$generator = \Mockery::mock('\XSLTBenchmarking\TestsGenerator\XmlGenerator()');
 		$generator->shouldReceive('setDriver')->twice()->with('easy');
 		$generator->shouldReceive('generate')->once()->with(
-			$this->setDirSep(__DIR__ . '/manyElements.xml'),
+			$this->setDirSep(__DIR__ . '/modify-element/manyElements.xml'),
 			__DIR__,
 			array('testName' => 20, 'testName2' => 3)
 		);
 		$generator->shouldReceive('generate')->once()->with(
-			$this->setDirSep(__DIR__ . '/manyNewElements.xml'),
+			$this->setDirSep(__DIR__ . '/modify-element/manyNewElements.xml'),
 			__DIR__,
 			array('testNewName' => 20, 'testName2' => 3)
 		);
@@ -90,7 +90,7 @@ class GetValuesTest extends TestCase
 			array(
 				$this->setDirSep(__DIR__ . '/oneElement.xml') => $this->setDirSep(__DIR__ . '/oneNewElement.xml'),
 				$this->setDirSep(__DIR__ . '/twoElements.xml') => $this->setDirSep(__DIR__ . '/twoNewElements.xml'),
-				$this->setDirSep(__DIR__ . '/manyElements.xml') => $this->setDirSep(__DIR__ . '/manyNewElements.xml'),
+				$this->setDirSep(__DIR__ . '/modify-element/manyElements.xml') => $this->setDirSep(__DIR__ . '/modify-element/manyNewElements.xml'),
 			),
 			$this->driver->getTestFilesPaths('Rename')
 		);
@@ -99,10 +99,12 @@ class GetValuesTest extends TestCase
 			array(
 				$this->setDirSep(__DIR__ . '/oneElement.xml') => $this->setDirSep(__DIR__ . '/zeroElement.xml'),
 				$this->setDirSep(__DIR__ . '/twoElements.xml') => $this->setDirSep(__DIR__ . '/zeroElement.xml'),
-				$this->setDirSep(__DIR__ . '/manyElements.xml') => $this->setDirSep(__DIR__ . '/zeroElement.xml'),
+				$this->setDirSep(__DIR__ . '/modify-element/manyElements.xml') => $this->setDirSep(__DIR__ . '/zeroElement.xml'),
 			),
 			$this->driver->getTestFilesPaths('Remove')
 		);
+
+		rmdir($this->setDirSep(__DIR__ . '/modify-element'));
 	}
 
 

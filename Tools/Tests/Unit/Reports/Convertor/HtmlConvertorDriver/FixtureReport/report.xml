@@ -2,9 +2,9 @@
 <reports>
 	<global>
 		<processors>
-			<processor name="processor1" fullName="Processor 1" firstInformation="First information 1" secondInformation="Second information 1" thirdInformation="Third information 1" />
-			<processor name="processor2" fullName="Processor 2" firstInformation="First information 2" />
-			<processor name="processor3" fullName="Processor 3" firstInformation="First information 3" secondInformation="Second information 3" />
+			<processor name="processor1" fullName="Processor 1" firstInformation="First information 1" kernel="kern1" secondInformation="Second information 1" thirdInformation="Third information 1" />
+			<processor name="processor2" fullName="Processor 2" firstInformation="First information 2" kernel="kern2" />
+			<processor name="processor3" fullName="Processor 3" firstInformation="First information 3" kernel="kern1" secondInformation="Second information 3" />
 		</processors>
 	</global>
 	<tests>

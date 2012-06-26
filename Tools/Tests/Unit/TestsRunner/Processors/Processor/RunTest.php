@@ -200,7 +200,7 @@ class RunTest extends TestCase
 		$filesAfter = scandir(__DIR__);
 
 		$this->assertEquals($filesBefore, $filesAfter);
-		$this->assertEquals('Test error', $return);
+		$this->assertEquals('Output file was not be generated (output); Test error', $return);
 	}
 
 
@@ -208,8 +208,12 @@ class RunTest extends TestCase
 	{
 		$this->markTestSkippedCondition();
 
+		$outputPath = $this->setDirSep(__DIR__ . '/output.xml');
+		$outputPath_1 = $this->setDirSep(__DIR__ . '/output-1.xml');
+		$outputPath_2 = $this->setDirSep(__DIR__ . '/output-2.xml');
+
 		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
-		$processorOK->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
+		$processorOK->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "file_put_contents(\'' . $outputPath . '\', \'generated data\'); sleep(1);"'));
 		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorOK->expects($this->once())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
@@ -218,7 +222,7 @@ class RunTest extends TestCase
 		$processorOK->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
 		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
-		$processorError->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
+		$processorError->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "file_put_contents(\'' . $outputPath . '\', \'generated data\'); echo \'Test error\';" > [ERROR]'));
 		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('isTemplateSetInInput')->will($this->returnValue(FALSE));
@@ -234,12 +238,22 @@ class RunTest extends TestCase
 		$this->setPropertyValue($this->processor, 'available', $available);
 
 		$memoryUsage = $this->getMock('\XSLTBenchmarking\TestsRunner\MemoryUsage', array('run', 'get'), array(), '', FALSE);
-		$memoryUsage->expects($this->exactly(3))->method('run')->with('php -r "sleep(1);"')->will($this->returnValue('php -r "sleep(1);"'));
+		$memoryUsage->expects($this->exactly(3))->method('run')
+			->with(
+				$this->logicalOr(
+					$this->equalTo('php -r "file_put_contents(\'' . $outputPath . '\', \'generated data\'); sleep(1);"'),
+					$this->equalTo('php -r "file_put_contents(\'' . $outputPath_1 . '\', \'generated data\'); sleep(1);"'),
+					$this->equalTo('php -r "file_put_contents(\'' . $outputPath_2 . '\', \'generated data\'); sleep(1);"')
+				)
+			)
+			->will($this->returnCallback(function ($command) {return $command;}));
 		$memoryUsage->expects($this->exactly(3))->method('get')->will($this->returnValue('123456789'));
 		$this->setPropertyValue($this->processor, 'memoryUsage', $memoryUsage);
 
 		$filesBefore = scandir(__DIR__);
-		$return = $this->processor->run('processorOK', __FILE__, $this->setDirSep(__DIR__ . '/FixtureRun/input.xml'), 'output', 3);
+		$return = $this->processor->run('processorOK', __FILE__, $this->setDirSep(__DIR__ . '/FixtureRun/input.xml'), $outputPath, 3);
+		// remove generated file
+		unlink($outputPath);
 		$filesAfter = scandir(__DIR__);
 
 		$this->assertEquals($filesBefore, $filesAfter);
@@ -270,8 +284,12 @@ class RunTest extends TestCase
 	{
 		$this->markTestSkippedCondition();
 
+		$outputPath = $this->setDirSep(__DIR__ . '/output.xml');
+		$outputPath_1 = $this->setDirSep(__DIR__ . '/output-1.xml');
+		$outputPath_2 = $this->setDirSep(__DIR__ . '/output-2.xml');
+
 		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
-		$processorOK->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "sleep(1);"'));
+		$processorOK->expects($this->once())->method('getCommandTemplate')->will($this->returnValue('php -r "file_put_contents(\'' . $outputPath . '\', \'generated data\'); sleep(1);"'));
 		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorOK->expects($this->once())->method('isTemplateSetInInput')->will($this->returnValue(TRUE));
@@ -280,7 +298,7 @@ class RunTest extends TestCase
 		$processorOK->expects($this->never())->method('isAvailable')->will($this->returnValue(TRUE));
 
 		$processorError = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
-		$processorError->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "echo \'Test error\';" > [ERROR]'));
+		$processorError->expects($this->never())->method('getCommandTemplate')->will($this->returnValue('php -r "file_put_contents(\'' . $outputPath . '\', \'generated data\'); echo \'Test error\';" > [ERROR]'));
 		$processorError->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('getKernel')->will($this->returnValue(''));
 		$processorError->expects($this->never())->method('isTemplateSetInInput')->will($this->returnValue(TRUE));
@@ -296,12 +314,22 @@ class RunTest extends TestCase
 		$this->setPropertyValue($this->processor, 'available', $available);
 
 		$memoryUsage = $this->getMock('\XSLTBenchmarking\TestsRunner\MemoryUsage', array('run', 'get'), array(), '', FALSE);
-		$memoryUsage->expects($this->exactly(3))->method('run')->with('php -r "sleep(1);"')->will($this->returnValue('php -r "sleep(1);"'));
+		$memoryUsage->expects($this->exactly(3))->method('run')
+			->with(
+				$this->logicalOr(
+					$this->equalTo('php -r "file_put_contents(\'' . $outputPath . '\', \'generated data\'); sleep(1);"'),
+					$this->equalTo('php -r "file_put_contents(\'' . $outputPath_1 . '\', \'generated data\'); sleep(1);"'),
+					$this->equalTo('php -r "file_put_contents(\'' . $outputPath_2 . '\', \'generated data\'); sleep(1);"')
+				)
+			)
+			->will($this->returnCallback(function ($command) {return $command;}));
 		$memoryUsage->expects($this->exactly(3))->method('get')->will($this->returnValue('123456789'));
 		$this->setPropertyValue($this->processor, 'memoryUsage', $memoryUsage);
 
 		$filesBefore = scandir(__DIR__);
-		$return = $this->processor->run('processorOK', __FILE__, $this->setDirSep(__DIR__ . '/FixtureRun/input.xml'), 'output', 3);
+		$return = $this->processor->run('processorOK', __FILE__, $this->setDirSep(__DIR__ . '/FixtureRun/input.xml'), $outputPath, 3);
+		// detele generated file
+		unlink($outputPath);
 		$filesAfter = scandir(__DIR__);
 
 		$this->assertNotEquals($filesBefore, $filesAfter);
@@ -333,6 +361,7 @@ class RunTest extends TestCase
 		$this->assertTrue(is_array($returnMemory));
 		$this->assertEquals(3, count($returnMemory));
 
+
 		// all times are greated then one second
 		$this->assertGreaterOneSecondInMicrotime($returnTimes[0]);
 		$this->assertGreaterOneSecondInMicrotime($returnTimes[1]);
@@ -352,9 +381,13 @@ class RunTest extends TestCase
 		$controleOutputPath = $this->setDirSep(__DIR__ . '/controleOutput');
 		file_put_contents($controleOutputPath, '');
 
+		$outputPath = $this->setDirSep(__DIR__ . '/output.xml');
+		$outputPath_1 = $this->setDirSep(__DIR__ . '/output-1.xml');
+		$outputPath_2 = $this->setDirSep(__DIR__ . '/output-2.xml');
+
 		$processorOK = $this->getMock('\XSLTBenchmarking\TestsRunner\AProcessorDriver', array('getCommandTemplate', 'getFullName', 'getKernel', 'isTemplateSetInInput', 'getBeforeCommandTemplate', 'getAfterCommandTemplate', 'isAvailable'), array(), '', FALSE);
 		$processorOK->expects($this->once())->method('getCommandTemplate')->will($this->returnValue(
-			'php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test command;\');"'
+			'php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test command;\'); file_put_contents(\'[OUTPUT]\', \'generated output\');"'
 		));
 		$processorOK->expects($this->never())->method('getFullName')->will($this->returnValue(''));
 		$processorOK->expects($this->never())->method('getKernel')->will($this->returnValue(''));
@@ -384,13 +417,26 @@ class RunTest extends TestCase
 		$this->setPropertyValue($this->processor, 'available', $available);
 
 		$memoryUsage = $this->getMock('\XSLTBenchmarking\TestsRunner\MemoryUsage', array('run', 'get'), array(), '', FALSE);
+
 		$memoryUsage->expects($this->exactly(3))->method('run')
-			->with('php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test command;\');"')
-			->will($this->returnValue('php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test command;\');"'));
+			->with(
+				$this->logicalOr(
+					$this->equalTo('php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test command;\'); file_put_contents(\'' . $outputPath . '\', \'generated output\');"'),
+					$this->equalTo('php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test command;\'); file_put_contents(\'' . $outputPath_1 . '\', \'generated output\');"'),
+					$this->equalTo('php -r "file_put_contents(\'' . $controleOutputPath . '\', file_get_contents(\'' . $controleOutputPath . '\') . \'Test command;\'); file_put_contents(\'' . $outputPath_2 . '\', \'generated output\');"')
+				)
+			)
+			->will($this->returnCallback(function ($command) {return $command;}));
 		$memoryUsage->expects($this->exactly(3))->method('get')->will($this->returnValue('123456789'));
 		$this->setPropertyValue($this->processor, 'memoryUsage', $memoryUsage);
 
-		$return = $this->processor->run('processorOK', __FILE__, $this->setDirSep(__DIR__ . '/FixtureRun/input.xml'), 'output', 3);
+		$return = $this->processor->run(
+			'processorOK',
+			__FILE__,
+			$this->setDirSep(__DIR__ . '/FixtureRun/input.xml'),
+			$this->setDirSep(__DIR__ . '/output.xml'),
+			3
+		);
 
 		$this->assertStringEqualsFile($controleOutputPath,
 			'Test of before command;Test command;Test of after command;' .
@@ -399,6 +445,7 @@ class RunTest extends TestCase
 		);
 
 		unlink($controleOutputPath);
+		unlink($outputPath);
 	}
 
 

@@ -112,8 +112,9 @@ class TestsGeneratorTest extends TestCase
 				unlink($this->setDirSep($tmp . '/' . $file));
 			}
 		}
-		unlink($this->setDirSep($tmp . '/manyElements.xml'));
-		unlink($this->setDirSep($tmp . '/manyNewElements.xml'));
+		unlink($this->setDirSep($tmp . '/modify-element/manyElements.xml'));
+		unlink($this->setDirSep($tmp . '/modify-element/manyNewElements.xml'));
+		rmdir($this->setDirSep($tmp . '/modify-element'));
 		rmdir($tmp);
 	}
 

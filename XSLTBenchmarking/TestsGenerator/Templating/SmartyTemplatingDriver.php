@@ -70,7 +70,7 @@ class SmartyTemplatingDriver extends \Smarty implements ITemplatingDriver
 		try {
 			$this->display($templatePath);
 		} catch (\Exception $e) {
-			throw new \XSLTBenchmarking\GenerateTemplateException('Cannot generate template by Smarty Driver', 0, $e);
+			throw new \XSLTBenchmarking\GenerateTemplateException('Cannot generate template by Smarty Driver (' . $e->getMessage() . ')', 0, $e);
 		}
 		$content = ob_get_clean();
 

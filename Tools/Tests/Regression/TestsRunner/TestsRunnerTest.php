@@ -124,7 +124,9 @@ class TestsRunnerTest extends TestCase
 
 		$report = preg_replace('/Time="[^"]+"/', 'Time="..."', $report);
 		$report = preg_replace('/Memory="[^"]+"/', 'Memory="..."', $report);
-		$report = preg_replace('/-[0-9]{10}-[0-9]{6}.xml"/', '-..........-.......xml"', $report);
+		$report = preg_replace('/-[0-9]{10}-[0-9]{6}.xml/', '-..........-.......xml', $report);
+		$report = str_replace(__DIR__, '__PATH__', $report);
+		$report = str_replace(str_replace('\\', '/', __DIR__), '__PATH__', $report);
 		$this->assertXmlStringEqualsXmlFile($reportsExpected, $report);
 
 		// remove generated report
